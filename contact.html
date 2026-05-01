@@ -260,19 +260,19 @@ GET STARTED
 <form class="space-y-10 relative z-10">
 <div class="relative group">
 <label class="font-label-sm text-label-sm text-on-secondary-container block mb-2 uppercase tracking-widest" for="name">Full Name</label>
-<input class="w-full bg-transparent border-0 border-b border-black/10 py-3 font-body-md text-on-surface custom-focus transition-all duration-400 placeholder:text-gray-300" id="name" name="name" placeholder="John Doe" type="text"/>
+<input class="w-full bg-transparent border-0 border-b border-black/10 py-3 font-body-md text-on-surface custom-focus transition-all duration-400 placeholder:text-gray-300" id="name" name="name" placeholder="John Doe" type="text" required/>
 </div>
 <div class="relative group">
 <label class="font-label-sm text-label-sm text-on-secondary-container block mb-2 uppercase tracking-widest" for="email">Email Address</label>
-<input class="w-full bg-transparent border-0 border-b border-black/10 py-3 font-body-md text-on-surface custom-focus transition-all duration-400 placeholder:text-gray-300" id="email" name="email" placeholder="hello@creashift.com" type="email"/>
+<input class="w-full bg-transparent border-0 border-b border-black/10 py-3 font-body-md text-on-surface custom-focus transition-all duration-400 placeholder:text-gray-300" id="email" name="email" placeholder="hello@creashift.com" type="email" required/>
 </div>
 <div class="relative group">
 <label class="font-label-sm text-label-sm text-on-secondary-container block mb-2 uppercase tracking-widest" for="phone">Phone Number</label>
-<input class="w-full bg-transparent border-0 border-b border-black/10 py-3 font-body-md text-on-surface custom-focus transition-all duration-400 placeholder:text-gray-300" id="phone" name="phone" placeholder="+91 98765 43210" type="tel" pattern="(\+91[\s-]?)?[6789]\d{9}"/>
+<input class="w-full bg-transparent border-0 border-b border-black/10 py-3 font-body-md text-on-surface custom-focus transition-all duration-400 placeholder:text-gray-300" id="phone" name="phone" placeholder="+91 98765 43210" type="tel" pattern="^(\+91[\-\s]?)?[0]?(91)?[6789]\d{9}$" minlength="10" maxlength="15" title="Please enter a valid 10-digit Indian phone number (e.g. 9876543210)" required/>
 </div>
 <div class="relative group">
 <label class="font-label-sm text-label-sm text-on-secondary-container block mb-2 uppercase tracking-widest" for="message">Message</label>
-<textarea class="w-full bg-transparent border-0 border-b border-black/10 py-3 font-body-md text-on-surface custom-focus transition-all duration-400 placeholder:text-gray-300 resize-none" id="message" name="message" placeholder="Tell us about your project..." rows="4"></textarea>
+<textarea class="w-full bg-transparent border-0 border-b border-black/10 py-3 font-body-md text-on-surface custom-focus transition-all duration-400 placeholder:text-gray-300 resize-none" id="message" name="message" placeholder="Tell us about your project..." rows="4" required></textarea>
 </div>
 <button class="w-full md:w-auto px-12 py-5 bg-black text-white font-label-sm text-label-sm uppercase tracking-[0.2em] hover:scale-[1.02] transition-transform duration-400 ease-out" type="submit">
               SEND MESSAGE
