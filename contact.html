@@ -442,6 +442,7 @@ GET STARTED
         link.addEventListener('click', () => toggleDrawer(false));
     });
 </script>
+<script>
     // Blurry Typewriter Effect with Blinking Cursor
     function initTypewriter(elementId, delay = 0) {
         const element = document.getElementById(elementId);
@@ -492,7 +493,6 @@ GET STARTED
 
     // Initialize
     window.addEventListener('DOMContentLoaded', () => {
-        initDotGrid();
         setTimeout(() => initTypewriter('contactHeadline', 0), 500);
     });
 
