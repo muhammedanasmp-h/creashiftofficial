@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CREASHIFT | BLOG</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "background": "#fcf8fb",
+                      "on-primary-container": "#848484",
+                      "on-secondary-container": "#626267",
+                      "on-surface-variant": "#4c4546",
+                      "secondary-fixed": "#e3e2e7",
+                      "surface-tint": "#5e5e5e",
+                      "surface": "#fcf8fb",
+                      "inverse-on-surface": "#f3f0f2",
+                      "tertiary": "#000000",
+                      "surface-container-lowest": "#ffffff",
+                      "error": "#ba1a1a",
+                      "primary-fixed-dim": "#c6c6c6",
+                      "outline-variant": "#cfc4c5",
+                      "tertiary-container": "#1a1c1d",
+                      "on-primary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "on-surface": "#1b1b1d",
+                      "on-secondary": "#ffffff",
+                      "on-background": "#1b1b1d",
+                      "primary-container": "#1b1b1b",
+                      "surface-bright": "#fcf8fb",
+                      "on-primary-fixed-variant": "#474747",
+                      "on-error-container": "#93000a",
+                      "surface-container-highest": "#e4e2e4",
+                      "surface-container-low": "#f6f3f5",
+                      "error-container": "#ffdad6",
+                      "on-primary-fixed": "#1b1b1b",
+                      "tertiary-fixed": "#e2e2e4",
+                      "inverse-surface": "#303032",
+                      "on-tertiary-fixed-variant": "#454749",
+                      "surface-container-high": "#eae7ea",
+                      "inverse-primary": "#c6c6c6",
+                      "on-secondary-fixed-variant": "#46464b",
+                      "on-tertiary": "#ffffff",
+                      "primary-fixed": "#e2e2e2",
+                      "secondary-fixed-dim": "#c7c6cb",
+                      "tertiary-fixed-dim": "#c6c6c8",
+                      "secondary": "#5e5e63",
+                      "outline": "#7e7576",
+                      "surface-container": "#f0edef",
+                      "primary": "#000000",
+                      "on-tertiary-fixed": "#1a1c1d",
+                      "surface-variant": "#e4e2e4",
+                      "secondary-container": "#e0dfe4",
+                      "surface-dim": "#dcd9dc",
+                      "on-tertiary-container": "#838486",
+                      "on-secondary-fixed": "#1a1b1f"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "base": "8px",
+                      "margin-edge": "80px",
+                      "container-max": "1440px",
+                      "section-gap": "160px",
+                      "gutter": "32px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "display-xl": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "label-sm": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-md": ["32px", {"lineHeight": "1.3", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                      "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "display-xl": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+                      "body-lg": ["18px", {"lineHeight": "1.7", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "1.7", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                      "label-sm": ["11px", {"lineHeight": "1.2", "letterSpacing": "0.2em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fcf8fb;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+        }
+        .cubic-bezier-ease {
+            transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        .text-outline {
+            -webkit-text-stroke: 1px black;
+            color: transparent;
+        }
+        @keyframes progress {
+            0% { transform: scaleX(0); }
+            100% { transform: scaleX(1); }
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            :root {
+                --section-gap: 60px;
+                --margin-edge: 20px;
+            }
+
+            .font-display-xl {
+                font-size: 38px !important;
+                line-height: 1.1 !important;
+            }
+
+            .font-headline-lg {
+                font-size: 32px !important;
+            }
+
+            .font-headline-md {
+                font-size: 24px !important;
+            }
+
+            .font-body-lg {
+                font-size: 16px !important;
+            }
+
+            section {
+                padding-top: var(--section-gap) !important;
+                padding-bottom: var(--section-gap) !important;
+            }
+
+            .mb-section-gap {
+                margin-bottom: var(--section-gap) !important;
+            }
+
+            .px-margin-edge {
+                padding-left: var(--margin-edge) !important;
+                padding-right: var(--margin-edge) !important;
+            }
+
+            header {
+                width: 92% !important;
+                padding: 14px 24px !important;
+                border-radius: 0 0 32px 32px !important;
+                top: 0 !important;
+                border-top: none !important;
+                box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1) !important;
+            }
+
+            #menuBtn span {
+                font-size: 28px !important;
+                font-weight: 300 !important;
+            }
+
+            .pt-32 {
+                padding-top: 140px !important;
+            }
+        }
+        @keyframes ribbonWave {
+            0% { transform: translateY(0) rotate(-10deg) scaleY(1); }
+            50% { transform: translateY(-50px) rotate(-15deg) scaleY(1.2); }
+            100% { transform: translateY(0) rotate(-10deg) scaleY(1); }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background selection:bg-black selection:text-white relative">
+<!-- TopAppBar -->
+<!-- iPhone Notch Navigation -->
+<header class="fixed top-0 left-1/2 -translate-x-1/2 z-50 bg-white/70 backdrop-blur-2xl border border-white/40 rounded-b-[40px] shadow-lg transition-all duration-500 px-8 py-4 w-[95%] max-w-[1000px] flex items-center justify-between">
+<div class="flex items-center">
+<span class="font-['Inter'] text-sm font-black tracking-tighter text-black">CREASHIFT</span>
+</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-400 hover:text-white transition-all duration-500" href="index.html">HOME</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-400 hover:text-white transition-all duration-500" href="about.html">ABOUT</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-500 hover:text-black transition-all duration-500" href="services.html">SERVICES</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-500 hover:text-black transition-all duration-500" href="portfolio.html">PORTFOLIO</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-black pb-1 border-b border-black" href="blog-premium.html">BLOG</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-500 hover:text-black transition-all duration-500" href="contact.html">CONTACT</a>
+</nav>
+<button class="hidden md:block font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium bg-black text-white px-6 py-2.5 rounded-full hover:scale-105 transition-transform duration-300">
+GET STARTED
+</button>
+<button class="md:hidden text-black p-2" aria-label="Toggle Menu" id="menuBtn">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+</header>
+<main class="pt-[160px]">
+<!-- Hero Section -->
+<section class="max-w-[1440px] mx-auto px-6 mb-32 relative">
+<!-- Parallax Ribbon Effect -->
+<div class="absolute -top-10 -right-20 w-[600px] h-[800px] flex gap-4 pointer-events-none z-0 rotate-[-10deg] animate-[ribbonWave_10s_ease-in-out_infinite] opacity-50">
+    <div class="w-1 h-full bg-gradient-to-b from-transparent via-black to-transparent"></div>
+    <div class="w-px h-full bg-gradient-to-b from-transparent via-black/50 to-transparent mt-10"></div>
+    <div class="w-2 h-full bg-gradient-to-b from-transparent via-black/20 to-transparent mt-20"></div>
+    <div class="w-px h-full bg-gradient-to-b from-transparent via-black/80 to-transparent mt-5"></div>
+</div>
+<div class="max-w-4xl relative z-10">
+<span class="font-label-sm text-label-sm text-on-primary-container block mb-8 uppercase">Editorial Archive</span>
+<h1 class="font-display-xl text-display-xl text-primary mb-10 tracking-tighter leading-[0.95]">THE FUTURE OF <br/>DIGITAL CRAFT.</h1>
+<p class="font-body-lg text-body-lg text-secondary max-w-2xl leading-relaxed">
+                    Exploring the intersection of architectural precision and digital fluidity. Curated thoughts on branding, technology, and the minimalist aesthetic.
+                </p>
+</div>
+</section>
+<!-- Category Filter: Refined like a journal nav -->
+<section class="max-w-[1440px] mx-auto px-6 mb-24 sticky top-[80px] z-40 bg-background/95 backdrop-blur-md py-4 border-b border-black/5">
+<div class="flex flex-wrap items-center justify-between gap-8">
+<div class="flex flex-wrap gap-8 md:gap-12">
+<button class="font-label-sm text-label-sm text-primary relative after:content-[''] after:absolute after:-bottom-4 after:left-0 after:w-full after:h-0.5 after:bg-primary uppercase transition-all">ALL POSTS</button>
+<button class="font-label-sm text-label-sm text-on-primary-container hover:text-primary transition-colors uppercase">STRATEGY</button>
+<button class="font-label-sm text-label-sm text-on-primary-container hover:text-primary transition-colors uppercase">DESIGN</button>
+<button class="font-label-sm text-label-sm text-on-primary-container hover:text-primary transition-colors uppercase">TECHNOLOGY</button>
+<button class="font-label-sm text-label-sm text-on-primary-container hover:text-primary transition-colors uppercase">CASE STUDIES</button>
+</div>
+<div class="flex items-center gap-2 text-on-primary-container font-label-sm">
+<span class="material-symbols-outlined text-base" data-icon="search">search</span>
+<span class="uppercase">Search</span>
+</div>
+</div>
+</section>
+<!-- Featured Article: Large and immersive -->
+<section class="max-w-[1440px] mx-auto px-6 mb-section-gap">
+<article class="group cursor-pointer">
+<div class="grid lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-7 overflow-hidden bg-surface-container-low">
+<img alt="A minimalist white gallery office space" class="w-full aspect-[4/3] lg:aspect-[16/10] object-cover group-hover:scale-[1.03] transition-transform duration-1000 ease-in-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFZFZiyvlOcqaDLKxiXDy1MFsbKrZPRWSVDKNNSRaRxrxrwUsFFXQFlsIgYEjgzPOvT-NkdTGn4JD_ntYrvANGgizXtE5ZLYbOagUhf0jdqWG9Tm4owOfKYi_ow3c-ues1AJyuuuN11PUPGDete9mL9wc3k4aS__P5-PguceKdc598LabakOqrESECt9wlOi2ZCsD9IbDksUV0m7vH9FdqbPk8ok43EMuwBu26qArFIMHiL6ZMgtHOXq2qK4u-AoZuOGKj58zuwZWY"/>
+</div>
+<div class="lg:col-span-5 flex flex-col justify-center px-4">
+<div class="flex items-center gap-4 mb-8">
+<span class="border border-black px-3 py-1 font-label-sm text-[10px] uppercase tracking-widest">FEATURED</span>
+<span class="font-label-sm text-on-primary-container">OCT 12, 2024</span>
+</div>
+<h2 class="text-4xl md:text-5xl lg:text-6xl font-semibold text-primary mb-8 leading-[1.1] tracking-tight group-hover:opacity-70 transition-opacity">The Architecture of Brand Silence</h2>
+<p class="font-body-md text-secondary mb-10 text-lg leading-relaxed max-w-lg">
+                            How minimalist design principles foster deeper connections in an era of digital noise. Analyzing the psychology behind whitespace and luxury brand narratives.
+                        </p>
+<a class="inline-flex items-center gap-4 font-label-sm text-primary tracking-[0.2em] group-hover:translate-x-2 transition-transform duration-500" href="#">
+                            READ ARTICLE <span class="material-symbols-outlined text-lg" data-icon="arrow_right_alt">arrow_right_alt</span>
+</a>
+</div>
+</div>
+</article>
+</section>
+<!-- Refined List Section: Secondary posts with subtle depth -->
+<section class="bg-surface-container-low/30 py-32 border-y border-black/5">
+<div class="max-w-[1440px] mx-auto px-6">
+<div class="mb-20 flex justify-between items-end border-b border-black/10 pb-6">
+<h2 class="font-label-sm text-primary">LATEST INSIGHTS</h2>
+<span class="font-label-sm text-on-primary-container">VOLUME 04 / 2024</span>
+</div>
+<div class="grid md:grid-cols-2 gap-x-12 gap-y-32">
+<!-- Article Card 1 -->
+<article class="group">
+<div class="mb-10 overflow-hidden bg-white">
+<img alt="Tech device detail" class="w-full aspect-[16/9] object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD44VVbSMt_Z94ymT-t0SvASShh3_WqidJsZlQYlm3KSeH59Pnmw7PcjjbE2St5BxK9W25d6iiA3DoDaVRmNKUbCcPGe95hjuLg36MFVuxDTWzxPM00y308aLqUUKRU0MClO-7PeKX0iF7-mCJybfWQxxOQp2o3Itk4PTG5EacP-AjipLOnJ2hR4jXtsQOHFxC-jl1cpvF_cz9c5bmea4IDXcg2SwdUzaGGA_61sB5crLcGYAa-tR5CHhG5PTR4Oshak5MCf4FkMRpg"/>
+</div>
+<div class="flex items-center gap-6 mb-6 font-label-sm text-on-primary-container uppercase tracking-widest text-[10px]">
+<span>Design</span>
+<span class="w-8 h-px bg-black/10"></span>
+<span>Sep 28</span>
+</div>
+<h3 class="text-3xl font-semibold text-primary mb-6 group-hover:text-secondary transition-colors leading-tight">Tactile Digital Interfaces</h3>
+<p class="font-body-md text-secondary line-clamp-3 mb-8 leading-relaxed">
+                            Why the physical world is increasingly influencing our digital interactions. A study on modern glassmorphism and depth in UI.
+                        </p>
+<a class="font-label-sm text-primary tracking-widest border-b border-transparent hover:border-primary transition-all pb-1" href="#">READ MORE</a>
+</article>
+<!-- Article Card 2 -->
+<article class="group">
+<div class="mb-10 overflow-hidden bg-white">
+<img alt="Architectural shadow" class="w-full aspect-[16/9] object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEoDEveUKBKidN36d_hIelpB7a21fSEIAWliikoI8S6RDoQ4XIhfKhObJoooS2AELpoy7XfgvoxVCyn7fgWEZS3EPEMJgscEASgZhLm7h5iaJYYA9XaCKqIQpJXb8k-OJOZkeGftFjkIN6jzeMKzRuZXret_Tyq8GWlwXbwTVnpXcA-UXE2VsTL07SprNZ8vv9YGufH2QcN7hll8VaRP0amg7fqwypa9TT1tO0fEbCgpjUQOJYSK9-AC2oJjZOtBITQ5MzAYdR2u6c"/>
+</div>
+<div class="flex items-center gap-6 mb-6 font-label-sm text-on-primary-container uppercase tracking-widest text-[10px]">
+<span>Strategy</span>
+<span class="w-8 h-px bg-black/10"></span>
+<span>Sep 15</span>
+</div>
+<h3 class="text-3xl font-semibold text-primary mb-6 group-hover:text-secondary transition-colors leading-tight">The Power of No</h3>
+<p class="font-body-md text-secondary line-clamp-3 mb-8 leading-relaxed">
+                            Deciding what to leave out is as important as what to include. How refinement drives conversion for premium consumer brands.
+                        </p>
+<a class="font-label-sm text-primary tracking-widest border-b border-transparent hover:border-primary transition-all pb-1" href="#">READ MORE</a>
+</article>
+</div>
+</div>
+</section>
+<!-- Final Grid Section: Minimalist editorial grid -->
+<section class="max-w-[1440px] mx-auto px-6 py-section-gap">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-24">
+<!-- Article Card 3 -->
+<article class="group flex flex-col">
+<div class="mb-8 overflow-hidden aspect-[1/1] bg-surface-container-high">
+<img alt="Designer lamp" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsypL56r6Qf1kluokgtBmA8gCrtWrPT4EYHelHxV7K58J61Pz2YdTY-mqEIB2bxiwBMcFKFqU7VBt6u2tnxq3qiYvy42s77ZgMvRsQjfSIZazckGhSatVvASJn3nefKuDwrdnQkuXnSIfe6AdGz6csYhTvNmPKpVJto43eVjtQRvtKHr3vUziwWcAiW7g3xGtCJJlZNVjeIhrJS2RiW_F4JpDvn8AC4D9WppjEymKd7HoOoZcPQGVMqcT5kC8ccQ04I3SCLAeznygn"/>
+</div>
+<span class="font-label-sm text-[10px] text-on-primary-container mb-4 uppercase">Tech • Aug 30</span>
+<h3 class="text-xl font-semibold mb-4 leading-snug">Generative Luxury</h3>
+<p class="text-secondary text-sm line-clamp-3 mb-6">Leveraging AI without compromising brand integrity. Maintaining a human-centric approach.</p>
+</article>
+<!-- Article Card 4 -->
+<article class="group flex flex-col">
+<div class="mb-8 overflow-hidden aspect-[1/1] bg-surface-container-high">
+<img alt="Workstation" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNhA5h1MbYi9931KBE9n-ZoYl-wH31cZCLJdbU334dK-27XWC6Q-NUpnzrPw7DBtBdPuC3S4k5IQ9VOvM60CpkzrzRY9sSaONI55yNj3sYp3P6jdnCGDtqGlJMS_MnGMvdme3cdfxgoPW3gyUmr0klVGZg7dGkWKtAF60MOesZ0C7yWeAEgomxUKDkTFnapqFxVH__D6cMM3dumhqxqMmlcMquTv2dSJA9QTD-fZEpkt0uM64UBh2sWVEyTvkM_PDUpQJLTCbprk9o"/>
+</div>
+<span class="font-label-sm text-[10px] text-on-primary-container mb-4 uppercase">Design • Aug 12</span>
+<h3 class="text-xl font-semibold mb-4 leading-snug">Visual Pacing</h3>
+<p class="text-secondary text-sm line-clamp-3 mb-6">Using motion to control the user's emotional journey through a digital case study.</p>
+</article>
+<!-- Article Card 5 -->
+<article class="group flex flex-col">
+<div class="mb-8 overflow-hidden aspect-[1/1] bg-surface-container-high">
+<img alt="Digital pixels" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDI_wOE7DuNZvmwR12HlYPO8OYuRmhMDpMIc4AC4g6aYK021Dt6O_2oTX14DjZYFnnDLGyKKaiNZcos7hWSgegIKeMJK53c4008iN0HSez6LaidrVFu6geeNwj-xJxCMnNnscfzIcdFBLCA5vmXe08yV2kbC0A_T4J0NBxt07RdG1gcJry7pXLPrPcjKXues-Ik7RgRSC8eOiOUHUFsMpaWK4ewiPE9qBxb0nlZhfztlbFOPFsXeond2pEUNL6hcLOBRrX_vf_W6awm"/>
+</div>
+<span class="font-label-sm text-[10px] text-on-primary-container mb-4 uppercase">Tech • Jul 24</span>
+<h3 class="text-xl font-semibold mb-4 leading-snug">Headless Commerce</h3>
+<p class="text-secondary text-sm line-clamp-3 mb-6">The structural shift in how we build high-performance shopping experiences.</p>
+</article>
+<!-- Article Card 6 -->
+<article class="group flex flex-col">
+<div class="mb-8 overflow-hidden aspect-[1/1] bg-surface-container-high">
+<img alt="Brutalist building" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDY-UMsD9DUtKF_9mRDUh9Ha7lXsziY7VB_vU8B528uisYlGzjGa9LFkRrurw2QhGbt7NyG66N0IpoPkJptXbygbQ6Kl_eiopWRc99gynNsbIib4cALq_q4FNyA7w9t0zj0rSw3f1nDuCF7R37oLCi_QhpZvKNROvFJZacu_nzFy4FdC0dC4ZctcpzliQti0CO8eZGCuTgkzP0QpGy4GfZYTPEMJ1sUkBLjQiotUWQd9Js3h5yRixyB7eQ3j-uv6maB4YWSZAhIheI"/>
+</div>
+<span class="font-label-sm text-[10px] text-on-primary-container mb-4 uppercase">Case Study • Jul 05</span>
+<h3 class="text-xl font-semibold mb-4 leading-snug">Rebranding Obsidian</h3>
+<p class="text-secondary text-sm line-clamp-3 mb-6">A deep dive into our transformation of a legacy tech firm through radical simplification.</p>
+</article>
+</div>
+</section>
+<!-- Newsletter Subscription: Integrated & Premium -->
+<section class="bg-black text-white py-32 overflow-hidden relative">
+<div class="absolute inset-0 opacity-10 pointer-events-none select-none overflow-hidden">
+<span class="text-[30vw] font-black tracking-tighter absolute -bottom-20 -left-10 text-outline">SHIFT</span>
+</div>
+<div class="max-w-[1440px] mx-auto px-6 relative z-10">
+<div class="grid lg:grid-cols-2 gap-20 items-center">
+<div>
+<span class="font-label-sm text-on-primary-container mb-6 block uppercase tracking-[0.3em]">Stay Informed</span>
+<h2 class="text-5xl lg:text-7xl font-black mb-8 tracking-tighter leading-none">JOIN THE <br/>EVOLUTION.</h2>
+<p class="text-gray-400 text-lg max-w-md leading-relaxed">Weekly reflections on the digital landscape, delivered with architectural precision.</p>
+</div>
+<div>
+<form class="flex flex-col gap-8">
+<div class="relative">
+<input class="bg-transparent border-0 border-b border-white/30 focus:border-white focus:ring-0 text-2xl py-6 w-full placeholder:text-white/20 transition-all font-light" placeholder="YOUR EMAIL ADDRESS" type="email"/>
+<span class="absolute right-0 bottom-6 material-symbols-outlined text-white/30">alternate_email</span>
+</div>
+<button class="w-full bg-white text-black py-6 font-label-sm uppercase tracking-widest hover:bg-white/90 transition-all font-bold text-sm">
+                                SUBSCRIBE TO THE JOURNAL
+                            </button>
+</form>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-background w-full py-20 px-6 border-t border-black/5 flex flex-col items-center space-y-12 text-center">
+    <div class="flex flex-col md:flex-row gap-8 items-center justify-between w-full max-w-[1440px]">
+        <span class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-400 uppercase">
+            © 2024 CREASHIFT. SHIFTING PERSPECTIVES.
+        </span>
+        <div class="flex gap-12 font-inter text-[10px] tracking-[0.2em] font-medium">
+            <a class="text-gray-400 uppercase hover:text-black transition-colors duration-400" href="#">INSTAGRAM</a>
+            <a class="text-gray-400 uppercase hover:text-black transition-colors duration-400" href="#">LINKEDIN</a>
+            <a class="text-gray-400 uppercase hover:text-black transition-colors duration-400" href="#">WHATSAPP</a>
+        </div>
+    </div>
+</footer>
+
+    <!-- Hidden Navigation Drawer (Professional/Premium version) -->
+    <div class="h-full w-full fixed inset-0 z-[60] bg-zinc-950 translate-x-full transition-transform duration-700 cubic-bezier(0.85, 0, 0.15, 1)"
+        id="drawer">
+        <div class="flex flex-col h-full px-8 py-12 relative overflow-hidden">
+            <!-- Background Detail -->
+            <div class="absolute top-[-10%] right-[-10%] w-64 h-64 bg-white/5 blur-[100px] rounded-full"></div>
+            
+            <div class="flex justify-between items-center mb-20 relative z-10">
+                <span class="text-xl font-black tracking-tighter text-white">CREASHIFT</span>
+                <button class="text-white flex items-center gap-2 group" id="closeDrawer">
+                    <span class="text-[10px] uppercase tracking-[0.3em] font-medium opacity-50 group-hover:opacity-100 transition-opacity">Close</span>
+                    <span class="material-symbols-outlined text-3xl font-light">close</span>
+                </button>
+            </div>
+
+            <nav class="flex flex-col space-y-1 w-full relative z-10">
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="index.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">HOME</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="about.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">ABOUT</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="services.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">SERVICES</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="portfolio.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">PORTFOLIO</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="blog-premium.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white group-hover:pl-4 transition-all duration-500">BLOG</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="contact.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">CONTACT</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+            </nav>
+
+            <div class="mt-auto relative z-10">
+                <div class="grid grid-cols-2 gap-8 mb-12">
+                    <div>
+                        <span class="block text-[10px] uppercase tracking-[0.3em] text-white/30 mb-4">Connect</span>
+                        <div class="flex flex-col space-y-2">
+                            <a href="#" class="text-xs text-white/60 hover:text-white">Instagram</a>
+                            <a href="#" class="text-xs text-white/60 hover:text-white">LinkedIn</a>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="block text-[10px] uppercase tracking-[0.3em] text-white/30 mb-4">Say Hello</span>
+                        <a href="mailto:hello@creashift.com" class="text-xs text-white/60 hover:text-white">hello@creashift.com</a>
+                    </div>
+                </div>
+                <button class="w-full bg-white text-black font-['Inter'] text-[11px] uppercase tracking-[0.2em] font-bold py-5 rounded-full hover:bg-zinc-200 transition-colors">
+                    START A PROJECT
+                </button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // Mobile Menu Logic
+    const menuBtn = document.getElementById('menuBtn');
+    const closeDrawer = document.getElementById('closeDrawer');
+    const drawer = document.getElementById('drawer');
+    const drawerLinks = drawer.querySelectorAll('nav a');
+
+    function toggleDrawer(open) {
+        if (open) {
+            drawer.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden';
+        } else {
+            drawer.classList.add('translate-x-full');
+            document.body.style.overflow = '';
+        }
+    }
+
+    menuBtn.addEventListener('click', () => toggleDrawer(true));
+    closeDrawer.addEventListener('click', () => toggleDrawer(false));
+    drawerLinks.forEach(link => {
+        link.addEventListener('click', () => toggleDrawer(false));
+    });
+</script>
+</body></html>

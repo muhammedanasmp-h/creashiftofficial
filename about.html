@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "background": "#fcf8fb",
+                    "on-primary-container": "#848484",
+                    "on-secondary-container": "#626267",
+                    "on-surface-variant": "#4c4546",
+                    "secondary-fixed": "#e3e2e7",
+                    "surface-tint": "#5e5e5e",
+                    "surface": "#fcf8fb",
+                    "inverse-on-surface": "#f3f0f2",
+                    "tertiary": "#000000",
+                    "surface-container-lowest": "#ffffff",
+                    "error": "#ba1a1a",
+                    "primary-fixed-dim": "#c6c6c6",
+                    "outline-variant": "#cfc4c5",
+                    "tertiary-container": "#1a1c1d",
+                    "on-primary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "on-surface": "#1b1b1d",
+                    "on-secondary": "#ffffff",
+                    "on-background": "#1b1b1d",
+                    "primary-container": "#1b1b1b",
+                    "surface-bright": "#fcf8fb",
+                    "on-primary-fixed-variant": "#474747",
+                    "on-error-container": "#93000a",
+                    "surface-container-highest": "#e4e2e4",
+                    "surface-container-low": "#f6f3f5",
+                    "error-container": "#ffdad6",
+                    "on-primary-fixed": "#1b1b1b",
+                    "tertiary-fixed": "#e2e2e4",
+                    "inverse-surface": "#303032",
+                    "on-tertiary-fixed-variant": "#454749",
+                    "surface-container-high": "#eae7ea",
+                    "inverse-primary": "#c6c6c6",
+                    "on-secondary-fixed-variant": "#46464b",
+                    "on-tertiary": "#ffffff",
+                    "primary-fixed": "#e2e2e2",
+                    "secondary-fixed-dim": "#c7c6cb",
+                    "tertiary-fixed-dim": "#c6c6c8",
+                    "secondary": "#5e5e63",
+                    "outline": "#7e7576",
+                    "surface-container": "#f0edef",
+                    "primary": "#000000",
+                    "on-tertiary-fixed": "#1a1c1d",
+                    "surface-variant": "#e4e2e4",
+                    "secondary-container": "#e0dfe4",
+                    "surface-dim": "#dcd9dc",
+                    "on-tertiary-container": "#838486",
+                    "on-secondary-fixed": "#1a1b1f"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "margin-edge": "80px",
+                    "container-max": "1440px",
+                    "section-gap": "120px",
+                    "gutter": "32px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-xl": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["32px", {"lineHeight": "1.3", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                    "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "display-xl": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #fcf8fb;
+            color: #1b1b1d;
+        }
+        @keyframes blob {
+            0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+        }
+        @keyframes orbit {
+            0% { transform: translate(-50%, -50%) rotate(0deg) translateX(100px) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg) translateX(100px) rotate(-360deg); }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -20px); }
+        }
+        .typewriter-char {
+            display: inline-block;
+            opacity: 0;
+            filter: blur(10px);
+            transform: translateY(5px);
+            transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        .typewriter-char.visible {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+        .typewriter-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 0.8em;
+            background-color: currentColor;
+            margin-left: 4px;
+            vertical-align: middle;
+            animation: blink-cursor 0.8s step-end infinite;
+            opacity: 1;
+        }
+        @keyframes blink-cursor {
+            50% { opacity: 0; }
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            :root {
+                --section-gap: 60px;
+                --margin-edge: 20px;
+            }
+
+            .font-display-xl {
+                font-size: 38px !important;
+                line-height: 1.1 !important;
+            }
+
+            .font-headline-lg {
+                font-size: 32px !important;
+            }
+
+            .font-headline-md {
+                font-size: 24px !important;
+            }
+
+            .font-body-lg {
+                font-size: 16px !important;
+            }
+
+            section {
+                padding-top: var(--section-gap) !important;
+                padding-bottom: var(--section-gap) !important;
+            }
+
+            .mb-section-gap {
+                margin-bottom: var(--section-gap) !important;
+            }
+
+            .px-margin-edge {
+                padding-left: var(--margin-edge) !important;
+                padding-right: var(--margin-edge) !important;
+            }
+
+            header {
+                width: 92% !important;
+                padding: 14px 24px !important;
+                border-radius: 0 0 32px 32px !important;
+                top: 0 !important;
+                border-top: none !important;
+                box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1) !important;
+            }
+
+            #menuBtn span {
+                font-size: 28px !important;
+                font-weight: 300 !important;
+            }
+
+            .pt-32 {
+                padding-top: 140px !important;
+            }
+
+            .grid-cols-2 {
+                grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-background selection:bg-primary selection:text-on-primary relative">
+<!-- TopAppBar -->
+<!-- iPhone Notch Navigation -->
+<header class="fixed top-0 left-1/2 -translate-x-1/2 z-50 bg-white/70 backdrop-blur-2xl border border-white/40 rounded-b-[40px] shadow-lg transition-all duration-500 px-8 py-4 w-[95%] max-w-[1000px] flex items-center justify-between">
+<div class="flex items-center">
+<span class="font-['Inter'] text-sm font-black tracking-tighter text-black">CREASHIFT</span>
+</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-400 hover:text-white transition-all duration-500" href="index.html">HOME</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-black pb-1 border-b border-black" href="about.html">ABOUT</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-500 hover:text-black transition-all duration-500" href="services.html">SERVICES</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-500 hover:text-black transition-all duration-500" href="portfolio.html">PORTFOLIO</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-500 hover:text-black transition-all duration-500" href="blog-premium.html">BLOG</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-500 hover:text-black transition-all duration-500" href="contact.html">CONTACT</a>
+</nav>
+<button class="hidden md:block font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium bg-black text-white px-6 py-2.5 rounded-full hover:scale-105 transition-transform duration-300">
+GET STARTED
+</button>
+<button class="md:hidden text-black p-2" aria-label="Toggle Menu" id="menuBtn">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+</header>
+<!-- Decorative Background Elements -->
+<div class="fixed inset-0 pointer-events-none z-0">
+    <div class="parallax-element absolute top-[15%] -left-10 w-72 h-72 bg-black/[0.04] backdrop-blur-3xl rounded-full border border-black/5 animate-[float_14s_ease-in-out_infinite]" data-speed="15"></div>
+    <div class="parallax-element absolute bottom-[5%] -right-32 w-[650px] h-[650px] bg-black/[0.02] backdrop-blur-2xl rounded-full border border-black/5 animate-[float_22s_ease-in-out_infinite_reverse]" data-speed="45"></div>
+</div>
+
+<main class="pt-32 relative z-10">
+<section class="reveal px-6 md:px-margin-edge mb-section-gap">
+<div class="max-w-container-max mx-auto relative z-10">
+<p class="font-label-sm text-label-sm text-on-primary-container mb-6 uppercase tracking-widest">About Us</p>
+<h1 id="aboutHeadline" class="font-display-xl text-display-xl text-primary max-w-4xl mb-12">Shifting visions into architectural digital realities.</h1>
+<div class="w-full h-[300px] md:h-[530px] bg-surface-container overflow-hidden rounded-xl">
+<img alt="CREASHIFT Office" class="w-full h-full object-cover grayscale brightness-90 hover:scale-105 transition-transform duration-[1200ms] ease-out" data-alt="A wide-angle shot of a minimalist, high-end architectural studio with large concrete surfaces and floor-to-ceiling glass windows. The lighting is soft and natural, emphasizing clean lines and negative space. The atmosphere is professional and quiet, captured in a crisp black and white aesthetic that highlights structural precision and luxury." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbaajVWq7ldfWKpD35uQayifZNIe2RdLzsLdSdILecue3VgxKfiHfjiH6RVZ2rF-UaOWpvuRl7wnpe9dVlSL2EYykJLocb1hCyvlN55g9H0dp0eDdFj1GynNHAxqVVTAGgVu_HdRFJ6nAzZywML2e8KzdQrqhQSpi8YuL2UmSLWMbRexuI5I4-fzq9qJqivKkZ8kqyM4VzA3opmZULF2Fyfg9RYQE1fVu4bWB5PBi5UnfuoPoIoRvlOelnTu8FEPEFJtdyOnp2fBkK"/>
+</div>
+</div>
+</section>
+<!-- Company Story Section -->
+<section class="reveal px-6 md:px-margin-edge mb-section-gap">
+<div class="max-w-container-max mx-auto grid md:grid-cols-12 gap-gutter">
+<div class="md:col-span-5">
+<h2 class="font-headline-lg text-headline-lg text-primary leading-tight">Our Legacy is defined by the shift.</h2>
+</div>
+<div class="md:col-span-6 md:col-start-7">
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8">
+                        Founded in 2018, CREASHIFT emerged from a desire to bridge the gap between architectural rigor and digital expression. We believe that a digital presence should be as permanent and considered as a physical structure.
+                    </p>
+<p class="font-body-md text-body-md text-on-secondary-container">
+                        Our journey began in a small concrete studio with a singular vision: to strip away the noise of the internet and replace it with meaningful, high-performance digital environments. We don't just build websites; we curate digital legacies for brands that demand the uncompromising quality of a luxury atelier.
+                    </p>
+</div>
+</div>
+</section>
+<!-- Mission Vision Values - Bento Grid -->
+<section class="reveal px-6 md:px-margin-edge mb-section-gap relative">
+<!-- Orbiting Orbs -->
+<div class="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-primary/5 blur-[80px] rounded-full pointer-events-none z-0"></div>
+<div class="absolute top-1/2 left-1/2 w-[150px] h-[150px] bg-black/10 dark:bg-white/10 blur-[60px] rounded-full pointer-events-none animate-[orbit_12s_linear_infinite] z-0"></div>
+<div class="absolute top-1/2 left-1/2 w-[200px] h-[200px] bg-primary/10 blur-[90px] rounded-full pointer-events-none animate-[orbit_18s_linear_infinite_reverse] z-0"></div>
+<div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+<!-- Mission -->
+<div class="bg-surface-container-low p-12 rounded-xl flex flex-col justify-between aspect-square md:aspect-auto md:h-[500px] border border-black/5">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="corporate_fare">corporate_fare</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Mission</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">To engineer digital ecosystems that prioritize clarity, performance, and aesthetic permanence over fleeting trends.</p>
+</div>
+</div>
+<!-- Vision -->
+<div class="bg-primary text-on-primary p-12 rounded-xl flex flex-col justify-between aspect-square md:aspect-auto md:h-[500px]">
+<span class="material-symbols-outlined text-4xl text-on-primary" data-icon="layers">layers</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-primary mb-4">Vision</h3>
+<p class="font-body-md text-body-md text-primary-fixed-dim">To set the global standard for high-end digital design, where every pixel serves a structural purpose.</p>
+</div>
+</div>
+<!-- Values -->
+<div class="bg-surface-container-low p-12 rounded-xl flex flex-col justify-between aspect-square md:aspect-auto md:h-[500px] border border-black/5">
+<span class="material-symbols-outlined text-4xl text-primary" data-icon="grid_view">grid_view</span>
+<div>
+<h3 class="font-headline-md text-headline-md text-primary mb-4">Values</h3>
+<ul class="space-y-4">
+<li class="flex items-center gap-3 font-label-sm text-label-sm uppercase tracking-wider">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Architectural Precision
+                            </li>
+<li class="flex items-center gap-3 font-label-sm text-label-sm uppercase tracking-wider">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Uncompromising Quality
+                            </li>
+<li class="flex items-center gap-3 font-label-sm text-label-sm uppercase tracking-wider">
+<span class="w-1.5 h-1.5 bg-primary rounded-full"></span> Radical Transparency
+                            </li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<!-- Digital Impact Stats Section -->
+<section class="reveal px-6 md:px-margin-edge mb-section-gap py-24 bg-zinc-950 text-white rounded-[60px] mx-4 overflow-hidden relative">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 blur-[100px] rounded-full"></div>
+    <div class="max-w-container-max mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 text-center relative z-10">
+        <div>
+            <div class="text-4xl md:text-6xl font-black mb-4 tracking-tighter">200<span class="text-white/30">+</span></div>
+            <div class="text-[10px] uppercase tracking-[0.3em] font-bold text-white/40">Digital Landmarks</div>
+        </div>
+        <div>
+            <div class="text-4xl md:text-6xl font-black mb-4 tracking-tighter">15<span class="text-white/30">yr</span></div>
+            <div class="text-[10px] uppercase tracking-[0.3em] font-bold text-white/40">Collective Wisdom</div>
+        </div>
+        <div>
+            <div class="text-4xl md:text-6xl font-black mb-4 tracking-tighter">50<span class="text-white/30">M</span></div>
+            <div class="text-[10px] uppercase tracking-[0.3em] font-bold text-white/40">Global Impressions</div>
+        </div>
+        <div>
+            <div class="text-4xl md:text-6xl font-black mb-4 tracking-tighter">99<span class="text-white/30">%</span></div>
+            <div class="text-[10px] uppercase tracking-[0.3em] font-bold text-white/40">Design Precision</div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="px-6 md:px-margin-edge mb-section-gap">
+<div class="max-w-container-max mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+<div class="max-w-2xl">
+<p class="font-label-sm text-label-sm text-on-primary-container mb-4 uppercase tracking-widest">The Collective</p>
+<h2 class="font-headline-lg text-headline-lg text-primary">Architects of the digital shift.</h2>
+</div>
+<button class="w-full md:w-auto border border-primary px-8 py-4 font-label-sm text-label-sm uppercase tracking-widest hover:bg-primary hover:text-on-primary transition-colors duration-400">View Openings</button>
+</div>
+<div class="relative">
+    <!-- Connecting Shape -->
+    <div class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-40 z-0 pointer-events-none hidden md:block">
+        <svg viewBox="0 0 1200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+            <!-- Main Connection Beam -->
+            <path d="M-100 100 C 200 0, 400 200, 600 100 S 1000 0, 1300 100" stroke="black" stroke-width="4" stroke-linecap="round" class="opacity-80"/>
+            <!-- Connection Nodes -->
+            <g class="opacity-100">
+                <circle cx="150" cy="50" r="10" fill="black"/>
+                <circle cx="150" cy="50" r="4" fill="white"/>
+                
+                <circle cx="450" cy="125" r="10" fill="black"/>
+                <circle cx="450" cy="125" r="4" fill="white"/>
+                
+                <circle cx="750" cy="75" r="10" fill="black"/>
+                <circle cx="750" cy="75" r="4" fill="white"/>
+                
+                <circle cx="1050" cy="125" r="10" fill="black"/>
+                <circle cx="1050" cy="125" r="4" fill="white"/>
+            </g>
+        </svg>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter relative z-10">
+        <!-- Team Member 1 -->
+        <div class="group">
+            <div class="aspect-[4/5] overflow-hidden rounded-lg mb-6 bg-surface-container">
+                <img alt="Marcus Chen" class="w-full h-full object-cover grayscale group-hover:scale-110 group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuANjcMv6SUv6_62_LHADs5KGtR1l5Q8cvvnL1-D1GByvqjv4GGSeVEkXENfHW6GbMDXlSUo2Q0CN65c1IKLoQcTkITI69KLwMssUHr54ian1ZqX7qVwHqgyWAHjTa2om6jcWsJq-Jbpp9o3pdpiRtoMwPaugtzfRP3mnsR2ahRtOjdrJeBsn-M4ZL7fm15Tjlcr9bIIYfkpvvlNc8RZ0vO4i5dUtx2pBlb4GaQhR7iveSpWsPP-tRoq0kooH0jMqfAGFZKuYl7yNKbn"/>
+            </div>
+            <h4 class="font-headline-md text-[20px] text-primary mb-1">Marcus Chen</h4>
+            <p class="font-label-sm text-[10px] text-on-primary-container uppercase tracking-widest">Founder &amp; Creative Director</p>
+        </div>
+        <!-- Team Member 2 -->
+        <div class="group">
+            <div class="aspect-[4/5] overflow-hidden rounded-lg mb-6 bg-surface-container">
+                <img alt="Elena Rodriguez" class="w-full h-full object-cover grayscale group-hover:scale-110 group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXRLihTZuOX1pvtmQOs9JN1GNNeAwhcnbfvf7F8JtEAbZ_yEe1MirvzcCIC54FCDMHg4dd9UMYUUHazpBg9WCfwDO5Y_7F6SLfvSqnaDybnX4iCWCXw2h3JFefBt-VV_aFssCe5arfIuuHcBOuOcQLuxWnddOCSFUqarQ6BrwXOokwOFvA8bhU0BT56ljv7z9BXetOIMhA_CTZPEG5U-bS5wpTNrTkopjTT4SX8_Gcq2Ed2UbYRGnxegQHhM1J4o19qMRW7gdFAUkw"/>
+            </div>
+            <h4 class="font-headline-md text-[20px] text-primary mb-1">Elena Rodriguez</h4>
+            <p class="font-label-sm text-[10px] text-on-primary-container uppercase tracking-widest">Head of Strategy</p>
+        </div>
+        <!-- Team Member 3 -->
+        <div class="group">
+            <div class="aspect-[4/5] overflow-hidden rounded-lg mb-6 bg-surface-container">
+                <img alt="Julian Voss" class="w-full h-full object-cover grayscale group-hover:scale-110 group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCa5xa2OiM7Ag3_wIhKlbKiHH-KZen8VzZLJ1hzZgc2LYvAtkKev3jl6DYdBeG37f13ifjph6_c8z1tOLeU14jkGuYzRbGvDn0zBR7cO7hFAW_xwhhAAh6owP38SDC8cPUxp6iensuPdsTVJ3fFEUerrqrytqbNUzh-urhhpAF8b5eG6hwZ0nyc3Q7xjWfnxHYHH6G9SZfXUwdB3m-Bl4WH_SwuB_bajFXdjSr75zyTS41OiJXNuLQRBBjniBThqiSzWSu4XBSdWLBF"/>
+            </div>
+            <h4 class="font-headline-md text-[20px] text-primary mb-1">Julian Voss</h4>
+            <p class="font-label-sm text-[10px] text-on-primary-container uppercase tracking-widest">Technical Lead</p>
+        </div>
+        <!-- Team Member 4 -->
+        <div class="group">
+            <div class="aspect-[4/5] overflow-hidden rounded-lg mb-6 bg-surface-container">
+                <img alt="Sarah Jenkins" class="w-full h-full object-cover grayscale group-hover:scale-110 group-hover:grayscale-0 transition-all duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHyZAOCSfYLW7CFqz8D59quG4Rl3w7_CmaGlgGyY4qUc6i1wK__un18E90Ef-1wq8lWrvmq8O0wLGrxNVIdc-ijc9tEzMP2dCyOelWpGLAkdsZLUbmKLebzmvk5EIvXYuRM9VMgoCmtP7wB-2qF6iJQe8tnEGEFu4yQqus7sw4gJws7PsGdL0MPQ2jOuoqnPD13afjNeIJGrExSonrlOFc4s4ULkeCZhxdXHsD8K7N6NguXaXUejY6Zp87yyXzjOxunPvd6XNqfkf3"/>
+            </div>
+            <h4 class="font-headline-md text-[20px] text-primary mb-1">Sarah Jenkins</h4>
+            <p class="font-label-sm text-[10px] text-on-primary-container uppercase tracking-widest">UI/UX Architect</p>
+        </div>
+    </div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="px-6 md:px-margin-edge mb-section-gap">
+<div class="max-w-container-max mx-auto bg-black text-white p-12 md:p-24 rounded-xl text-center relative overflow-hidden">
+<div class="relative z-10">
+<h2 class="font-display-xl text-headline-lg md:text-display-xl mb-8">Ready to shift?</h2>
+<p class="font-body-lg text-gray-400 max-w-xl mx-auto mb-12">Join our network of visionary clients and redefine your digital presence with architectural precision.</p>
+<button class="bg-white text-black px-12 py-5 font-label-sm text-label-sm uppercase tracking-widest hover:bg-gray-200 transition-colors duration-400">Inquire Now</button>
+</div>
+<div class="absolute inset-0 opacity-20 pointer-events-none">
+<div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-gray-500 via-transparent to-transparent"></div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-6 bg-neutral-50 dark:bg-neutral-950 border-t border-black/5 dark:border-white/5 flex flex-col items-center space-y-6 text-center">
+<div class="flex space-x-8">
+<a class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-500 uppercase hover:text-black dark:hover:text-white transition-colors duration-400" href="#">INSTAGRAM</a>
+<a class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-500 uppercase hover:text-black dark:hover:text-white transition-colors duration-400" href="#">LINKEDIN</a>
+<a class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-500 uppercase hover:text-black dark:hover:text-white transition-colors duration-400" href="#">WHATSAPP</a>
+</div>
+<p class="font-inter text-[10px] tracking-[0.2em] font-medium text-black dark:text-white">© 2024 CREASHIFT. SHIFTING VISIONS.</p>
+</footer>
+    <!-- Hidden Navigation Drawer (Professional/Premium version) -->
+    <div class="h-full w-full fixed inset-0 z-[60] bg-zinc-950 translate-x-full transition-transform duration-700 cubic-bezier(0.85, 0, 0.15, 1)"
+        id="drawer">
+        <div class="flex flex-col h-full px-8 py-12 relative overflow-hidden">
+            <!-- Background Detail -->
+            <div class="absolute top-[-10%] right-[-10%] w-64 h-64 bg-white/5 blur-[100px] rounded-full"></div>
+            
+            <div class="flex justify-between items-center mb-20 relative z-10">
+                <span class="text-xl font-black tracking-tighter text-white">CREASHIFT</span>
+                <button class="text-white flex items-center gap-2 group" id="closeDrawer">
+                    <span class="text-[10px] uppercase tracking-[0.3em] font-medium opacity-50 group-hover:opacity-100 transition-opacity">Close</span>
+                    <span class="material-symbols-outlined text-3xl font-light">close</span>
+                </button>
+            </div>
+
+            <nav class="flex flex-col space-y-1 w-full relative z-10">
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="index.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">HOME</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="about.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white group-hover:pl-4 transition-all duration-500">ABOUT</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="services.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">SERVICES</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="portfolio.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">PORTFOLIO</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="blog-premium.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">BLOG</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="contact.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">CONTACT</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+            </nav>
+
+            <div class="mt-auto relative z-10">
+                <div class="grid grid-cols-2 gap-8 mb-12">
+                    <div>
+                        <span class="block text-[10px] uppercase tracking-[0.3em] text-white/30 mb-4">Connect</span>
+                        <div class="flex flex-col space-y-2">
+                            <a href="#" class="text-xs text-white/60 hover:text-white">Instagram</a>
+                            <a href="#" class="text-xs text-white/60 hover:text-white">LinkedIn</a>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="block text-[10px] uppercase tracking-[0.3em] text-white/30 mb-4">Say Hello</span>
+                        <a href="mailto:hello@creashift.com" class="text-xs text-white/60 hover:text-white">hello@creashift.com</a>
+                    </div>
+                </div>
+                <button class="w-full bg-white text-black font-['Inter'] text-[11px] uppercase tracking-[0.2em] font-bold py-5 rounded-full hover:bg-zinc-200 transition-colors">
+                    START A PROJECT
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    // Mobile Menu Logic
+    const menuBtn = document.getElementById('menuBtn');
+    const closeDrawer = document.getElementById('closeDrawer');
+    const drawer = document.getElementById('drawer');
+    const drawerLinks = drawer.querySelectorAll('nav a');
+
+    function toggleDrawer(open) {
+        if (open) {
+            drawer.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden';
+        } else {
+            drawer.classList.add('translate-x-full');
+            document.body.style.overflow = '';
+        }
+    }
+
+    menuBtn.addEventListener('click', () => toggleDrawer(true));
+    closeDrawer.addEventListener('click', () => toggleDrawer(false));
+    drawerLinks.forEach(link => {
+        link.addEventListener('click', () => toggleDrawer(false));
+    });
+
+    // Blurry Typewriter Effect with Blinking Cursor
+    function initTypewriter(elementId, delay = 0) {
+        const element = document.getElementById(elementId);
+        if (!element) return;
+        
+        const text = element.textContent.trim();
+        element.textContent = '';
+        
+        const cursor = document.createElement('span');
+        cursor.className = 'typewriter-cursor';
+        element.appendChild(cursor);
+        
+        const words = text.split(' ');
+        const fragments = document.createDocumentFragment();
+        
+        words.forEach((word, wordIdx) => {
+            const wordSpan = document.createElement('span');
+            wordSpan.style.whiteSpace = 'nowrap';
+            wordSpan.style.display = 'inline-block';
+            
+            word.split('').forEach(char => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.className = 'typewriter-char';
+                wordSpan.appendChild(span);
+            });
+            
+            fragments.appendChild(wordSpan);
+            if (wordIdx < words.length - 1) fragments.appendChild(document.createTextNode(' '));
+        });
+
+        element.insertBefore(fragments, cursor);
+
+        const allChars = element.querySelectorAll('.typewriter-char');
+        allChars.forEach((span, i) => {
+            setTimeout(() => {
+                span.classList.add('visible');
+                if (i === allChars.length - 1) {
+                    setTimeout(() => cursor.style.display = 'none', 1000);
+                }
+            }, delay + (i * 30));
+        });
+    }
+
+    // Initialize after a short delay
+    window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => initTypewriter('aboutHeadline', 0), 500);
+    });
+
+    // Scroll Reveal Logic
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Parallax Mouse Logic
+    document.addEventListener('mousemove', (e) => {
+        const elements = document.querySelectorAll('.parallax-element');
+        const x = (window.innerWidth - e.pageX * 2) / 100;
+        const y = (window.innerHeight - e.pageY * 2) / 100;
+
+        elements.forEach(el => {
+            const speed = el.getAttribute('data-speed') || 10;
+            const xOffset = x * (speed / 10);
+            const yOffset = y * (speed / 10);
+            el.style.transform = `translateX(${xOffset}px) translateY(${yOffset}px)`;
+        });
+    });
+</script>
+</body></html>

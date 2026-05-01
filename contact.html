@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "background": "#fcf8fb",
+            "on-primary-container": "#848484",
+            "on-secondary-container": "#626267",
+            "on-surface-variant": "#4c4546",
+            "secondary-fixed": "#e3e2e7",
+            "surface-tint": "#5e5e5e",
+            "surface": "#fcf8fb",
+            "inverse-on-surface": "#f3f0f2",
+            "tertiary": "#000000",
+            "surface-container-lowest": "#ffffff",
+            "error": "#ba1a1a",
+            "primary-fixed-dim": "#c6c6c6",
+            "outline-variant": "#cfc4c5",
+            "tertiary-container": "#1a1c1d",
+            "on-primary": "#ffffff",
+            "on-error": "#ffffff",
+            "on-surface": "#1b1b1d",
+            "on-secondary": "#ffffff",
+            "on-background": "#1b1b1d",
+            "primary-container": "#1b1b1b",
+            "surface-bright": "#fcf8fb",
+            "on-primary-fixed-variant": "#474747",
+            "on-error-container": "#93000a",
+            "surface-container-highest": "#e4e2e4",
+            "surface-container-low": "#f6f3f5",
+            "error-container": "#ffdad6",
+            "on-primary-fixed": "#1b1b1b",
+            "tertiary-fixed": "#e2e2e4",
+            "inverse-surface": "#303032",
+            "on-tertiary-fixed-variant": "#454749",
+            "surface-container-high": "#eae7ea",
+            "inverse-primary": "#c6c6c6",
+            "on-secondary-fixed-variant": "#46464b",
+            "on-tertiary": "#ffffff",
+            "primary-fixed": "#e2e2e2",
+            "secondary-fixed-dim": "#c7c6cb",
+            "tertiary-fixed-dim": "#c6c6c8",
+            "secondary": "#5e5e63",
+            "outline": "#7e7576",
+            "surface-container": "#f0edef",
+            "primary": "#000000",
+            "on-tertiary-fixed": "#1a1c1d",
+            "surface-variant": "#e4e2e4",
+            "secondary-container": "#e0dfe4",
+            "surface-dim": "#dcd9dc",
+            "on-tertiary-container": "#838486",
+            "on-secondary-fixed": "#1a1b1f"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "base": "8px",
+            "margin-edge": "80px",
+            "container-max": "1440px",
+            "section-gap": "120px",
+            "gutter": "32px"
+          },
+          "fontFamily": {
+            "headline-md": ["Inter"],
+            "headline-lg": ["Inter"],
+            "display-xl": ["Inter"],
+            "body-lg": ["Inter"],
+            "body-md": ["Inter"],
+            "label-sm": ["Inter"]
+          },
+          "fontSize": {
+            "headline-md": ["32px", {"lineHeight": "1.3", "letterSpacing": "0.01em", "fontWeight": "600"}],
+            "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+            "display-xl": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+            "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+            "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+            "label-sm": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "600"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+    .custom-focus:focus {
+      outline: none;
+      border-color: #000000;
+      box-shadow: 0 0 15px rgba(0,0,0,0.03);
+    }
+        @keyframes gradientBG {
+            0% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(20px, -20px); }
+        }
+        .typewriter-char {
+            display: inline-block;
+            opacity: 0;
+            filter: blur(10px);
+            transform: translateY(5px);
+            transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        .typewriter-char.visible {
+            opacity: 1;
+            filter: blur(0);
+            transform: translateY(0);
+        }
+        .typewriter-cursor {
+            display: inline-block;
+            width: 3px;
+            height: 0.8em;
+            background-color: currentColor;
+            margin-left: 4px;
+            vertical-align: middle;
+            animation: blink-cursor 0.8s step-end infinite;
+        }
+        @keyframes blink-cursor {
+            50% { opacity: 0; }
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            :root {
+                --section-gap: 60px;
+                --margin-edge: 20px;
+            }
+
+            .font-display-xl {
+                font-size: 38px !important;
+                line-height: 1.1 !important;
+            }
+
+            .font-headline-lg {
+                font-size: 32px !important;
+            }
+
+            .font-headline-md {
+                font-size: 24px !important;
+            }
+
+            .font-body-lg {
+                font-size: 16px !important;
+            }
+
+            section {
+                padding-top: var(--section-gap) !important;
+                padding-bottom: var(--section-gap) !important;
+            }
+
+            .mb-section-gap {
+                margin-bottom: var(--section-gap) !important;
+            }
+
+            .px-margin-edge {
+                padding-left: var(--margin-edge) !important;
+                padding-right: var(--margin-edge) !important;
+            }
+
+            header {
+                width: 92% !important;
+                padding: 14px 24px !important;
+                border-radius: 0 0 32px 32px !important;
+                top: 0 !important;
+                border-top: none !important;
+                box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1) !important;
+            }
+
+            #menuBtn span {
+                font-size: 28px !important;
+                font-weight: 300 !important;
+            }
+
+            .pt-32 {
+                padding-top: 140px !important;
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased selection:bg-black selection:text-white relative">
+<!-- TopAppBar -->
+<!-- iPhone Notch Navigation -->
+<header class="fixed top-0 left-1/2 -translate-x-1/2 z-50 bg-white/70 backdrop-blur-2xl border border-white/40 rounded-b-[40px] shadow-lg transition-all duration-500 px-8 py-4 w-[95%] max-w-[1000px] flex items-center justify-between">
+<div class="flex items-center">
+<span class="font-['Inter'] text-sm font-black tracking-tighter text-black">CREASHIFT</span>
+</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-400 hover:text-white transition-all duration-500" href="index.html">HOME</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-400 hover:text-white transition-all duration-500" href="about.html">ABOUT</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-400 hover:text-white transition-all duration-500" href="services.html">SERVICES</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-500 hover:text-black transition-all duration-500" href="portfolio.html">PORTFOLIO</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-500 hover:text-black transition-all duration-500" href="blog-premium.html">BLOG</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-black pb-1 border-b border-black" href="contact.html">CONTACT</a>
+</nav>
+<button class="hidden md:block font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium bg-black text-white px-6 py-2.5 rounded-full hover:scale-105 transition-transform duration-300">
+GET STARTED
+</button>
+<button class="md:hidden text-black p-2" aria-label="Toggle Menu" id="menuBtn">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+</header>
+<!-- Technical Blueprint Grid Background -->
+<div class="fixed inset-0 pointer-events-none z-0 bg-neutral-50">
+    <div id="dotGrid" class="absolute inset-0 opacity-10">
+        <!-- Dots will be generated via JS for performance -->
+    </div>
+</div>
+
+<main class="pt-32 pb-section-gap relative z-10">
+<div class="max-w-[1440px] mx-auto px-6 md:px-margin-edge">
+<!-- Hero Header -->
+<div class="mb-20 reveal">
+<h1 id="contactHeadline" class="font-display-xl text-display-xl uppercase leading-none mb-6">Connect<br/>With Us.</h1>
+<p class="font-body-lg text-body-lg text-on-secondary-container max-w-xl">
+          Based in the lush landscapes of Kerala, we bring architectural precision to digital visions. Let's create something extraordinary together.
+        </p>
+</div>
+<!-- Contact Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter reveal">
+<!-- Form Section -->
+<div class="lg:col-span-7 bg-white p-8 md:p-12 rounded-3xl shadow-[0_4px_60px_rgba(0,0,0,0.03)] border border-black/5 relative overflow-hidden">
+<!-- Glowing Gradient Mesh -->
+<div class="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[60px] pointer-events-none animate-[gradientBG_15s_ease-in-out_infinite] z-0"></div>
+<div class="absolute bottom-0 left-0 w-[300px] h-[300px] bg-black/5 rounded-full blur-[80px] pointer-events-none animate-[gradientBG_20s_ease-in-out_infinite_reverse] z-0"></div>
+<form class="space-y-10 relative z-10">
+<div class="relative group">
+<label class="font-label-sm text-label-sm text-on-secondary-container block mb-2 uppercase tracking-widest" for="name">Full Name</label>
+<input class="w-full bg-transparent border-0 border-b border-black/10 py-3 font-body-md text-on-surface custom-focus transition-all duration-400 placeholder:text-gray-300" id="name" name="name" placeholder="John Doe" type="text"/>
+</div>
+<div class="relative group">
+<label class="font-label-sm text-label-sm text-on-secondary-container block mb-2 uppercase tracking-widest" for="email">Email Address</label>
+<input class="w-full bg-transparent border-0 border-b border-black/10 py-3 font-body-md text-on-surface custom-focus transition-all duration-400 placeholder:text-gray-300" id="email" name="email" placeholder="hello@creashift.com" type="email"/>
+</div>
+<div class="relative group">
+<label class="font-label-sm text-label-sm text-on-secondary-container block mb-2 uppercase tracking-widest" for="message">Message</label>
+<textarea class="w-full bg-transparent border-0 border-b border-black/10 py-3 font-body-md text-on-surface custom-focus transition-all duration-400 placeholder:text-gray-300 resize-none" id="message" name="message" placeholder="Tell us about your project..." rows="4"></textarea>
+</div>
+<button class="w-full md:w-auto px-12 py-5 bg-black text-white font-label-sm text-label-sm uppercase tracking-[0.2em] hover:scale-[1.02] transition-transform duration-400 ease-out" type="submit">
+              SEND MESSAGE
+            </button>
+</form>
+</div>
+<!-- Info Sidebar -->
+<div class="lg:col-span-5 space-y-gutter">
+<!-- CTA Cards -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
+<!-- WhatsApp -->
+<a class="group block p-8 bg-white border border-black/5 rounded-lg hover:shadow-[0_40px_60px_-15px_rgba(0,0,0,0.05)] transition-all duration-600 ease-out" href="#">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-black text-3xl">chat</span>
+<span class="material-symbols-outlined text-gray-300 group-hover:text-black group-hover:translate-x-1 transition-all duration-400">arrow_forward</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">WhatsApp</h3>
+<p class="font-body-md text-on-secondary-container">Start a direct conversation with our creative team instantly.</p>
+</a>
+<!-- Call -->
+<a class="group block p-8 bg-white border border-black/5 rounded-lg hover:shadow-[0_40px_60px_-15px_rgba(0,0,0,0.05)] transition-all duration-600 ease-out" href="#">
+<div class="flex items-center justify-between mb-4">
+<span class="material-symbols-outlined text-black text-3xl">call</span>
+<span class="material-symbols-outlined text-gray-300 group-hover:text-black group-hover:translate-x-1 transition-all duration-400">arrow_forward</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2">Phone</h3>
+<p class="font-body-md text-on-secondary-container">Prefer a human voice? Give us a call during business hours.</p>
+</a>
+</div>
+<!-- Location Image Section -->
+<div class="relative overflow-hidden rounded-lg aspect-video lg:aspect-auto lg:h-[320px]">
+<img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-in-out" data-alt="An atmospheric, architectural photograph of a minimalist studio space located in the tropical greenery of Kerala. The building features clean concrete lines, large floor-to-ceiling glass windows reflecting a misty jungle environment. The interior shows a sleek black and white design aesthetic with soft ambient natural light filtering through palm fronds. The mood is tranquil, sophisticated, and deeply connected to nature." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOQRs4hTFRvACoLskIaJUZv8BB-flDqWLXFo-F1PVxdUgmdzdQiFmjXHyu8_IwMBJzXqm232HwxQlPCWJRAaMr9Zb6YwfV0RFWCcJ6z4upul9PyTA1EZbUZd2GbYHyo0M4fbgTBAnhdGv0OLMpZ3QZYHUcQhfWjK406eLmUKaid33UyP70d_u7T1VZcPCJKVzQkR1U04q6XaehJ4ItPBcxN6E3vCo1sNiJan9g4W-uJM79SorlPOMVaroLfL6ui2wN2so4XQMC38lt"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent p-8 flex flex-col justify-end">
+<div class="flex items-center gap-2 text-white">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Kerala, India</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Asymmetric Location Highlight -->
+<div class="mt-section-gap grid grid-cols-1 md:grid-cols-12 gap-gutter items-center">
+<div class="md:col-span-4">
+<h2 class="font-headline-lg text-headline-lg uppercase">Rooted In<br/>Kerala.</h2>
+</div>
+<div class="md:col-span-8 h-[1px] bg-black/10"></div>
+<div class="md:col-span-4"></div>
+<div class="md:col-span-8">
+<p class="font-body-lg text-body-lg text-on-secondary-container leading-relaxed">
+            From the serene backwaters to the vibrant tech hubs, our Kerala base inspires every pixel we shift. We combine local craftsmanship with global digital standards to deliver work that stands the test of time.
+          </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-12 px-6 border-t border-black/5 dark:border-white/5 bg-neutral-50 dark:bg-neutral-950">
+<div class="max-w-[1440px] mx-auto flex flex-col items-center space-y-6 text-center">
+<div class="flex space-x-8 mb-4">
+<a class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-500 uppercase hover:text-black dark:hover:text-white transition-colors duration-400" href="#">INSTAGRAM</a>
+<a class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-500 uppercase hover:text-black dark:hover:text-white transition-colors duration-400" href="#">LINKEDIN</a>
+<a class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-500 uppercase hover:text-black dark:hover:text-white transition-colors duration-400" href="#">WHATSAPP</a>
+</div>
+<p class="font-inter text-[10px] tracking-[0.2em] font-medium text-black dark:text-white">© 2024 CREASHIFT. SHIFTING VISIONS.</p>
+</div>
+</footer>
+    <!-- Hidden Navigation Drawer (Professional/Premium version) -->
+    <div class="h-full w-full fixed inset-0 z-[60] bg-zinc-950 translate-x-full transition-transform duration-700 cubic-bezier(0.85, 0, 0.15, 1)"
+        id="drawer">
+        <div class="flex flex-col h-full px-8 py-12 relative overflow-hidden">
+            <!-- Background Detail -->
+            <div class="absolute top-[-10%] right-[-10%] w-64 h-64 bg-white/5 blur-[100px] rounded-full"></div>
+            
+            <div class="flex justify-between items-center mb-20 relative z-10">
+                <span class="text-xl font-black tracking-tighter text-white">CREASHIFT</span>
+                <button class="text-white flex items-center gap-2 group" id="closeDrawer">
+                    <span class="text-[10px] uppercase tracking-[0.3em] font-medium opacity-50 group-hover:opacity-100 transition-opacity">Close</span>
+                    <span class="material-symbols-outlined text-3xl font-light">close</span>
+                </button>
+            </div>
+
+            <nav class="flex flex-col space-y-1 w-full relative z-10">
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="index.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">HOME</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="about.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">ABOUT</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="services.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">SERVICES</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="portfolio.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">PORTFOLIO</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="blog-premium.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">BLOG</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="contact.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white group-hover:pl-4 transition-all duration-500">CONTACT</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+            </nav>
+
+            <div class="mt-auto relative z-10">
+                <div class="grid grid-cols-2 gap-8 mb-12">
+                    <div>
+                        <span class="block text-[10px] uppercase tracking-[0.3em] text-white/30 mb-4">Connect</span>
+                        <div class="flex flex-col space-y-2">
+                            <a href="#" class="text-xs text-white/60 hover:text-white">Instagram</a>
+                            <a href="#" class="text-xs text-white/60 hover:text-white">LinkedIn</a>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="block text-[10px] uppercase tracking-[0.3em] text-white/30 mb-4">Say Hello</span>
+                        <a href="mailto:hello@creashift.com" class="text-xs text-white/60 hover:text-white">hello@creashift.com</a>
+                    </div>
+                </div>
+                <button class="w-full bg-white text-black font-['Inter'] text-[11px] uppercase tracking-[0.2em] font-bold py-5 rounded-full hover:bg-zinc-200 transition-colors">
+                    START A PROJECT
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    // Mobile Menu Logic
+    const menuBtn = document.getElementById('menuBtn');
+    const closeDrawer = document.getElementById('closeDrawer');
+    const drawer = document.getElementById('drawer');
+    const drawerLinks = drawer.querySelectorAll('nav a');
+
+    function toggleDrawer(open) {
+        if (open) {
+            drawer.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden';
+        } else {
+            drawer.classList.add('translate-x-full');
+            document.body.style.overflow = '';
+        }
+    }
+
+    menuBtn.addEventListener('click', () => toggleDrawer(true));
+    closeDrawer.addEventListener('click', () => toggleDrawer(false));
+    drawerLinks.forEach(link => {
+        link.addEventListener('click', () => toggleDrawer(false));
+    });
+</script>
+<script>
+    // Technical Dot Grid Generation
+    function initDotGrid() {
+        const grid = document.getElementById('dotGrid');
+        if (!grid) return;
+        
+        const spacing = 40;
+        const rows = Math.ceil(window.innerHeight / spacing);
+        const cols = Math.ceil(window.innerWidth / spacing);
+        
+        for (let i = 0; i < rows * cols; i++) {
+            const dot = document.createElement('div');
+            dot.className = 'dot absolute w-1 h-1 bg-black rounded-full transition-all duration-300';
+            dot.style.top = `${Math.floor(i / cols) * spacing}px`;
+            dot.style.left = `${(i % cols) * spacing}px`;
+            grid.appendChild(dot);
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            const dots = document.querySelectorAll('.dot');
+            const mouseX = e.pageX;
+            const mouseY = e.pageY;
+            
+            dots.forEach(dot => {
+                const rect = dot.getBoundingClientRect();
+                const dotX = rect.left + window.scrollX;
+                const dotY = rect.top + window.scrollY;
+                
+                const dist = Math.sqrt(Math.pow(mouseX - dotX, 2) + Math.pow(mouseY - dotY, 2));
+                if (dist < 150) {
+                    const scale = 1 + (150 - dist) / 50;
+                    const opacity = 0.1 + (150 - dist) / 150;
+                    dot.style.transform = `scale(${scale})`;
+                    dot.style.opacity = opacity;
+                } else {
+                    dot.style.transform = `scale(1)`;
+                    dot.style.opacity = 0.1;
+                }
+            });
+        });
+    }
+
+    // Blurry Typewriter Effect with Blinking Cursor
+    function initTypewriter(elementId, delay = 0) {
+        const element = document.getElementById(elementId);
+        if (!element) return;
+        
+        const text = element.innerHTML.replace(/<br\s*\/?>/gi, ' \n ').trim();
+        element.innerHTML = '';
+        
+        const cursor = document.createElement('span');
+        cursor.className = 'typewriter-cursor';
+        element.appendChild(cursor);
+        
+        const words = text.split(' ');
+        const fragments = document.createDocumentFragment();
+        
+        words.forEach((word, wordIdx) => {
+            if (word === '\n') {
+                fragments.appendChild(document.createElement('br'));
+                return;
+            }
+            const wordSpan = document.createElement('span');
+            wordSpan.style.whiteSpace = 'nowrap';
+            wordSpan.style.display = 'inline-block';
+            
+            word.split('').forEach(char => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.className = 'typewriter-char';
+                wordSpan.appendChild(span);
+            });
+            
+            fragments.appendChild(wordSpan);
+            if (wordIdx < words.length - 1) fragments.appendChild(document.createTextNode(' '));
+        });
+
+        element.insertBefore(fragments, cursor);
+
+        const allChars = element.querySelectorAll('.typewriter-char');
+        allChars.forEach((span, i) => {
+            setTimeout(() => {
+                span.classList.add('visible');
+                if (i === allChars.length - 1) {
+                    setTimeout(() => cursor.style.display = 'none', 1000);
+                }
+            }, delay + (i * 30));
+        });
+    }
+
+    // Initialize
+    window.addEventListener('DOMContentLoaded', () => {
+        initDotGrid();
+        setTimeout(() => initTypewriter('contactHeadline', 0), 500);
+    });
+
+    // Scroll Reveal
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('active');
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body></html>

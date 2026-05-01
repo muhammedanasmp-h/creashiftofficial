@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#fcf8fb",
+                        "on-primary-container": "#848484",
+                        "on-secondary-container": "#626267",
+                        "on-surface-variant": "#4c4546",
+                        "secondary-fixed": "#e3e2e7",
+                        "surface-tint": "#5e5e5e",
+                        "surface": "#fcf8fb",
+                        "inverse-on-surface": "#f3f0f2",
+                        "tertiary": "#000000",
+                        "surface-container-lowest": "#ffffff",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#c6c6c6",
+                        "outline-variant": "#cfc4c5",
+                        "tertiary-container": "#1a1c1d",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-surface": "#1b1b1d",
+                        "on-secondary": "#ffffff",
+                        "on-background": "#1b1b1d",
+                        "primary-container": "#1b1b1b",
+                        "surface-bright": "#fcf8fb",
+                        "on-primary-fixed-variant": "#474747",
+                        "on-error-container": "#93000a",
+                        "surface-container-highest": "#e4e2e4",
+                        "surface-container-low": "#f6f3f5",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#1b1b1b",
+                        "tertiary-fixed": "#e2e2e4",
+                        "inverse-surface": "#303032",
+                        "on-tertiary-fixed-variant": "#454749",
+                        "surface-container-high": "#eae7ea",
+                        "inverse-primary": "#c6c6c6",
+                        "on-secondary-fixed-variant": "#46464b",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#e2e2e2",
+                        "secondary-fixed-dim": "#c7c6cb",
+                        "tertiary-fixed-dim": "#c6c6c8",
+                        "secondary": "#5e5e63",
+                        "outline": "#7e7576",
+                        "surface-container": "#f0edef",
+                        "primary": "#000000",
+                        "on-tertiary-fixed": "#1a1c1d",
+                        "surface-variant": "#e4e2e4",
+                        "secondary-container": "#e0dfe4",
+                        "surface-dim": "#dcd9dc",
+                        "on-tertiary-container": "#838486",
+                        "on-secondary-fixed": "#1a1b1f"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "margin-edge": "80px",
+                        "container-max": "1440px",
+                        "section-gap": "120px",
+                        "gutter": "32px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display-xl": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["32px", {"lineHeight": "1.3", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "headline-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                        "display-xl": ["80px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0.01em", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "1.2", "letterSpacing": "0.1em", "fontWeight": "600"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 32px;
+        }
+        @media (min-width: 768px) { .masonry-grid { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
+        
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 32px;
+        }
+        
+        .portfolio-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            opacity: 0;
+            transition: opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        
+        .portfolio-card:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-card img {
+            filter: grayscale(100%);
+            transition: filter 0.6s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        
+        .portfolio-card:hover img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+        @keyframes ripple {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            :root {
+                --section-gap: 60px;
+                --margin-edge: 20px;
+            }
+
+            .font-display-xl {
+                font-size: 38px !important;
+                line-height: 1.1 !important;
+            }
+
+            .font-headline-lg {
+                font-size: 32px !important;
+            }
+
+            .font-headline-md {
+                font-size: 24px !important;
+            }
+
+            .font-body-lg {
+                font-size: 16px !important;
+            }
+
+            section {
+                padding-top: var(--section-gap) !important;
+                padding-bottom: var(--section-gap) !important;
+            }
+
+            .mb-section-gap {
+                margin-bottom: var(--section-gap) !important;
+            }
+
+            .px-margin-edge {
+                padding-left: var(--margin-edge) !important;
+                padding-right: var(--margin-edge) !important;
+            }
+
+            header {
+                width: 92% !important;
+                padding: 14px 24px !important;
+                border-radius: 0 0 32px 32px !important;
+                top: 0 !important;
+                border-top: none !important;
+                box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1) !important;
+            }
+
+            #menuBtn span {
+                font-size: 28px !important;
+                font-weight: 300 !important;
+            }
+
+            .pt-32 {
+                padding-top: 140px !important;
+            }
+
+            .portfolio-overlay {
+                opacity: 1 !important;
+                background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 100%) !important;
+            }
+
+            .portfolio-card img {
+                filter: grayscale(0%) !important;
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden relative">
+<!-- TopAppBar -->
+<!-- iPhone Notch Navigation -->
+<header class="fixed top-0 left-1/2 -translate-x-1/2 z-50 bg-white/70 backdrop-blur-2xl border border-white/40 rounded-b-[40px] shadow-lg transition-all duration-500 px-8 py-4 w-[95%] max-w-[1000px] flex items-center justify-between">
+<div class="flex items-center">
+<span class="font-['Inter'] text-sm font-black tracking-tighter text-black">CREASHIFT</span>
+</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-400 hover:text-white transition-all duration-500" href="index.html">HOME</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-400 hover:text-white transition-all duration-500" href="about.html">ABOUT</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-500 hover:text-black transition-all duration-500" href="services.html">SERVICES</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-black pb-1 border-b border-black" href="portfolio.html">PORTFOLIO</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-500 hover:text-black transition-all duration-500" href="blog-premium.html">BLOG</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-500 hover:text-black transition-all duration-500" href="contact.html">CONTACT</a>
+</nav>
+<button class="hidden md:block font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium bg-black text-white px-6 py-2.5 rounded-full hover:scale-105 transition-transform duration-300">
+GET STARTED
+</button>
+<button class="md:hidden text-black p-2" aria-label="Toggle Menu" id="menuBtn">
+<span class="material-symbols-outlined text-2xl">menu</span>
+</button>
+</header>
+<main class="pt-32 pb-section-gap px-6 md:px-margin-edge max-w-[1440px] mx-auto">
+<!-- Hero Section -->
+<section class="mb-section-gap max-w-4xl relative">
+<!-- Concentric Rippling Rings -->
+<div class="absolute -top-40 -right-40 w-96 h-96 flex items-center justify-center z-0 pointer-events-none">
+    <div class="absolute w-full h-full border border-primary/20 rounded-full animate-[ripple_4s_linear_infinite]"></div>
+    <div class="absolute w-full h-full border border-primary/20 rounded-full animate-[ripple_4s_linear_infinite]" style="animation-delay: 1.33s;"></div>
+    <div class="absolute w-full h-full border border-primary/20 rounded-full animate-[ripple_4s_linear_infinite]" style="animation-delay: 2.66s;"></div>
+</div>
+<div class="relative z-10">
+<h1 class="font-display-xl text-display-xl uppercase mb-6">CURATED VISIONS.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                A selection of architectural digital experiences and high-fidelity brand identities. We define the intersection of uncompromising luxury and technological precision.
+            </p>
+</div>
+</section>
+<!-- Filter Controls -->
+<section class="mb-12 flex flex-wrap items-center gap-8 border-b border-black/5 pb-8">
+<button class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-primary border-b-2 border-primary pb-2">All Projects</button>
+<button class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-on-primary-container hover:text-primary transition-colors pb-2">Images</button>
+<button class="font-label-sm text-label-sm uppercase tracking-[0.2em] text-on-primary-container hover:text-primary transition-colors pb-2">Videos</button>
+</section>
+<!-- Portfolio Masonry Grid -->
+<section class="masonry-grid">
+<!-- Item 1 -->
+<div class="masonry-item portfolio-card group relative overflow-hidden rounded-lg bg-surface-container-low cursor-pointer">
+<img alt="" class="w-full h-auto object-cover" data-alt="A high-end architectural shot of a minimalist concrete villa at dusk. The lighting is soft and moody, with a strong focus on clean lines and sharp geometric forms. The aesthetic is monochromatic and luxurious, emphasizing the play between light and deep shadows on smooth textures. The overall mood is silent and sophisticated." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvj9WKz14C14vQ17CDgcI7wiqZfCfY2zlhexQRfspsoYKrzeNvnHDep8yab4Ienaub1gqk283fAM-HlZEvxtWyf-YUKt4xGwdhPIK_pjBO0wujt9Qy5IP33pFiWOBBLBBrnzWe2_sEx2ibOOnp9mNYpKur3sC3blT8vmwJ4G-T6dnZjvH4uRFrabfrpMOyhsIDrVd9GWpM_pN8e5TFRL9Han5h48arHpNWLWD7NAqu_8Uyf_aCzI86WbWc6Uj_Um06zp6TJIeErTOT"/>
+<div class="portfolio-overlay absolute inset-0 flex flex-col justify-end p-8 text-white">
+<span class="font-label-sm text-label-sm tracking-widest uppercase mb-2 opacity-80">ARCHITECTURAL</span>
+<h3 class="font-headline-md text-headline-md leading-tight">THE CONCRETE MONOLITH</h3>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="masonry-item portfolio-card group relative overflow-hidden rounded-lg bg-surface-container-low cursor-pointer">
+<img alt="" class="w-full h-auto object-cover" data-alt="A minimalist studio setup featuring a luxury black watch resting on a smooth dark surface. Sharp key lighting creates high-contrast highlights on the metallic edges. The composition is clean and centered, radiating a sense of high-tech precision and exclusive hardware design. The background is a deep, uniform charcoal grey." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRB2o3QsCp3gBHFTHpKuTy-KRE8TFUqXJ2ceNg-GWSuU9QMwoH8f6dAiGKLJS1LtAg5RN67-aNVINBx4_hHuUzuh2IDssHXNvN57Kb60Zb5IITBQ7vhwagRg-dUJC10hcQQx-iY3g5HJcegDFMubRGWlqWQcDKzVzR0OsP9doBSI2z6HGMx-XK4PuTjdR84t-iTgDFQiKdeYuVWn8aHuY6p5weHh4bck9T_JgdFVa6oAZDj5L4SHlkmM5DaMZjDCKFYgoDGriACrtz"/>
+<div class="portfolio-overlay absolute inset-0 flex flex-col justify-end p-8 text-white">
+<span class="font-label-sm text-label-sm tracking-widest uppercase mb-2 opacity-80">PRODUCT DESIGN</span>
+<h3 class="font-headline-md text-headline-md leading-tight">QUANTUM CHRONO</h3>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="masonry-item portfolio-card group relative overflow-hidden rounded-lg bg-surface-container-low cursor-pointer">
+<img alt="" class="w-full h-auto object-cover" data-alt="Low angle view of a modern glass skyscraper reflecting a dark, dramatic sky. The structure is composed of vertical steel fins and reflective panels, creating a complex pattern of light and shadow. The image is strictly black and white, emphasizing the brutalist elegance and the immense scale of the corporate architecture. Highly detailed and sharp." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSc3vByaGQETqTxuDE0z7hMPUFp7n08tHJqW7VbPzA0mpcBCG3Uohx1EzeGzMbc07kCVr7G9yExZj9kUswyt0brkbPef_XFqzPYvX4KijhwvIQhWTXp7zVXhniBNHBl-RLSWmkpdvvx8eK3a51pvS-YPpCpJ4Y-8Lx9VSS1a4oZiq_SwUzF6lfhofYlBp9NYkzZWXiM0zQWxYBMnS_4EtI4UGIcF2Y5TxJ1eLRX4yX9p8Ou0Vss3AsZxMTWYRp5908B5fcj4P-g6VS"/>
+<div class="portfolio-overlay absolute inset-0 flex flex-col justify-end p-8 text-white">
+<span class="font-label-sm text-label-sm tracking-widest uppercase mb-2 opacity-80">BRAND IDENTITY</span>
+<h3 class="font-headline-md text-headline-md leading-tight">SKYLINE REBRAND</h3>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="masonry-item portfolio-card group relative overflow-hidden rounded-lg bg-surface-container-low cursor-pointer">
+<img alt="" class="w-full h-auto object-cover" data-alt="A minimalist tech setup with a high-end laptop and mechanical keyboard on a white desk. The lighting is extremely bright and clean, mimicking a professional workspace for a digital agency. The image uses a high-key light-mode aesthetic, focusing on pure surfaces and precise hardware alignment. The mood is efficient, modern, and high-performance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-1ugjxzEnBGUM_uNH_OHKaO8sqOiCKkrQsw9An6aieCnLDlck2fRW6OGz79oWUqB5dAbuOnMqjQemjSiVZdt6wonnohyed9QiiJwB9RtQeVgMeF-6IuGaQGfyhvzrtLHDlaVUvHD49UvSAOjpyoUBeR_rR0aCiX7xSFnxvJpWVm_F_EVNnLuvXXmkyj2cpLhaptFZCtmS8vdqjx6_xQDK6fcLpwDHgLpVW0Fkwe-pl58CSiDTywTsp_rTXV-hYYSjXcHL3kEidP-I"/>
+<div class="portfolio-overlay absolute inset-0 flex flex-col justify-end p-8 text-white">
+<span class="font-label-sm text-label-sm tracking-widest uppercase mb-2 opacity-80">DIGITAL STRATEGY</span>
+<h3 class="font-headline-md text-headline-md leading-tight">SILICON VALLEY EDGE</h3>
+</div>
+</div>
+<!-- Item 5 -->
+<div class="masonry-item portfolio-card group relative overflow-hidden rounded-lg bg-surface-container-low cursor-pointer">
+<img alt="" class="w-full h-auto object-cover" data-alt="A cinematic long-exposure shot of the ocean at night, where the water appears as a smooth, misty surface. A singular minimalist pier extends into the dark horizon. The lighting is provided by a dim moonlight, creating deep blacks and ethereal silver highlights. The aesthetic is serene, atmospheric, and profoundly minimalist, evoking a sense of calm luxury." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdjwtNzN1cnGzBo2gNPbY7BRKxRzYek6O-ML6BpYV1U36ExNzMKTc_bNLxCyjYfU9clkU7uG7ROymI1aKp6SsliYueB4zvuelc8NFXI58N2kumMlh9c1dJVZM3zwR_IcD5jpHts8hyzTItKxPL4hauOyzXBbkdty-gDNDhU0tWa4tLJBNGlB5K-aMiSisTwLnvAtU1CPT55d6F1g8B14TcLL84Q6lTmWxCyg0UopFqnk-jQxAen1QTdPHcAnHyYUGnx1Jh3orf4JN_"/>
+<div class="portfolio-overlay absolute inset-0 flex flex-col justify-end p-8 text-white">
+<span class="font-label-sm text-label-sm tracking-widest uppercase mb-2 opacity-80">CONCEPTUAL</span>
+<h3 class="font-headline-md text-headline-md leading-tight">BEYOND THE HORIZON</h3>
+</div>
+</div>
+<!-- Item 6 -->
+<div class="masonry-item portfolio-card group relative overflow-hidden rounded-lg bg-surface-container-low cursor-pointer">
+<img alt="" class="w-full h-auto object-cover" data-alt="Interior view of a luxury minimalist office lounge with designer furniture. Large floor-to-ceiling windows reveal a blurred city skyline. The interior is bathed in soft, diffused daylight, highlighting high-quality materials like leather, polished stone, and brushed metal. The color palette is strictly neutral, focusing on blacks, whites, and greys. Professional and elite atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhrcBa4YBlKvd2t-WzKnIAqqL__EDZMo1cvZ-XtHqzxAchDNzSCBjHpqcpCq4K4hGKHhd775HvXih6qWsThxgtNQOTa1o90y67GaFhszEb-zdULtLl_JJLf-P2laYp9Pa8X-Bt4mWns7vyRkeuvImBoTLywt3EKaGkWYzr0j3_ANsbTYZdwEOVCAn7prD8YYgvGYngSJl9A4TqspzZDTgJXDDmESNa_XIvI69XxqbyaDZaj-ljN95xk0hjDepbxCpCabI9Z7K208_q"/>
+<div class="portfolio-overlay absolute inset-0 flex flex-col justify-end p-8 text-white">
+<span class="font-label-sm text-label-sm tracking-widest uppercase mb-2 opacity-80">INTERIOR DESIGN</span>
+<h3 class="font-headline-md text-headline-md leading-tight">OFFICE OF THE FUTURE</h3>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="mt-section-gap py-section-gap border-t border-black/5 flex flex-col items-center text-center">
+<h2 class="font-headline-lg text-headline-lg uppercase mb-8">Ready to shift your vision?</h2>
+<button class="bg-primary text-on-primary font-inter text-xs tracking-widest font-bold px-12 py-5 rounded-none hover:scale-105 transition-transform duration-400">
+                START A PROJECT
+            </button>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-neutral-50 dark:bg-neutral-950 w-full py-12 px-6 border-t border-black/5 dark:border-white/5">
+<div class="max-w-[1440px] mx-auto flex flex-col items-center space-y-6 text-center">
+<div class="flex space-x-12">
+<a class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-500 uppercase hover:text-black dark:hover:text-white transition-colors duration-400" href="#">INSTAGRAM</a>
+<a class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-500 uppercase hover:text-black dark:hover:text-white transition-colors duration-400" href="#">LINKEDIN</a>
+<a class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-500 uppercase hover:text-black dark:hover:text-white transition-colors duration-400" href="#">WHATSAPP</a>
+</div>
+<p class="font-inter text-[10px] tracking-[0.2em] font-medium text-black dark:text-white">© 2024 CREASHIFT. SHIFTING VISIONS.</p>
+</div>
+</footer>
+    <!-- Hidden Navigation Drawer (Professional/Premium version) -->
+    <div class="h-full w-full fixed inset-0 z-[60] bg-zinc-950 translate-x-full transition-transform duration-700 cubic-bezier(0.85, 0, 0.15, 1)"
+        id="drawer">
+        <div class="flex flex-col h-full px-8 py-12 relative overflow-hidden">
+            <!-- Background Detail -->
+            <div class="absolute top-[-10%] right-[-10%] w-64 h-64 bg-white/5 blur-[100px] rounded-full"></div>
+            
+            <div class="flex justify-between items-center mb-20 relative z-10">
+                <span class="text-xl font-black tracking-tighter text-white">CREASHIFT</span>
+                <button class="text-white flex items-center gap-2 group" id="closeDrawer">
+                    <span class="text-[10px] uppercase tracking-[0.3em] font-medium opacity-50 group-hover:opacity-100 transition-opacity">Close</span>
+                    <span class="material-symbols-outlined text-3xl font-light">close</span>
+                </button>
+            </div>
+
+            <nav class="flex flex-col space-y-1 w-full relative z-10">
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="index.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">HOME</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="about.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">ABOUT</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="services.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">SERVICES</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="portfolio.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white group-hover:pl-4 transition-all duration-500">PORTFOLIO</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="blog-premium.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">BLOG</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+                <a class="group py-4 flex items-center justify-between border-b border-white/5" href="contact.html">
+                    <span class="font-inter text-4xl font-light tracking-tight text-white/40 group-hover:text-white group-hover:pl-4 transition-all duration-500">CONTACT</span>
+                    <span class="material-symbols-outlined text-white/20 group-hover:text-white transition-colors">arrow_outward</span>
+                </a>
+            </nav>
+
+            <div class="mt-auto relative z-10">
+                <div class="grid grid-cols-2 gap-8 mb-12">
+                    <div>
+                        <span class="block text-[10px] uppercase tracking-[0.3em] text-white/30 mb-4">Connect</span>
+                        <div class="flex flex-col space-y-2">
+                            <a href="#" class="text-xs text-white/60 hover:text-white">Instagram</a>
+                            <a href="#" class="text-xs text-white/60 hover:text-white">LinkedIn</a>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="block text-[10px] uppercase tracking-[0.3em] text-white/30 mb-4">Say Hello</span>
+                        <a href="mailto:hello@creashift.com" class="text-xs text-white/60 hover:text-white">hello@creashift.com</a>
+                    </div>
+                </div>
+                <button class="w-full bg-white text-black font-['Inter'] text-[11px] uppercase tracking-[0.2em] font-bold py-5 rounded-full hover:bg-zinc-200 transition-colors">
+                    START A PROJECT
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    // Mobile Menu Logic
+    const menuBtn = document.getElementById('menuBtn');
+    const closeDrawer = document.getElementById('closeDrawer');
+    const drawer = document.getElementById('drawer');
+    const drawerLinks = drawer.querySelectorAll('nav a');
+
+    function toggleDrawer(open) {
+        if (open) {
+            drawer.classList.remove('translate-x-full');
+            document.body.style.overflow = 'hidden';
+        } else {
+            drawer.classList.add('translate-x-full');
+            document.body.style.overflow = '';
+        }
+    }
+
+    menuBtn.addEventListener('click', () => toggleDrawer(true));
+    closeDrawer.addEventListener('click', () => toggleDrawer(false));
+    drawerLinks.forEach(link => {
+        link.addEventListener('click', () => toggleDrawer(false));
+    });
+</script>
+</body></html>
