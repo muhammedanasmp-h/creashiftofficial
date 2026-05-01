@@ -210,7 +210,7 @@
     }
   </style>
 </head>
-<body class="bg-background text-on-background font-body-md antialiased selection:bg-black selection:text-white relative min-h-screen flex flex-col">
+<body class="bg-background text-on-background font-body-md antialiased selection:bg-black selection:text-white relative min-h-screen flex flex-col overflow-x-hidden">
 <!-- TopAppBar -->
 <!-- iPhone Notch Navigation -->
 <header class="fixed top-0 left-1/2 -translate-x-1/2 z-50 bg-white/70 backdrop-blur-2xl border border-white/40 rounded-b-[40px] shadow-lg transition-all duration-500 px-8 py-4 w-[95%] max-w-[1000px] flex items-center justify-between">
@@ -233,7 +233,7 @@ GET STARTED
 </button>
 </header>
 <!-- Technical Blueprint Grid Background -->
-<div class="fixed inset-0 pointer-events-none z-0 bg-neutral-50">
+<div class="fixed inset-0 pointer-events-none z-0 bg-neutral-50 overflow-hidden">
     <div id="dotGrid" class="absolute inset-0 opacity-10">
         <!-- Dots will be generated via JS for performance -->
     </div>
