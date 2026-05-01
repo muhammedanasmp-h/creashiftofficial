@@ -208,6 +208,21 @@
     body {
       min-height: 100vh;
     }
+    @keyframes blob {
+      0% { transform: translate(0px, 0px) scale(1); }
+      33% { transform: translate(30px, -50px) scale(1.1); }
+      66% { transform: translate(-20px, 20px) scale(0.9); }
+      100% { transform: translate(0px, 0px) scale(1); }
+    }
+    .animate-blob {
+      animation: blob 15s infinite alternate;
+    }
+    .animation-delay-2000 {
+      animation-delay: 2s;
+    }
+    .animation-delay-4000 {
+      animation-delay: 4s;
+    }
   </style>
 </head>
 <body class="bg-background text-on-background font-body-md antialiased selection:bg-black selection:text-white relative min-h-screen flex flex-col overflow-x-hidden w-full m-0 p-0">
@@ -232,11 +247,11 @@ GET STARTED
 <span class="material-symbols-outlined text-2xl">menu</span>
 </button>
 </header>
-<!-- Technical Blueprint Grid Background -->
+<!-- Ambient Aurora Background -->
 <div class="fixed inset-0 pointer-events-none z-0 bg-neutral-50 overflow-hidden">
-    <div id="dotGrid" class="absolute inset-0 opacity-10">
-        <!-- Dots will be generated via JS for performance -->
-    </div>
+    <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-gray-200 rounded-full blur-[120px] mix-blend-multiply animate-blob opacity-60"></div>
+    <div class="absolute top-[-10%] right-[-10%] w-[40vw] h-[40vw] bg-neutral-200 rounded-full blur-[100px] mix-blend-multiply animate-blob animation-delay-2000 opacity-60"></div>
+    <div class="absolute bottom-[-20%] left-[20%] w-[60vw] h-[60vw] bg-gray-100 rounded-full blur-[150px] mix-blend-multiply animate-blob animation-delay-4000 opacity-60"></div>
 </div>
 
 <main class="pt-24 flex-grow bg-background relative overflow-hidden">
@@ -427,48 +442,6 @@ GET STARTED
         link.addEventListener('click', () => toggleDrawer(false));
     });
 </script>
-<script>
-    // Technical Dot Grid Generation
-    function initDotGrid() {
-        const grid = document.getElementById('dotGrid');
-        if (!grid) return;
-        
-        const spacing = 40;
-        const rows = Math.ceil(window.innerHeight / spacing);
-        const cols = Math.ceil(window.innerWidth / spacing);
-        
-        for (let i = 0; i < rows * cols; i++) {
-            const dot = document.createElement('div');
-            dot.className = 'dot absolute w-1 h-1 bg-black rounded-full transition-all duration-300';
-            dot.style.top = `${Math.floor(i / cols) * spacing}px`;
-            dot.style.left = `${(i % cols) * spacing}px`;
-            grid.appendChild(dot);
-        }
-
-        document.addEventListener('mousemove', (e) => {
-            const dots = document.querySelectorAll('.dot');
-            const mouseX = e.pageX;
-            const mouseY = e.pageY;
-            
-            dots.forEach(dot => {
-                const rect = dot.getBoundingClientRect();
-                const dotX = rect.left + window.scrollX;
-                const dotY = rect.top + window.scrollY;
-                
-                const dist = Math.sqrt(Math.pow(mouseX - dotX, 2) + Math.pow(mouseY - dotY, 2));
-                if (dist < 150) {
-                    const scale = 1 + (150 - dist) / 50;
-                    const opacity = 0.1 + (150 - dist) / 150;
-                    dot.style.transform = `scale(${scale})`;
-                    dot.style.opacity = opacity;
-                } else {
-                    dot.style.transform = `scale(1)`;
-                    dot.style.opacity = 0.1;
-                }
-            });
-        });
-    }
-
     // Blurry Typewriter Effect with Blinking Cursor
     function initTypewriter(elementId, delay = 0) {
         const element = document.getElementById(elementId);
