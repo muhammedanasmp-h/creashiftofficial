@@ -911,13 +911,18 @@
 
             // Insert text before cursor
             element.insertBefore(fragments, cursor);
+            
+            // Initially, move cursor to the very beginning (before the first word)
+            if (element.firstChild) {
+                element.insertBefore(cursor, element.firstChild);
+            }
 
             const allChars = element.querySelectorAll('.typewriter-char');
             allChars.forEach((span, i) => {
                 setTimeout(() => {
                     span.classList.add('visible');
-                    // Move cursor to the end of currently visible text if needed
-                    // But keeping it at the end of the element is standard
+                    // Move cursor right after the currently visible character
+                    span.after(cursor);
 
                     // Hide cursor after last char
                     if (i === allChars.length - 1) {
