@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html class="light" lang="en"><head>
+<html class="light overflow-x-hidden" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>CREASHIFT | BLOG</title>
@@ -386,7 +386,7 @@ GET STARTED
 </footer>
 
     <!-- Hidden Navigation Drawer (Professional/Premium version) -->
-    <div class="h-full w-full fixed inset-0 z-[60] bg-zinc-950 translate-x-full transition-transform duration-700 cubic-bezier(0.85, 0, 0.15, 1)"
+    <div class="h-full w-full fixed inset-0 z-[60] bg-zinc-950 translate-x-full transition-all duration-700 cubic-bezier(0.85, 0, 0.15, 1) invisible pointer-events-none"
         id="drawer">
         <div class="flex flex-col h-full px-8 py-12 relative overflow-hidden">
             <!-- Background Detail -->
@@ -457,10 +457,10 @@ GET STARTED
 
     function toggleDrawer(open) {
         if (open) {
-            drawer.classList.remove('translate-x-full');
+            drawer.classList.remove('translate-x-full', 'invisible', 'pointer-events-none');
             document.body.style.overflow = 'hidden';
         } else {
-            drawer.classList.add('translate-x-full');
+            drawer.classList.add('translate-x-full', 'invisible', 'pointer-events-none');
             document.body.style.overflow = '';
         }
     }
