@@ -507,25 +507,27 @@ GET STARTED
 
 <script>
     // Mobile Menu Logic
-    const menuBtn = document.getElementById('menuBtn');
-    const closeDrawer = document.getElementById('closeDrawer');
-    const drawer = document.getElementById('drawer');
-    const drawerLinks = drawer.querySelectorAll('nav a');
+    window.addEventListener('DOMContentLoaded', () => {
+        const menuBtn = document.getElementById('menuBtn');
+        const closeDrawer = document.getElementById('closeDrawer');
+        const drawer = document.getElementById('drawer');
+        const drawerLinks = drawer.querySelectorAll('nav a');
 
-    function toggleDrawer(open) {
-        if (open) {
-            drawer.classList.remove('translate-x-full', 'invisible', 'pointer-events-none');
-            document.body.style.overflow = 'hidden';
-        } else {
-            drawer.classList.add('translate-x-full', 'invisible', 'pointer-events-none');
-            document.body.style.overflow = '';
+        function toggleDrawer(open) {
+            if (open) {
+                drawer.classList.remove('translate-x-full', 'invisible', 'pointer-events-none');
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawer.classList.add('translate-x-full', 'invisible', 'pointer-events-none');
+                document.body.style.overflow = '';
+            }
         }
-    }
 
-    menuBtn.addEventListener('click', () => toggleDrawer(true));
-    closeDrawer.addEventListener('click', () => toggleDrawer(false));
-    drawerLinks.forEach(link => {
-        link.addEventListener('click', () => toggleDrawer(false));
+        if (menuBtn) menuBtn.addEventListener('click', () => toggleDrawer(true));
+        if (closeDrawer) closeDrawer.addEventListener('click', () => toggleDrawer(false));
+        drawerLinks.forEach(link => {
+            link.addEventListener('click', () => toggleDrawer(false));
+        });
     });
 
     // Blurry Typewriter Effect with Blinking Cursor
