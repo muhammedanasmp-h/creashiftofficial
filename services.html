@@ -154,6 +154,13 @@
             to { opacity: 0; }
         }
 
+        /* Ripple Background Animation */
+        @keyframes ripple {
+            0% { transform: scale(0.5); opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
         /* Mobile Optimization */
         @media (max-width: 768px) {
             :root {
@@ -242,6 +249,12 @@ GET STARTED
 <main class="pt-24 flex-grow relative overflow-hidden">
     <!-- Hero Section -->
     <section class="mb-16 px-6 md:px-margin-edge max-w-container-max mx-auto relative">
+        <!-- Concentric Ripple Rings -->
+        <div class="absolute -top-16 -right-16 md:-top-28 md:-right-28 w-56 h-56 md:w-[500px] md:h-[500px] flex items-center justify-center z-0 pointer-events-none opacity-70">
+            <div class="absolute w-full h-full border border-primary/30 rounded-full opacity-0 animate-[ripple_4s_linear_infinite_both]"></div>
+            <div class="absolute w-full h-full border border-primary/30 rounded-full opacity-0 animate-[ripple_4s_linear_infinite_both]" style="animation-delay: 1.33s;"></div>
+            <div class="absolute w-full h-full border border-primary/30 rounded-full opacity-0 animate-[ripple_4s_linear_infinite_both]" style="animation-delay: 2.66s;"></div>
+        </div>
         <div class="max-w-4xl relative z-10">
             <span class="font-label-sm text-label-sm text-on-primary-container block mb-6 uppercase tracking-[0.2em] type-reveal" data-type>Core Offerings</span>
             <h1 class="font-display-xl text-display-xl text-primary mb-8 leading-[1.05] tracking-tighter type-reveal" data-type data-delay="300">PRECISION STRATEGY.</h1>
@@ -393,8 +406,8 @@ GET STARTED
 </section>
 <!-- CTA Section -->
 <section class="mt-section-gap bg-surface-container-low rounded-xl p-16 text-center">
-<h2 class="font-headline-lg text-headline-lg mb-8 type-reveal" data-type>READY TO SHIFT?</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-xl mx-auto type-reveal" data-type data-delay="300">Join the ranks of visionaries who demand more from their digital presence.</p>
+<h2 class="font-headline-lg text-headline-lg mb-8">READY TO SHIFT?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-12 max-w-xl mx-auto">Join the ranks of visionaries who demand more from their digital presence.</p>
 <div class="flex flex-col sm:flex-row justify-center gap-6">
 <button class="bg-primary text-on-primary px-10 py-4 font-label-sm text-label-sm tracking-widest hover:scale-105 transition-transform duration-400">BOOK A CONSULTATION</button>
 <button class="border border-primary text-primary px-10 py-4 font-label-sm text-label-sm tracking-widest hover:bg-primary hover:text-white transition-all duration-400">VIEW CASE STUDIES</button>
