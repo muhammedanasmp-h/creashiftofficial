@@ -124,35 +124,7 @@
             animation: floatMonolith 15s ease-in-out infinite;
         }
 
-        /* Typing Animation with Blur */
-        .type-reveal {
-            white-space: normal;
-        }
-        .type-reveal .char {
-            opacity: 0;
-            filter: blur(8px);
-            display: inline;
-            transition: opacity 0.15s ease, filter 0.25s ease;
-        }
-        .type-reveal .char.visible {
-            opacity: 1;
-            filter: blur(0);
-        }
-        .type-cursor {
-            display: inline;
-            font-weight: 100;
-            animation: cursorBlink 0.6s step-end infinite;
-        }
-        @keyframes cursorBlink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        .type-cursor.done {
-            animation: cursorFadeOut 0.4s ease forwards 0.3s;
-        }
-        @keyframes cursorFadeOut {
-            to { opacity: 0; }
-        }
+
 
         /* Ripple Background Animation */
         @keyframes ripple {
@@ -256,9 +228,9 @@ GET STARTED
             <div class="absolute w-full h-full border border-primary/30 rounded-full opacity-0 animate-[ripple_4s_linear_infinite_both]" style="animation-delay: 2.66s;"></div>
         </div>
         <div class="max-w-4xl relative z-10">
-            <span class="font-label-sm text-label-sm text-on-primary-container block mb-6 uppercase tracking-[0.2em] type-reveal" data-type>Core Offerings</span>
-            <h1 class="font-display-xl text-display-xl text-primary mb-8 leading-[1.05] tracking-tighter type-reveal" data-type data-delay="300">PRECISION STRATEGY.</h1>
-            <p class="font-body-lg text-body-lg text-secondary max-w-2xl leading-relaxed type-reveal" data-type data-delay="800">
+            <span class="font-label-sm text-label-sm text-on-primary-container block mb-6 uppercase tracking-[0.2em]">Core Offerings</span>
+            <h1 class="font-display-xl text-display-xl text-primary mb-8 leading-[1.05] tracking-tighter">PRECISION STRATEGY.</h1>
+            <p class="font-body-lg text-body-lg text-secondary max-w-2xl leading-relaxed">
                 Our approach combines architectural rigor with fluid digital execution. We specialize in high-stakes branding and high-performance technology.
             </p>
         </div>
@@ -525,70 +497,6 @@ GET STARTED
         });
     });
 
-    // ─── Typing Animation Engine with Blur ───
-    function initTypingAnimation() {
-        const typeElements = document.querySelectorAll('[data-type]');
 
-        // Prepare type elements: wrap each character in a span
-        typeElements.forEach(el => {
-            const text = el.textContent.trim();
-            el.textContent = '';
-            for (let i = 0; i < text.length; i++) {
-                const charSpan = document.createElement('span');
-                charSpan.className = 'char';
-                charSpan.textContent = text[i] === ' ' ? '\u00A0' : text[i];
-                el.appendChild(charSpan);
-            }
-            // Add blinking | cursor at the start
-            const cursor = document.createElement('span');
-            cursor.className = 'type-cursor';
-            cursor.textContent = '|';
-            // Insert cursor before first char
-            if (el.firstChild) {
-                el.insertBefore(cursor, el.firstChild);
-            } else {
-                el.appendChild(cursor);
-            }
-        });
-
-        // Type text character by character, cursor moves with it
-        function typeText(el) {
-            const chars = el.querySelectorAll('.char');
-            const cursor = el.querySelector('.type-cursor');
-            const speed = chars.length > 40 ? 18 : 35;
-            let i = 0;
-            function typeNext() {
-                if (i < chars.length) {
-                    chars[i].classList.add('visible');
-                    // Move cursor after the just-revealed character
-                    if (cursor && chars[i].nextSibling !== cursor) {
-                        chars[i].after(cursor);
-                    }
-                    i++;
-                    setTimeout(typeNext, speed);
-                } else {
-                    // Typing done — fade out cursor
-                    if (cursor) cursor.classList.add('done');
-                }
-            }
-            typeNext();
-        }
-
-        // IntersectionObserver for typing
-        const typeObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const delay = parseInt(entry.target.dataset.delay || '0');
-                    setTimeout(() => typeText(entry.target), delay);
-                    typeObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.2 });
-
-        typeElements.forEach(el => typeObserver.observe(el));
-    }
-
-    // Run after DOM is ready
-    document.addEventListener('DOMContentLoaded', initTypingAnimation);
 </script>
 </body></html>
