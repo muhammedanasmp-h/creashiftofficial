@@ -423,8 +423,7 @@
                     Shifting Digital Visions Into Reality
                 </h1>
                 <p id="heroSubtext" class="font-body-lg text-body-md md:text-body-lg text-white/60 mb-8 md:mb-10 max-w-xl">
-                    We build brands, drive growth, and create digital impact through uncompromisingly modern design and
-                    precision strategy.
+                    We build brands, drive growth, and create digital impact through uncompromisingly modern design and precision strategy.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 blur-in" style="animation-delay: 0.4s;">
                     <button
@@ -1109,7 +1108,7 @@
             const element = document.getElementById(elementId);
             if (!element) return;
 
-            const text = element.textContent.trim();
+            const text = element.textContent.trim().replace(/\s+/g, ' ');
             element.textContent = '';
 
             // Add cursor
@@ -1117,7 +1116,7 @@
             cursor.className = 'typewriter-cursor';
             element.appendChild(cursor);
 
-            const words = text.split(' ');
+            const words = text.split(/\s+/).filter(w => w.length > 0);
             const fragments = document.createDocumentFragment();
 
             words.forEach((word, wordIdx) => {
