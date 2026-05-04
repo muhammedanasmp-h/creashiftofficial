@@ -119,14 +119,23 @@
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6">
-                        <div class="glass-card p-6 md:p-10 rounded-[24px] md:rounded-[40px] group hover:bg-black hover:text-white transition-all duration-700">
+                        <div class="glass-card p-6 md:p-10 rounded-[24px] md:rounded-[40px] relative overflow-hidden group hover:bg-black hover:text-white transition-all duration-700">
+                            <!-- Technical ID -->
+                            <div class="absolute top-4 right-6 text-[8px] font-mono opacity-10 group-hover:opacity-100 transition-opacity hidden md:block">PROC_ID: SOC_PM_24</div>
+                            
                             <span class="material-symbols-outlined text-black group-hover:text-white text-3xl md:text-5xl mb-4 md:mb-8 font-light transition-colors">psychology</span>
                             <h4 class="text-lg md:text-xl font-bold mb-2 md:mb-4 uppercase tracking-tight">Persona Mapping</h4>
                             <p class="text-on-surface-variant group-hover:text-white/60 text-xs md:text-sm leading-relaxed">
                                 Defining exactly who your audience is and what triggers their engagement.
                             </p>
                         </div>
-                        <div class="glass-card p-6 md:p-10 rounded-[24px] md:rounded-[40px] group hover:bg-black hover:text-white transition-all duration-700">
+                        <div class="glass-card p-6 md:p-10 rounded-[24px] md:rounded-[40px] relative overflow-hidden group hover:bg-black hover:text-white transition-all duration-700">
+                            <!-- Crosshair Marker -->
+                            <div class="absolute top-6 right-6 w-3 h-3 flex items-center justify-center opacity-10 group-hover:opacity-100 hidden md:flex">
+                                <div class="w-full h-[1px] bg-current absolute"></div>
+                                <div class="h-full w-[1px] bg-current absolute"></div>
+                            </div>
+                            
                             <span class="material-symbols-outlined text-black group-hover:text-white text-3xl md:text-5xl mb-4 md:mb-8 font-light transition-colors">auto_graph</span>
                             <h4 class="text-lg md:text-xl font-bold mb-2 md:mb-4 uppercase tracking-tight">Viral Analytics</h4>
                             <p class="text-on-surface-variant group-hover:text-white/60 text-xs md:text-sm leading-relaxed">
@@ -141,6 +150,9 @@
                     <div class="aspect-square bg-neutral-100 rounded-[32px] md:rounded-[60px] overflow-hidden relative group shadow-2xl">
                         <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800" alt="Social Media Strategy" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
                         <div class="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors"></div>
+                        <!-- Geometric Detail -->
+                        <div class="absolute top-8 left-8 w-16 h-16 border-l border-t border-white/20 opacity-0 group-hover:opacity-100 transition-opacity hidden md:block"></div>
+                        <div class="absolute bottom-8 right-8 text-[8px] font-mono text-white/40 tracking-[0.5em] hidden md:block">COORD: 08.485N / 76.949E</div>
                     </div>
                     <!-- Aesthetic Detail -->
                     <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-black/5 rounded-full blur-2xl pointer-events-none"></div>
