@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Design & Development | Creashift Advertising</title>
+    <title>Web Architecture | Creashift Advertising</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -30,7 +30,7 @@
                         'container-max': '1440px',
                     },
                     fontSize: {
-                        'display-xl': ['clamp(3rem, 10vw, 8rem)', { lineHeight: '1', letterSpacing: '-0.04em', fontWeight: '900' }],
+                        'display-xl': ['clamp(2.5rem, 8vw, 8rem)', { lineHeight: '1', letterSpacing: '-0.04em', fontWeight: '900' }],
                         'label-sm': ['12px', { letterSpacing: '0.2em', fontWeight: '500' }],
                     }
                 }
@@ -39,32 +39,38 @@
     </script>
     <style>
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .reveal { animation: fadeIn 1s ease-out forwards; }
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
+        .reveal { animation: fadeIn 0.8s ease-out forwards; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
         
         .blueprint-grid {
             background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
                               linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
+            background-size: 30px 30px;
         }
 
         .dark-blueprint-grid {
             background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
                               linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
+            background-size: 30px 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .blueprint-grid, .dark-blueprint-grid {
+                background-size: 20px 20px;
+            }
         }
     </style>
 </head>
 <body class="bg-white text-black font-sans antialiased blueprint-grid">
     <!-- Header Fade Overlay -->
-    <div class="fixed top-0 left-0 w-full h-32 bg-gradient-to-b from-white via-white/90 to-transparent z-40 pointer-events-none"></div>
+    <div class="fixed top-0 left-0 w-full h-16 md:h-32 bg-gradient-to-b from-white via-white/95 to-transparent z-40 pointer-events-none"></div>
 
     <!-- Header -->
-    <header class="fixed top-0 left-0 w-full z-50 px-6 md:px-margin-edge py-8 flex justify-between items-center mix-blend-difference">
+    <header class="fixed top-0 left-0 w-full z-50 px-6 md:px-margin-edge py-6 md:py-8 flex justify-between items-center mix-blend-difference">
         <a href="index.html" class="text-xl font-black tracking-tighter text-white">CREASHIFT</a>
         <button class="text-white flex items-center gap-3 group" id="menuBtn">
             <span class="font-label-sm text-label-sm tracking-[0.3em] uppercase opacity-50 group-hover:opacity-100 transition-opacity">Menu</span>
@@ -75,53 +81,54 @@
         </button>
     </header>
 
-    <main class="pt-40 pb-20">
-        <!-- Breadcrumb -->
-        <nav class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-16 reveal">
+    <main class="pt-24 md:pt-36 pb-8 md:pb-20">
+        <!-- Breadcrumb & Tech Detail -->
+        <nav class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-8 md:mb-12 flex justify-between items-end reveal">
             <a href="services.html" class="inline-flex items-center gap-2 font-label-sm text-[10px] text-on-surface-variant hover:text-black transition-colors uppercase tracking-[0.3em]">
-                <span class="material-symbols-outlined text-sm">west</span> Back to Services
+                <span class="material-symbols-outlined text-sm">west</span> Back
             </a>
+            <div class="hidden md:block text-[9px] font-bold tracking-[0.4em] text-black/20 uppercase">
+                Digital Build / Web / v.5.2
+            </div>
         </nav>
 
         <!-- Hero Section -->
-        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-32 reveal delay-1">
-            <div class="flex flex-col md:flex-row justify-between items-end gap-12 border-b border-black/10 pb-20">
-                <div class="max-w-4xl">
-                    <span class="font-label-sm text-label-sm text-on-surface-variant mb-6 block uppercase">Digital Architecture / 03</span>
-                    <h1 class="font-display-xl uppercase leading-[0.85]">Web <br>Design & <br>Development</h1>
-                </div>
-                <div class="max-w-sm text-right hidden md:block">
-                    <p class="text-on-surface-variant font-medium leading-relaxed">
-                        Building architectural digital masterpieces that convert visitors into lifelong advocates.
+        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-12 md:mb-24 reveal delay-1">
+            <div class="border-b border-black/10 pb-8 md:pb-16">
+                <div class="max-w-5xl">
+                    <span class="font-label-sm text-[9px] md:text-label-sm text-on-surface-variant mb-4 block uppercase tracking-[0.4em] opacity-60">Digital Architecture / 03</span>
+                    <h1 class="font-display-xl uppercase leading-[0.9] mb-6 md:mb-10">Web <br>Design & <br>Development</h1>
+                    <p class="text-base md:text-xl text-on-surface-variant max-w-2xl leading-relaxed font-light">
+                        Building architectural digital masterpieces that convert visitors into lifelong advocates through structural precision.
                     </p>
                 </div>
             </div>
         </section>
 
         <!-- Main Content -->
-        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-section-gap reveal delay-2">
-            <div class="bg-black rounded-[60px] p-12 md:p-32 relative overflow-hidden text-white dark-blueprint-grid shadow-2xl">
+        <section class="px-4 md:px-margin-edge max-w-container-max mx-auto mb-16 md:mb-section-gap reveal delay-2">
+            <div class="bg-black rounded-[32px] md:rounded-[60px] p-8 md:p-32 relative overflow-hidden text-white dark-blueprint-grid shadow-2xl">
                 <div class="relative z-10 max-w-4xl mx-auto text-center">
-                    <span class="text-4xl md:text-6xl font-black mb-12 block uppercase tracking-tighter">Digital <br>Masterpieces</span>
-                    <p class="text-xl md:text-2xl text-gray-400 mb-20 leading-relaxed font-light">
-                        Our websites are built to be high-performance conversion machines that feel like luxury experiences. From fluid animations to seamless backend integration, every pixel is intentional.
+                    <span class="text-3xl md:text-6xl font-black mb-6 md:mb-12 block uppercase tracking-tighter leading-tight">Digital <br class="md:hidden">Masterpieces</span>
+                    <p class="text-sm md:text-2xl text-gray-400 mb-10 md:mb-20 leading-relaxed font-light px-4 md:px-0">
+                        Our websites are built to be high-performance conversion machines that feel like luxury experiences. Every pixel is intentional.
                     </p>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-left border-t border-white/10 pt-20">
-                        <div class="space-y-6 group">
-                            <span class="text-[10px] font-bold tracking-[0.4em] text-white/40 uppercase block">01 / Logic</span>
-                            <h4 class="text-xl font-bold uppercase tracking-tight">UX Blueprint</h4>
-                            <p class="text-gray-500 text-sm leading-relaxed">Rigorous wireframing to ensure the user journey is frictionless and intuitive. We map every touchpoint with precision.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-left border-t border-white/10 pt-10 md:pt-20">
+                        <div class="space-y-4 md:space-y-6 group">
+                            <span class="text-[8px] md:text-[10px] font-bold tracking-[0.4em] text-white/40 uppercase block">01 / Logic</span>
+                            <h4 class="text-lg md:text-xl font-bold uppercase tracking-tight">UX Blueprint</h4>
+                            <p class="text-gray-500 text-[11px] md:text-sm leading-relaxed">Rigorous wireframing to ensure the user journey is frictionless and intuitive. We map every touchpoint.</p>
                         </div>
-                        <div class="space-y-6 group">
-                            <span class="text-[10px] font-bold tracking-[0.4em] text-white/40 uppercase block">02 / Artistry</span>
-                            <h4 class="text-xl font-bold uppercase tracking-tight">UI Craft</h4>
-                            <p class="text-gray-500 text-sm leading-relaxed">Boutique visual design that reflects your brand's unique identity and authority. Premium aesthetics for premium brands.</p>
+                        <div class="space-y-4 md:space-y-6 group">
+                            <span class="text-[8px] md:text-[10px] font-bold tracking-[0.4em] text-white/40 uppercase block">02 / Artistry</span>
+                            <h4 class="text-lg md:text-xl font-bold uppercase tracking-tight">UI Craft</h4>
+                            <p class="text-gray-500 text-[11px] md:text-sm leading-relaxed">Boutique visual design that reflects your brand's unique identity and authority. Premium aesthetics.</p>
                         </div>
-                        <div class="space-y-6 group">
-                            <span class="text-[10px] font-bold tracking-[0.4em] text-white/40 uppercase block">03 / Engine</span>
-                            <h4 class="text-xl font-bold uppercase tracking-tight">Performance</h4>
-                            <p class="text-gray-500 text-sm leading-relaxed">Clean, scalable code optimized for speed, security, and future growth. Built for the modern web.</p>
+                        <div class="space-y-4 md:space-y-6 group">
+                            <span class="text-[8px] md:text-[10px] font-bold tracking-[0.4em] text-white/40 uppercase block">03 / Engine</span>
+                            <h4 class="text-lg md:text-xl font-bold uppercase tracking-tight">Performance</h4>
+                            <p class="text-gray-500 text-[11px] md:text-sm leading-relaxed">Clean, scalable code optimized for speed, security, and future growth. Built for the modern web.</p>
                         </div>
                     </div>
                 </div>
@@ -129,17 +136,17 @@
         </section>
 
         <!-- CTA Section -->
-        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto reveal">
-            <div class="bg-neutral-50 rounded-[60px] p-12 md:p-32 text-center border border-black/5 relative overflow-hidden group">
+        <section class="px-4 md:px-margin-edge max-w-container-max mx-auto reveal">
+            <div class="bg-neutral-50 rounded-[32px] md:rounded-[60px] p-10 md:p-24 text-center border border-black/5 relative overflow-hidden group">
                 <div class="absolute inset-0 opacity-10 pointer-events-none blueprint-grid"></div>
                 <div class="relative z-10">
-                    <h2 class="text-4xl md:text-7xl font-black mb-12 uppercase leading-none tracking-tighter">Need a <br>Digital Home?</h2>
-                    <p class="text-black/40 mb-16 max-w-xl mx-auto font-light text-lg md:text-xl">
+                    <h2 class="text-3xl md:text-6xl font-black mb-6 md:mb-10 uppercase leading-none tracking-tighter">Need a <br class="md:hidden">Digital Home?</h2>
+                    <p class="text-black/40 mb-8 md:mb-12 max-w-xl mx-auto font-light text-sm md:text-xl">
                         Let's build a platform that matches your ambition.
                     </p>
-                    <a href="contact.html" class="inline-flex items-center gap-4 bg-black text-white px-12 py-6 rounded-full font-black tracking-widest uppercase hover:scale-105 transition-transform group/btn shadow-xl">
+                    <a href="contact.html" class="inline-flex items-center gap-4 bg-black text-white px-8 md:px-12 py-4 md:py-6 rounded-full font-black tracking-widest text-[10px] md:text-sm uppercase hover:scale-105 transition-transform group/btn shadow-xl">
                         Start Your Build
-                        <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                        <span class="material-symbols-outlined group-hover/btn:translate-x-2 transition-transform">arrow_forward</span>
                     </a>
                 </div>
             </div>
@@ -147,34 +154,34 @@
     </main>
 
     <!-- Footer -->
-    <footer class="w-full py-16 px-6 md:px-margin-edge bg-white border-t border-black/5">
-        <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+    <footer class="w-full py-10 md:py-16 px-6 md:px-margin-edge bg-white border-t border-black/5">
+        <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-6 md:gap-12">
             <div class="text-xl font-black tracking-tighter">CREASHIFT</div>
-            <div class="flex gap-12">
-                <a class="text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">Instagram</a>
-                <a class="text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">LinkedIn</a>
-                <a class="text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">WhatsApp</a>
+            <div class="flex gap-8 md:gap-12">
+                <a class="text-[9px] md:text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">Instagram</a>
+                <a class="text-[9px] md:text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">LinkedIn</a>
+                <a class="text-[9px] md:text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">WhatsApp</a>
             </div>
-            <div class="text-[10px] tracking-[0.2em] font-bold text-black/40 uppercase">© 2024 Creashift. Shifting Visions.</div>
+            <div class="text-[9px] md:text-[10px] tracking-[0.2em] font-bold text-black/40 uppercase text-center md:text-left">© 2024 Creashift. Shifting Visions.</div>
         </div>
     </footer>
 
     <!-- Mobile Drawer -->
     <div class="h-full w-full fixed inset-0 z-[60] bg-zinc-950 translate-x-full transition-all duration-700 cubic-bezier(0.85, 0, 0.15, 1) invisible pointer-events-none" id="drawer">
         <div class="flex flex-col h-full px-8 py-12 relative">
-            <div class="flex justify-between items-center mb-20">
+            <div class="flex justify-between items-center mb-16 md:mb-20">
                 <span class="text-xl font-black tracking-tighter text-white">CREASHIFT</span>
                 <button class="text-white flex items-center gap-2" id="closeDrawer">
                     <span class="text-[10px] uppercase tracking-widest opacity-50">Close</span>
                     <span class="material-symbols-outlined text-3xl font-light">close</span>
                 </button>
             </div>
-            <nav class="flex flex-col space-y-6">
-                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="index.html">HOME</a>
-                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="about.html">ABOUT</a>
-                <a class="text-4xl font-black text-white hover:text-white transition-colors" href="services.html">SERVICES</a>
-                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="portfolio.html">PORTFOLIO</a>
-                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="contact.html">CONTACT</a>
+            <nav class="flex flex-col space-y-4 md:space-y-6">
+                <a class="text-3xl md:text-4xl font-black text-white/20 hover:text-white transition-colors" href="index.html">HOME</a>
+                <a class="text-3xl md:text-4xl font-black text-white/20 hover:text-white transition-colors" href="about.html">ABOUT</a>
+                <a class="text-3xl md:text-4xl font-black text-white hover:text-white transition-colors" href="services.html">SERVICES</a>
+                <a class="text-3xl md:text-4xl font-black text-white/20 hover:text-white transition-colors" href="portfolio.html">PORTFOLIO</a>
+                <a class="text-3xl md:text-4xl font-black text-white/20 hover:text-white transition-colors" href="contact.html">CONTACT</a>
             </nav>
         </div>
     </div>

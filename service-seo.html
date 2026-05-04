@@ -30,7 +30,7 @@
                         'container-max': '1440px',
                     },
                     fontSize: {
-                        'display-xl': ['clamp(3rem, 10vw, 8rem)', { lineHeight: '1', letterSpacing: '-0.04em', fontWeight: '900' }],
+                        'display-xl': ['clamp(2.5rem, 8vw, 8rem)', { lineHeight: '1', letterSpacing: '-0.04em', fontWeight: '900' }],
                         'label-sm': ['12px', { letterSpacing: '0.2em', fontWeight: '500' }],
                     }
                 }
@@ -39,36 +39,38 @@
     </script>
     <style>
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .reveal { animation: fadeIn 1s ease-out forwards; }
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
+        .reveal { animation: fadeIn 0.8s ease-out forwards; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
         
         .blueprint-grid {
             background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
                               linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
+            background-size: 30px 30px;
         }
 
         .glass-card {
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(0, 0, 0, 0.05);
         }
-
+        
         @media (max-width: 768px) {
-            .mobile-padding { padding-left: 24px; padding-right: 24px; }
+            .blueprint-grid {
+                background-size: 20px 20px;
+            }
         }
     </style>
 </head>
 <body class="bg-white text-black font-sans antialiased blueprint-grid">
     <!-- Header Fade Overlay -->
-    <div class="fixed top-0 left-0 w-full h-32 bg-gradient-to-b from-white via-white/90 to-transparent z-40 pointer-events-none"></div>
+    <div class="fixed top-0 left-0 w-full h-16 md:h-32 bg-gradient-to-b from-white via-white/95 to-transparent z-40 pointer-events-none"></div>
 
     <!-- Header -->
-    <header class="fixed top-0 left-0 w-full z-50 px-6 md:px-margin-edge py-8 flex justify-between items-center mix-blend-difference">
+    <header class="fixed top-0 left-0 w-full z-50 px-6 md:px-margin-edge py-6 md:py-8 flex justify-between items-center mix-blend-difference">
         <a href="index.html" class="text-xl font-black tracking-tighter text-white">CREASHIFT</a>
         <button class="text-white flex items-center gap-3 group" id="menuBtn">
             <span class="font-label-sm text-label-sm tracking-[0.3em] uppercase opacity-50 group-hover:opacity-100 transition-opacity">Menu</span>
@@ -79,76 +81,72 @@
         </button>
     </header>
 
-    <main class="pt-40 pb-20">
-        <!-- Breadcrumb -->
-        <nav class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-16 reveal">
+    <main class="pt-24 md:pt-36 pb-8 md:pb-20">
+        <!-- Breadcrumb & Tech Detail -->
+        <nav class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-8 md:mb-12 flex justify-between items-end reveal">
             <a href="services.html" class="inline-flex items-center gap-2 font-label-sm text-[10px] text-on-surface-variant hover:text-black transition-colors uppercase tracking-[0.3em]">
-                <span class="material-symbols-outlined text-sm">west</span> Back to Services
+                <span class="material-symbols-outlined text-sm">west</span> Back
             </a>
+            <div class="hidden md:block text-[9px] font-bold tracking-[0.4em] text-black/20 uppercase">
+                Service Protocol / SEO / v.3.1
+            </div>
         </nav>
 
         <!-- Hero Section -->
-        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-32 reveal delay-1">
-            <div class="flex flex-col md:flex-row justify-between items-end gap-12 border-b border-black/10 pb-20">
-                <div class="max-w-4xl">
-                    <span class="font-label-sm text-label-sm text-on-surface-variant mb-6 block uppercase">Digital Infrastructure / 01</span>
-                    <h1 class="font-display-xl uppercase leading-[0.85]">Search <br>Engine <br>Optimization</h1>
-                </div>
-                <div class="max-w-sm text-right hidden md:block">
-                    <p class="text-on-surface-variant font-medium leading-relaxed">
-                        Architecting digital authority through technical precision and algorithmic intelligence.
+        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-12 md:mb-24 reveal delay-1">
+            <div class="border-b border-black/10 pb-8 md:pb-16">
+                <div class="max-w-5xl">
+                    <span class="font-label-sm text-[9px] md:text-label-sm text-on-surface-variant mb-4 block uppercase tracking-[0.4em] opacity-60">Digital Infrastructure / 01</span>
+                    <h1 class="font-display-xl uppercase leading-[0.9] mb-6 md:mb-10">Search <br>Engine <br>Optimization</h1>
+                    <p class="text-base md:text-xl text-on-surface-variant max-w-2xl leading-relaxed font-light">
+                        Architecting digital authority through technical precision and algorithmic intelligence to ensure your brand dominates search landscapes.
                     </p>
                 </div>
             </div>
         </section>
 
         <!-- Main Content -->
-        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-section-gap reveal delay-2">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24">
+        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-16 md:mb-section-gap reveal delay-2">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-20 items-start">
                 <!-- Image Side -->
-                <div class="md:col-span-5 relative">
+                <div class="md:col-span-5 relative order-2 md:order-1 mt-6 md:mt-0">
                     <div class="sticky top-40">
-                        <div class="aspect-[3/4] bg-neutral-100 rounded-[40px] overflow-hidden relative group shadow-2xl">
+                        <div class="aspect-[3/4] bg-neutral-100 rounded-[24px] md:rounded-[40px] overflow-hidden relative group shadow-2xl">
                             <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800" alt="SEO Strategy" class="w-full h-full object-cover grayscale opacity-80 group-hover:scale-110 transition-all duration-1000">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
-                        </div>
-                        <div class="mt-8 flex justify-between items-center px-4">
-                            <span class="text-[10px] font-bold tracking-[0.4em] uppercase text-black/40">Visualized / Efficiency</span>
-                            <div class="w-24 h-[1px] bg-black/10"></div>
-                            <span class="text-[10px] font-bold tracking-[0.4em] uppercase text-black/40">v.1.0</span>
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Text Side -->
-                <div class="md:col-span-7 space-y-24">
+                <div class="md:col-span-7 space-y-10 md:space-y-16 order-1 md:order-2">
                     <div>
-                        <h2 class="text-3xl md:text-5xl font-black mb-8 leading-tight uppercase tracking-tighter">Precision <br>Visibility</h2>
-                        <p class="text-xl md:text-2xl text-on-surface-variant leading-relaxed font-light">
-                            We don't just chase rankings; we architect digital dominance. Our SEO strategy is built on the intersection of technical precision and competitive intelligence. We analyze search intent at a molecular level to ensure your brand is the only logical answer.
+                        <h2 class="text-2xl md:text-5xl font-black mb-4 md:mb-8 leading-tight uppercase tracking-tighter">Precision <br>Visibility</h2>
+                        <p class="text-base md:text-2xl text-on-surface-variant leading-relaxed font-light">
+                            We don't just chase rankings; we architect digital dominance. Our SEO strategy is built on the intersection of technical precision and competitive intelligence.
                         </p>
                     </div>
 
-                    <div class="grid grid-cols-1 gap-12">
-                        <div class="glass-card p-10 md:p-12 rounded-[40px] group hover:bg-black hover:text-white transition-all duration-700">
-                            <div class="flex justify-between items-start mb-12">
-                                <span class="text-4xl font-black opacity-10 group-hover:opacity-100 transition-opacity">01</span>
-                                <span class="material-symbols-outlined text-4xl font-light opacity-40 group-hover:opacity-100 group-hover:rotate-45 transition-all">architecture</span>
+                    <div class="grid grid-cols-1 gap-4 md:gap-6">
+                        <div class="glass-card p-6 md:p-10 rounded-[24px] md:rounded-[40px] group hover:bg-black hover:text-white transition-all duration-700">
+                            <div class="flex justify-between items-start mb-6">
+                                <span class="text-2xl md:text-3xl font-black opacity-10 group-hover:opacity-100 transition-opacity">01</span>
+                                <span class="material-symbols-outlined text-2xl md:text-3xl font-light opacity-40 group-hover:opacity-100 transition-all">architecture</span>
                             </div>
-                            <h4 class="text-2xl font-bold mb-6 uppercase tracking-tight">Technical Architecture</h4>
-                            <p class="text-on-surface-variant group-hover:text-white/60 leading-relaxed">
-                                Deep-level audits ensuring your site's foundation is perfectly indexed and performance-optimized for modern algorithms. We eliminate friction for both users and crawlers.
+                            <h4 class="text-lg md:text-xl font-bold mb-2 md:mb-4 uppercase tracking-tight">Technical Architecture</h4>
+                            <p class="text-xs md:text-sm text-on-surface-variant group-hover:text-white/60 leading-relaxed">
+                                Deep-level audits ensuring your site's foundation is perfectly indexed and performance-optimized.
                             </p>
                         </div>
 
-                        <div class="glass-card p-10 md:p-12 rounded-[40px] group hover:bg-black hover:text-white transition-all duration-700">
-                            <div class="flex justify-between items-start mb-12">
-                                <span class="text-4xl font-black opacity-10 group-hover:opacity-100 transition-opacity">02</span>
-                                <span class="material-symbols-outlined text-4xl font-light opacity-40 group-hover:opacity-100 group-hover:rotate-45 transition-all">database</span>
+                        <div class="glass-card p-6 md:p-10 rounded-[24px] md:rounded-[40px] group hover:bg-black hover:text-white transition-all duration-700">
+                            <div class="flex justify-between items-start mb-6">
+                                <span class="text-2xl md:text-3xl font-black opacity-10 group-hover:opacity-100 transition-opacity">02</span>
+                                <span class="material-symbols-outlined text-2xl md:text-3xl font-light opacity-40 group-hover:opacity-100 transition-all">database</span>
                             </div>
-                            <h4 class="text-2xl font-bold mb-6 uppercase tracking-tight">Keyword Intelligence</h4>
-                            <p class="text-on-surface-variant group-hover:text-white/60 leading-relaxed">
-                                Beyond high-volume terms, we target high-intent clusters that drive actual business conversion and sustainable growth. We find where your customers are asking and we put you there.
+                            <h4 class="text-lg md:text-xl font-bold mb-2 md:mb-4 uppercase tracking-tight">Keyword Intelligence</h4>
+                            <p class="text-xs md:text-sm text-on-surface-variant group-hover:text-white/60 leading-relaxed">
+                                Targeting high-intent clusters that drive actual business conversion and sustainable growth.
                             </p>
                         </div>
                     </div>
@@ -157,17 +155,17 @@
         </section>
 
         <!-- CTA Section -->
-        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto reveal">
-            <div class="bg-black rounded-[60px] p-12 md:p-32 text-center text-white relative overflow-hidden group">
+        <section class="px-4 md:px-margin-edge max-w-container-max mx-auto reveal">
+            <div class="bg-black rounded-[32px] md:rounded-[60px] p-10 md:p-24 text-center text-white relative overflow-hidden group">
                 <div class="absolute inset-0 opacity-10 pointer-events-none blueprint-grid invert"></div>
                 <div class="relative z-10">
-                    <h2 class="text-4xl md:text-7xl font-black mb-12 uppercase leading-none tracking-tighter">Ready to <br>Dominate?</h2>
-                    <p class="text-white/40 mb-16 max-w-xl mx-auto font-light text-lg md:text-xl">
-                        Shift your visibility from accidental to intentional.
+                    <h2 class="text-3xl md:text-6xl font-black mb-6 md:mb-10 uppercase leading-none tracking-tighter">Ready to <br class="md:hidden">Dominate?</h2>
+                    <p class="text-white/40 mb-8 md:mb-12 max-w-xl mx-auto font-light text-sm md:text-xl">
+                        Shift your visibility from accidental to intentional through technical precision.
                     </p>
-                    <a href="contact.html" class="inline-flex items-center gap-4 bg-white text-black px-12 py-6 rounded-full font-black tracking-widest uppercase hover:scale-105 transition-transform group/btn">
+                    <a href="contact.html" class="inline-flex items-center gap-4 bg-white text-black px-8 md:px-12 py-4 md:py-6 rounded-full font-black tracking-widest text-[10px] md:text-sm uppercase hover:scale-105 transition-transform group/btn">
                         Start Technical Audit
-                        <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                        <span class="material-symbols-outlined group-hover/btn:translate-x-2 transition-transform">arrow_forward</span>
                     </a>
                 </div>
             </div>
@@ -175,34 +173,34 @@
     </main>
 
     <!-- Footer -->
-    <footer class="w-full py-16 px-6 md:px-margin-edge bg-white border-t border-black/5">
-        <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+    <footer class="w-full py-10 md:py-16 px-6 md:px-margin-edge bg-white border-t border-black/5">
+        <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-6 md:gap-12">
             <div class="text-xl font-black tracking-tighter">CREASHIFT</div>
-            <div class="flex gap-12">
-                <a class="text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">Instagram</a>
-                <a class="text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">LinkedIn</a>
-                <a class="text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">WhatsApp</a>
+            <div class="flex gap-8 md:gap-12">
+                <a class="text-[9px] md:text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">Instagram</a>
+                <a class="text-[9px] md:text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">LinkedIn</a>
+                <a class="text-[9px] md:text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">WhatsApp</a>
             </div>
-            <div class="text-[10px] tracking-[0.2em] font-bold text-black/40 uppercase">© 2024 Creashift. Shifting Visions.</div>
+            <div class="text-[9px] md:text-[10px] tracking-[0.2em] font-bold text-black/40 uppercase text-center md:text-left">© 2024 Creashift. Shifting Visions.</div>
         </div>
     </footer>
 
-    <!-- Mobile Drawer (Same as main site) -->
+    <!-- Mobile Drawer -->
     <div class="h-full w-full fixed inset-0 z-[60] bg-zinc-950 translate-x-full transition-all duration-700 cubic-bezier(0.85, 0, 0.15, 1) invisible pointer-events-none" id="drawer">
         <div class="flex flex-col h-full px-8 py-12 relative">
-            <div class="flex justify-between items-center mb-20">
+            <div class="flex justify-between items-center mb-16 md:mb-20">
                 <span class="text-xl font-black tracking-tighter text-white">CREASHIFT</span>
                 <button class="text-white flex items-center gap-2" id="closeDrawer">
                     <span class="text-[10px] uppercase tracking-widest opacity-50">Close</span>
                     <span class="material-symbols-outlined text-3xl font-light">close</span>
                 </button>
             </div>
-            <nav class="flex flex-col space-y-6">
-                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="index.html">HOME</a>
-                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="about.html">ABOUT</a>
-                <a class="text-4xl font-black text-white hover:text-white transition-colors" href="services.html">SERVICES</a>
-                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="portfolio.html">PORTFOLIO</a>
-                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="contact.html">CONTACT</a>
+            <nav class="flex flex-col space-y-4 md:space-y-6">
+                <a class="text-3xl md:text-4xl font-black text-white/20 hover:text-white transition-colors" href="index.html">HOME</a>
+                <a class="text-3xl md:text-4xl font-black text-white/20 hover:text-white transition-colors" href="about.html">ABOUT</a>
+                <a class="text-3xl md:text-4xl font-black text-white hover:text-white transition-colors" href="services.html">SERVICES</a>
+                <a class="text-3xl md:text-4xl font-black text-white/20 hover:text-white transition-colors" href="portfolio.html">PORTFOLIO</a>
+                <a class="text-3xl md:text-4xl font-black text-white/20 hover:text-white transition-colors" href="contact.html">CONTACT</a>
             </nav>
         </div>
     </div>
