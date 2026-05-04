@@ -30,18 +30,39 @@
                         'container-max': '1440px',
                     },
                     fontSize: {
-                        'display-xl': ['120px', { lineHeight: '1', letterSpacing: '-0.04em', fontWeight: '900' }],
-                        'label-sm': ['12px', { letterSpacing: '0.1em', fontWeight: '500' }],
+                        'display-xl': ['clamp(3rem, 10vw, 8rem)', { lineHeight: '1', letterSpacing: '-0.04em', fontWeight: '900' }],
+                        'label-sm': ['12px', { letterSpacing: '0.2em', fontWeight: '500' }],
                     }
                 }
             }
         }
     </script>
     <style>
-        .scroll-mt-32 { scroll-margin-top: 8rem; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal { animation: fadeIn 1s ease-out forwards; }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        
+        .blueprint-grid {
+            background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
     </style>
 </head>
-<body class="bg-white text-black font-sans antialiased">
+<body class="bg-white text-black font-sans antialiased blueprint-grid">
+    <!-- Header Fade Overlay -->
+    <div class="fixed top-0 left-0 w-full h-32 bg-gradient-to-b from-white via-white/90 to-transparent z-40 pointer-events-none"></div>
+
     <!-- Header -->
     <header class="fixed top-0 left-0 w-full z-50 px-6 md:px-margin-edge py-8 flex justify-between items-center mix-blend-difference">
         <a href="index.html" class="text-xl font-black tracking-tighter text-white">CREASHIFT</a>
@@ -54,67 +75,97 @@
         </button>
     </header>
 
-    <main class="pt-40">
-        <!-- Hero Section -->
-        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-32">
-            <a href="services.html" class="inline-flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant hover:text-black transition-colors mb-12 uppercase tracking-widest">
-                <span class="material-symbols-outlined text-sm">arrow_back</span> Back to Services
+    <main class="pt-40 pb-20">
+        <!-- Breadcrumb -->
+        <nav class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-16 reveal">
+            <a href="services.html" class="inline-flex items-center gap-2 font-label-sm text-[10px] text-on-surface-variant hover:text-black transition-colors uppercase tracking-[0.3em]">
+                <span class="material-symbols-outlined text-sm">west</span> Back to Services
             </a>
-            <h1 class="font-display-xl text-5xl md:text-display-xl mb-12 uppercase">Social Media Marketing</h1>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-32 reveal delay-1">
+            <div class="flex flex-col md:flex-row justify-between items-end gap-12 border-b border-black/10 pb-20">
+                <div class="max-w-4xl">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant mb-6 block uppercase">Cultural Resonance / 02</span>
+                    <h1 class="font-display-xl uppercase leading-[0.85]">Social <br>Media <br>Marketing</h1>
+                </div>
+                <div class="max-w-sm text-right hidden md:block">
+                    <p class="text-on-surface-variant font-medium leading-relaxed">
+                        Bridging the gap between brand identity and cultural relevance through high-impact social storytelling.
+                    </p>
+                </div>
+            </div>
         </section>
 
-        <!-- Detailed Content -->
-        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-section-gap">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                <div class="relative group">
-                    <div class="aspect-video bg-neutral-100 rounded-[40px] overflow-hidden shadow-2xl relative">
-                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800" alt="Social Media Strategy" class="w-full h-full object-cover grayscale opacity-60 group-hover:scale-105 transition-all duration-1000">
-                        <div class="absolute inset-0 bg-gradient-to-bl from-black/10 to-transparent"></div>
+        <!-- Main Content -->
+        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-section-gap reveal delay-2">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24 items-center">
+                <!-- Text Side -->
+                <div class="md:col-span-7 space-y-16">
+                    <div>
+                        <h2 class="text-3xl md:text-5xl font-black mb-8 leading-tight uppercase tracking-tighter">Cultural <br>Relevance</h2>
+                        <p class="text-xl md:text-2xl text-on-surface-variant leading-relaxed font-light">
+                            Engagement is the new currency. We build communities, not just follower counts. Our social strategy bridges the gap between brand voice and cultural relevance, creating content that is meant to be shared, discussed, and remembered.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div class="glass-card p-10 rounded-[40px] group hover:bg-black hover:text-white transition-all duration-700">
+                            <span class="material-symbols-outlined text-black group-hover:text-white text-5xl mb-8 font-light transition-colors">psychology</span>
+                            <h4 class="text-xl font-bold mb-4 uppercase tracking-tight">Persona Mapping</h4>
+                            <p class="text-on-surface-variant group-hover:text-white/60 text-sm leading-relaxed">
+                                Defining exactly who your audience is and what triggers their engagement. We find the "why" before the "what".
+                            </p>
+                        </div>
+                        <div class="glass-card p-10 rounded-[40px] group hover:bg-black hover:text-white transition-all duration-700">
+                            <span class="material-symbols-outlined text-black group-hover:text-white text-5xl mb-8 font-light transition-colors">auto_graph</span>
+                            <h4 class="text-xl font-bold mb-4 uppercase tracking-tight">Viral Analytics</h4>
+                            <p class="text-on-surface-variant group-hover:text-white/60 text-sm leading-relaxed">
+                                Monitoring trends in real-time to capitalize on moments that matter. Precision timing meets creative flair.
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <span class="font-label-sm text-label-sm text-on-surface-variant tracking-[0.2em] mb-6 block uppercase">Strategy Focus 02</span>
-                    <h2 class="text-3xl md:text-5xl font-bold mb-8 leading-tight">CULTURAL RELEVANCE</h2>
-                    <p class="font-body-lg text-lg md:text-xl text-on-surface-variant mb-12 leading-relaxed">
-                        Engagement is the new currency. We build communities, not just follower counts. Our social strategy bridges the gap between brand voice and cultural relevance, creating content that is meant to be shared, discussed, and remembered.
-                    </p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                        <div class="p-10 bg-neutral-50 rounded-[32px] hover:bg-black hover:text-white transition-all duration-500 group">
-                            <span class="material-symbols-outlined text-black group-hover:text-white text-4xl mb-6">psychology</span>
-                            <h4 class="text-xl font-bold mb-4 uppercase">Persona Mapping</h4>
-                            <p class="text-sm opacity-60">Defining exactly who your audience is and what triggers their engagement. We find the "why" before the "what".</p>
-                        </div>
-                        <div class="p-10 bg-neutral-50 rounded-[32px] hover:bg-black hover:text-white transition-all duration-500 group">
-                            <span class="material-symbols-outlined text-black group-hover:text-white text-4xl mb-6">auto_graph</span>
-                            <h4 class="text-xl font-bold mb-4 uppercase">Viral Analytics</h4>
-                            <p class="text-sm opacity-60">Monitoring trends in real-time to capitalize on moments that matter. Precision timing meets creative flair.</p>
-                        </div>
+
+                <!-- Image Side -->
+                <div class="md:col-span-5 relative">
+                    <div class="aspect-square bg-neutral-100 rounded-[60px] overflow-hidden relative group shadow-2xl">
+                        <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&q=80&w=800" alt="Social Media Strategy" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors"></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA -->
-        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-32">
-            <div class="bg-black rounded-[40px] p-12 md:p-24 text-center text-white relative overflow-hidden">
+        <!-- CTA Section -->
+        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto reveal">
+            <div class="bg-black rounded-[60px] p-12 md:p-32 text-center text-white relative overflow-hidden group">
+                <div class="absolute inset-0 opacity-10 pointer-events-none blueprint-grid invert"></div>
                 <div class="relative z-10">
-                    <h2 class="text-4xl md:text-6xl font-bold mb-8 uppercase tracking-tighter">Ready to be heard?</h2>
-                    <p class="text-white/60 mb-12 max-w-xl mx-auto font-light text-lg">Build a community that advocates for your brand.</p>
-                    <a href="contact.html" class="inline-block bg-white text-black px-12 py-5 font-bold tracking-widest uppercase hover:scale-105 transition-transform">Start Your Social Journey</a>
+                    <h2 class="text-4xl md:text-7xl font-black mb-12 uppercase leading-none tracking-tighter">Ready to <br>Be Heard?</h2>
+                    <p class="text-white/40 mb-16 max-w-xl mx-auto font-light text-lg md:text-xl">
+                        Build a community that advocates for your brand.
+                    </p>
+                    <a href="contact.html" class="inline-flex items-center gap-4 bg-white text-black px-12 py-6 rounded-full font-black tracking-widest uppercase hover:scale-105 transition-transform group/btn">
+                        Start Your Social Journey
+                        <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                    </a>
                 </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="w-full py-12 px-6 bg-neutral-50 border-t border-black/5">
-        <div class="flex flex-col items-center space-y-6 text-center max-w-[1440px] mx-auto">
-            <div class="flex space-x-12">
-                <a class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-500 uppercase hover:text-black transition-colors" href="#">INSTAGRAM</a>
-                <a class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-500 uppercase hover:text-black transition-colors" href="#">LINKEDIN</a>
-                <a class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-500 uppercase hover:text-black transition-colors" href="#">WHATSAPP</a>
+    <footer class="w-full py-16 px-6 md:px-margin-edge bg-white border-t border-black/5">
+        <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+            <div class="text-xl font-black tracking-tighter">CREASHIFT</div>
+            <div class="flex gap-12">
+                <a class="text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">Instagram</a>
+                <a class="text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">LinkedIn</a>
+                <a class="text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">WhatsApp</a>
             </div>
-            <p class="font-inter text-[10px] tracking-[0.2em] font-medium text-on-surface-variant">© 2024 CREASHIFT. SHIFTING VISIONS.</p>
+            <div class="text-[10px] tracking-[0.2em] font-bold text-black/40 uppercase">© 2024 Creashift. Shifting Visions.</div>
         </div>
     </footer>
 
@@ -129,11 +180,11 @@
                 </button>
             </div>
             <nav class="flex flex-col space-y-6">
-                <a class="text-3xl font-bold text-white/40 hover:text-white transition-colors" href="index.html">HOME</a>
-                <a class="text-3xl font-bold text-white/40 hover:text-white transition-colors" href="about.html">ABOUT</a>
-                <a class="text-3xl font-bold text-white hover:text-white transition-colors" href="services.html">SERVICES</a>
-                <a class="text-3xl font-bold text-white/40 hover:text-white transition-colors" href="portfolio.html">PORTFOLIO</a>
-                <a class="text-3xl font-bold text-white/40 hover:text-white transition-colors" href="contact.html">CONTACT</a>
+                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="index.html">HOME</a>
+                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="about.html">ABOUT</a>
+                <a class="text-4xl font-black text-white hover:text-white transition-colors" href="services.html">SERVICES</a>
+                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="portfolio.html">PORTFOLIO</a>
+                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="contact.html">CONTACT</a>
             </nav>
         </div>
     </div>

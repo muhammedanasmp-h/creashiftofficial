@@ -30,15 +30,39 @@
                         'container-max': '1440px',
                     },
                     fontSize: {
-                        'display-xl': ['120px', { lineHeight: '1', letterSpacing: '-0.04em', fontWeight: '900' }],
-                        'label-sm': ['12px', { letterSpacing: '0.1em', fontWeight: '500' }],
+                        'display-xl': ['clamp(3rem, 10vw, 8rem)', { lineHeight: '1', letterSpacing: '-0.04em', fontWeight: '900' }],
+                        'label-sm': ['12px', { letterSpacing: '0.2em', fontWeight: '500' }],
                     }
                 }
             }
         }
     </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal { animation: fadeIn 1s ease-out forwards; }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        
+        .blueprint-grid {
+            background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .dark-blueprint-grid {
+            background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+    </style>
 </head>
-<body class="bg-white text-black font-sans antialiased">
+<body class="bg-white text-black font-sans antialiased blueprint-grid">
+    <!-- Header Fade Overlay -->
+    <div class="fixed top-0 left-0 w-full h-32 bg-gradient-to-b from-white via-white/90 to-transparent z-40 pointer-events-none"></div>
+
     <!-- Header -->
     <header class="fixed top-0 left-0 w-full z-50 px-6 md:px-margin-edge py-8 flex justify-between items-center mix-blend-difference">
         <a href="index.html" class="text-xl font-black tracking-tighter text-white">CREASHIFT</a>
@@ -51,61 +75,87 @@
         </button>
     </header>
 
-    <main class="pt-40">
-        <!-- Hero Section -->
-        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-32">
-            <a href="services.html" class="inline-flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant hover:text-black transition-colors mb-12 uppercase tracking-widest">
-                <span class="material-symbols-outlined text-sm">arrow_back</span> Back to Services
+    <main class="pt-40 pb-20">
+        <!-- Breadcrumb -->
+        <nav class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-16 reveal">
+            <a href="services.html" class="inline-flex items-center gap-2 font-label-sm text-[10px] text-on-surface-variant hover:text-black transition-colors uppercase tracking-[0.3em]">
+                <span class="material-symbols-outlined text-sm">west</span> Back to Services
             </a>
-            <h1 class="font-display-xl text-5xl md:text-display-xl mb-12 uppercase">Web Design & Development</h1>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-32 reveal delay-1">
+            <div class="flex flex-col md:flex-row justify-between items-end gap-12 border-b border-black/10 pb-20">
+                <div class="max-w-4xl">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant mb-6 block uppercase">Digital Architecture / 03</span>
+                    <h1 class="font-display-xl uppercase leading-[0.85]">Web <br>Design & <br>Development</h1>
+                </div>
+                <div class="max-w-sm text-right hidden md:block">
+                    <p class="text-on-surface-variant font-medium leading-relaxed">
+                        Building architectural digital masterpieces that convert visitors into lifelong advocates.
+                    </p>
+                </div>
+            </div>
         </section>
 
-        <!-- Detailed Content -->
-        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-section-gap">
-            <div class="bg-black rounded-[40px] p-12 md:p-24 relative overflow-hidden text-white mb-32">
+        <!-- Main Content -->
+        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-section-gap reveal delay-2">
+            <div class="bg-black rounded-[60px] p-12 md:p-32 relative overflow-hidden text-white dark-blueprint-grid shadow-2xl">
                 <div class="relative z-10 max-w-4xl mx-auto text-center">
-                    <span class="font-label-sm text-label-sm text-white/50 tracking-[0.3em] mb-8 block uppercase">Strategy Focus 03</span>
-                    <h2 class="text-4xl md:text-7xl font-bold mb-10 leading-tight uppercase">ARCHITECTURAL DIGITAL MASTERPIECES</h2>
-                    <p class="font-body-lg text-lg md:text-xl text-gray-400 mb-16 leading-relaxed">
-                        We create architectural digital masterpieces. Our websites are built to be high-performance conversion machines that feel like luxury experiences. From fluid animations to seamless backend integration, every pixel is intentional.
+                    <span class="text-4xl md:text-6xl font-black mb-12 block uppercase tracking-tighter">Digital <br>Masterpieces</span>
+                    <p class="text-xl md:text-2xl text-gray-400 mb-20 leading-relaxed font-light">
+                        Our websites are built to be high-performance conversion machines that feel like luxury experiences. From fluid animations to seamless backend integration, every pixel is intentional.
                     </p>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-left border-t border-white/10 pt-16">
-                        <div>
-                            <h5 class="text-white font-bold mb-4 uppercase tracking-widest text-xs">01 / UX Blueprint</h5>
-                            <p class="text-gray-500 text-sm">Rigorous wireframing to ensure the user journey is frictionless and intuitive. We map every touchpoint with precision.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-left border-t border-white/10 pt-20">
+                        <div class="space-y-6 group">
+                            <span class="text-[10px] font-bold tracking-[0.4em] text-white/40 uppercase block">01 / Logic</span>
+                            <h4 class="text-xl font-bold uppercase tracking-tight">UX Blueprint</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed">Rigorous wireframing to ensure the user journey is frictionless and intuitive. We map every touchpoint with precision.</p>
                         </div>
-                        <div>
-                            <h5 class="text-white font-bold mb-4 uppercase tracking-widest text-xs">02 / UI Craft</h5>
-                            <p class="text-gray-500 text-sm">Boutique visual design that reflects your brand's unique identity and authority. Premium aesthetics for premium brands.</p>
+                        <div class="space-y-6 group">
+                            <span class="text-[10px] font-bold tracking-[0.4em] text-white/40 uppercase block">02 / Artistry</span>
+                            <h4 class="text-xl font-bold uppercase tracking-tight">UI Craft</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed">Boutique visual design that reflects your brand's unique identity and authority. Premium aesthetics for premium brands.</p>
                         </div>
-                        <div>
-                            <h5 class="text-white font-bold mb-4 uppercase tracking-widest text-xs">03 / Performance</h5>
-                            <p class="text-gray-500 text-sm">Clean, scalable code optimized for speed, security, and future growth. Built for the modern web.</p>
+                        <div class="space-y-6 group">
+                            <span class="text-[10px] font-bold tracking-[0.4em] text-white/40 uppercase block">03 / Engine</span>
+                            <h4 class="text-xl font-bold uppercase tracking-tight">Performance</h4>
+                            <p class="text-gray-500 text-sm leading-relaxed">Clean, scalable code optimized for speed, security, and future growth. Built for the modern web.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA -->
-        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-32">
-            <div class="bg-neutral-50 rounded-[40px] p-12 md:p-24 text-center border border-black/5">
-                <h2 class="text-4xl md:text-6xl font-bold mb-8 uppercase tracking-tighter">Need a digital home?</h2>
-                <p class="text-on-surface-variant mb-12 max-w-xl mx-auto font-light text-lg">Let's build a platform that matches your ambition.</p>
-                <a href="contact.html" class="inline-block bg-black text-white px-12 py-5 font-bold tracking-widest uppercase hover:scale-105 transition-transform">Start Your Build</a>
+        <!-- CTA Section -->
+        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto reveal">
+            <div class="bg-neutral-50 rounded-[60px] p-12 md:p-32 text-center border border-black/5 relative overflow-hidden group">
+                <div class="absolute inset-0 opacity-10 pointer-events-none blueprint-grid"></div>
+                <div class="relative z-10">
+                    <h2 class="text-4xl md:text-7xl font-black mb-12 uppercase leading-none tracking-tighter">Need a <br>Digital Home?</h2>
+                    <p class="text-black/40 mb-16 max-w-xl mx-auto font-light text-lg md:text-xl">
+                        Let's build a platform that matches your ambition.
+                    </p>
+                    <a href="contact.html" class="inline-flex items-center gap-4 bg-black text-white px-12 py-6 rounded-full font-black tracking-widest uppercase hover:scale-105 transition-transform group/btn shadow-xl">
+                        Start Your Build
+                        <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                    </a>
+                </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="w-full py-12 px-6 bg-neutral-50 border-t border-black/5">
-        <div class="flex flex-col items-center space-y-6 text-center max-w-[1440px] mx-auto">
-            <div class="flex space-x-12">
-                <a class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-500 uppercase hover:text-black transition-colors" href="#">INSTAGRAM</a>
-                <a class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-500 uppercase hover:text-black transition-colors" href="#">LINKEDIN</a>
-                <a class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-500 uppercase hover:text-black transition-colors" href="#">WHATSAPP</a>
+    <footer class="w-full py-16 px-6 md:px-margin-edge bg-white border-t border-black/5">
+        <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+            <div class="text-xl font-black tracking-tighter">CREASHIFT</div>
+            <div class="flex gap-12">
+                <a class="text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">Instagram</a>
+                <a class="text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">LinkedIn</a>
+                <a class="text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">WhatsApp</a>
             </div>
-            <p class="font-inter text-[10px] tracking-[0.2em] font-medium text-on-surface-variant">© 2024 CREASHIFT. SHIFTING VISIONS.</p>
+            <div class="text-[10px] tracking-[0.2em] font-bold text-black/40 uppercase">© 2024 Creashift. Shifting Visions.</div>
         </div>
     </footer>
 
@@ -120,11 +170,11 @@
                 </button>
             </div>
             <nav class="flex flex-col space-y-6">
-                <a class="text-3xl font-bold text-white/40 hover:text-white transition-colors" href="index.html">HOME</a>
-                <a class="text-3xl font-bold text-white/40 hover:text-white transition-colors" href="about.html">ABOUT</a>
-                <a class="text-3xl font-bold text-white hover:text-white transition-colors" href="services.html">SERVICES</a>
-                <a class="text-3xl font-bold text-white/40 hover:text-white transition-colors" href="portfolio.html">PORTFOLIO</a>
-                <a class="text-3xl font-bold text-white/40 hover:text-white transition-colors" href="contact.html">CONTACT</a>
+                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="index.html">HOME</a>
+                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="about.html">ABOUT</a>
+                <a class="text-4xl font-black text-white hover:text-white transition-colors" href="services.html">SERVICES</a>
+                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="portfolio.html">PORTFOLIO</a>
+                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="contact.html">CONTACT</a>
             </nav>
         </div>
     </div>

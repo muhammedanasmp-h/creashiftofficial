@@ -30,15 +30,39 @@
                         'container-max': '1440px',
                     },
                     fontSize: {
-                        'display-xl': ['120px', { lineHeight: '1', letterSpacing: '-0.04em', fontWeight: '900' }],
-                        'label-sm': ['12px', { letterSpacing: '0.1em', fontWeight: '500' }],
+                        'display-xl': ['clamp(3rem, 10vw, 8rem)', { lineHeight: '1', letterSpacing: '-0.04em', fontWeight: '900' }],
+                        'label-sm': ['12px', { letterSpacing: '0.2em', fontWeight: '500' }],
                     }
                 }
             }
         }
     </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal { animation: fadeIn 1s ease-out forwards; }
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        
+        .blueprint-grid {
+            background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+    </style>
 </head>
-<body class="bg-white text-black font-sans antialiased">
+<body class="bg-white text-black font-sans antialiased blueprint-grid">
+    <!-- Header Fade Overlay -->
+    <div class="fixed top-0 left-0 w-full h-32 bg-gradient-to-b from-white via-white/90 to-transparent z-40 pointer-events-none"></div>
+
     <!-- Header -->
     <header class="fixed top-0 left-0 w-full z-50 px-6 md:px-margin-edge py-8 flex justify-between items-center mix-blend-difference">
         <a href="index.html" class="text-xl font-black tracking-tighter text-white">CREASHIFT</a>
@@ -51,69 +75,97 @@
         </button>
     </header>
 
-    <main class="pt-40">
-        <!-- Hero Section -->
-        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-32">
-            <a href="services.html" class="inline-flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant hover:text-black transition-colors mb-12 uppercase tracking-widest">
-                <span class="material-symbols-outlined text-sm">arrow_back</span> Back to Services
+    <main class="pt-40 pb-20">
+        <!-- Breadcrumb -->
+        <nav class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-16 reveal">
+            <a href="services.html" class="inline-flex items-center gap-2 font-label-sm text-[10px] text-on-surface-variant hover:text-black transition-colors uppercase tracking-[0.3em]">
+                <span class="material-symbols-outlined text-sm">west</span> Back to Services
             </a>
-            <h1 class="font-display-xl text-5xl md:text-display-xl mb-12 uppercase">Graphic Design</h1>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-32 reveal delay-1">
+            <div class="flex flex-col md:flex-row justify-between items-end gap-12 border-b border-black/10 pb-20">
+                <div class="max-w-4xl">
+                    <span class="font-label-sm text-label-sm text-on-surface-variant mb-6 block uppercase">Visual Language / 05</span>
+                    <h1 class="font-display-xl uppercase leading-[0.85]">Graphic <br>Design & <br>Branding</h1>
+                </div>
+                <div class="max-w-sm text-right hidden md:block">
+                    <p class="text-on-surface-variant font-medium leading-relaxed">
+                        Communicating authority through intentional minimalism and sophisticated visual hierarchy.
+                    </p>
+                </div>
+            </div>
         </section>
 
-        <!-- Detailed Content -->
-        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-section-gap">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-16 items-start">
-                <div class="md:col-span-5">
-                    <span class="font-label-sm text-label-sm text-on-surface-variant tracking-[0.2em] mb-6 block uppercase">Strategy Focus 05</span>
-                    <h2 class="text-3xl md:text-5xl font-bold mb-8 leading-tight uppercase tracking-tight">INTENTIONAL VISUALS</h2>
-                    <p class="font-body-lg text-lg md:text-xl text-on-surface-variant mb-12 leading-relaxed">
-                        Every pixel is intentional. We create brand systems that communicate authority through minimalism and sophisticated visual hierarchy. Our designs don't just look good; they function as powerful brand assets.
-                    </p>
-                    <div class="space-y-10">
-                        <div class="p-8 bg-neutral-50 rounded-[32px]">
+        <!-- Main Content -->
+        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-section-gap reveal delay-2">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24">
+                <!-- Text Side -->
+                <div class="md:col-span-5 space-y-16">
+                    <div>
+                        <h2 class="text-3xl md:text-5xl font-black mb-8 leading-tight uppercase tracking-tighter">Intentional <br>Visuals</h2>
+                        <p class="text-xl md:text-2xl text-on-surface-variant leading-relaxed font-light">
+                            Every pixel is intentional. We create brand systems that communicate authority through minimalism and sophisticated visual hierarchy. Our designs function as powerful brand assets.
+                        </p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="p-10 border border-black/5 rounded-[40px] hover:bg-black hover:text-white transition-all duration-700 group">
                             <h4 class="font-bold uppercase tracking-widest text-xs mb-4">Identity Systems</h4>
-                            <p class="text-on-surface-variant text-sm">Logo design, typography systems, and comprehensive style guides that ensure brand consistency across all touchpoints.</p>
+                            <p class="text-on-surface-variant group-hover:text-white/60 text-sm">Logo design, typography systems, and comprehensive style guides that ensure brand consistency across all touchpoints.</p>
                         </div>
-                        <div class="p-8 bg-neutral-50 rounded-[32px]">
+                        <div class="p-10 border border-black/5 rounded-[40px] hover:bg-black hover:text-white transition-all duration-700 group">
                             <h4 class="font-bold uppercase tracking-widest text-xs mb-4">Digital Collateral</h4>
-                            <p class="text-on-surface-variant text-sm">High-performance social media creatives, ad assets, and website graphics designed for engagement and conversion.</p>
+                            <p class="text-on-surface-variant group-hover:text-white/60 text-sm">High-performance social media creatives and ad assets designed for high-end digital engagement.</p>
                         </div>
                     </div>
                 </div>
-                <div class="md:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-8">
-                    <div class="aspect-[3/4] bg-neutral-100 rounded-[40px] overflow-hidden relative group">
-                        <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=800" alt="Brand Identity" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000">
-                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
-                    </div>
-                    <div class="aspect-[3/4] bg-neutral-100 rounded-[40px] overflow-hidden relative group mt-0 sm:mt-24">
-                        <img src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?auto=format&fit=crop&q=80&w=800" alt="Design Layout" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000">
-                        <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+
+                <!-- Gallery Side -->
+                <div class="md:col-span-7">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div class="aspect-[3/4] bg-neutral-100 rounded-[40px] overflow-hidden relative group shadow-xl">
+                            <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=800" alt="Brand Identity" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                        </div>
+                        <div class="aspect-[3/4] bg-neutral-100 rounded-[40px] overflow-hidden relative group shadow-xl mt-0 sm:mt-24">
+                            <img src="https://images.unsplash.com/photo-1586717791821-3f44a563eb4c?auto=format&fit=crop&q=80&w=800" alt="Design Layout" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-1000">
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA -->
-        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-32">
-            <div class="bg-black rounded-[40px] p-12 md:p-24 text-center text-white relative overflow-hidden">
+        <!-- CTA Section -->
+        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto reveal">
+            <div class="bg-black rounded-[60px] p-12 md:p-32 text-center text-white relative overflow-hidden group">
+                <div class="absolute inset-0 opacity-10 pointer-events-none blueprint-grid invert"></div>
                 <div class="relative z-10">
-                    <h2 class="text-4xl md:text-6xl font-bold mb-8 uppercase tracking-tighter">Ready to design?</h2>
-                    <p class="text-white/60 mb-12 max-w-xl mx-auto font-light text-lg">Give your brand the visual authority it deserves.</p>
-                    <a href="contact.html" class="inline-block bg-white text-black px-12 py-5 font-bold tracking-widest uppercase hover:scale-105 transition-transform">Start a Design Project</a>
+                    <h2 class="text-4xl md:text-7xl font-black mb-12 uppercase leading-none tracking-tighter">Ready to <br>Design?</h2>
+                    <p class="text-white/40 mb-16 max-w-xl mx-auto font-light text-lg md:text-xl">
+                        Give your brand the visual authority it deserves.
+                    </p>
+                    <a href="contact.html" class="inline-block bg-white text-black px-12 py-6 rounded-full font-black tracking-widest uppercase hover:scale-105 transition-transform group/btn shadow-xl">
+                        Start a Design Project
+                        <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                    </a>
                 </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="w-full py-12 px-6 bg-neutral-50 border-t border-black/5">
-        <div class="flex flex-col items-center space-y-6 text-center max-w-[1440px] mx-auto">
-            <div class="flex space-x-12">
-                <a class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-500 uppercase hover:text-black transition-colors" href="#">INSTAGRAM</a>
-                <a class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-500 uppercase hover:text-black transition-colors" href="#">LINKEDIN</a>
-                <a class="font-inter text-[10px] tracking-[0.2em] font-medium text-gray-500 uppercase hover:text-black transition-colors" href="#">WHATSAPP</a>
+    <footer class="w-full py-16 px-6 md:px-margin-edge bg-white border-t border-black/5">
+        <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+            <div class="text-xl font-black tracking-tighter">CREASHIFT</div>
+            <div class="flex gap-12">
+                <a class="text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">Instagram</a>
+                <a class="text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">LinkedIn</a>
+                <a class="text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="#">WhatsApp</a>
             </div>
-            <p class="font-inter text-[10px] tracking-[0.2em] font-medium text-on-surface-variant">© 2024 CREASHIFT. SHIFTING VISIONS.</p>
+            <div class="text-[10px] tracking-[0.2em] font-bold text-black/40 uppercase">© 2024 Creashift. Shifting Visions.</div>
         </div>
     </footer>
 
@@ -128,11 +180,11 @@
                 </button>
             </div>
             <nav class="flex flex-col space-y-6">
-                <a class="text-3xl font-bold text-white/40 hover:text-white transition-colors" href="index.html">HOME</a>
-                <a class="text-3xl font-bold text-white/40 hover:text-white transition-colors" href="about.html">ABOUT</a>
-                <a class="text-3xl font-bold text-white hover:text-white transition-colors" href="services.html">SERVICES</a>
-                <a class="text-3xl font-bold text-white/40 hover:text-white transition-colors" href="portfolio.html">PORTFOLIO</a>
-                <a class="text-3xl font-bold text-white/40 hover:text-white transition-colors" href="contact.html">CONTACT</a>
+                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="index.html">HOME</a>
+                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="about.html">ABOUT</a>
+                <a class="text-4xl font-black text-white hover:text-white transition-colors" href="services.html">SERVICES</a>
+                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="portfolio.html">PORTFOLIO</a>
+                <a class="text-4xl font-black text-white/20 hover:text-white transition-colors" href="contact.html">CONTACT</a>
             </nav>
         </div>
     </div>
