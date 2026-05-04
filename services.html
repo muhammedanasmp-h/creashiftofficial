@@ -133,6 +133,26 @@
             100% { transform: scale(2.5); opacity: 0; }
         }
 
+        /* Floating Dots - vertical drift */
+        @keyframes floatDot {
+            0%, 100% { transform: translateY(0) translateX(0); }
+            25% { transform: translateY(-40px) translateX(8px); }
+            50% { transform: translateY(-15px) translateX(-6px); }
+            75% { transform: translateY(-55px) translateX(4px); }
+        }
+
+        /* Orbit ring - slow rotation */
+        @keyframes orbitSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Diamond pulse */
+        @keyframes diamondPulse {
+            0%, 100% { transform: rotate(45deg) scale(1); opacity: 0.04; }
+            50% { transform: rotate(45deg) scale(1.15); opacity: 0.08; }
+        }
+
         /* Mobile Optimization */
         @media (max-width: 768px) {
             :root {
@@ -252,6 +272,35 @@ GET STARTED
         </div>
     </div>
 </header>
+
+<!-- Scattered Background Elements (unique to services) -->
+<!-- Floating dots cluster - left side, mid-page -->
+<div class="absolute left-6 md:left-16 top-[600px] z-0 pointer-events-none opacity-60">
+    <div class="w-2 h-2 rounded-full bg-black/10" style="animation: floatDot 8s ease-in-out infinite;"></div>
+    <div class="w-1.5 h-1.5 rounded-full bg-black/8 ml-6 mt-8" style="animation: floatDot 10s ease-in-out infinite 1s;"></div>
+    <div class="w-1 h-1 rounded-full bg-black/6 ml-2 mt-12" style="animation: floatDot 12s ease-in-out infinite 2.5s;"></div>
+    <div class="w-2.5 h-2.5 rounded-full bg-black/5 ml-10 mt-6" style="animation: floatDot 9s ease-in-out infinite 0.5s;"></div>
+    <div class="w-1 h-1 rounded-full bg-black/8 -ml-2 mt-16" style="animation: floatDot 11s ease-in-out infinite 3s;"></div>
+</div>
+
+<!-- Dashed orbit ring - right side, between rows -->
+<div class="hidden md:block absolute right-24 top-[950px] z-0 pointer-events-none">
+    <div class="w-40 h-40 rounded-full border border-dashed border-black/[0.06]" style="animation: orbitSpin 30s linear infinite;"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-black/10"></div>
+</div>
+
+<!-- Diamond shape - left side, near bottom -->
+<div class="hidden md:block absolute left-32 bottom-[350px] z-0 pointer-events-none">
+    <div class="w-24 h-24 border border-black/[0.05]" style="animation: diamondPulse 6s ease-in-out infinite;"></div>
+</div>
+
+<!-- Floating dots cluster 2 - right side, lower -->
+<div class="absolute right-8 md:right-20 top-[1300px] z-0 pointer-events-none opacity-40">
+    <div class="w-1.5 h-1.5 rounded-full bg-black/10" style="animation: floatDot 9s ease-in-out infinite 1s;"></div>
+    <div class="w-2 h-2 rounded-full bg-black/6 -ml-4 mt-10" style="animation: floatDot 11s ease-in-out infinite 0s;"></div>
+    <div class="w-1 h-1 rounded-full bg-black/8 ml-6 mt-8" style="animation: floatDot 7s ease-in-out infinite 2s;"></div>
+</div>
+
 <!-- Services Bento Grid -->
 <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mt-8">
 <div class="grid grid-cols-1 md:grid-cols-12 gap-5 auto-rows-auto">
