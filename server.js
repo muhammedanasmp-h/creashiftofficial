@@ -28,13 +28,21 @@ passport.use(new GoogleStrategy({
     proxy: true
 }, async (accessToken, refreshToken, profile, done) => {
     try {
+        const email = profile.emails[0].value;
+        const allowedAdmins = (process.env.ADMIN_EMAILS || "").split(',').map(e => e.trim().toLowerCase());
+        
+        // If the email is not in the allowed list, reject login
+        if (!allowedAdmins.includes(email.toLowerCase())) {
+            console.log(`Unauthorized login attempt from: ${email}`);
+            return done(null, false, { message: 'Unauthorized email' });
+        }
+
         let user = await User.findOne({ googleId: profile.id });
         if (!user) {
-            // In a real scenario, you might want to restrict this to specific emails
             user = await User.create({
                 googleId: profile.id,
                 displayName: profile.displayName,
-                email: profile.emails[0].value
+                email: email
             });
         }
         return done(null, user);
@@ -76,7 +84,7 @@ app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] })
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 app.get('/auth/google/callback', 
-    passport.authenticate('google', { failureRedirect: '/login' }),
+    passport.authenticate('google', { failureRedirect: '/login?error=unauthorized' }),
     (req, res) => res.redirect('/admin')
 );
 
@@ -95,7 +103,8 @@ const isAdmin = (req, res, next) => {
 
 // Admin Routes
 app.get('/login', (req, res) => {
-    res.render('admin/login');
+    const error = req.query.error === 'unauthorized' ? 'Access Denied: Your email is not authorized.' : null;
+    res.render('admin/login', { error });
 });
 
 app.get('/admin', isAdmin, async (req, res) => {

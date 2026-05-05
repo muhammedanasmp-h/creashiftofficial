@@ -20,6 +20,12 @@
         <h1 class="text-2xl font-black tracking-tighter mb-2">CREASHIFT ADMIN</h1>
         <p class="text-gray-500 mb-10 text-sm">Secure access for digital architects</p>
         
+        <% if (locals.error) { %>
+            <div class="bg-red-50 text-red-600 p-4 rounded-2xl mb-8 text-xs font-medium border border-red-100 animate-pulse">
+                <%= error %>
+            </div>
+        <% } %>
+        
         <a href="/auth/google" class="flex items-center justify-center gap-4 bg-black text-white px-8 py-4 rounded-full font-semibold hover:scale-105 transition-all duration-300 shadow-lg">
             <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
