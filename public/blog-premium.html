@@ -225,8 +225,10 @@ GET STARTED
 <div class="flex flex-wrap items-center justify-between gap-6">
 <div class="flex flex-wrap gap-2 md:gap-4">
 <button class="filter-btn px-5 py-1.5 rounded-full font-label-sm text-[10px] md:text-label-sm bg-black text-white uppercase transition-all" data-filter="all">ALL POSTS</button>
-<button class="filter-btn px-5 py-1.5 rounded-full font-label-sm text-[10px] md:text-label-sm text-on-surface hover:bg-black/5 transition-all uppercase" data-filter="img">IMAGES</button>
-<button class="filter-btn px-5 py-1.5 rounded-full font-label-sm text-[10px] md:text-label-sm text-on-surface hover:bg-black/5 transition-all uppercase" data-filter="vid">VIDEOS</button>
+<button class="filter-btn px-5 py-1.5 rounded-full font-label-sm text-[10px] md:text-label-sm text-on-surface hover:bg-black/5 transition-all uppercase" data-filter="strategy">STRATEGY</button>
+<button class="filter-btn px-5 py-1.5 rounded-full font-label-sm text-[10px] md:text-label-sm text-on-surface hover:bg-black/5 transition-all uppercase" data-filter="design">DESIGN</button>
+<button class="filter-btn px-5 py-1.5 rounded-full font-label-sm text-[10px] md:text-label-sm text-on-surface hover:bg-black/5 transition-all uppercase" data-filter="technology">TECHNOLOGY</button>
+<button class="filter-btn px-5 py-1.5 rounded-full font-label-sm text-[10px] md:text-label-sm text-on-surface hover:bg-black/5 transition-all uppercase" data-filter="case-studies">CASE STUDIES</button>
 </div>
 <div class="hidden md:flex items-center gap-2 text-on-primary-container font-label-sm">
 <span class="material-symbols-outlined text-base" data-icon="search">search</span>
@@ -267,33 +269,33 @@ GET STARTED
 </div>
 <div class="grid md:grid-cols-2 gap-x-12 gap-y-32">
 <!-- Article Card 1 -->
-<article class="group">
+<article id="blog-item-1" class="masonry-item group" data-category="design">
 <div class="mb-10 overflow-hidden bg-white">
-<img alt="Tech device detail" class="w-full aspect-[16/9] object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD44VVbSMt_Z94ymT-t0SvASShh3_WqidJsZlQYlm3KSeH59Pnmw7PcjjbE2St5BxK9W25d6iiA3DoDaVRmNKUbCcPGe95hjuLg36MFVuxDTWzxPM00y308aLqUUKRU0MClO-7PeKX0iF7-mCJybfWQxxOQp2o3Itk4PTG5EacP-AjipLOnJ2hR4jXtsQOHFxC-jl1cpvF_cz9c5bmea4IDXcg2SwdUzaGGA_61sB5crLcGYAa-tR5CHhG5PTR4Oshak5MCf4FkMRpg"/>
+<img id="blog-item-1-img" alt="Tech device detail" class="w-full aspect-[16/9] object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD44VVbSMt_Z94ymT-t0SvASShh3_WqidJsZlQYlm3KSeH59Pnmw7PcjjbE2St5BxK9W25d6iiA3DoDaVRmNKUbCcPGe95hjuLg36MFVuxDTWzxPM00y308aLqUUKRU0MClO-7PeKX0iF7-mCJybfWQxxOQp2o3Itk4PTG5EacP-AjipLOnJ2hR4jXtsQOHFxC-jl1cpvF_cz9c5bmea4IDXcg2SwdUzaGGA_61sB5crLcGYAa-tR5CHhG5PTR4Oshak5MCf4FkMRpg"/>
 </div>
 <div class="flex items-center gap-6 mb-6 font-label-sm text-on-primary-container uppercase tracking-widest text-[10px]">
-<span>Design</span>
+<span id="blog-item-1-cat">Design</span>
 <span class="w-8 h-px bg-black/10"></span>
 <span>Sep 28</span>
 </div>
-<h3 class="text-3xl font-semibold text-primary mb-6 group-hover:text-secondary transition-colors leading-tight">Tactile Digital Interfaces</h3>
-<p class="font-body-md text-secondary line-clamp-3 mb-8 leading-relaxed">
+<h3 id="blog-item-1-title" class="text-3xl font-semibold text-primary mb-6 group-hover:text-secondary transition-colors leading-tight">Tactile Digital Interfaces</h3>
+<p id="blog-item-1-desc" class="font-body-md text-secondary line-clamp-3 mb-8 leading-relaxed">
                             Why the physical world is increasingly influencing our digital interactions. A study on modern glassmorphism and depth in UI.
                         </p>
 <a class="font-label-sm text-primary tracking-widest border-b border-transparent hover:border-primary transition-all pb-1" href="#">READ MORE</a>
 </article>
 <!-- Article Card 2 -->
-<article class="group">
+<article id="blog-item-2" class="masonry-item group" data-category="strategy">
 <div class="mb-10 overflow-hidden bg-white">
-<img alt="Architectural shadow" class="w-full aspect-[16/9] object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEoDEveUKBKidN36d_hIelpB7a21fSEIAWliikoI8S6RDoQ4XIhfKhObJoooS2AELpoy7XfgvoxVCyn7fgWEZS3EPEMJgscEASgZhLm7h5iaJYYA9XaCKqIQpJXb8k-OJOZkeGftFjkIN6jzeMKzRuZXret_Tyq8GWlwXbwTVnpXcA-UXE2VsTL07SprNZ8vv9YGufH2QcN7hll8VaRP0amg7fqwypa9TT1tO0fEbCgpjUQOJYSK9-AC2oJjZOtBITQ5MzAYdR2u6c"/>
+<img id="blog-item-2-img" alt="Architectural shadow" class="w-full aspect-[16/9] object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEoDEveUKBKidN36d_hIelpB7a21fSEIAWliikoI8S6RDoQ4XIhfKhObJoooS2AELpoy7XfgvoxVCyn7fgWEZS3EPEMJgscEASgZhLm7h5iaJYYA9XaCKqIQpJXb8k-OJOZkeGftFjkIN6jzeMKzRuZXret_Tyq8GWlwXbwTVnpXcA-UXE2VsTL07SprNZ8vv9YGufH2QcN7hll8VaRP0amg7fqwypa9TT1tO0fEbCgpjUQOJYSK9-AC2oJjZOtBITQ5MzAYdR2u6c"/>
 </div>
 <div class="flex items-center gap-6 mb-6 font-label-sm text-on-primary-container uppercase tracking-widest text-[10px]">
-<span>Strategy</span>
+<span id="blog-item-2-cat">Strategy</span>
 <span class="w-8 h-px bg-black/10"></span>
 <span>Sep 15</span>
 </div>
-<h3 class="text-3xl font-semibold text-primary mb-6 group-hover:text-secondary transition-colors leading-tight">The Power of No</h3>
-<p class="font-body-md text-secondary line-clamp-3 mb-8 leading-relaxed">
+<h3 id="blog-item-2-title" class="text-3xl font-semibold text-primary mb-6 group-hover:text-secondary transition-colors leading-tight">The Power of No</h3>
+<p id="blog-item-2-desc" class="font-body-md text-secondary line-clamp-3 mb-8 leading-relaxed">
                             Deciding what to leave out is as important as what to include. How refinement drives conversion for premium consumer brands.
                         </p>
 <a class="font-label-sm text-primary tracking-widest border-b border-transparent hover:border-primary transition-all pb-1" href="#">READ MORE</a>
@@ -305,40 +307,40 @@ GET STARTED
 <section class="max-w-[1440px] mx-auto px-6 py-section-gap">
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-24">
 <!-- Article Card 3 -->
-<article class="group flex flex-col">
+<article id="blog-item-3" class="masonry-item group flex flex-col" data-category="technology">
 <div class="mb-8 overflow-hidden aspect-[1/1] bg-surface-container-high">
-<img alt="Designer lamp" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsypL56r6Qf1kluokgtBmA8gCrtWrPT4EYHelHxV7K58J61Pz2YdTY-mqEIB2bxiwBMcFKFqU7VBt6u2tnxq3qiYvy42s77ZgMvRsQjfSIZazckGhSatVvASJn3nefKuDwrdnQkuXnSIfe6AdGz6csYhTvNmPKpVJto43eVjtQRvtKHr3vUziwWcAiW7g3xGtCJJlZNVjeIhrJS2RiW_F4JpDvn8AC4D9WppjEymKd7HoOoZcPQGVMqcT5kC8ccQ04I3SCLAeznygn"/>
+<img id="blog-item-3-img" alt="Designer lamp" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsypL56r6Qf1kluokgtBmA8gCrtWrPT4EYHelHxV7K58J61Pz2YdTY-mqEIB2bxiwBMcFKFqU7VBt6u2tnxq3qiYvy42s77ZgMvRsQjfSIZazckGhSatVvASJn3nefKuDwrdnQkuXnSIfe6AdGz6csYhTvNmPKpVJto43eVjtQRvtKHr3vUziwWcAiW7g3xGtCJJlZNVjeIhrJS2RiW_F4JpDvn8AC4D9WppjEymKd7HoOoZcPQGVMqcT5kC8ccQ04I3SCLAeznygn"/>
 </div>
-<span class="font-label-sm text-[10px] text-on-primary-container mb-4 uppercase">Tech • Aug 30</span>
-<h3 class="text-xl font-semibold mb-4 leading-snug">Generative Luxury</h3>
-<p class="text-secondary text-sm line-clamp-3 mb-6">Leveraging AI without compromising brand integrity. Maintaining a human-centric approach.</p>
+<span class="font-label-sm text-[10px] text-on-primary-container mb-4 uppercase"><span id="blog-item-3-cat">TECH</span> • Aug 30</span>
+<h3 id="blog-item-3-title" class="text-xl font-semibold mb-4 leading-snug">Generative Luxury</h3>
+<p id="blog-item-3-desc" class="text-secondary text-sm line-clamp-3 mb-6">Leveraging AI without compromising brand integrity. Maintaining a human-centric approach.</p>
 </article>
 <!-- Article Card 4 -->
-<article class="group flex flex-col">
+<article id="blog-item-4" class="masonry-item group flex flex-col" data-category="design">
 <div class="mb-8 overflow-hidden aspect-[1/1] bg-surface-container-high">
-<img alt="Workstation" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNhA5h1MbYi9931KBE9n-ZoYl-wH31cZCLJdbU334dK-27XWC6Q-NUpnzrPw7DBtBdPuC3S4k5IQ9VOvM60CpkzrzRY9sSaONI55yNj3sYp3P6jdnCGDtqGlJMS_MnGMvdme3cdfxgoPW3gyUmr0klVGZg7dGkWKtAF60MOesZ0C7yWeAEgomxUKDkTFnapqFxVH__D6cMM3dumhqxqMmlcMquTv2dSJA9QTD-fZEpkt0uM64UBh2sWVEyTvkM_PDUpQJLTCbprk9o"/>
+<img id="blog-item-4-img" alt="Workstation" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNhA5h1MbYi9931KBE9n-ZoYl-wH31cZCLJdbU334dK-27XWC6Q-NUpnzrPw7DBtBdPuC3S4k5IQ9VOvM60CpkzrzRY9sSaONI55yNj3sYp3P6jdnCGDtqGlJMS_MnGMvdme3cdfxgoPW3gyUmr0klVGZg7dGkWKtAF60MOesZ0C7yWeAEgomxUKDkTFnapqFxVH__D6cMM3dumhqxqMmlcMquTv2dSJA9QTD-fZEpkt0uM64UBh2sWVEyTvkM_PDUpQJLTCbprk9o"/>
 </div>
-<span class="font-label-sm text-[10px] text-on-primary-container mb-4 uppercase">Design • Aug 12</span>
-<h3 class="text-xl font-semibold mb-4 leading-snug">Visual Pacing</h3>
-<p class="text-secondary text-sm line-clamp-3 mb-6">Using motion to control the user's emotional journey through a digital case study.</p>
+<span class="font-label-sm text-[10px] text-on-primary-container mb-4 uppercase"><span id="blog-item-4-cat">DESIGN</span> • Aug 12</span>
+<h3 id="blog-item-4-title" class="text-xl font-semibold mb-4 leading-snug">Visual Pacing</h3>
+<p id="blog-item-4-desc" class="text-secondary text-sm line-clamp-3 mb-6">Using motion to control the user's emotional journey through a digital case study.</p>
 </article>
 <!-- Article Card 5 -->
-<article class="group flex flex-col">
+<article id="blog-item-5" class="masonry-item group flex flex-col" data-category="technology">
 <div class="mb-8 overflow-hidden aspect-[1/1] bg-surface-container-high">
-<img alt="Digital pixels" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDI_wOE7DuNZvmwR12HlYPO8OYuRmhMDpMIc4AC4g6aYK021Dt6O_2oTX14DjZYFnnDLGyKKaiNZcos7hWSgegIKeMJK53c4008iN0HSez6LaidrVFu6geeNwj-xJxCMnNnscfzIcdFBLCA5vmXe08yV2kbC0A_T4J0NBxt07RdG1gcJry7pXLPrPcjKXues-Ik7RgRSC8eOiOUHUFsMpaWK4ewiPE9qBxb0nlZhfztlbFOPFsXeond2pEUNL6hcLOBRrX_vf_W6awm"/>
+<img id="blog-item-5-img" alt="Digital pixels" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDI_wOE7DuNZvmwR12HlYPO8OYuRmhMDpMIc4AC4g6aYK021Dt6O_2oTX14DjZYFnnDLGyKKaiNZcos7hWSgegIKeMJK53c4008iN0HSez6LaidrVFu6geeNwj-xJxCMnNnscfzIcdFBLCA5vmXe08yV2kbC0A_T4J0NBxt07RdG1gcJry7pXLPrPcjKXues-Ik7RgRSC8eOiOUHUFsMpaWK4ewiPE9qBxb0nlZhfztlbFOPFsXeond2pEUNL6hcLOBRrX_vf_W6awm"/>
 </div>
-<span class="font-label-sm text-[10px] text-on-primary-container mb-4 uppercase">Tech • Jul 24</span>
-<h3 class="text-xl font-semibold mb-4 leading-snug">Headless Commerce</h3>
-<p class="text-secondary text-sm line-clamp-3 mb-6">The structural shift in how we build high-performance shopping experiences.</p>
+<span class="font-label-sm text-[10px] text-on-primary-container mb-4 uppercase"><span id="blog-item-5-cat">TECH</span> • Jul 24</span>
+<h3 id="blog-item-5-title" class="text-xl font-semibold mb-4 leading-snug">Headless Commerce</h3>
+<p id="blog-item-5-desc" class="text-secondary text-sm line-clamp-3 mb-6">The structural shift in how we build high-performance shopping experiences.</p>
 </article>
 <!-- Article Card 6 -->
-<article class="group flex flex-col">
+<article id="blog-item-6" class="masonry-item group flex flex-col" data-category="case-studies">
 <div class="mb-8 overflow-hidden aspect-[1/1] bg-surface-container-high">
-<img alt="Brutalist building" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDY-UMsD9DUtKF_9mRDUh9Ha7lXsziY7VB_vU8B528uisYlGzjGa9LFkRrurw2QhGbt7NyG66N0IpoPkJptXbygbQ6Kl_eiopWRc99gynNsbIib4cALq_q4FNyA7w9t0zj0rSw3f1nDuCF7R37oLCi_QhpZvKNROvFJZacu_nzFy4FdC0dC4ZctcpzliQti0CO8eZGCuTgkzP0QpGy4GfZYTPEMJ1sUkBLjQiotUWQd9Js3h5yRixyB7eQ3j-uv6maB4YWSZAhIheI"/>
+<img id="blog-item-6-img" alt="Brutalist building" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDY-UMsD9DUtKF_9mRDUh9Ha7lXsziY7VB_vU8B528uisYlGzjGa9LFkRrurw2QhGbt7NyG66N0IpoPkJptXbygbQ6Kl_eiopWRc99gynNsbIib4cALq_q4FNyA7w9t0zj0rSw3f1nDuCF7R37oLCi_QhpZvKNROvFJZacu_nzFy4FdC0dC4ZctcpzliQti0CO8eZGCuTgkzP0QpGy4GfZYTPEMJ1sUkBLjQiotUWQd9Js3h5yRixyB7eQ3j-uv6maB4YWSZAhIheI"/>
 </div>
-<span class="font-label-sm text-[10px] text-on-primary-container mb-4 uppercase">Case Study • Jul 05</span>
-<h3 class="text-xl font-semibold mb-4 leading-snug">Rebranding Obsidian</h3>
-<p class="text-secondary text-sm line-clamp-3 mb-6">A deep dive into our transformation of a legacy tech firm through radical simplification.</p>
+<span class="font-label-sm text-[10px] text-on-primary-container mb-4 uppercase"><span id="blog-item-6-cat">CASE STUDIES</span> • Jul 05</span>
+<h3 id="blog-item-6-title" class="text-xl font-semibold mb-4 leading-snug">Rebranding Obsidian</h3>
+<p id="blog-item-6-desc" class="text-secondary text-sm line-clamp-3 mb-6">A deep dive into our transformation of a legacy tech firm through radical simplification.</p>
 </article>
 </div>
 </section>
