@@ -100,19 +100,24 @@
         // Define the "Premium Schema" - Every field on every page is mapped here
         const pageSchema = {
             'services': [
-                { key: 'services-label', label: 'Page Subtitle (e.g. Core Offerings)', type: 'text' },
-                { key: 'services-headline', label: 'Main Headline', type: 'text' },
-                { key: 'services-subtext', label: 'Hero Subtext', type: 'textarea' },
-                { key: 'services-card-seo-title', label: 'SEO Card: Title', type: 'text' },
-                { key: 'services-card-seo-desc', label: 'SEO Card: Description', type: 'textarea' },
-                { key: 'services-card-social-title', label: 'Social Card: Title', type: 'text' },
-                { key: 'services-card-social-desc', label: 'Social Card: Description', type: 'textarea' },
-                { key: 'services-card-web-title', label: 'Web Card: Title', type: 'text' },
-                { key: 'services-card-web-desc', label: 'Web Card: Description', type: 'textarea' },
-                { key: 'services-card-ads-title', label: 'Paid Ads Card: Title', type: 'text' },
-                { key: 'services-card-ads-desc', label: 'Paid Ads Card: Description', type: 'textarea' },
-                { key: 'services-card-design-title', label: 'Design Card: Title', type: 'text' },
-                { key: 'services-card-video-title', label: 'Video Card: Title', type: 'text' }
+                { section: 'Hero Section', key: 'services-label', label: 'Page Subtitle', type: 'text', limit: 30 },
+                { section: 'Hero Section', key: 'services-headline', label: 'Main Headline', type: 'text', limit: 40 },
+                { section: 'Hero Section', key: 'services-subtext', label: 'Hero Subtext', type: 'textarea', limit: 250 },
+                
+                { section: 'Service Cards', key: 'services-card-seo-title', label: 'Card 1: SEO Architecture (Title)', type: 'text', limit: 25 },
+                { section: 'Service Cards', key: 'services-card-seo-desc', label: 'Card 1: Description', type: 'textarea', limit: 120 },
+                
+                { section: 'Service Cards', key: 'services-card-social-title', label: 'Card 2: Social Ecosystems (Title)', type: 'text', limit: 25 },
+                { section: 'Service Cards', key: 'services-card-social-desc', label: 'Card 2: Description', type: 'textarea', limit: 120 },
+                
+                { section: 'Service Cards', key: 'services-card-web-title', label: 'Card 3: Web Engineering (Title)', type: 'text', limit: 25 },
+                { section: 'Service Cards', key: 'services-card-web-desc', label: 'Card 3: Description', type: 'textarea', limit: 120 },
+                
+                { section: 'Service Cards', key: 'services-card-ads-title', label: 'Card 4: Paid Ads (Title)', type: 'text', limit: 25 },
+                { section: 'Service Cards', key: 'services-card-ads-desc', label: 'Card 4: Description', type: 'textarea', limit: 120 },
+                
+                { section: 'Service Cards', key: 'services-card-design-title', label: 'Card 5: Design & Identity (Title Only)', type: 'text', limit: 25 },
+                { section: 'Service Cards', key: 'services-card-video-title', label: 'Card 6: Video Production (Title Only)', type: 'text', limit: 25 }
             ],
             'service-seo': [
                 { key: 'seo-headline', label: 'Main Headline', type: 'text' },
@@ -246,28 +251,51 @@
                 return;
             }
 
+            let currentSection = '';
+            let sectionContainer = null;
+
             fields.forEach(field => {
+                if (field.section !== currentSection) {
+                    currentSection = field.section;
+                    const sectionHeader = document.createElement('div');
+                    sectionHeader.className = 'col-span-full pt-8 pb-4';
+                    sectionHeader.innerHTML = `<h3 class="text-xs font-black uppercase tracking-[0.3em] text-gray-400">${currentSection}</h3>`;
+                    grid.appendChild(sectionHeader);
+                    
+                    if (currentSection === 'Service Cards') {
+                        sectionContainer = document.createElement('div');
+                        sectionContainer.className = 'grid grid-cols-1 md:grid-cols-2 gap-6 col-span-full';
+                        grid.appendChild(sectionContainer);
+                    } else {
+                        sectionContainer = grid;
+                    }
+                }
+
                 const value = pageContents[field.key] || '';
                 const card = document.createElement('div');
-                card.className = 'glass rounded-[32px] p-8 space-y-4 hover:shadow-lg transition-all duration-500';
+                card.className = 'glass rounded-[32px] p-8 space-y-4 hover:shadow-lg transition-all duration-500 bg-white';
                 
+                const limit = field.limit || 500;
                 const inputHtml = field.type === 'textarea' 
-                    ? `<textarea id="input-${field.key}" class="w-full bg-transparent border border-black/5 rounded-2xl p-4 text-sm focus:outline-none focus:border-black/20 min-h-[120px]" placeholder="Enter ${field.label}...">${value}</textarea>`
-                    : `<input type="text" id="input-${field.key}" value="${value}" class="w-full bg-transparent border border-black/5 rounded-2xl p-4 text-sm focus:outline-none focus:border-black/20" placeholder="Enter ${field.label}...">`;
+                    ? `<textarea id="input-${field.key}" maxlength="${limit}" oninput="updateCounter('${field.key}', ${limit})" class="w-full bg-transparent border border-black/5 rounded-2xl p-4 text-sm focus:outline-none focus:border-black/20 min-h-[120px]" placeholder="Enter ${field.label}...">${value}</textarea>`
+                    : `<input type="text" id="input-${field.key}" maxlength="${limit}" oninput="updateCounter('${field.key}', ${limit})" value="${value}" class="w-full bg-transparent border border-black/5 rounded-2xl p-4 text-sm focus:outline-none focus:border-black/20" placeholder="Enter ${field.label}...">`;
 
                 card.innerHTML = `
-                    <div class="flex justify-between items-center">
+                    <div class="flex justify-between items-start">
                         <div class="flex items-center gap-3">
                             <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center">
                                 <span class="material-symbols-outlined text-gray-400 text-lg">edit_note</span>
                             </div>
                             <div>
                                 <h4 class="font-bold text-sm text-gray-900">${field.label}</h4>
-                                <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest">${field.key}</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-[9px] font-mono text-gray-400 uppercase tracking-widest">${field.key}</span>
+                                    <span id="counter-${field.key}" class="text-[9px] font-bold text-gray-300 uppercase tracking-widest">${value.length}/${limit}</span>
+                                </div>
                             </div>
                         </div>
-                        <button onclick="saveField('${field.key}')" id="btn-save-${field.key}" class="group flex items-center gap-2 text-xs font-black bg-black text-white px-6 py-3 rounded-full hover:scale-105 transition-all">
-                            <span>SAVE CHANGES</span>
+                        <button onclick="saveField('${field.key}')" id="btn-save-${field.key}" class="group flex items-center gap-2 text-xs font-black bg-black text-white px-5 py-2.5 rounded-full hover:scale-105 transition-all">
+                            <span>SAVE</span>
                             <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                         </button>
                     </div>
@@ -275,8 +303,19 @@
                         ${inputHtml}
                     </div>
                 `;
-                grid.appendChild(card);
+                sectionContainer.appendChild(card);
             });
+        }
+
+        function updateCounter(key, limit) {
+            const val = document.getElementById('input-' + key).value;
+            const counter = document.getElementById('counter-' + key);
+            counter.innerText = val.length + '/' + limit;
+            if (val.length >= limit) {
+                counter.classList.add('text-red-500');
+            } else {
+                counter.classList.remove('text-red-500');
+            }
         }
 
         async function saveField(key) {
