@@ -46,8 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (element.tagName === 'IMG') {
                 element.src = value;
             } else if (element.tagName === 'A') {
-                // If it's a link, we might want to change text or href. 
-                // For now, let's assume innerHTML unless it's specifically a URL field
                 if (key.endsWith('-url')) {
                     element.href = value;
                 } else {
@@ -58,6 +56,52 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 element.innerHTML = value;
             }
+
+            // [NEW] Special handling for Categories to enable Filtering
+            if (key.endsWith('-cat')) {
+                const containerId = key.split('-cat')[0];
+                const container = document.getElementById(containerId);
+                if (container) {
+                    container.setAttribute('data-category', value.toLowerCase());
+                }
+            }
+        });
+
+        // Initialize filters after content is applied
+        initFilters();
+    }
+
+    function initFilters() {
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const items = document.querySelectorAll('.masonry-item');
+
+        if (filterBtns.length === 0) return;
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-filter');
+                
+                // Update button UI
+                filterBtns.forEach(b => {
+                    b.classList.remove('bg-black', 'text-white');
+                    b.classList.add('text-on-surface');
+                });
+                btn.classList.add('bg-black', 'text-white');
+                btn.classList.remove('text-on-surface');
+
+                // Filter items
+                items.forEach(item => {
+                    const cat = item.getAttribute('data-category');
+                    if (filter === 'all' || cat === filter) {
+                        item.style.display = 'block';
+                        setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'scale(1)'; }, 10);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.95)';
+                        setTimeout(() => { item.style.display = 'none'; }, 300);
+                    }
+                });
+            });
         });
     }
 });

@@ -196,33 +196,42 @@
                 { section: 'Features', key: 'video-card-2-desc', label: 'Feature 2: Description', type: 'textarea', limit: 150 }
             ],
             'blog-premium': [
-                { key: 'blog-hero-label', label: 'Hero Subtitle (e.g. Editorial Archive)', type: 'text' },
-                { key: 'blog-hero-headline', label: 'Main Headline', type: 'text' },
-                { key: 'blog-hero-subtext', label: 'Hero Description', type: 'textarea' },
-                { key: 'blog-featured-title', label: 'Featured Article: Title', type: 'text' },
-                { key: 'blog-featured-desc', label: 'Featured Article: Summary', type: 'textarea' }
+                { section: 'Hero Section', key: 'blog-hero-label', label: 'Hero Subtitle', type: 'text', limit: 30 },
+                { section: 'Hero Section', key: 'blog-hero-headline', label: 'Main Headline', type: 'text', limit: 50 },
+                { section: 'Hero Section', key: 'blog-hero-subtext', label: 'Hero Description', type: 'textarea', limit: 250 },
+                
+                { section: 'Featured Post', key: 'blog-featured-img', label: 'Featured Image URL', type: 'text' },
+                { section: 'Featured Post', key: 'blog-featured-cat', label: 'Featured Category', type: 'select', options: ['all', 'vid', 'img'] },
+                { section: 'Featured Post', key: 'blog-featured-title', label: 'Featured Title', type: 'text', limit: 60 },
+                { section: 'Featured Post', key: 'blog-featured-desc', label: 'Featured Summary', type: 'textarea', limit: 200 }
             ],
             'portfolio': [
-                { key: 'portfolio-headline', label: 'Main Headline', type: 'text' },
-                { key: 'portfolio-subtext', label: 'Hero Description', type: 'textarea' },
-                { key: 'portfolio-item-1-img', label: 'Item 1: Image URL', type: 'text' },
-                { key: 'portfolio-item-1-cat', label: 'Item 1: Category', type: 'text' },
-                { key: 'portfolio-item-1-title', label: 'Item 1: Title', type: 'text' },
-                { key: 'portfolio-item-2-img', label: 'Item 2: Image URL', type: 'text' },
-                { key: 'portfolio-item-2-cat', label: 'Item 2: Category', type: 'text' },
-                { key: 'portfolio-item-2-title', label: 'Item 2: Title', type: 'text' },
-                { key: 'portfolio-item-3-img', label: 'Item 3: Image URL', type: 'text' },
-                { key: 'portfolio-item-3-cat', label: 'Item 3: Category', type: 'text' },
-                { key: 'portfolio-item-3-title', label: 'Item 3: Title', type: 'text' },
-                { key: 'portfolio-item-4-img', label: 'Item 4: Image URL', type: 'text' },
-                { key: 'portfolio-item-4-cat', label: 'Item 4: Category', type: 'text' },
-                { key: 'portfolio-item-4-title', label: 'Item 4: Title', type: 'text' },
-                { key: 'portfolio-item-5-img', label: 'Item 5: Image URL', type: 'text' },
-                { key: 'portfolio-item-5-cat', label: 'Item 5: Category', type: 'text' },
-                { key: 'portfolio-item-5-title', label: 'Item 5: Title', type: 'text' },
-                { key: 'portfolio-item-6-img', label: 'Item 6: Image URL', type: 'text' },
-                { key: 'portfolio-item-6-cat', label: 'Item 6: Category', type: 'text' },
-                { key: 'portfolio-item-6-title', label: 'Item 6: Title', type: 'text' }
+                { section: 'Hero Section', key: 'portfolio-headline', label: 'Main Headline', type: 'text', limit: 50 },
+                { section: 'Hero Section', key: 'portfolio-subtext', label: 'Hero Description', type: 'textarea', limit: 250 },
+                
+                { section: 'Portfolio Item 1', key: 'portfolio-item-1-img', label: 'Item 1: Image URL', type: 'text' },
+                { section: 'Portfolio Item 1', key: 'portfolio-item-1-cat', label: 'Item 1: Category', type: 'select', options: ['all', 'vid', 'img'] },
+                { section: 'Portfolio Item 1', key: 'portfolio-item-1-title', label: 'Item 1: Title', type: 'text', limit: 40 },
+                
+                { section: 'Portfolio Item 2', key: 'portfolio-item-2-img', label: 'Item 2: Image URL', type: 'text' },
+                { section: 'Portfolio Item 2', key: 'portfolio-item-2-cat', label: 'Item 2: Category', type: 'select', options: ['all', 'vid', 'img'] },
+                { section: 'Portfolio Item 2', key: 'portfolio-item-2-title', label: 'Item 2: Title', type: 'text', limit: 40 },
+                
+                { section: 'Portfolio Item 3', key: 'portfolio-item-3-img', label: 'Item 3: Image URL', type: 'text' },
+                { section: 'Portfolio Item 3', key: 'portfolio-item-3-cat', label: 'Item 3: Category', type: 'select', options: ['all', 'vid', 'img'] },
+                { section: 'Portfolio Item 3', key: 'portfolio-item-3-title', label: 'Item 3: Title', type: 'text', limit: 40 },
+                
+                { section: 'Portfolio Item 4', key: 'portfolio-item-4-img', label: 'Item 4: Image URL', type: 'text' },
+                { section: 'Portfolio Item 4', key: 'portfolio-item-4-cat', label: 'Item 4: Category', type: 'select', options: ['all', 'vid', 'img'] },
+                { section: 'Portfolio Item 4', key: 'portfolio-item-4-title', label: 'Item 4: Title', type: 'text', limit: 40 },
+                
+                { section: 'Portfolio Item 5', key: 'portfolio-item-5-img', label: 'Item 5: Image URL', type: 'text' },
+                { section: 'Portfolio Item 5', key: 'portfolio-item-5-cat', label: 'Item 5: Category', type: 'select', options: ['all', 'vid', 'img'] },
+                { section: 'Portfolio Item 5', key: 'portfolio-item-5-title', label: 'Item 5: Title', type: 'text', limit: 40 },
+                
+                { section: 'Portfolio Item 6', key: 'portfolio-item-6-img', label: 'Item 6: Image URL', type: 'text' },
+                { section: 'Portfolio Item 6', key: 'portfolio-item-6-cat', label: 'Item 6: Category', type: 'select', options: ['all', 'vid', 'img'] },
+                { section: 'Portfolio Item 6', key: 'portfolio-item-6-title', label: 'Item 6: Title', type: 'text', limit: 40 }
             ]
         };
 
@@ -290,9 +299,18 @@
                 card.className = 'glass rounded-[32px] p-8 space-y-4 hover:shadow-lg transition-all duration-500 bg-white';
                 
                 const limit = field.limit || 500;
-                const inputHtml = field.type === 'textarea' 
-                    ? `<textarea id="input-${field.key}" maxlength="${limit}" oninput="updateCounter('${field.key}', ${limit})" class="w-full bg-transparent border border-black/5 rounded-2xl p-4 text-sm focus:outline-none focus:border-black/20 min-h-[120px]" placeholder="Enter ${field.label}...">${value}</textarea>`
-                    : `<input type="text" id="input-${field.key}" maxlength="${limit}" oninput="updateCounter('${field.key}', ${limit})" value="${value}" class="w-full bg-transparent border border-black/5 rounded-2xl p-4 text-sm focus:outline-none focus:border-black/20" placeholder="Enter ${field.label}...">`;
+                let inputHtml = '';
+                
+                if (field.type === 'textarea') {
+                    inputHtml = `<textarea id="input-${field.key}" maxlength="${limit}" oninput="updateCounter('${field.key}', ${limit})" class="w-full bg-transparent border border-black/5 rounded-2xl p-4 text-sm focus:outline-none focus:border-black/20 min-h-[120px]" placeholder="Enter ${field.label}...">${value}</textarea>`;
+                } else if (field.type === 'select') {
+                    const optionsHtml = field.options.map(opt => `<option value="${opt}" ${value === opt ? 'selected' : ''}>${opt.toUpperCase()}</option>`).join('');
+                    inputHtml = `<select id="input-${field.key}" class="w-full bg-transparent border border-black/5 rounded-2xl p-4 text-sm focus:outline-none focus:border-black/20 cursor-pointer appearance-none">
+                        ${optionsHtml}
+                    </select>`;
+                } else {
+                    inputHtml = `<input type="text" id="input-${field.key}" maxlength="${limit}" oninput="updateCounter('${field.key}', ${limit})" value="${value}" class="w-full bg-transparent border border-black/5 rounded-2xl p-4 text-sm focus:outline-none focus:border-black/20" placeholder="Enter ${field.label}...">`;
+                }
 
                 card.innerHTML = `
                     <div class="flex justify-between items-start">
@@ -304,7 +322,7 @@
                                 <h4 class="font-bold text-sm text-gray-900">${field.label}</h4>
                                 <div class="flex items-center gap-2">
                                     <span class="text-[9px] font-mono text-gray-400 uppercase tracking-widest">${field.key}</span>
-                                    <span id="counter-${field.key}" class="text-[9px] font-bold text-gray-300 uppercase tracking-widest">${value.length}/${limit}</span>
+                                    ${field.type !== 'select' ? `<span id="counter-${field.key}" class="text-[9px] font-bold text-gray-300 uppercase tracking-widest">${value.length}/${limit}</span>` : ''}
                                 </div>
                             </div>
                         </div>
