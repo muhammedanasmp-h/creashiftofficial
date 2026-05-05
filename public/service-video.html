@@ -147,11 +147,42 @@
                 <!-- Image Side -->
                 <div class="md:col-span-5 relative mt-8 md:mt-0">
                     <div class="aspect-[9/16] bg-neutral-100 rounded-[24px] md:rounded-[60px] overflow-hidden relative group shadow-2xl max-w-[280px] md:max-w-[320px] mx-auto">
-                        <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=800" alt="Video Production" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
+                        <img id="video-main-img" src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&q=80&w=800" alt="Video Production" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
                         <div class="absolute inset-0 bg-black/20 flex items-center justify-center group-hover:bg-transparent transition-colors">
                             <div class="w-16 h-16 md:w-20 md:h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center border border-white/30 group-hover:scale-110 transition-transform">
                                 <span class="material-symbols-outlined text-white text-3xl md:text-4xl">play_arrow</span>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Workflow Box Section -->
+        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-16 md:mb-section-gap reveal delay-2">
+            <div class="glass-card p-10 md:p-20 rounded-[32px] md:rounded-[60px] border border-black/5 relative overflow-hidden group">
+                <div class="absolute top-0 right-0 p-10 text-[9px] font-mono opacity-10 tracking-[0.4em] hidden md:block">ISO_PROD_FLOW_2024</div>
+                <div class="max-w-3xl">
+                    <h3 id="video-workflow-title" class="text-2xl md:text-4xl font-black mb-6 md:mb-8 uppercase tracking-tighter">The Production <br>Blueprint</h3>
+                    <p id="video-workflow-desc" class="text-sm md:text-xl text-on-surface-variant leading-relaxed font-medium mb-10 md:mb-16">
+                        From the first storyboard to the final color grade, our production workflow is engineered for speed, quality, and cultural impact. We don't just shoot video; we architect cinematic experiences.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 pt-10 border-t border-black/5">
+                        <div>
+                            <span class="text-[10px] font-black tracking-widest text-black/20 block mb-2">01 / PRE</span>
+                            <h5 id="video-step-1" class="font-bold uppercase text-sm mb-2">Story Engineering</h5>
+                            <p class="text-[11px] text-gray-400">Defining the hook and narrative arc.</p>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-black tracking-widest text-black/20 block mb-2">02 / LIVE</span>
+                            <h5 id="video-step-2" class="font-bold uppercase text-sm mb-2">Cinematic Capture</h5>
+                            <p class="text-[11px] text-gray-400">High-end equipment, professional lighting.</p>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-black tracking-widest text-black/20 block mb-2">03 / POST</span>
+                            <h5 id="video-step-3" class="font-bold uppercase text-sm mb-2">Precision Edit</h5>
+                            <p class="text-[11px] text-gray-400">Sound design and color grading mastery.</p>
                         </div>
                     </div>
                 </div>
