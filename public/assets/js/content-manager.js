@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (path.includes('service-ads')) page = 'service-ads';
     else if (path.includes('service-design')) page = 'service-design';
     else if (path.includes('service-video')) page = 'service-video';
+    else if (path.includes('blog-premium')) page = 'blog-premium';
     else if (path === '/' || path.includes('index')) page = 'home';
 
     // Skip dynamic loading for Home and About as requested

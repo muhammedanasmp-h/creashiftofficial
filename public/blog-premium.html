@@ -178,6 +178,7 @@
             100% { transform: translateY(0) rotate(-10deg) scaleY(1); }
         }
     </style>
+    <script src="assets/js/content-manager.js" defer></script>
 </head>
 <body class="bg-background text-on-background selection:bg-black selection:text-white relative min-h-screen flex flex-col overflow-x-hidden w-full m-0 p-0">
 <!-- TopAppBar -->
@@ -212,9 +213,9 @@ GET STARTED
     <div class="w-px h-full bg-gradient-to-b from-transparent via-black/80 to-transparent mt-5"></div>
 </div>
 <div class="max-w-4xl relative z-10">
-<span class="font-label-sm text-label-sm text-on-primary-container block mb-8 uppercase">Editorial Archive</span>
-<h1 class="font-display-xl text-display-xl text-primary mb-10 tracking-tighter leading-[0.95]">THE FUTURE OF <br/>DIGITAL CRAFT.</h1>
-<p class="font-body-lg text-body-lg text-secondary max-w-2xl leading-relaxed">
+<span id="blog-hero-label" class="font-label-sm text-label-sm text-on-primary-container block mb-8 uppercase">Editorial Archive</span>
+<h1 id="blog-hero-headline" class="font-display-xl text-display-xl text-primary mb-10 tracking-tighter leading-[0.95]">THE FUTURE OF <br/>DIGITAL CRAFT.</h1>
+<p id="blog-hero-subtext" class="font-body-lg text-body-lg text-secondary max-w-2xl leading-relaxed">
                     Exploring the intersection of architectural precision and digital fluidity. Curated thoughts on branding, technology, and the minimalist aesthetic.
                 </p>
 </div>
@@ -247,8 +248,8 @@ GET STARTED
 <span class="border border-black px-3 py-1 font-label-sm text-[10px] uppercase tracking-widest">FEATURED</span>
 <span class="font-label-sm text-on-primary-container">OCT 12, 2024</span>
 </div>
-<h2 class="text-4xl md:text-5xl lg:text-6xl font-semibold text-primary mb-8 leading-[1.1] tracking-tight group-hover:opacity-70 transition-opacity">The Architecture of Brand Silence</h2>
-<p class="font-body-md text-secondary mb-10 text-lg leading-relaxed max-w-lg">
+<h2 id="blog-featured-title" class="text-4xl md:text-5xl lg:text-6xl font-semibold text-primary mb-8 leading-[1.1] tracking-tight group-hover:opacity-70 transition-opacity">The Architecture of Brand Silence</h2>
+<p id="blog-featured-desc" class="font-body-md text-secondary mb-10 text-lg leading-relaxed max-w-lg">
                             How minimalist design principles foster deeper connections in an era of digital noise. Analyzing the psychology behind whitespace and luxury brand narratives.
                         </p>
 <a class="inline-flex items-center gap-4 font-label-sm text-primary tracking-[0.2em] group-hover:translate-x-2 transition-transform duration-500" href="#">

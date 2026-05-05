@@ -43,6 +43,8 @@
             <button onclick="selectPage('service-ads')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-ads">Paid Ads</button>
             <button onclick="selectPage('service-design')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-design">Design & Identity</button>
             <button onclick="selectPage('service-video')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-video">Video Production</button>
+            <button onclick="selectPage('blog-premium')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-blog-premium">Blog / Editorial</button>
+            <button onclick="selectPage('portfolio')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-portfolio">Portfolio / Cases</button>
         </nav>
         
         <div class="pt-8 border-t border-black/5 mt-auto">
@@ -95,12 +97,124 @@
         let currentPage = 'services';
         let pageContents = {};
 
+        // Define the "Premium Schema" - Every field on every page is mapped here
+        const pageSchema = {
+            'services': [
+                { key: 'services-label', label: 'Page Subtitle (e.g. Core Offerings)', type: 'text' },
+                { key: 'services-headline', label: 'Main Headline', type: 'text' },
+                { key: 'services-subtext', label: 'Hero Subtext', type: 'textarea' },
+                { key: 'services-card-seo-title', label: 'SEO Card: Title', type: 'text' },
+                { key: 'services-card-seo-desc', label: 'SEO Card: Description', type: 'textarea' },
+                { key: 'services-card-social-title', label: 'Social Card: Title', type: 'text' },
+                { key: 'services-card-social-desc', label: 'Social Card: Description', type: 'textarea' },
+                { key: 'services-card-web-title', label: 'Web Card: Title', type: 'text' },
+                { key: 'services-card-web-desc', label: 'Web Card: Description', type: 'textarea' },
+                { key: 'services-card-ads-title', label: 'Paid Ads Card: Title', type: 'text' },
+                { key: 'services-card-ads-desc', label: 'Paid Ads Card: Description', type: 'textarea' },
+                { key: 'services-card-design-title', label: 'Design Card: Title', type: 'text' },
+                { key: 'services-card-video-title', label: 'Video Card: Title', type: 'text' }
+            ],
+            'service-seo': [
+                { key: 'seo-headline', label: 'Main Headline', type: 'text' },
+                { key: 'seo-intro', label: 'Intro Paragraph', type: 'textarea' },
+                { key: 'seo-sub-headline', label: 'Sub-Section: Headline', type: 'text' },
+                { key: 'seo-sub-intro', label: 'Sub-Section: Intro', type: 'textarea' },
+                { key: 'seo-card-1-title', label: 'Feature 1: Title', type: 'text' },
+                { key: 'seo-card-1-desc', label: 'Feature 1: Description', type: 'textarea' },
+                { key: 'seo-card-2-title', label: 'Feature 2: Title', type: 'text' },
+                { key: 'seo-card-2-desc', label: 'Feature 2: Description', type: 'textarea' }
+            ],
+            'service-social': [
+                { key: 'social-headline', label: 'Main Headline', type: 'text' },
+                { key: 'social-intro', label: 'Intro Paragraph', type: 'textarea' },
+                { key: 'social-sub-headline', label: 'Sub-Section: Headline', type: 'text' },
+                { key: 'social-sub-intro', label: 'Sub-Section: Intro', type: 'textarea' },
+                { key: 'social-card-1-title', label: 'Feature 1: Title', type: 'text' },
+                { key: 'social-card-1-desc', label: 'Feature 1: Description', type: 'textarea' },
+                { key: 'social-card-2-title', label: 'Feature 2: Title', type: 'text' },
+                { key: 'social-card-2-desc', label: 'Feature 2: Description', type: 'textarea' }
+            ],
+            'service-web': [
+                { key: 'web-headline', label: 'Main Headline', type: 'text' },
+                { key: 'web-intro', label: 'Intro Paragraph', type: 'textarea' },
+                { key: 'web-sub-headline', label: 'Sub-Section: Headline', type: 'text' },
+                { key: 'web-sub-intro', label: 'Sub-Section: Intro', type: 'textarea' },
+                { key: 'web-card-1-title', label: 'Feature 1: Title', type: 'text' },
+                { key: 'web-card-1-desc', label: 'Feature 1: Description', type: 'textarea' },
+                { key: 'web-card-2-title', label: 'Feature 2: Title', type: 'text' },
+                { key: 'web-card-2-desc', label: 'Feature 2: Description', type: 'textarea' },
+                { key: 'web-card-3-title', label: 'Feature 3: Title', type: 'text' },
+                { key: 'web-card-3-desc', label: 'Feature 3: Description', type: 'textarea' }
+            ],
+            'service-ads': [
+                { key: 'ads-headline', label: 'Main Headline', type: 'text' },
+                { key: 'ads-intro', label: 'Intro Paragraph', type: 'textarea' },
+                { key: 'ads-sub-headline', label: 'Sub-Section: Headline', type: 'text' },
+                { key: 'ads-sub-intro', label: 'Sub-Section: Intro', type: 'textarea' },
+                { key: 'ads-metric-1-value', label: 'Metric 1: Value (e.g. 350%)', type: 'text' },
+                { key: 'ads-metric-1-label', label: 'Metric 1: Label', type: 'text' },
+                { key: 'ads-metric-2-value', label: 'Metric 2: Value', type: 'text' },
+                { key: 'ads-metric-2-label', label: 'Metric 2: Label', type: 'text' }
+            ],
+            'service-design': [
+                { key: 'design-headline', label: 'Main Headline', type: 'text' },
+                { key: 'design-intro', label: 'Intro Paragraph', type: 'textarea' },
+                { key: 'design-sub-headline', label: 'Sub-Section: Headline', type: 'text' },
+                { key: 'design-sub-intro', label: 'Sub-Section: Intro', type: 'textarea' },
+                { key: 'design-card-1-title', label: 'Feature 1: Title', type: 'text' },
+                { key: 'design-card-1-desc', label: 'Feature 1: Description', type: 'textarea' },
+                { key: 'design-card-2-title', label: 'Feature 2: Title', type: 'text' },
+                { key: 'design-card-2-desc', label: 'Feature 2: Description', type: 'textarea' }
+            ],
+            'service-video': [
+                { key: 'video-headline', label: 'Main Headline', type: 'text' },
+                { key: 'video-intro', label: 'Intro Paragraph', type: 'textarea' },
+                { key: 'video-sub-headline', label: 'Sub-Section: Headline', type: 'text' },
+                { key: 'video-sub-intro', label: 'Sub-Section: Intro', type: 'textarea' },
+                { key: 'video-card-1-title', label: 'Feature 1: Title', type: 'text' },
+                { key: 'video-card-1-desc', label: 'Feature 1: Description', type: 'textarea' },
+                { key: 'video-card-2-title', label: 'Feature 2: Title', type: 'text' },
+                { key: 'video-card-2-desc', label: 'Feature 2: Description', type: 'textarea' }
+            ],
+            'blog-premium': [
+                { key: 'blog-hero-label', label: 'Hero Subtitle (e.g. Editorial Archive)', type: 'text' },
+                { key: 'blog-hero-headline', label: 'Main Headline', type: 'text' },
+                { key: 'blog-hero-subtext', label: 'Hero Description', type: 'textarea' },
+                { key: 'blog-featured-title', label: 'Featured Article: Title', type: 'text' },
+                { key: 'blog-featured-desc', label: 'Featured Article: Summary', type: 'textarea' }
+            ],
+            'portfolio': [
+                { key: 'portfolio-headline', label: 'Main Headline', type: 'text' },
+                { key: 'portfolio-subtext', label: 'Hero Description', type: 'textarea' },
+                { key: 'portfolio-item-1-img', label: 'Item 1: Image URL', type: 'text' },
+                { key: 'portfolio-item-1-cat', label: 'Item 1: Category', type: 'text' },
+                { key: 'portfolio-item-1-title', label: 'Item 1: Title', type: 'text' },
+                { key: 'portfolio-item-2-img', label: 'Item 2: Image URL', type: 'text' },
+                { key: 'portfolio-item-2-cat', label: 'Item 2: Category', type: 'text' },
+                { key: 'portfolio-item-2-title', label: 'Item 2: Title', type: 'text' },
+                { key: 'portfolio-item-3-img', label: 'Item 3: Image URL', type: 'text' },
+                { key: 'portfolio-item-3-cat', label: 'Item 3: Category', type: 'text' },
+                { key: 'portfolio-item-3-title', label: 'Item 3: Title', type: 'text' },
+                { key: 'portfolio-item-4-img', label: 'Item 4: Image URL', type: 'text' },
+                { key: 'portfolio-item-4-cat', label: 'Item 4: Category', type: 'text' },
+                { key: 'portfolio-item-4-title', label: 'Item 4: Title', type: 'text' },
+                { key: 'portfolio-item-5-img', label: 'Item 5: Image URL', type: 'text' },
+                { key: 'portfolio-item-5-cat', label: 'Item 5: Category', type: 'text' },
+                { key: 'portfolio-item-5-title', label: 'Item 5: Title', type: 'text' },
+                { key: 'portfolio-item-6-img', label: 'Item 6: Image URL', type: 'text' },
+                { key: 'portfolio-item-6-cat', label: 'Item 6: Category', type: 'text' },
+                { key: 'portfolio-item-6-title', label: 'Item 6: Title', type: 'text' }
+            ]
+        };
+
         async function selectPage(page) {
             currentPage = page;
             
             // Update UI
             document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
-            document.getElementById('btn-' + page).classList.add('active');
+            const btn = document.getElementById('btn-' + page);
+            if (btn) btn.classList.add('active');
+            
             document.getElementById('currentPageTitle').innerText = page.replace('-', ' ').toUpperCase() + ' PAGE';
             
             loadContent();
@@ -125,26 +239,41 @@
             const grid = document.getElementById('contentGrid');
             grid.innerHTML = '';
             
-            const keys = Object.keys(pageContents);
-            if (keys.length === 0) {
-                grid.innerHTML = '<div class="text-center py-20 border-2 border-dashed border-black/5 rounded-[40px] text-gray-400">No dynamic sections found for this page yet. Start by adding one.</div>';
+            const fields = pageSchema[currentPage] || [];
+            
+            if (fields.length === 0) {
+                grid.innerHTML = '<div class="text-center py-20 border-2 border-dashed border-black/5 rounded-[40px] text-gray-400">Select a page from the sidebar to manage its content.</div>';
                 return;
             }
 
-            keys.forEach(key => {
-                const value = pageContents[key];
+            fields.forEach(field => {
+                const value = pageContents[field.key] || '';
                 const card = document.createElement('div');
-                card.className = 'glass rounded-[32px] p-8 space-y-4';
+                card.className = 'glass rounded-[32px] p-8 space-y-4 hover:shadow-lg transition-all duration-500';
                 
+                const inputHtml = field.type === 'textarea' 
+                    ? `<textarea id="input-${field.key}" class="w-full bg-transparent border border-black/5 rounded-2xl p-4 text-sm focus:outline-none focus:border-black/20 min-h-[120px]" placeholder="Enter ${field.label}...">${value}</textarea>`
+                    : `<input type="text" id="input-${field.key}" value="${value}" class="w-full bg-transparent border border-black/5 rounded-2xl p-4 text-sm focus:outline-none focus:border-black/20" placeholder="Enter ${field.label}...">`;
+
                 card.innerHTML = `
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Section Key</span>
-                            <h4 class="font-bold font-mono text-sm">${key}</h4>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-gray-400 text-lg">edit_note</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-gray-900">${field.label}</h4>
+                                <span class="text-[10px] font-mono text-gray-400 uppercase tracking-widest">${field.key}</span>
+                            </div>
                         </div>
-                        <button onclick="saveField('${key}')" class="text-xs font-bold bg-black text-white px-4 py-2 rounded-full hover:opacity-80 transition-opacity">SAVE</button>
+                        <button onclick="saveField('${field.key}')" id="btn-save-${field.key}" class="group flex items-center gap-2 text-xs font-black bg-black text-white px-6 py-3 rounded-full hover:scale-105 transition-all">
+                            <span>SAVE CHANGES</span>
+                            <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        </button>
                     </div>
-                    <textarea id="input-${key}" class="w-full bg-transparent border border-black/5 rounded-2xl p-4 text-sm focus:outline-none focus:border-black/20 min-h-[100px]" placeholder="Enter content...">${value}</textarea>
+                    <div class="pt-2">
+                        ${inputHtml}
+                    </div>
                 `;
                 grid.appendChild(card);
             });
@@ -152,6 +281,11 @@
 
         async function saveField(key) {
             const value = document.getElementById('input-' + key).value;
+            const btn = document.getElementById('btn-save-' + key);
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<span class="animate-spin material-symbols-outlined">sync</span>';
+            btn.disabled = true;
             
             try {
                 const response = await fetch('/api/content', {
@@ -162,28 +296,23 @@
                 
                 const result = await response.json();
                 if (result.success) {
-                    showToast('Section "' + key + '" updated');
+                    showToast('Field "' + key + '" updated successfully');
+                    btn.innerHTML = '<span class="material-symbols-outlined">done</span> SAVED';
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                    }, 2000);
                 } else {
                     alert('Error: ' + result.error);
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
                 }
             } catch (err) {
                 console.error(err);
                 alert('Failed to save.');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
             }
-        }
-
-        function addNewField() {
-            const key = prompt('Enter a unique key for this section (e.g., hero-title, service-1-desc):');
-            if (!key) return;
-            
-            if (pageContents[key]) {
-                alert('Key already exists on this page.');
-                return;
-            }
-
-            pageContents[key] = '';
-            renderFields();
-            document.getElementById('input-' + key).focus();
         }
 
         function showToast(message) {
