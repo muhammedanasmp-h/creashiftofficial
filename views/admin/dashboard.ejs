@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | CREASHIFT Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(0,0,0,0.05); }
+        .sidebar-item.active { background: black; color: white; }
+    </style>
+</head>
+<body class="bg-[#fcf8fb] text-[#1b1b1d] min-h-screen flex">
+    <!-- Sidebar -->
+    <aside class="w-72 border-r border-black/5 p-8 flex flex-col h-screen sticky top-0 bg-white">
+        <div class="mb-12">
+            <h1 class="text-xl font-black tracking-tighter">CREASHIFT</h1>
+            <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Admin Dashboard</p>
+        </div>
+        
+        <nav class="flex-grow space-y-2">
+            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Pages</p>
+            <button onclick="selectPage('services')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all hover:bg-gray-100 flex items-center justify-between group active" id="btn-services">
+                Services
+                <span class="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+            </button>
+            <button onclick="selectPage('portfolio')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all hover:bg-gray-100 flex items-center justify-between group" id="btn-portfolio">
+                Portfolio
+                <span class="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+            </button>
+            <button onclick="selectPage('contact')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all hover:bg-gray-100 flex items-center justify-between group" id="btn-contact">
+                Contact
+                <span class="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+            </button>
+            
+            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest pt-6 mb-4">Service Details</p>
+            <button onclick="selectPage('service-seo')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-seo">SEO Architecture</button>
+            <button onclick="selectPage('service-social')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-social">Social Ecosystems</button>
+            <button onclick="selectPage('service-web')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-web">Web Engineering</button>
+            <button onclick="selectPage('service-ads')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-ads">Paid Ads</button>
+        </nav>
+        
+        <div class="pt-8 border-t border-black/5 mt-auto">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center font-bold">
+                    <%= user.displayName.charAt(0) %>
+                </div>
+                <div>
+                    <p class="text-sm font-bold truncate max-w-[140px]"><%= user.displayName %></p>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Administrator</p>
+                </div>
+            </div>
+            <a href="/logout" class="flex items-center gap-2 text-xs font-bold text-red-500 hover:opacity-70 transition-opacity">
+                <span class="material-symbols-outlined text-lg">logout</span>
+                SIGN OUT
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-grow p-12 overflow-y-auto">
+        <header class="flex justify-between items-center mb-12">
+            <div>
+                <h2 id="currentPageTitle" class="text-4xl font-black uppercase tracking-tighter">Home Page</h2>
+                <p class="text-gray-500 text-sm mt-1">Manage content and sections for this page.</p>
+            </div>
+            <button onclick="addNewField()" class="flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full text-sm font-bold hover:scale-105 transition-all">
+                <span class="material-symbols-outlined">add</span>
+                ADD SECTION
+            </button>
+        </header>
+
+        <!-- Content Grid -->
+        <div id="contentGrid" class="grid grid-cols-1 gap-6">
+            <!-- Fields will be loaded here -->
+            <div class="animate-pulse flex flex-col gap-4">
+                <div class="h-12 bg-gray-200 rounded-xl w-1/4"></div>
+                <div class="h-32 bg-gray-200 rounded-xl"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Edit Modal (Simplified for inline editing) -->
+    <div id="toast" class="fixed bottom-8 right-8 bg-black text-white px-6 py-4 rounded-2xl shadow-2xl translate-y-20 opacity-0 transition-all duration-500 flex items-center gap-3 z-50">
+        <span class="material-symbols-outlined text-green-400">check_circle</span>
+        <span id="toastMessage">Changes saved successfully</span>
+    </div>
+
+    <script>
+        let currentPage = 'services';
+        let pageContents = {};
+
+        async function selectPage(page) {
+            currentPage = page;
+            
+            // Update UI
+            document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
+            document.getElementById('btn-' + page).classList.add('active');
+            document.getElementById('currentPageTitle').innerText = page.replace('-', ' ').toUpperCase() + ' PAGE';
+            
+            loadContent();
+        }
+
+        async function loadContent() {
+            const grid = document.getElementById('contentGrid');
+            grid.innerHTML = '<div class="animate-pulse flex flex-col gap-4"><div class="h-12 bg-gray-200 rounded-xl w-1/4"></div><div class="h-32 bg-gray-200 rounded-xl"></div></div>';
+            
+            try {
+                const response = await fetch(`/api/content/${currentPage}`);
+                pageContents = await response.json();
+                
+                renderFields();
+            } catch (err) {
+                console.error(err);
+                grid.innerHTML = '<p class="text-red-500">Error loading content.</p>';
+            }
+        }
+
+        function renderFields() {
+            const grid = document.getElementById('contentGrid');
+            grid.innerHTML = '';
+            
+            const keys = Object.keys(pageContents);
+            if (keys.length === 0) {
+                grid.innerHTML = '<div class="text-center py-20 border-2 border-dashed border-black/5 rounded-[40px] text-gray-400">No dynamic sections found for this page yet. Start by adding one.</div>';
+                return;
+            }
+
+            keys.forEach(key => {
+                const value = pageContents[key];
+                const card = document.createElement('div');
+                card.className = 'glass rounded-[32px] p-8 space-y-4';
+                
+                card.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Section Key</span>
+                            <h4 class="font-bold font-mono text-sm">${key}</h4>
+                        </div>
+                        <button onclick="saveField('${key}')" class="text-xs font-bold bg-black text-white px-4 py-2 rounded-full hover:opacity-80 transition-opacity">SAVE</button>
+                    </div>
+                    <textarea id="input-${key}" class="w-full bg-transparent border border-black/5 rounded-2xl p-4 text-sm focus:outline-none focus:border-black/20 min-h-[100px]" placeholder="Enter content...">${value}</textarea>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        async function saveField(key) {
+            const value = document.getElementById('input-' + key).value;
+            
+            try {
+                const response = await fetch('/api/content', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ page: currentPage, key, value })
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    showToast('Section "' + key + '" updated');
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Failed to save.');
+            }
+        }
+
+        function addNewField() {
+            const key = prompt('Enter a unique key for this section (e.g., hero-title, service-1-desc):');
+            if (!key) return;
+            
+            if (pageContents[key]) {
+                alert('Key already exists on this page.');
+                return;
+            }
+
+            pageContents[key] = '';
+            renderFields();
+            document.getElementById('input-' + key).focus();
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Initial Load
+        loadContent();
+    </script>
+</body>
+</html>
