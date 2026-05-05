@@ -64,6 +64,7 @@
             }
         }
     </style>
+    <script src="assets/js/content-manager.js" defer></script>
 </head>
 <body class="bg-white text-black font-sans antialiased blueprint-grid">
     <!-- Header Fade Overlay -->
@@ -97,8 +98,8 @@
             <div class="border-b border-black/10 pb-8 md:pb-16">
                 <div class="max-w-5xl">
                     <span class="font-label-sm text-[9px] md:text-label-sm text-on-surface-variant mb-4 block uppercase tracking-[0.4em] opacity-60">Performance Engineering / 04</span>
-                    <h1 class="font-display-xl uppercase leading-[0.9] mb-6 md:mb-10">Paid <br>Ads <br>(Meta & Google)</h1>
-                    <p class="text-base md:text-xl text-black max-w-2xl leading-relaxed font-medium">
+                    <h1 id="ads-headline" class="font-display-xl uppercase leading-[0.9] mb-6 md:mb-10">Paid <br>Ads <br>(Meta & Google)</h1>
+                    <p id="ads-intro" class="text-base md:text-xl text-black max-w-2xl leading-relaxed font-medium">
                         Scaling brands through data-driven aggressive targeting and high-conversion assets. We turn ad spend into measurable revenue.
                     </p>
                 </div>
@@ -111,8 +112,8 @@
                 <!-- Text Side -->
                 <div class="md:col-span-7 space-y-10 md:space-y-16">
                     <div>
-                        <h2 class="text-2xl md:text-5xl font-black mb-4 md:mb-8 leading-tight uppercase tracking-tighter">Aggressive <br>Growth</h2>
-                        <p class="text-base md:text-2xl text-black leading-relaxed font-medium">
+                        <h2 id="ads-sub-headline" class="text-2xl md:text-5xl font-black mb-4 md:mb-8 leading-tight uppercase tracking-tighter">Aggressive <br>Growth</h2>
+                        <p id="ads-sub-intro" class="text-base md:text-2xl text-black leading-relaxed font-medium">
                             Growth is a science. We use aggressive targeting and high-converting visual assets to ensure your ad spend delivers maximum ROI.
                         </p>
                     </div>
@@ -146,12 +147,12 @@
                         
                         <div class="space-y-10 md:space-y-16">
                             <div class="group/item">
-                                <div class="text-5xl md:text-8xl font-black text-black leading-none mb-1 md:mb-2">350%+</div>
-                                <div class="text-[8px] md:text-[10px] uppercase tracking-[0.4em] text-on-surface-variant font-bold">Average ROI Increase</div>
+                                <div id="ads-metric-1-value" class="text-5xl md:text-8xl font-black text-black leading-none mb-1 md:mb-2">350%+</div>
+                                <div id="ads-metric-1-label" class="text-[8px] md:text-[10px] uppercase tracking-[0.4em] text-on-surface-variant font-bold">Average ROI Increase</div>
                             </div>
                             <div class="group/item">
-                                <div class="text-5xl md:text-8xl font-black text-black leading-none mb-1 md:mb-2">45%</div>
-                                <div class="text-[8px] md:text-[10px] uppercase tracking-[0.4em] text-on-surface-variant font-bold">Reduction in CPA</div>
+                                <div id="ads-metric-2-value" class="text-5xl md:text-8xl font-black text-black leading-none mb-1 md:mb-2">45%</div>
+                                <div id="ads-metric-2-label" class="text-[8px] md:text-[10px] uppercase tracking-[0.4em] text-on-surface-variant font-bold">Reduction in CPA</div>
                             </div>
                         </div>
                     </div>

@@ -64,6 +64,7 @@
             }
         }
     </style>
+    <script src="assets/js/content-manager.js" defer></script>
 </head>
 <body class="bg-white text-black font-sans antialiased blueprint-grid">
     <!-- Header Fade Overlay -->
@@ -97,8 +98,8 @@
             <div class="border-b border-black/10 pb-8 md:pb-16">
                 <div class="max-w-5xl">
                     <span class="font-label-sm text-[9px] md:text-label-sm text-on-surface-variant mb-4 block uppercase tracking-[0.4em] opacity-60">Cinematic Authority / 06</span>
-                    <h1 class="font-display-xl uppercase leading-[0.9] mb-6 md:mb-10">Video <br>Production <br>& Reels</h1>
-                    <p class="text-base md:text-xl text-black max-w-2xl leading-relaxed font-medium">
+                    <h1 id="video-headline" class="font-display-xl uppercase leading-[0.9] mb-6 md:mb-10">Video <br>Production <br>& Reels</h1>
+                    <p id="video-intro" class="text-base md:text-xl text-black max-w-2xl leading-relaxed font-medium">
                         Capturing the essence of your brand through cinematic motion and high-conversion vertical storytelling.
                     </p>
                 </div>
@@ -111,8 +112,8 @@
                 <!-- Text Side -->
                 <div class="md:col-span-7 space-y-10 md:space-y-16">
                     <div>
-                        <h2 class="text-2xl md:text-5xl font-black mb-4 md:mb-8 leading-tight uppercase tracking-tighter">Motion <br class="hidden md:block">Heritage</h2>
-                        <p class="text-base md:text-2xl text-black leading-relaxed font-medium">
+                        <h2 id="video-sub-headline" class="text-2xl md:text-5xl font-black mb-4 md:mb-8 leading-tight uppercase tracking-tighter">Motion <br class="hidden md:block">Heritage</h2>
+                        <p id="video-sub-intro" class="text-base md:text-2xl text-black leading-relaxed font-medium">
                             Movement is the ultimate attention-grabber. We produce visual assets that build desire.
                         </p>
                     </div>
@@ -124,8 +125,8 @@
                             <div class="absolute bottom-0 left-0 w-8 h-8 border-r border-t border-black/10 group-hover:border-white/20 hidden md:block group-hover:w-12 group-hover:h-12 transition-all duration-500"></div>
 
                             <span class="material-symbols-outlined text-black group-hover:text-white text-3xl md:text-5xl mb-4 md:mb-8 font-light transition-colors group-hover:scale-110 transition-transform">movie</span>
-                            <h4 class="text-lg md:text-xl font-bold mb-2 md:mb-4 uppercase tracking-tight">Cinematic Ads</h4>
-                            <p class="text-neutral-800 group-hover:text-white/80 text-xs md:text-sm leading-relaxed font-medium">
+                            <h4 id="video-card-1-title" class="text-lg md:text-xl font-bold mb-2 md:mb-4 uppercase tracking-tight">Cinematic Ads</h4>
+                            <p id="video-card-1-desc" class="text-neutral-800 group-hover:text-white/80 text-xs md:text-sm leading-relaxed font-medium">
                                 High-end production commercials that position you as a leader.
                             </p>
                         </div>
@@ -135,8 +136,8 @@
                             <div class="absolute top-0 left-0 w-8 h-8 border-r border-b border-black/10 group-hover:border-white/20 hidden md:block group-hover:w-12 group-hover:h-12 transition-all duration-500"></div>
 
                             <span class="material-symbols-outlined text-black group-hover:text-white text-3xl md:text-5xl mb-4 md:mb-8 font-light transition-colors group-hover:rotate-12 transition-transform">smartphone</span>
-                            <h4 class="text-lg md:text-xl font-bold mb-2 md:mb-4 uppercase tracking-tight">Viral Reels</h4>
-                            <p class="text-neutral-800 group-hover:text-white/80 text-xs md:text-sm leading-relaxed font-medium">
+                            <h4 id="video-card-2-title" class="text-lg md:text-xl font-bold mb-2 md:mb-4 uppercase tracking-tight">Viral Reels</h4>
+                            <p id="video-card-2-desc" class="text-neutral-800 group-hover:text-white/80 text-xs md:text-sm leading-relaxed font-medium">
                                 Engineered for engagement and brand recall.
                             </p>
                         </div>
