@@ -34,7 +34,7 @@ const User = require('./models/User');
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID || 'your_google_client_id',
     clientSecret: process.env.GOOGLE_CLIENT_SECRET || 'your_google_client_secret',
-    callbackURL: "https://creashift.com/auth/google/callback",
+    callbackURL: process.env.GOOGLE_CALLBACK_URL || "http://localhost:3000/auth/google/callback",
     proxy: true
 }, async (accessToken, refreshToken, profile, done) => {
     try {
@@ -187,5 +187,5 @@ app.post('/api/contact', async (req, res) => {
 // For now, we serve them as static, and they fetch content via API.
 
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running on port ${PORT} [${process.env.NODE_ENV || 'development'}]`);
 });
