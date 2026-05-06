@@ -362,24 +362,34 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(0, 0, 0, 0.1);
-            width: 95%;
-            max-width: 500px;
+            width: 90%;
+            max-width: 450px;
             padding: 40px;
             border-radius: 40px;
             transform: scale(0.9) translateY(20px);
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
             overflow: hidden;
+        }
+        @media (max-width: 768px) {
+            .popup-content {
+                padding: 30px 20px;
+                border-radius: 30px;
+            }
+            .popup-content h2 {
+                font-size: 1.5rem;
+            }
         }
         .popup-overlay.active .popup-content {
             transform: scale(1) translateY(0);
         }
         .leaf-decoration {
             position: absolute;
-            top: -20px;
-            left: -20px;
-            width: 100px;
-            height: 100px;
+            top: -15px;
+            left: -15px;
+            width: 80px;
+            height: 80px;
             opacity: 0.05;
             pointer-events: none;
             transform: rotate(-15deg);
@@ -387,12 +397,32 @@
         .leaf-decoration-2 {
             position: absolute;
             bottom: -20px;
-            right: -20px;
-            width: 120px;
-            height: 120px;
-            opacity: 0.05;
+            right: -10px;
+            width: 100px;
+            height: 100px;
+            opacity: 0.04;
             pointer-events: none;
             transform: rotate(165deg);
+        }
+        .leaf-decoration-3 {
+            position: absolute;
+            top: 40%;
+            right: -25px;
+            width: 60px;
+            height: 60px;
+            opacity: 0.03;
+            pointer-events: none;
+            transform: rotate(45deg);
+        }
+        .leaf-decoration-4 {
+            position: absolute;
+            bottom: 30%;
+            left: -15px;
+            width: 50px;
+            height: 50px;
+            opacity: 0.03;
+            pointer-events: none;
+            transform: rotate(-110deg);
         }
         .whatsapp-float {
             position: fixed;
@@ -1296,6 +1326,16 @@
                 </svg>
             </div>
             <div class="leaf-decoration-2">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
+                </svg>
+            </div>
+            <div class="leaf-decoration-3">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
+                </svg>
+            </div>
+            <div class="leaf-decoration-4">
                 <svg viewBox="0 0 24 24" fill="currentColor">
                     <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
                 </svg>
