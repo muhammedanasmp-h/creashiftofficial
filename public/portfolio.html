@@ -475,8 +475,9 @@ GET STARTED
 
 
 <script>
-    // Mobile Menu Logic
+    // Mobile Menu & Popup Logic
     window.addEventListener('DOMContentLoaded', () => {
+        // Mobile Menu
         const menuBtn = document.getElementById('menuBtn');
         const closeDrawer = document.getElementById('closeDrawer');
         const drawer = document.getElementById('drawer');
@@ -503,17 +504,8 @@ GET STARTED
             const waBtn = document.getElementById('whatsappFloat');
             if (waBtn) waBtn.classList.add('visible');
         }, 2000);
-    });
-</script>
-    // Lead Form Popup Logic
-    window.addEventListener('load', () => {
-        // WhatsApp Button Delay
-        setTimeout(() => {
-            const waBtn = document.getElementById('whatsappFloat');
-            if (waBtn) waBtn.classList.add('visible');
-        }, 2000);
 
-        // Popup Delay (5 seconds)
+        // Lead Form Popup Delay (5 seconds)
         setTimeout(() => {
             const popup = document.getElementById('leadPopup');
             if (popup && !localStorage.getItem('creashift_popup_dismissed')) {
@@ -521,7 +513,7 @@ GET STARTED
             }
         }, 5000);
 
-        // Close Popup
+        // Lead Form Popup Controls
         const closePopup = document.getElementById('closePopup');
         const popup = document.getElementById('leadPopup');
         if (closePopup && popup) {
