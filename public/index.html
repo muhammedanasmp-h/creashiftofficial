@@ -415,7 +415,9 @@
     <!-- iPhone Notch Navigation -->
     <header class="fixed top-0 left-1/2 -translate-x-1/2 z-50 bg-white border border-black/5 rounded-b-[40px] shadow-lg transition-all duration-500 px-8 py-3 w-[95%] max-w-[1000px] flex items-center justify-between">
         <a href="/" class="flex items-center gap-2">
-            <img src="assets/logo.png" alt="" class="h-5 md:h-7 w-5 md:w-7 object-cover object-left">
+            <div class="h-5 md:h-7 w-5 md:w-7 overflow-hidden flex-shrink-0">
+                <img src="assets/logo.png?v=2" alt="CREASHIFT Icon" class="h-full w-auto max-w-none object-cover object-left">
+            </div>
             <span class="font-['Inter'] text-sm md:text-base font-black tracking-tighter text-black uppercase">CREASHIFT</span>
         </a>
         <nav class="hidden md:flex items-center space-x-8">
@@ -1247,8 +1249,10 @@
     <footer
         class="w-full py-12 px-6 bg-neutral-50 dark:bg-neutral-950 border-t border-black/5 dark:border-white/5 flex flex-col items-center space-y-6 text-center">
         <div class="flex flex-col items-center space-y-8">
-            <div class="flex items-center justify-center gap-3">
-                <img src="assets/logo.png" alt="CREASHIFT Logo" class="h-10 md:h-12 w-10 md:w-12 object-cover object-left">
+            <div class="flex items-center justify-center gap-3 mb-4">
+                <div class="h-10 md:h-12 w-10 md:w-12 overflow-hidden flex-shrink-0">
+                    <img src="assets/logo.png?v=2" alt="CREASHIFT Logo" class="h-full w-auto max-w-none object-cover object-left">
+                </div>
                 <span class="text-xl md:text-2xl font-black text-black uppercase">CREASHIFT</span>
             </div>
             <div class="flex space-x-12">
@@ -1307,9 +1311,11 @@
         id="drawer">
         <div class="flex flex-col h-full px-8 py-12 relative overflow-hidden">
             <!-- Background Detail -->
-            <div class="flex justify-between items-center mb-20 relative z-10">
+            <div class="flex justify-between items-center mb-16 md:mb-20">
                 <div class="flex items-center gap-2">
-                    <img src="assets/logo.png" alt="CREASHIFT Logo" class="h-8 w-8 object-cover object-left">
+                    <div class="h-8 w-8 overflow-hidden flex-shrink-0">
+                        <img src="assets/logo.png?v=2" alt="CREASHIFT Logo" class="h-full w-auto max-w-none object-cover object-left">
+                    </div>
                     <span class="text-xl font-black tracking-tighter text-black uppercase">CREASHIFT</span>
                 </div>
                 <button class="text-black flex items-center gap-2 group" id="closeDrawer">
