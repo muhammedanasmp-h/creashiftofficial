@@ -1597,8 +1597,8 @@
             // Popup Delay
             setTimeout(() => {
                 const popup = document.getElementById('leadPopup');
-                console.log('Checking popup visibility...', !localStorage.getItem('popupClosed_v2'));
-                if (popup && !localStorage.getItem('popupClosed_v2')) {
+                console.log('Checking popup visibility...', !localStorage.getItem('popupClosed_v3'));
+                if (popup && !localStorage.getItem('popupClosed_v3')) {
                     popup.classList.add('active');
                 }
             }, 5000);
@@ -1609,14 +1609,14 @@
             if (closePopup && popup) {
                 closePopup.addEventListener('click', () => {
                     popup.classList.remove('active');
-                            localStorage.setItem('popupClosed_v2', 'true');
+                            localStorage.setItem('popupClosed_v3', 'true');
                 });
                 
                 // Close on overlay click
                 popup.addEventListener('click', (e) => {
                     if (e.target === popup) {
                         popup.classList.remove('active');
-                                localStorage.setItem('popupClosed_v2', 'true');
+                                localStorage.setItem('popupClosed_v3', 'true');
                     }
                 });
             }
@@ -1650,7 +1650,7 @@
                         if (result.success) {
                             alert('Success! We will contact you shortly.');
                             popup.classList.remove('active');
-                            localStorage.setItem('popupClosed_v2', 'true');
+                            localStorage.setItem('popupClosed_v3', 'true');
                         } else {
                             alert('Something went wrong. Please try again.');
                         }
