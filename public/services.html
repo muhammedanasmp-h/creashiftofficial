@@ -193,6 +193,17 @@
         transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .whatsapp-float.visible { opacity: 1; transform: scale(1); }
+
+    /* Service Card Textures */
+    .texture-grid { background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%23000' fill-opacity='0.03'/%3E%3C/svg%3E"); }
+    .texture-leaf { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000' fill-opacity='0.03'%3E%3Cpath d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z'/%3E%3C/svg%3E"); background-size: 120px; }
+    .texture-circuit { background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10h10v10H0V10zm20 0h10v10H20V10zm20 0h10v10H40V10zM10 30h10v10H10V30zm20 0h10v10H30V30zm20 0h10v10H50V30zM0 50h10v10H0V50zm20 0h10v10H20V50zm20 0h10v10H40V50z' fill='%23000' fill-opacity='0.02'/%3E%3C/svg%3E"); }
+    .texture-diagonal { background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40L40 0H30L0 30V40zM40 40V30L30 40H40z' fill='%23000' fill-opacity='0.03'/%3E%3C/svg%3E"); }
+    .texture-dots { background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='%23000' fill-opacity='0.04'/%3E%3C/svg%3E"); }
+    .texture-waves { background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 Q 25 0, 50 10 T 100 10' fill='none' stroke='%23000' stroke-width='0.5' stroke-opacity='0.03'/%3E%3C/svg%3E"); }
+    
+    .dark .texture-grid { background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%23fff' fill-opacity='0.05'/%3E%3C/svg%3E"); }
+    .seo-texture-white { background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%23fff' fill-opacity='0.05'/%3E%3C/svg%3E"); }
     </style>
     <script src="assets/js/content-manager.js" defer></script>
 </head>
@@ -238,7 +249,7 @@ GET STARTED
         <div class="grid grid-cols-1 md:grid-cols-12 md:grid-rows-2 gap-4 md:gap-6">
             <!-- Card 1: SEO (Detailed) -->
             <div class="md:col-span-8 bg-black rounded-[32px] md:rounded-[40px] p-8 md:p-12 text-white relative overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-2xl border border-white/5" onclick="window.location.href='service-seo.html'">
-                <div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px;"></div>
+                <div class="absolute inset-0 seo-texture-white opacity-40 pointer-events-none"></div>
                 <!-- Classic Design Elements -->
                 <div class="absolute top-6 right-6 opacity-20 text-[10px] font-mono tracking-widest hidden md:block">REF_ID: SEO_ST-001</div>
                 <div class="absolute bottom-6 right-6 w-12 h-12 border-r border-b border-white/10 hidden md:block group-hover:w-20 group-hover:h-20 transition-all duration-700"></div>
@@ -260,6 +271,7 @@ GET STARTED
 
             <!-- Card 2: Social Media (Vertical) -->
             <div class="md:col-span-4 bg-surface-container-high rounded-[32px] md:rounded-[40px] p-8 md:p-10 relative overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-2xl border border-black/5" onclick="window.location.href='service-social.html'">
+                <div class="absolute inset-0 texture-leaf opacity-60 pointer-events-none"></div>
                 <!-- Classic Design Elements -->
                 <div class="absolute top-0 right-0 w-16 h-16 bg-black/5 flex items-center justify-center border-l border-b border-black/5 hidden md:flex group-hover:bg-black/10 transition-colors">
                     <span class="text-[8px] font-mono rotate-90 text-black/40">CS_SOC_24</span>
@@ -280,6 +292,7 @@ GET STARTED
 
             <!-- Card 3: Web Dev (Vertical) -->
             <div class="md:col-span-4 bg-surface-container-highest rounded-[32px] md:rounded-[40px] p-8 md:p-10 relative overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-2xl border border-black/5" onclick="window.location.href='service-web.html'">
+                <div class="absolute inset-0 texture-circuit opacity-60 pointer-events-none"></div>
                 <!-- Classic Design Elements -->
                 <div class="absolute top-6 left-6 opacity-20 hidden md:block group-hover:rotate-45 transition-transform duration-700">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -304,6 +317,7 @@ GET STARTED
 
             <!-- Card 4: Paid Ads (Horizontal) -->
             <div class="md:col-span-8 bg-neutral-100 rounded-[32px] md:rounded-[40px] p-8 md:p-12 relative overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-2xl border border-black/5" onclick="window.location.href='service-ads.html'">
+                <div class="absolute inset-0 texture-diagonal opacity-60 pointer-events-none"></div>
                 <!-- Classic Design Elements -->
                 <div class="absolute inset-0 opacity-[0.05] pointer-events-none hidden md:block group-hover:opacity-[0.08] transition-opacity" style="background-image: repeating-linear-gradient(45deg, #000 0, #000 1px, transparent 0, transparent 20px);"></div>
                 <div class="absolute top-12 left-12 text-[10px] font-mono tracking-widest opacity-40 hidden md:block group-hover:translate-x-2 transition-transform">GROWTH_ENGINE_v4.0.1</div>
@@ -325,8 +339,9 @@ GET STARTED
 
         <!-- Row 3: Smaller Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mt-4 md:mt-6">
-            <div class="bg-surface-container rounded-[32px] md:rounded-[40px] p-8 md:p-10 group cursor-pointer hover:shadow-xl transition-all border border-black/5" onclick="window.location.href='service-design.html'">
-                <div class="flex justify-between items-start">
+            <div class="bg-surface-container rounded-[32px] md:rounded-[40px] p-8 md:p-10 group cursor-pointer hover:shadow-xl transition-all border border-black/5 relative overflow-hidden" onclick="window.location.href='service-design.html'">
+                <div class="absolute inset-0 texture-dots opacity-80 pointer-events-none"></div>
+                <div class="relative z-10 flex justify-between items-start">
                     <div>
                         <span class="material-symbols-outlined text-3xl mb-4 text-primary">brush</span>
                         <h3 id="services-card-design-title" class="text-xl md:text-2xl font-black uppercase tracking-tight">Design & Identity</h3>
@@ -334,8 +349,9 @@ GET STARTED
                     <span class="material-symbols-outlined opacity-20 group-hover:opacity-100 transition-opacity">arrow_forward</span>
                 </div>
             </div>
-            <div class="bg-surface-container rounded-[32px] md:rounded-[40px] p-8 md:p-10 group cursor-pointer hover:shadow-xl transition-all border border-black/5" onclick="window.location.href='service-video.html'">
-                <div class="flex justify-between items-start">
+            <div class="bg-surface-container rounded-[32px] md:rounded-[40px] p-8 md:p-10 group cursor-pointer hover:shadow-xl transition-all border border-black/5 relative overflow-hidden" onclick="window.location.href='service-video.html'">
+                <div class="absolute inset-0 texture-waves opacity-80 pointer-events-none"></div>
+                <div class="relative z-10 flex justify-between items-start">
                     <div>
                         <span class="material-symbols-outlined text-3xl mb-4 text-primary">videocam</span>
                         <h3 id="services-card-video-title" class="text-xl md:text-2xl font-black uppercase tracking-tight">Video Production</h3>
