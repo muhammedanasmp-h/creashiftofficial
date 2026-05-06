@@ -142,14 +142,69 @@
             transform: scale(1.1);
             box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
         }
+    /* Popup Styles */
+    .popup-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(8px);
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .popup-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+    .popup-content {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        width: 85%;
+        max-width: 350px;
+        padding: 25px;
+        border-radius: 30px;
+        transform: scale(0.9) translateY(20px);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow: hidden;
+    }
+    @media (max-width: 768px) {
+        .popup-content { padding: 20px 15px; border-radius: 20px; max-width: 300px; }
+        .popup-content h2 { font-size: 1.15rem; }
+    }
+    .popup-overlay.active .popup-content { transform: scale(1) translateY(0); }
+    .leaf-decoration, .leaf-decoration-2, .leaf-decoration-3, .leaf-decoration-4 {
+        position: absolute; opacity: 0.04; pointer-events: none;
+    }
+    .leaf-decoration { top: -15px; left: -15px; width: 80px; height: 80px; transform: rotate(-15deg); }
+    .leaf-decoration-2 { bottom: -20px; right: -10px; width: 100px; height: 100px; transform: rotate(165deg); }
+    .leaf-decoration-3 { top: 40%; right: -25px; width: 60px; height: 60px; transform: rotate(45deg); }
+    .leaf-decoration-4 { bottom: 30%; left: -15px; width: 50px; height: 50px; transform: rotate(-110deg); }
+    
+    .whatsapp-float {
+        position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+        background: #25D366; color: white; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+        z-index: 90; opacity: 0; transform: scale(0.5);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .whatsapp-float.visible { opacity: 1; transform: scale(1); }
     </style>
     <script src="assets/js/content-manager.js" defer></script>
 </head>
 <body class="bg-background text-on-background font-body-md relative min-h-screen flex flex-col overflow-x-hidden w-full m-0 p-0">
 <!-- iPhone Notch Navigation -->
 <header class="fixed top-0 left-1/2 -translate-x-1/2 z-50 bg-white border border-black/5 rounded-b-[40px] shadow-lg transition-all duration-500 px-8 py-3 w-[95%] max-w-[1000px] flex items-center justify-between">
-        <a href="/" class="flex items-center">
-            <img src="/assets/logo.png" alt="CREASHIFT Logo" class="h-8 md:h-10 w-auto object-contain">
+        <a href="/" class="flex items-center gap-2">
+            <img src="/assets/logo.png" alt="CREASHIFT Logo" class="h-8 md:h-10 w-auto object-contain brightness-0">
+            <span class="font-['Inter'] text-sm font-black tracking-tighter text-black uppercase">CREASHIFT</span>
         </a>
 <nav class="hidden md:flex items-center space-x-8">
 <a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-400 hover:text-white transition-all duration-500" href="/">HOME</a>
@@ -394,9 +449,7 @@ GET STARTED
             }, 2000);
 
             // Reveal Animation
-            const observerOptions = {
-                threshold: 0.1
-            };
+            const observerOptions = { threshold: 0.1 };
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -406,7 +459,97 @@ GET STARTED
             }, observerOptions);
 
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+            // Popup Delay (5 seconds)
+            setTimeout(() => {
+                const popup = document.getElementById('leadPopup');
+                if (popup && !localStorage.getItem('creashift_popup_dismissed')) {
+                    popup.classList.add('active');
+                }
+            }, 5000);
+
+            // Close Popup
+            const closePopup = document.getElementById('closePopup');
+            const popup = document.getElementById('leadPopup');
+            if (closePopup && popup) {
+                closePopup.addEventListener('click', () => {
+                    popup.classList.remove('active');
+                    localStorage.setItem('creashift_popup_dismissed', 'true');
+                });
+                popup.addEventListener('click', (e) => {
+                    if (e.target === popup) {
+                        popup.classList.remove('active');
+                        localStorage.setItem('creashift_popup_dismissed', 'true');
+                    }
+                });
+            }
+
+            // Popup Form Submission
+            const popupForm = document.getElementById('popupForm');
+            if (popupForm) {
+                popupForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const submitBtn = e.target.querySelector('button[type="submit"]');
+                    const originalBtnText = submitBtn.innerText;
+                    submitBtn.innerText = 'PROCESSING...';
+                    submitBtn.disabled = true;
+
+                    const formData = {
+                        email: document.getElementById('popup-email').value,
+                        phone: document.getElementById('popup-phone').value,
+                        message: "Lead from Services Popup - " + document.getElementById('popup-message').value
+                    };
+
+                    try {
+                        const response = await fetch('/api/contact', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(formData)
+                        });
+                        const result = await response.json();
+                        if (result.success) {
+                            alert('Success! We will contact you shortly.');
+                            popup.classList.remove('active');
+                            localStorage.setItem('creashift_popup_dismissed', 'true');
+                        } else {
+                            alert('Something went wrong. Please try again.');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('An error occurred. Please try again.');
+                    } finally {
+                        submitBtn.innerText = originalBtnText;
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
         });
     </script>
+
+    <div class="popup-overlay" id="leadPopup">
+        <div class="popup-content relative">
+            <div class="leaf-decoration"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg></div>
+            <div class="leaf-decoration-2"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg></div>
+            <div class="leaf-decoration-3"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg></div>
+            <div class="leaf-decoration-4"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg></div>
+            <button class="absolute top-4 right-4 text-black/40 hover:text-black transition-colors z-50 p-2 flex items-center justify-center cursor-pointer" id="closePopup" aria-label="Close popup"><span class="material-symbols-outlined text-2xl">close</span></button>
+            <div class="text-center mb-6 relative z-10"><h2 class="text-2xl font-black uppercase tracking-tighter">FREE <br/>STRATEGY CALL</h2></div>
+            <form class="space-y-3 relative z-10" id="popupForm">
+                <div class="space-y-1">
+                    <label class="text-[10px] uppercase tracking-widest text-black/40 font-bold ml-1" for="popup-email">Email</label>
+                    <input type="email" id="popup-email" name="email" required placeholder="hello@creashift.com" class="w-full bg-black/5 border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black/5 transition-all outline-none">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] uppercase tracking-widest text-black/40 font-bold ml-1" for="popup-phone">Phone</label>
+                    <input type="tel" id="popup-phone" name="phone" required placeholder="+91 80861 80780" class="w-full bg-black/5 border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black/5 transition-all outline-none">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] uppercase tracking-widest text-black/40 font-bold ml-1" for="popup-message">Description</label>
+                    <textarea id="popup-message" name="message" required placeholder="Tell us about your business goals..." class="w-full bg-black/5 border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black/5 transition-all outline-none h-24 resize-none"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-black text-white font-black py-5 rounded-2xl hover:scale-[1.02] transition-transform uppercase tracking-widest text-xs mt-4">CLAIM FREE CONSULTATION</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
