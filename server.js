@@ -6,11 +6,21 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const path = require('path');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const nodemailer = require('nodemailer');
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Nodemailer Transporter
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS // Google App Password
+    }
+});
 
 // Connect to MongoDB
 const connectDB = require('./db');
@@ -137,6 +147,39 @@ app.post('/api/content', isAdmin, async (req, res) => {
         res.json({ success: true });
     } catch (err) {
         res.status(500).json({ success: false, error: err.message });
+    }
+});
+
+app.post('/api/contact', async (req, res) => {
+    const { name, email, phone, message } = req.body;
+
+    const mailOptions = {
+        from: process.env.GMAIL_USER,
+        to: process.env.GMAIL_USER, // Send to yourself
+        replyTo: email,
+        subject: `New Lead: ${name}`,
+        text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`,
+        html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
+                <h2 style="color: #333; text-align: center;">New Lead from Creashift</h2>
+                <hr>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Phone:</strong> ${phone}</p>
+                <p style="margin-top: 20px;"><strong>Message:</strong></p>
+                <div style="background: #f9f9f9; padding: 15px; border-radius: 5px;">
+                    ${message}
+                </div>
+            </div>
+        `
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        res.json({ success: true, message: 'Message sent successfully!' });
+    } catch (error) {
+        console.error('Error sending email:', error);
+        res.status(500).json({ success: false, message: 'Failed to send message.' });
     }
 });
 

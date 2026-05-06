@@ -444,6 +444,51 @@ GET STARTED
         drawerLinks.forEach(link => {
             link.addEventListener('click', () => toggleDrawer(false));
         });
+
+        // Form Submission Logic
+        const contactForm = document.querySelector('form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const submitBtn = e.target.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerText;
+                
+                // Change button state
+                submitBtn.innerText = 'SENDING...';
+                submitBtn.disabled = true;
+
+                const formData = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    phone: document.getElementById('phone').value,
+                    message: document.getElementById('message').value
+                };
+
+                try {
+                    const response = await fetch('/api/contact', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    const result = await response.json();
+                    if (result.success) {
+                        alert('Thank you! Your message has been sent.');
+                        e.target.reset();
+                    } else {
+                        alert('Oops! Something went wrong. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please check your connection and try again.');
+                } finally {
+                    submitBtn.innerText = originalBtnText;
+                    submitBtn.disabled = false;
+                }
+            });
+        }
     });
 </script>
 <script>
