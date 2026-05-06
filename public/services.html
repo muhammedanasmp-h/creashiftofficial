@@ -193,17 +193,30 @@
         transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .whatsapp-float.visible { opacity: 1; transform: scale(1); }
+    </style>
 
-    /* Service Card Textures */
-    .texture-grid { background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%23000' fill-opacity='0.03'/%3E%3C/svg%3E"); }
-    .texture-leaf { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000' fill-opacity='0.03'%3E%3Cpath d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z'/%3E%3C/svg%3E"); background-size: 120px; }
-    .texture-circuit { background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10h10v10H0V10zm20 0h10v10H20V10zm20 0h10v10H40V10zM10 30h10v10H10V30zm20 0h10v10H30V30zm20 0h10v10H50V30zM0 50h10v10H0V50zm20 0h10v10H20V50zm20 0h10v10H40V50z' fill='%23000' fill-opacity='0.02'/%3E%3C/svg%3E"); }
-    .texture-diagonal { background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40L40 0H30L0 30V40zM40 40V30L30 40H40z' fill='%23000' fill-opacity='0.03'/%3E%3C/svg%3E"); }
-    .texture-dots { background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='%23000' fill-opacity='0.04'/%3E%3C/svg%3E"); }
-    .texture-waves { background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 10 Q 25 0, 50 10 T 100 10' fill='none' stroke='%23000' stroke-width='0.5' stroke-opacity='0.03'/%3E%3C/svg%3E"); }
+    <style>
+    /* Service Card Textures (Visible on PC & Mobile) */
+    /* SEO - Search Architecture: Blueprint Grid */
+    .texture-grid { background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%23000' fill-opacity='0.03'/%3E%3Crect x='0' y='0' width='10' height='10' fill='%23000' fill-opacity='0.02'/%3E%3C/svg%3E"); }
+    
+    /* Social - Ecosystems: Interconnected Nodes */
+    .texture-nodes { background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='2' fill='%23000' fill-opacity='0.05'/%3E%3Cpath d='M30 30 L50 50 M30 30 L10 50 M30 30 L30 10' stroke='%23000' stroke-width='0.5' stroke-opacity='0.03'/%3E%3C/svg%3E"); }
+    
+    /* Web - Engineering: Brackets / Code */
+    .texture-code { background-image: url("data:image/svg+xml,%3Csvg width='50' height='50' viewBox='0 0 50 50' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='30' font-family='monospace' font-size='10' fill='%23000' fill-opacity='0.04'%3E%7B %7D%3C/text%3E%3C/svg%3E"); }
+    
+    /* Ads - Growth: Upward Pulses */
+    .texture-growth { background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 40 L20 20 L40 40' fill='none' stroke='%23000' stroke-width='1' stroke-opacity='0.03'/%3E%3Cpath d='M0 30 L20 10 L40 30' fill='none' stroke='%23000' stroke-width='1' stroke-opacity='0.02'/%3E%3C/svg%3E"); }
+    
+    /* Design - Identity: Geometric Shapes */
+    .texture-identity { background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='10' y='10' width='20' height='20' transform='rotate(45 20 20)' stroke='%23000' stroke-width='0.5' fill='none' stroke-opacity='0.04'/%3E%3C/svg%3E"); }
+    
+    /* Video - Production: Soundwaves */
+    .texture-production { background-image: url("data:image/svg+xml,%3Csvg width='100' height='40' viewBox='0 0 100 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 20 h10 v-10 h5 v20 h5 v-15 h5 v10 h5' fill='none' stroke='%23000' stroke-width='0.5' stroke-opacity='0.04'/%3E%3C/svg%3E"); }
     
     .dark .texture-grid { background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%23fff' fill-opacity='0.05'/%3E%3C/svg%3E"); }
-    .seo-texture-white { background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%23fff' fill-opacity='0.05'/%3E%3C/svg%3E"); }
+    .seo-texture-white { background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h40v40H0V0zm1 1h38v38H1V1z' fill='%23fff' fill-opacity='0.05'/%3E%3Crect x='0' y='0' width='10' height='10' fill='%23fff' fill-opacity='0.03'/%3E%3C/svg%3E"); }
     </style>
     <script src="assets/js/content-manager.js" defer></script>
 </head>
@@ -212,7 +225,7 @@
 <header class="fixed top-0 left-1/2 -translate-x-1/2 z-50 bg-white border border-black/5 rounded-b-[40px] shadow-lg transition-all duration-500 px-8 py-3 w-[95%] max-w-[1000px] flex items-center justify-between">
         <a href="/" class="flex items-center gap-2">
             <div class="h-5 md:h-7 w-5 md:w-7 overflow-hidden flex-shrink-0">
-                <img src="assets/logo.png?v=2" alt="CREASHIFT Icon" class="h-full w-auto max-w-none object-cover object-left">
+                <img src="assets/logo123.png?v=2" alt="CREASHIFT Icon" class="h-full w-auto max-w-none object-cover object-left">
             </div>
             <span class="font-['Inter'] text-sm md:text-base font-black tracking-tighter text-black uppercase">CREASHIFT</span>
         </a>
@@ -271,7 +284,7 @@ GET STARTED
 
             <!-- Card 2: Social Media (Vertical) -->
             <div class="md:col-span-4 bg-surface-container-high rounded-[32px] md:rounded-[40px] p-8 md:p-10 relative overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-2xl border border-black/5" onclick="window.location.href='service-social.html'">
-                <div class="absolute inset-0 texture-leaf opacity-60 pointer-events-none"></div>
+                <div class="absolute inset-0 texture-nodes opacity-60 pointer-events-none"></div>
                 <!-- Classic Design Elements -->
                 <div class="absolute top-0 right-0 w-16 h-16 bg-black/5 flex items-center justify-center border-l border-b border-black/5 hidden md:flex group-hover:bg-black/10 transition-colors">
                     <span class="text-[8px] font-mono rotate-90 text-black/40">CS_SOC_24</span>
@@ -292,7 +305,7 @@ GET STARTED
 
             <!-- Card 3: Web Dev (Vertical) -->
             <div class="md:col-span-4 bg-surface-container-highest rounded-[32px] md:rounded-[40px] p-8 md:p-10 relative overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-2xl border border-black/5" onclick="window.location.href='service-web.html'">
-                <div class="absolute inset-0 texture-circuit opacity-60 pointer-events-none"></div>
+                <div class="absolute inset-0 texture-code opacity-60 pointer-events-none"></div>
                 <!-- Classic Design Elements -->
                 <div class="absolute top-6 left-6 opacity-20 hidden md:block group-hover:rotate-45 transition-transform duration-700">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -317,7 +330,7 @@ GET STARTED
 
             <!-- Card 4: Paid Ads (Horizontal) -->
             <div class="md:col-span-8 bg-neutral-100 rounded-[32px] md:rounded-[40px] p-8 md:p-12 relative overflow-hidden group cursor-pointer transition-all duration-500 hover:shadow-2xl border border-black/5" onclick="window.location.href='service-ads.html'">
-                <div class="absolute inset-0 texture-diagonal opacity-60 pointer-events-none"></div>
+                <div class="absolute inset-0 texture-growth opacity-60 pointer-events-none"></div>
                 <!-- Classic Design Elements -->
                 <div class="absolute inset-0 opacity-[0.05] pointer-events-none hidden md:block group-hover:opacity-[0.08] transition-opacity" style="background-image: repeating-linear-gradient(45deg, #000 0, #000 1px, transparent 0, transparent 20px);"></div>
                 <div class="absolute top-12 left-12 text-[10px] font-mono tracking-widest opacity-40 hidden md:block group-hover:translate-x-2 transition-transform">GROWTH_ENGINE_v4.0.1</div>
@@ -340,7 +353,7 @@ GET STARTED
         <!-- Row 3: Smaller Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mt-4 md:mt-6">
             <div class="bg-surface-container rounded-[32px] md:rounded-[40px] p-8 md:p-10 group cursor-pointer hover:shadow-xl transition-all border border-black/5 relative overflow-hidden" onclick="window.location.href='service-design.html'">
-                <div class="absolute inset-0 texture-dots opacity-80 pointer-events-none"></div>
+                <div class="absolute inset-0 texture-identity opacity-80 pointer-events-none"></div>
                 <div class="relative z-10 flex justify-between items-start">
                     <div>
                         <span class="material-symbols-outlined text-3xl mb-4 text-primary">brush</span>
@@ -350,7 +363,7 @@ GET STARTED
                 </div>
             </div>
             <div class="bg-surface-container rounded-[32px] md:rounded-[40px] p-8 md:p-10 group cursor-pointer hover:shadow-xl transition-all border border-black/5 relative overflow-hidden" onclick="window.location.href='service-video.html'">
-                <div class="absolute inset-0 texture-waves opacity-80 pointer-events-none"></div>
+                <div class="absolute inset-0 texture-production opacity-80 pointer-events-none"></div>
                 <div class="relative z-10 flex justify-between items-start">
                     <div>
                         <span class="material-symbols-outlined text-3xl mb-4 text-primary">videocam</span>
@@ -382,7 +395,7 @@ GET STARTED
 <footer class="w-full py-12 px-6 bg-neutral-50 dark:bg-neutral-950 border-t border-black/5 dark:border-white/5 flex flex-col items-center space-y-6 text-center">
     <div class="flex items-center justify-center gap-3 mb-4">
         <div class="h-10 md:h-12 w-10 md:w-12 overflow-hidden flex-shrink-0">
-            <img src="assets/logo.png?v=2" alt="CREASHIFT Logo" class="h-full w-auto max-w-none object-cover object-left">
+            <img src="assets/logo123.png?v=2" alt="CREASHIFT Logo" class="h-full w-auto max-w-none object-cover object-left">
         </div>
         <span class="text-xl md:text-2xl font-black text-black uppercase">CREASHIFT</span>
     </div>
@@ -411,7 +424,7 @@ GET STARTED
             <div class="flex justify-between items-center mb-16 md:mb-20">
                 <div class="flex items-center gap-2">
                     <div class="h-8 w-8 overflow-hidden flex-shrink-0">
-                        <img src="assets/logo.png?v=2" alt="CREASHIFT Logo" class="h-full w-auto max-w-none object-cover object-left">
+                        <img src="assets/logo123.png?v=2" alt="CREASHIFT Logo" class="h-full w-auto max-w-none object-cover object-left">
                     </div>
                     <span class="text-xl font-black tracking-tighter text-black uppercase">CREASHIFT</span>
                 </div>
