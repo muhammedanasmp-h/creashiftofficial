@@ -362,10 +362,10 @@
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 450px;
-            padding: 40px;
-            border-radius: 40px;
+            width: 85%;
+            max-width: 350px;
+            padding: 25px;
+            border-radius: 30px;
             transform: scale(0.9) translateY(20px);
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
@@ -374,11 +374,12 @@
         }
         @media (max-width: 768px) {
             .popup-content {
-                padding: 30px 20px;
-                border-radius: 30px;
+                padding: 20px 15px;
+                border-radius: 20px;
+                max-width: 300px;
             }
             .popup-content h2 {
-                font-size: 1.5rem;
+                font-size: 1.15rem;
             }
         }
         .popup-overlay.active .popup-content {
@@ -1344,15 +1345,10 @@
             <button class="absolute top-6 right-6 text-black/40 hover:text-black transition-colors z-10" id="closePopup">
                 <span class="material-symbols-outlined">close</span>
             </button>
-            <div class="text-center mb-8 relative z-10">
-                <span class="font-label-sm text-[10px] text-black/40 uppercase tracking-[0.3em] block mb-2">Limited Availability</span>
-                <h2 class="text-3xl font-black uppercase tracking-tighter">GET A FREE <br/>STRATEGY CALL</h2>
+            <div class="text-center mb-6 relative z-10">
+                <h2 class="text-2xl font-black uppercase tracking-tighter">FREE <br/>STRATEGY CALL</h2>
             </div>
-            <form class="space-y-4 relative z-10" id="popupForm">
-                <div class="space-y-1">
-                    <label class="text-[10px] uppercase tracking-widest text-black/40 font-bold ml-1" for="popup-name">Name</label>
-                    <input type="text" id="popup-name" name="name" required placeholder="Your Name" class="w-full bg-black/5 border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black/5 transition-all outline-none">
-                </div>
+            <form class="space-y-3 relative z-10" id="popupForm">
                 <div class="space-y-1">
                     <label class="text-[10px] uppercase tracking-widest text-black/40 font-bold ml-1" for="popup-email">Email</label>
                     <input type="email" id="popup-email" name="email" required placeholder="hello@creashift.com" class="w-full bg-black/5 border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black/5 transition-all outline-none">
@@ -1633,7 +1629,6 @@
                     submitBtn.disabled = true;
 
                     const formData = {
-                        name: document.getElementById('popup-name').value,
                         email: document.getElementById('popup-email').value,
                         phone: document.getElementById('popup-phone').value,
                         message: "Lead from Home Popup - " + document.getElementById('popup-message').value
