@@ -369,9 +369,30 @@
             transform: scale(0.9) translateY(20px);
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
         }
         .popup-overlay.active .popup-content {
             transform: scale(1) translateY(0);
+        }
+        .leaf-decoration {
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100px;
+            height: 100px;
+            opacity: 0.05;
+            pointer-events: none;
+            transform: rotate(-15deg);
+        }
+        .leaf-decoration-2 {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 120px;
+            height: 120px;
+            opacity: 0.05;
+            pointer-events: none;
+            transform: rotate(165deg);
         }
         .whatsapp-float {
             position: fixed;
@@ -1268,14 +1289,26 @@
     <!-- Lead Form Popup -->
     <div class="popup-overlay" id="leadPopup">
         <div class="popup-content relative">
-            <button class="absolute top-6 right-6 text-black/40 hover:text-black transition-colors" id="closePopup">
+            <!-- Leaf Decorations -->
+            <div class="leaf-decoration">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
+                </svg>
+            </div>
+            <div class="leaf-decoration-2">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/>
+                </svg>
+            </div>
+
+            <button class="absolute top-6 right-6 text-black/40 hover:text-black transition-colors z-10" id="closePopup">
                 <span class="material-symbols-outlined">close</span>
             </button>
-            <div class="text-center mb-8">
+            <div class="text-center mb-8 relative z-10">
                 <span class="font-label-sm text-[10px] text-black/40 uppercase tracking-[0.3em] block mb-2">Limited Availability</span>
                 <h2 class="text-3xl font-black uppercase tracking-tighter">GET A FREE <br/>STRATEGY CALL</h2>
             </div>
-            <form class="space-y-4" id="popupForm">
+            <form class="space-y-4 relative z-10" id="popupForm">
                 <div class="space-y-1">
                     <label class="text-[10px] uppercase tracking-widest text-black/40 font-bold ml-1" for="popup-name">Name</label>
                     <input type="text" id="popup-name" name="name" required placeholder="Your Name" class="w-full bg-black/5 border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black/5 transition-all outline-none">
@@ -1287,6 +1320,10 @@
                 <div class="space-y-1">
                     <label class="text-[10px] uppercase tracking-widest text-black/40 font-bold ml-1" for="popup-phone">Phone</label>
                     <input type="tel" id="popup-phone" name="phone" required placeholder="+91 80861 80780" class="w-full bg-black/5 border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black/5 transition-all outline-none">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] uppercase tracking-widest text-black/40 font-bold ml-1" for="popup-message">Description</label>
+                    <textarea id="popup-message" name="message" required placeholder="Tell us about your business goals..." class="w-full bg-black/5 border-none rounded-2xl py-4 px-6 focus:ring-2 focus:ring-black/5 transition-all outline-none h-24 resize-none"></textarea>
                 </div>
                 <button type="submit" class="w-full bg-black text-white font-black py-5 rounded-2xl hover:scale-[1.02] transition-transform uppercase tracking-widest text-xs mt-4">
                     CLAIM FREE CONSULTATION
@@ -1558,7 +1595,7 @@
                         name: document.getElementById('popup-name').value,
                         email: document.getElementById('popup-email').value,
                         phone: document.getElementById('popup-phone').value,
-                        message: "Lead from Home Popup - Free Strategy Call"
+                        message: "Lead from Home Popup - " + document.getElementById('popup-message').value
                     };
 
                     try {
