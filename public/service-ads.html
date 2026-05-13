@@ -65,7 +65,7 @@
         
         .blueprint-grid {
             background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
-                              linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+                               linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
             background-size: 30px 30px;
         }
 
@@ -151,16 +151,6 @@
     .leaf-decoration-2 { bottom: -20px; right: -10px; width: 100px; height: 100px; transform: rotate(165deg); }
     .leaf-decoration-3 { top: 40%; right: -25px; width: 60px; height: 60px; transform: rotate(45deg); }
     .leaf-decoration-4 { bottom: 30%; left: -15px; width: 50px; height: 50px; transform: rotate(-110deg); }
-    
-    .whatsapp-float {
-        position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
-        background: #25D366; color: white; border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
-        z-index: 90; opacity: 1; transform: scale(1);
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        text-decoration: none;
-    }
     </style>
     <script src="assets/js/content-manager.js" defer></script>
 </head>
@@ -286,20 +276,73 @@
     </main>
 
     <!-- Footer -->
-    <footer class="w-full py-10 md:py-16 px-6 md:px-margin-edge bg-white border-t border-black/5">
-        <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-6 md:gap-12">
-            <div class="flex items-center gap-2">
-                <div class="h-10 md:h-12 w-10 md:w-12 overflow-hidden flex-shrink-0">
-                    <img src="assets/logo123.png?v=2" alt="CREASHIFT Logo" class="h-full w-auto max-w-none object-cover object-left">
+    <footer class="w-full py-20 px-6 bg-white border-t border-black/5">
+        <div class="max-w-[1440px] mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+                <!-- Brand Column -->
+                <div class="md:col-span-3 flex flex-col items-center md:items-start text-center md:text-left">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="h-10 md:h-12 w-10 md:w-12 overflow-hidden flex-shrink-0">
+                            <img src="assets/logo123.png?v=2" alt="CREASHIFT Logo" class="h-full w-auto max-w-none object-cover object-left">
+                        </div>
+                        <span class="text-2xl font-black text-black uppercase tracking-tighter">CREASHIFT</span>
+                    </div>
+                    <p class="text-sm text-black/50 max-w-xs leading-relaxed">
+                        Best Advertising & Digital Marketing Agency in Kerala helping businesses grow through SEO, Google Ads, and AI-powered strategies.
+                    </p>
                 </div>
-                <span class="text-xl font-black text-black uppercase">CREASHIFT</span>
+
+                <!-- Explore Column -->
+                <div class="md:col-span-2 flex flex-col items-center md:items-start text-center md:text-left">
+                    <h4 class="text-[10px] uppercase tracking-[0.3em] text-black/30 mb-6">Explore</h4>
+                    <nav class="flex flex-col space-y-4">
+                        <a href="/" class="text-xs font-bold uppercase hover:text-black transition-colors">Home</a>
+                        <a href="/about" class="text-xs font-bold uppercase hover:text-black transition-colors">About</a>
+                        <a href="/services" class="text-xs font-bold uppercase hover:text-black transition-colors">Services</a>
+                        <a href="/portfolio" class="text-xs font-bold uppercase hover:text-black transition-colors">Portfolio</a>
+                        <a href="/blog-premium" class="text-xs font-bold uppercase hover:text-black transition-colors">Blog</a>
+                    </nav>
+                </div>
+
+                <!-- Legal Column -->
+                <div class="md:col-span-2 flex flex-col items-center md:items-start text-center md:text-left">
+                    <h4 class="text-[10px] uppercase tracking-[0.3em] text-black/30 mb-6">Legal</h4>
+                    <nav class="flex flex-col space-y-4">
+                        <a href="/terms" class="text-xs font-bold uppercase hover:text-black transition-colors">Terms & Conditions</a>
+                        <a href="/agreement" class="text-xs font-bold uppercase hover:text-black transition-colors">User Agreement</a>
+                        <a href="/privacy" class="text-xs font-bold uppercase hover:text-black transition-colors">Privacy Policy</a>
+                    </nav>
+                </div>
+
+                <!-- Connect Column -->
+                <div class="md:col-span-2 flex flex-col items-center md:items-start text-center md:text-left">
+                    <h4 class="text-[10px] uppercase tracking-[0.3em] text-black/30 mb-6">Connect</h4>
+                    <nav class="flex flex-col space-y-4">
+                        <a href="https://www.instagram.com/creashiftads" target="_blank" class="text-xs font-bold uppercase hover:text-black transition-colors">Instagram</a>
+                        <a href="https://www.linkedin.com/company/creashift/" target="_blank" class="text-xs font-bold uppercase hover:text-black transition-colors">LinkedIn</a>
+                        <a href="https://wa.me/918086180780" target="_blank" class="text-xs font-bold uppercase hover:text-black transition-colors">WhatsApp</a>
+                    </nav>
+                </div>
+
+                <!-- Contact Column -->
+                <div class="md:col-span-3 flex flex-col items-center md:items-start text-center md:text-left">
+                    <h4 class="text-[10px] uppercase tracking-[0.3em] text-black/30 mb-6">Say Hello</h4>
+                    <a href="mailto:sales@creashift.in" class="text-xl font-black hover:opacity-50 transition-opacity mb-2">sales@creashift.in</a>
+                    <div class="flex flex-col space-y-2 mt-4">
+                        <a href="tel:+916282852686" class="text-sm font-bold hover:text-black transition-colors">+91 62828 52686</a>
+                        <a href="tel:+919074299942" class="text-sm font-bold hover:text-black transition-colors">+91 90742 99942</a>
+                    </div>
+                </div>
             </div>
-            <div class="flex gap-8 md:gap-12">
-                <a class="text-[9px] md:text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="https://www.instagram.com/creashiftads?igsh=MWdoNHduY3dlNmpmdQ==" target="_blank">Instagram</a>
-                <a class="text-[9px] md:text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="https://www.linkedin.com/company/creashift/" target="_blank">LinkedIn</a>
-                <a class="text-[9px] md:text-[10px] tracking-[0.4em] font-bold text-black/40 hover:text-black transition-colors uppercase" href="https://wa.me/918086180780" target="_blank">WhatsApp</a>
+
+            <!-- Bottom Bar -->
+            <div class="pt-8 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-[10px] uppercase tracking-[0.2em] text-black/30 text-center md:text-left">© 2024 CREASHIFT. SHIFTING VISIONS. ALL RIGHTS RESERVED.</p>
+                <div class="flex gap-8">
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-black/30">BASED IN KERALA</span>
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-black/30">GLOBAL STANDARDS</span>
+                </div>
             </div>
-            <div class="text-[9px] md:text-[10px] tracking-[0.2em] font-bold text-black/40 uppercase text-center md:text-left">© 2022 Creashift. Shifting Visions.</div>
         </div>
     </footer>
 
@@ -359,29 +402,31 @@
                 const waBtn = document.getElementById('whatsappFloat');
                 if (waBtn) waBtn.classList.add('visible');
             }, 2000);
-        });
-        // Lead Form Popup Logic
-        window.addEventListener('load', () => {
-            // Popup Delay (5 seconds)
-            setTimeout(() => {
-                const popup = document.getElementById('leadPopup');
-                if (popup && !localStorage.getItem('creashift_popup_dismissed')) {
-                    popup.classList.add('active');
-                }
-            }, 5000);
 
-            // Close Popup
-            const closePopup = document.getElementById('closePopup');
+            // Lead Form Popup Logic
             const popup = document.getElementById('leadPopup');
+            if (popup) {
+                const showPopup = () => {
+                    const isSubmitted = localStorage.getItem('creashift_lead_submitted');
+                    if (!isSubmitted) {
+                        popup.classList.add('active');
+                    }
+                };
+                
+                // Show after 5 seconds
+                setTimeout(showPopup, 5000);
+            }
+
+            // Close Popup Logic
+            const closePopup = document.getElementById('closePopup');
             if (closePopup && popup) {
                 closePopup.addEventListener('click', () => {
                     popup.classList.remove('active');
-                    localStorage.setItem('creashift_popup_dismissed', 'true');
                 });
+                
                 popup.addEventListener('click', (e) => {
                     if (e.target === popup) {
                         popup.classList.remove('active');
-                        localStorage.setItem('creashift_popup_dismissed', 'true');
                     }
                 });
             }
@@ -412,7 +457,7 @@
                         if (result.success) {
                             alert('Success! We will contact you shortly.');
                             popup.classList.remove('active');
-                            localStorage.setItem('creashift_popup_dismissed', 'true');
+                            localStorage.setItem('creashift_lead_submitted', 'true');
                         } else {
                             alert('Something went wrong. Please try again.');
                         }
@@ -454,6 +499,3 @@
     </div>
 </body>
 </html>
-
-
-
