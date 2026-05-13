@@ -484,7 +484,14 @@
             if (popup) {
                 const showPopup = () => {
                     const isSubmitted = localStorage.getItem('creashift_lead_submitted');
-                    if (!isSubmitted) {
+                    if (isSubmitted) return;
+
+                    // Navigation Analysis: Show only on refresh or direct/external entry
+                    const navEntries = performance.getEntriesByType("navigation");
+                    const isRefresh = navEntries.length > 0 && navEntries[0].type === 'reload';
+                    const isInternalNav = document.referrer && document.referrer.includes(window.location.host);
+
+                    if (isRefresh || !isInternalNav) {
                         popup.classList.add('active');
                     }
                 };

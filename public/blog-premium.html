@@ -412,11 +412,22 @@
                 if (waBtn) waBtn.classList.add('visible');
             }, 2000);
 
-            // Lead Popup Logic
+            // Lead Form Popup Logic
             setTimeout(() => {
                 const popup = document.getElementById('leadPopup');
-                const isSubmitted = localStorage.getItem('creashift_lead_submitted');
-                if (popup && !isSubmitted) popup.classList.add('active');
+                if (popup) {
+                    const isSubmitted = localStorage.getItem('creashift_lead_submitted');
+                    if (isSubmitted) return;
+
+                    // Navigation Analysis: Show only on refresh or direct/external entry
+                    const navEntries = performance.getEntriesByType("navigation");
+                    const isRefresh = navEntries.length > 0 && navEntries[0].type === 'reload';
+                    const isInternalNav = document.referrer && document.referrer.includes(window.location.host);
+
+                    if (isRefresh || !isInternalNav) {
+                        popup.classList.add('active');
+                    }
+                }
             }, 5000);
 
             const closePopup = document.getElementById('closePopup');
