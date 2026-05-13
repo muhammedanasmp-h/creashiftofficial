@@ -14,6 +14,16 @@
         .legal-content ul { list-style: none; padding-left: 0; margin-bottom: 2rem; }
         .legal-content li { color: rgba(0,0,0,0.6); position: relative; padding-left: 1.5rem; margin-bottom: 0.75rem; line-height: 1.6; }
         .legal-content li::before { content: "→"; position: absolute; left: 0; color: black; font-weight: bold; }
+        
+        .whatsapp-float {
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            background: #25D366; color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+            z-index: 90; opacity: 0; transform: scale(0.5);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .whatsapp-float.visible { opacity: 1; transform: scale(1); }
     </style>
 </head>
 <body class="bg-white text-black antialiased selection:bg-black selection:text-white">
@@ -38,29 +48,40 @@
             <h1 class="text-5xl md:text-7xl font-black tracking-tighter leading-none uppercase mb-16">PRIVACY <br/>POLICY.</h1>
 
             <div class="legal-content">
-                <p class="text-xl font-medium text-black mb-12">Your privacy is fundamental to our agency operations. This policy outlines how we collect, use, and protect your digital data.</p>
+                <p class="text-xl font-medium text-black mb-12">At CREASHIFT, we prioritize the privacy of our visitors and clients. This policy outlines the types of data we collect and how we protect it.</p>
 
-                <h2>1. Data Collection</h2>
-                <p>We collect information only when you voluntarily provide it via our lead forms, contact requests, or direct emails. This typically includes your name, email address, phone number, and project details.</p>
-
-                <h2>2. Usage of Information</h2>
+                <h2>1. Information We Collect</h2>
+                <p>We collect information you voluntarily provide through our lead generation forms and WhatsApp interaction, including:</p>
                 <ul>
-                    <li>To provide tailored digital marketing strategies and quotes.</li>
-                    <li>To communicate regarding project updates or inquiries.</li>
-                    <li>To share relevant marketing insights (you may opt out at any time).</li>
+                    <li>Full Name and Job Title</li>
+                    <li>Contact Information (Email Address, Phone Number)</li>
+                    <li>Business Details (Website URL, Marketing Goals)</li>
+                    <li>Inquiry Details and Messages</li>
                 </ul>
 
-                <h2>3. Data Protection</h2>
-                <p>We implement robust security measures to ensure your personal information is protected from unauthorized access or disclosure. We do not sell or trade your personal data to third parties.</p>
+                <h2>2. How We Use Your Data</h2>
+                <p>Your data is used primarily to fulfill your request for digital marketing consultations and services. Specifically:</p>
+                <ul>
+                    <li>To contact you regarding your inquiry.</li>
+                    <li>To provide tailored digital strategies and quotes.</li>
+                    <li>To improve our website experience and service offerings.</li>
+                    <li>To send periodic newsletters or updates (if opted-in).</li>
+                </ul>
 
-                <h2>4. Cookies & Tracking</h2>
-                <p>Our website uses minimal cookies to enhance user experience and analyze traffic patterns via standard analytics tools. This data is anonymized and used for structural improvements only.</p>
+                <h2>3. Data Protection & Security</h2>
+                <p>We implement robust security measures to protect your personal information. This includes encrypted form submissions and secure server protocols. We do not sell, trade, or otherwise transfer your personally identifiable information to outside parties without your consent.</p>
 
-                <h2>5. Lead Form Data</h2>
-                <p>Data submitted via our "Free Strategy Call" popup is stored securely and accessed only by our authorized sales and strategy team members to facilitate your consultation.</p>
+                <h2>4. Lead Form Persistence</h2>
+                <p>To provide a seamless experience, we use `localStorage` to track if you have already submitted a lead form. This prevents the popup from appearing repeatedly once you have shared your information with us. No sensitive data is stored in your browser's local storage.</p>
 
-                <h2>6. Your Rights</h2>
-                <p>You have the right to request access to, correction of, or deletion of your personal data stored with us. Contact sales@creashift.in for any privacy-related requests.</p>
+                <h2>5. Cookies & Tracking</h2>
+                <p>We use cookies to understand site traffic and patterns. This helps us optimize our website for search engines (SEO) and improve performance for users in Kerala and globally. You can choose to disable cookies through your browser settings, though some site features may not function correctly.</p>
+
+                <h2>6. Third-Party Services</h2>
+                <p>We may use third-party tools like Google Analytics and Google Ads conversion tracking to measure marketing effectiveness. These services may collect data as per their own privacy policies.</p>
+
+                <h2>7. Your Rights</h2>
+                <p>You have the right to request access to the data we hold about you, or ask for its deletion at any time. To exercise these rights, please email us at <a href="mailto:sales@creashift.in" class="text-black font-bold">sales@creashift.in</a>.</p>
 
                 <div class="mt-20 pt-10 border-t border-black/5">
                     <p class="text-[10px] uppercase tracking-widest">Last Updated: May 13, 2024</p>
@@ -69,16 +90,79 @@
         </div>
     </main>
 
-    <!-- Simple Legal Footer -->
-    <footer class="py-12 border-t border-black/5">
-        <div class="max-w-[1440px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
-            <p class="text-[10px] uppercase tracking-widest text-black/40">© 2024 CREASHIFT. SHIFTING VISIONS.</p>
-            <div class="flex gap-8">
-                <a href="/terms" class="text-[10px] font-bold uppercase tracking-widest">Terms</a>
-                <a href="/agreement" class="text-[10px] font-bold uppercase tracking-widest">Agreement</a>
-                <a href="/privacy" class="text-[10px] font-bold uppercase tracking-widest">Privacy</a>
+    <!-- Standard Footer -->
+    <footer class="w-full py-20 px-6 bg-white border-t border-black/5">
+        <div class="max-w-[1440px] mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+                <div class="md:col-span-3 flex flex-col items-center md:items-start text-center md:text-left">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="h-10 md:h-12 w-10 md:w-12 overflow-hidden flex-shrink-0">
+                            <img src="assets/logo123.png?v=2" alt="CREASHIFT Logo" class="h-full w-auto max-w-none object-cover object-left">
+                        </div>
+                        <span class="text-2xl font-black text-black uppercase tracking-tighter">CREASHIFT</span>
+                    </div>
+                    <p class="text-sm text-black/50 max-w-xs leading-relaxed">
+                        Best Advertising & Digital Marketing Agency in Kerala helping businesses grow through SEO, Google Ads, and AI-powered strategies.
+                    </p>
+                </div>
+                <div class="md:col-span-2 flex flex-col items-center md:items-start text-center md:text-left">
+                    <h4 class="text-[10px] uppercase tracking-[0.3em] text-black/30 mb-6">Explore</h4>
+                    <nav class="flex flex-col space-y-4">
+                        <a href="/" class="text-xs font-bold uppercase hover:text-black transition-colors">Home</a>
+                        <a href="/about" class="text-xs font-bold uppercase hover:text-black transition-colors">About</a>
+                        <a href="/services" class="text-xs font-bold uppercase hover:text-black transition-colors">Services</a>
+                        <a href="/portfolio" class="text-xs font-bold uppercase hover:text-black transition-colors">Portfolio</a>
+                        <a href="/blog-premium" class="text-xs font-bold uppercase hover:text-black transition-colors">Blog</a>
+                        <a href="/contact" class="text-xs font-bold uppercase hover:text-black transition-colors">Contact</a>
+                    </nav>
+                </div>
+                <div class="md:col-span-2 flex flex-col items-center md:items-start text-center md:text-left">
+                    <h4 class="text-[10px] uppercase tracking-[0.3em] text-black/30 mb-6">Legal</h4>
+                    <nav class="flex flex-col space-y-4">
+                        <a href="/terms" class="text-xs font-bold uppercase hover:text-black transition-colors">Terms & Conditions</a>
+                        <a href="/agreement" class="text-xs font-bold uppercase hover:text-black transition-colors">User Agreement</a>
+                        <a href="/privacy" class="text-xs font-bold uppercase hover:text-black transition-colors">Privacy Policy</a>
+                    </nav>
+                </div>
+                <div class="md:col-span-2 flex flex-col items-center md:items-start text-center md:text-left">
+                    <h4 class="text-[10px] uppercase tracking-[0.3em] text-black/30 mb-6">Connect</h4>
+                    <nav class="flex flex-col space-y-4">
+                        <a href="https://www.instagram.com/creashiftads" target="_blank" class="text-xs font-bold uppercase hover:text-black transition-colors">Instagram</a>
+                        <a href="https://www.linkedin.com/company/creashift/" target="_blank" class="text-xs font-bold uppercase hover:text-black transition-colors">LinkedIn</a>
+                        <a href="https://wa.me/918086180780" target="_blank" class="text-xs font-bold uppercase hover:text-black transition-colors">WhatsApp</a>
+                    </nav>
+                </div>
+                <div class="md:col-span-3 flex flex-col items-center md:items-start text-center md:text-left">
+                    <h4 class="text-[10px] uppercase tracking-[0.3em] text-black/30 mb-6">Say Hello</h4>
+                    <a href="mailto:sales@creashift.in" class="text-xl font-black hover:opacity-50 transition-opacity mb-2">sales@creashift.in</a>
+                    <div class="flex flex-col space-y-2 mt-4">
+                        <a href="tel:+916282852686" class="text-sm font-bold hover:text-black transition-colors">+91 62828 52686</a>
+                        <a href="tel:+919074299942" class="text-sm font-bold hover:text-black transition-colors">+91 90742 99942</a>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-[10px] uppercase tracking-[0.2em] text-black/30 text-center md:text-left">© 2024 CREASHIFT. SHIFTING VISIONS. ALL RIGHTS RESERVED.</p>
+                <div class="flex gap-8">
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-black/30">BASED IN KERALA</span>
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-black/30">GLOBAL STANDARDS</span>
+                </div>
             </div>
         </div>
     </footer>
+
+    <a href="https://wa.me/918086180780" target="_blank" class="whatsapp-float" id="whatsappFloat">
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </a>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.getElementById('whatsappFloat').classList.add('visible');
+            }, 2000);
+        });
+    </script>
 </body>
 </html>

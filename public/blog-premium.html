@@ -66,7 +66,11 @@
             visibility: visible;
         }
         .popup-content {
-            background: white;
+            background: rgba(255, 255, 255, 0.95);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000' fill-opacity='0.02'%3E%3Cpath d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 150%;
             width: 90%;
             max-width: 450px;
             padding: 40px;
@@ -363,13 +367,22 @@
     <!-- Lead Popup -->
     <div class="popup-overlay" id="leadPopup">
         <div class="popup-content relative">
-            <button class="absolute top-4 right-4 text-black/40 hover:text-black transition-colors p-2" id="closePopup"><span class="material-symbols-outlined">close</span></button>
-            <div class="text-center mb-6"><h2 class="text-xl font-black uppercase tracking-tighter">FREE STRATEGY CALL</h2></div>
-            <form class="space-y-4" id="popupForm">
-                <input type="email" id="popup-email" required placeholder="Email" class="w-full bg-black/5 border-none rounded-2xl py-3 px-5 outline-none">
-                <input type="tel" id="popup-phone" required placeholder="Phone" class="w-full bg-black/5 border-none rounded-2xl py-3 px-5 outline-none">
-                <textarea id="popup-message" required placeholder="Goals" class="w-full bg-black/5 border-none rounded-2xl py-3 px-5 h-24 resize-none outline-none"></textarea>
-                <button type="submit" class="w-full bg-black text-white font-black py-4 rounded-2xl uppercase tracking-widest text-xs">CLAIM FREE CONSULTATION</button>
+            <button class="absolute top-4 right-4 text-black/40 hover:text-black transition-colors z-50 p-2 flex items-center justify-center cursor-pointer" id="closePopup" aria-label="Close popup"><span class="material-symbols-outlined text-2xl">close</span></button>
+            <div class="text-center mb-4 relative z-10"><h2 class="text-xl font-black uppercase tracking-tighter">FREE <br/>STRATEGY CALL</h2></div>
+            <form class="space-y-2 relative z-10" id="popupForm">
+                <div class="space-y-1">
+                    <label class="text-[10px] uppercase tracking-widest text-black/40 font-bold ml-1" for="popup-email">Email</label>
+                    <input type="email" id="popup-email" name="email" required placeholder="hello@creashift.com" class="w-full bg-black/5 border-none rounded-2xl py-3 px-5 focus:ring-2 focus:ring-black/5 transition-all outline-none">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] uppercase tracking-widest text-black/40 font-bold ml-1" for="popup-phone">Phone</label>
+                    <input type="tel" id="popup-phone" name="phone" required placeholder="+91 80861 80780" class="w-full bg-black/5 border-none rounded-2xl py-3 px-5 focus:ring-2 focus:ring-black/5 transition-all outline-none">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] uppercase tracking-widest text-black/40 font-bold ml-1" for="popup-message">Description</label>
+                    <textarea id="popup-message" name="message" required placeholder="Tell us about your business goals..." class="w-full bg-black/5 border-none rounded-2xl py-3 px-5 focus:ring-2 focus:ring-black/5 transition-all outline-none h-20 resize-none"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-black text-white font-black py-4 rounded-2xl hover:scale-[1.02] transition-transform uppercase tracking-widest text-xs mt-4">CLAIM FREE CONSULTATION</button>
             </form>
         </div>
     </div>

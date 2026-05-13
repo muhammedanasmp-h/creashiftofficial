@@ -127,6 +127,10 @@
     }
     .popup-content {
         background: rgba(255, 255, 255, 0.95);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000' fill-opacity='0.02'%3E%3Cpath d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 150%;
         backdrop-filter: blur(20px);
         border: 1px solid rgba(0, 0, 0, 0.1);
         width: 85%;
@@ -499,10 +503,6 @@
     </script>
     <div class="popup-overlay" id="leadPopup">
         <div class="popup-content relative">
-            <div class="leaf-decoration"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg></div>
-            <div class="leaf-decoration-2"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg></div>
-            <div class="leaf-decoration-3" style="top: 40%; right: -25px; width: 60px; height: 60px; transform: rotate(45deg);"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg></div>
-            <div class="leaf-decoration-4" style="bottom: 30%; left: -15px; width: 50px; height: 50px; transform: rotate(-110deg);"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg></div>
             <button class="absolute top-4 right-4 text-black/40 hover:text-black transition-colors z-50 p-2 flex items-center justify-center cursor-pointer" id="closePopup" aria-label="Close popup"><span class="material-symbols-outlined text-2xl">close</span></button>
             <div class="text-center mb-4 relative z-10"><h2 class="text-xl font-black uppercase tracking-tighter">FREE <br/>STRATEGY CALL</h2></div>
             <form class="space-y-2 relative z-10" id="popupForm">

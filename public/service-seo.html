@@ -127,6 +127,10 @@
     }
     .popup-content {
         background: rgba(255, 255, 255, 0.95);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000' fill-opacity='0.02'%3E%3Cpath d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 150%;
         backdrop-filter: blur(20px);
         border: 1px solid rgba(0, 0, 0, 0.1);
         width: 85%;
@@ -472,12 +476,80 @@
             }
         });
     </script>
+    <!-- Standard Footer -->
+    <footer class="w-full py-20 px-6 bg-white border-t border-black/5">
+        <div class="max-w-[1440px] mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+                <!-- Brand Column -->
+                <div class="md:col-span-3 flex flex-col items-center md:items-start text-center md:text-left">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="h-10 md:h-12 w-10 md:w-12 overflow-hidden flex-shrink-0">
+                            <img src="assets/logo123.png?v=2" alt="CREASHIFT Logo" class="h-full w-auto max-w-none object-cover object-left">
+                        </div>
+                        <span class="text-2xl font-black text-black uppercase tracking-tighter">CREASHIFT</span>
+                    </div>
+                    <p class="text-sm text-black/50 max-w-xs leading-relaxed">
+                        CREASHIFT is a leading advertising and digital marketing agency in Kerala helping businesses grow through SEO, Google Ads, social media marketing, branding, website development, and AI-powered digital strategies.
+                    </p>
+                </div>
+
+                <!-- Explore Column -->
+                <div class="md:col-span-2 flex flex-col items-center md:items-start text-center md:text-left">
+                    <h4 class="text-[10px] uppercase tracking-[0.3em] text-black/30 mb-6">Explore</h4>
+                    <nav class="flex flex-col space-y-4">
+                        <a href="/" class="text-xs font-bold uppercase hover:text-black transition-colors">Home</a>
+                        <a href="/about" class="text-xs font-bold uppercase hover:text-black transition-colors">About</a>
+                        <a href="/services" class="text-xs font-bold uppercase hover:text-black transition-colors">Services</a>
+                        <a href="/portfolio" class="text-xs font-bold uppercase hover:text-black transition-colors">Portfolio</a>
+                        <a href="/blog-premium" class="text-xs font-bold uppercase hover:text-black transition-colors">Blog</a>
+                        <a href="/contact" class="text-xs font-bold uppercase hover:text-black transition-colors">Contact</a>
+                    </nav>
+                </div>
+
+                <!-- Legal Column -->
+                <div class="md:col-span-2 flex flex-col items-center md:items-start text-center md:text-left">
+                    <h4 class="text-[10px] uppercase tracking-[0.3em] text-black/30 mb-6">Legal</h4>
+                    <nav class="flex flex-col space-y-4">
+                        <a href="/terms" class="text-xs font-bold uppercase hover:text-black transition-colors">Terms & Conditions</a>
+                        <a href="/agreement" class="text-xs font-bold uppercase hover:text-black transition-colors">User Agreement</a>
+                        <a href="/privacy" class="text-xs font-bold uppercase hover:text-black transition-colors">Privacy Policy</a>
+                    </nav>
+                </div>
+
+                <!-- Connect Column -->
+                <div class="md:col-span-2 flex flex-col items-center md:items-start text-center md:text-left">
+                    <h4 class="text-[10px] uppercase tracking-[0.3em] text-black/30 mb-6">Connect</h4>
+                    <nav class="flex flex-col space-y-4">
+                        <a href="https://www.instagram.com/creashiftads" target="_blank" class="text-xs font-bold uppercase hover:text-black transition-colors">Instagram</a>
+                        <a href="https://www.linkedin.com/company/creashift/" target="_blank" class="text-xs font-bold uppercase hover:text-black transition-colors">LinkedIn</a>
+                        <a href="https://wa.me/918086180780" target="_blank" class="text-xs font-bold uppercase hover:text-black transition-colors">WhatsApp</a>
+                    </nav>
+                </div>
+
+                <!-- Contact Column -->
+                <div class="md:col-span-3 flex flex-col items-center md:items-start text-center md:text-left">
+                    <h4 class="text-[10px] uppercase tracking-[0.3em] text-black/30 mb-6">Say Hello</h4>
+                    <a href="mailto:sales@creashift.in" class="text-xl font-black hover:opacity-50 transition-opacity mb-2">sales@creashift.in</a>
+                    <div class="flex flex-col space-y-2 mt-4">
+                        <a href="tel:+916282852686" class="text-sm font-bold hover:text-black transition-colors">+91 62828 52686</a>
+                        <a href="tel:+919074299942" class="text-sm font-bold hover:text-black transition-colors">+91 90742 99942</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="pt-8 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-[10px] uppercase tracking-[0.2em] text-black/30 text-center md:text-left">© 2024 CREASHIFT. SHIFTING VISIONS. ALL RIGHTS RESERVED.</p>
+                <div class="flex gap-8">
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-black/30">BASED IN KERALA</span>
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-black/30">GLOBAL STANDARDS</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <div class="popup-overlay" id="leadPopup">
         <div class="popup-content relative">
-            <div class="leaf-decoration"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg></div>
-            <div class="leaf-decoration-2"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg></div>
-            <div class="leaf-decoration-3" style="top: 40%; right: -25px; width: 60px; height: 60px; transform: rotate(45deg);"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg></div>
-            <div class="leaf-decoration-4" style="bottom: 30%; left: -15px; width: 50px; height: 50px; transform: rotate(-110deg);"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z"/></svg></div>
             <button class="absolute top-4 right-4 text-black/40 hover:text-black transition-colors z-50 p-2 flex items-center justify-center cursor-pointer" id="closePopup" aria-label="Close popup"><span class="material-symbols-outlined text-2xl">close</span></button>
             <div class="text-center mb-4 relative z-10"><h2 class="text-xl font-black uppercase tracking-tighter">FREE <br/>STRATEGY CALL</h2></div>
             <form class="space-y-2 relative z-10" id="popupForm">
