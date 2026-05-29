@@ -116,9 +116,17 @@
         </button>
     </header>
 
-    <main class="pt-32">
+    <main class="pt-32 relative overflow-hidden">
+        <!-- Radio Wave Animation (Top Right) -->
+        <div class="absolute top-[-50px] right-[-150px] md:right-[-100px] w-[300px] md:w-[500px] h-[300px] md:h-[500px] pointer-events-none z-0 opacity-[0.05] md:opacity-[0.08]">
+            <div class="absolute inset-0 border-[2px] border-black rounded-full animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite]"></div>
+            <div class="absolute inset-0 border-[2px] border-black rounded-full animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite]" style="animation-delay: 1s"></div>
+            <div class="absolute inset-0 border-[2px] border-black rounded-full animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite]" style="animation-delay: 2s"></div>
+            <div class="absolute inset-0 border-[2px] border-black rounded-full animate-[ping_4s_cubic-bezier(0,0,0.2,1)_infinite]" style="animation-delay: 3s"></div>
+        </div>
+
         <!-- Hero: Editorial Header -->
-        <section class="max-w-[1440px] mx-auto px-6 mb-32">
+        <section class="max-w-[1440px] mx-auto px-6 mb-32 relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
                 <div class="md:col-span-8">
                     <span class="font-label-sm text-[10px] text-gray-400 block mb-6 uppercase tracking-[0.4em]">Knowledge • Insights • Strategy</span>
