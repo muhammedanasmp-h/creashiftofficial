@@ -26,8 +26,11 @@
     "express": "^5.2.1",
     "express-session": "^1.19.0",
     "mongoose": "^9.6.1",
+    "multer": "^2.1.1",
     "nodemailer": "^8.0.7",
     "passport": "^0.7.0",
-    "passport-google-oauth20": "^2.0.0"
+    "passport-google-oauth20": "^2.0.0",
+    "razorpay": "^2.9.6",
+    "uuid": "^14.0.0"
   }
 }

@@ -39,6 +39,10 @@
                 Contact
                 <span class="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
             </button>
+            <button onclick="selectPage('vault')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all hover:bg-gray-100 flex items-center justify-between group" id="btn-vault">
+                Digital Vault
+                <span class="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+            </button>
             
             <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest pt-6 mb-4">Service Details</p>
             <button onclick="selectPage('service-seo')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-seo">SEO Architecture</button>
@@ -273,9 +277,150 @@
             const btn = document.getElementById('btn-' + page);
             if (btn) btn.classList.add('active');
             
-            document.getElementById('currentPageTitle').innerText = page.replace('-', ' ').toUpperCase() + ' PAGE';
+            document.getElementById('currentPageTitle').innerText = page.replace('-', ' ').toUpperCase() + (page === 'vault' ? ' MANAGER' : ' PAGE');
             
-            loadContent();
+            if (page === 'vault') {
+                loadVaultManager();
+            } else {
+                loadContent();
+            }
+        }
+
+        async function loadVaultManager() {
+            const grid = document.getElementById('contentGrid');
+            grid.innerHTML = '<div class="animate-pulse flex flex-col gap-4"><div class="h-12 bg-gray-200 rounded-xl w-1/4"></div></div>';
+            
+            try {
+                const response = await fetch('/api/admin/products');
+                const products = await response.json();
+                
+                let html = `
+                    <div class="glass rounded-[32px] p-8 mb-8 bg-white shadow-sm border border-black/5">
+                        <h3 class="text-lg font-black uppercase tracking-tighter mb-6">Add New Digital Product</h3>
+                        <form id="uploadProductForm" onsubmit="uploadProduct(event)" class="space-y-4">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Title</label>
+                                    <input type="text" id="vp-title" required class="w-full bg-gray-50 border border-black/5 rounded-xl p-3 text-sm focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Category</label>
+                                    <input type="text" id="vp-category" required class="w-full bg-gray-50 border border-black/5 rounded-xl p-3 text-sm focus:outline-none" placeholder="e.g. Templates">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Price (₹)</label>
+                                    <input type="number" id="vp-price" required min="0" class="w-full bg-gray-50 border border-black/5 rounded-xl p-3 text-sm focus:outline-none">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Cover Image URL (Optional)</label>
+                                    <input type="text" id="vp-cover" class="w-full bg-gray-50 border border-black/5 rounded-xl p-3 text-sm focus:outline-none">
+                                </div>
+                                <div class="col-span-1 md:col-span-2">
+                                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Description</label>
+                                    <textarea id="vp-desc" required class="w-full bg-gray-50 border border-black/5 rounded-xl p-3 text-sm focus:outline-none min-h-[80px]"></textarea>
+                                </div>
+                                <div class="col-span-1 md:col-span-2 border-2 border-dashed border-black/10 rounded-xl p-6 text-center hover:bg-gray-50 transition-colors">
+                                    <label class="cursor-pointer block">
+                                        <span class="material-symbols-outlined text-3xl text-gray-400 mb-2">cloud_upload</span>
+                                        <p class="text-sm font-bold">Select Digital File (PDF, ZIP, DOCX)</p>
+                                        <input type="file" id="vp-file" required class="hidden" onchange="document.getElementById('file-name-display').innerText = this.files[0].name">
+                                        <p id="file-name-display" class="text-xs text-gray-500 mt-2"></p>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="flex justify-end pt-4">
+                                <button type="submit" id="btn-upload-product" class="bg-black text-white px-6 py-3 rounded-full text-sm font-bold flex items-center gap-2 hover:scale-105 transition-transform">
+                                    <span class="material-symbols-outlined">add</span> UPLOAD PRODUCT
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <h3 class="text-lg font-black uppercase tracking-tighter mb-4">Manage Products</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                `;
+
+                if(products.length === 0) {
+                    html += '<div class="col-span-full py-10 text-center text-gray-400 border border-dashed border-black/10 rounded-[32px]">No products uploaded yet.</div>';
+                } else {
+                    products.forEach(p => {
+                        html += `
+                            <div class="bg-white rounded-2xl p-4 border border-black/5 shadow-sm relative group">
+                                <div class="aspect-video bg-gray-100 rounded-xl overflow-hidden mb-4 relative">
+                                    <img src="${p.coverImage || '/assets/logo123.png'}" class="w-full h-full object-cover">
+                                    <div class="absolute top-2 right-2 bg-black text-white text-[10px] font-bold px-2 py-1 rounded-full">₹${p.price}</div>
+                                </div>
+                                <h4 class="font-bold text-sm mb-1">${p.title}</h4>
+                                <p class="text-xs text-gray-500 mb-4">${p.category}</p>
+                                <button onclick="deleteProduct('${p._id}')" class="w-full py-2 border border-red-200 text-red-500 rounded-lg text-xs font-bold hover:bg-red-50 transition-colors flex items-center justify-center gap-1">
+                                    <span class="material-symbols-outlined text-sm">delete</span> DELETE
+                                </button>
+                            </div>
+                        `;
+                    });
+                }
+                html += '</div>';
+                grid.innerHTML = html;
+
+            } catch (err) {
+                console.error(err);
+                grid.innerHTML = '<p class="text-red-500">Error loading products.</p>';
+            }
+        }
+
+        async function uploadProduct(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-upload-product');
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> UPLOADING...';
+            btn.disabled = true;
+
+            const formData = new FormData();
+            formData.append('title', document.getElementById('vp-title').value);
+            formData.append('category', document.getElementById('vp-category').value);
+            formData.append('price', document.getElementById('vp-price').value);
+            formData.append('coverImage', document.getElementById('vp-cover').value);
+            formData.append('description', document.getElementById('vp-desc').value);
+            formData.append('productFile', document.getElementById('vp-file').files[0]);
+
+            try {
+                const res = await fetch('/api/admin/products', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await res.json();
+                
+                if(result.success) {
+                    showToast('Product uploaded successfully!');
+                    loadVaultManager(); // reload
+                } else {
+                    alert('Error: ' + result.error);
+                    btn.innerHTML = '<span class="material-symbols-outlined">add</span> UPLOAD PRODUCT';
+                    btn.disabled = false;
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Upload failed.');
+                btn.innerHTML = '<span class="material-symbols-outlined">add</span> UPLOAD PRODUCT';
+                btn.disabled = false;
+            }
+        }
+
+        async function deleteProduct(id) {
+            if(!confirm('Are you sure you want to delete this product?')) return;
+            
+            try {
+                const res = await fetch('/api/admin/products/' + id, { method: 'DELETE' });
+                const result = await res.json();
+                if(result.success) {
+                    showToast('Product deleted.');
+                    loadVaultManager();
+                } else {
+                    alert('Error deleting product.');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Delete failed.');
+            }
         }
 
         async function loadContent() {
