@@ -85,17 +85,34 @@
 </head>
 <body class="bg-white text-black antialiased selection:bg-black selection:text-white">
 
-    <!-- Navigation -->
-    <header class="fixed top-0 left-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-black/5 px-6 py-4 flex items-center justify-between">
+    <!-- iPhone Notch Navigation -->
+    <header class="fixed top-0 left-1/2 -translate-x-1/2 z-50 bg-white border border-black/5 rounded-b-[40px] shadow-lg transition-all duration-500 px-8 py-3 w-[95%] max-w-[1000px] flex items-center justify-between">
         <a href="/" class="flex items-center gap-2">
-            <div class="h-8 w-8 overflow-hidden flex-shrink-0">
-                <img src="assets/logo123.png?v=2" alt="CREASHIFT Logo" class="h-full w-auto max-w-none object-cover object-left">
+            <div class="h-5 md:h-7 w-5 md:w-7 overflow-hidden flex-shrink-0">
+                <img src="assets/logo123.png?v=2" alt="CREASHIFT Icon" class="h-full w-auto max-w-none object-cover object-left">
             </div>
-            <span class="font-black tracking-tighter uppercase text-lg">CREASHIFT</span>
+            <span class="font-['Inter'] text-sm md:text-base font-black tracking-tighter text-black uppercase">CREASHIFT</span>
         </a>
-        <button class="flex items-center gap-2" id="menuBtn">
-            <span class="text-[10px] font-bold tracking-[0.2em] uppercase opacity-40">Index</span>
-            <span class="material-symbols-outlined">menu</span>
+        <nav class="hidden md:flex items-center space-x-8">
+            <a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-500 hover:text-black transition-all duration-500"
+                href="/">HOME</a>
+            <a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-500 hover:text-black transition-all duration-500"
+                href="/about">ABOUT</a>
+            <a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-500 hover:text-black transition-all duration-500"
+                href="/services">SERVICES</a>
+            <a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-500 hover:text-black transition-all duration-500"
+                href="/portfolio">PORTFOLIO</a>
+            <a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-black pb-1 border-b border-black"
+                href="/blog-premium">BLOG</a>
+            <a class="font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium text-gray-500 hover:text-black transition-all duration-500"
+                href="/contact">CONTACT</a>
+        </nav>
+        <a href="/contact"
+            class="hidden md:block font-['Inter'] text-[11px] uppercase tracking-[0.1em] font-medium bg-black text-white px-6 py-2.5 rounded-full hover:scale-105 transition-transform duration-300">
+            GET STARTED
+        </a>
+        <button class="md:hidden text-black p-2" aria-label="Toggle Menu" id="menuBtn">
+            <span class="material-symbols-outlined text-2xl">menu</span>
         </button>
     </header>
 
