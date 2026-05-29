@@ -256,11 +256,23 @@ GET STARTED
 </button>
 </header>
 <main class="pt-28 md:pt-36 flex-grow relative overflow-hidden">
-    <!-- Background Animations -->
-    <!-- Glassmorphism Shapes (Circle, Square, Circle) -->
-    <div class="absolute top-[10%] left-[10%] w-[200px] md:w-[300px] h-[200px] md:h-[300px] bg-black/5 rounded-full blur-[40px] md:blur-[60px] pointer-events-none animate-[pulse_6s_ease-in-out_infinite] z-0"></div>
-    <div class="absolute top-[30%] right-[10%] w-[250px] md:w-[400px] h-[250px] md:h-[400px] bg-black/5 rounded-[40px] rotate-45 blur-[50px] md:blur-[80px] pointer-events-none animate-[pulse_8s_ease-in-out_infinite] z-0"></div>
-    <div class="absolute bottom-[20%] left-[20%] w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-black/5 rounded-full blur-[60px] md:blur-[100px] pointer-events-none animate-[pulse_10s_ease-in-out_infinite] z-0"></div>
+    <!-- Premium Borderless Glassmorphism Cluster (Top Right) -->
+    <div class="absolute top-[-5%] right-[-5%] w-[500px] md:w-[700px] h-[500px] md:h-[700px] pointer-events-none z-0">
+        <!-- Solid Gradient Base -->
+        <div class="absolute top-[20%] right-[30%] animate-[float_10s_ease-in-out_infinite_reverse]">
+            <div class="w-[200px] md:w-[350px] h-[200px] md:h-[350px] bg-gradient-to-br from-neutral-200 to-neutral-400 rounded-full"></div>
+        </div>
+        
+        <!-- Premium Tall Glass Rectangle (Borderless & Straight) -->
+        <div class="absolute top-[15%] right-[20%] animate-float" style="animation-delay: 1.5s;">
+            <div class="w-[140px] md:w-[200px] h-[250px] md:h-[400px] bg-gradient-to-b from-white/30 to-white/5 backdrop-blur-[40px] shadow-[0_32px_80px_-10px_rgba(0,0,0,0.15)] rounded-[40px]"></div>
+        </div>
+        
+        <!-- Premium Glass Circle (Borderless) -->
+        <div class="absolute top-[50%] right-[40%] animate-float" style="animation-delay: 3s;">
+            <div class="w-[120px] md:w-[180px] h-[120px] md:h-[180px] bg-gradient-to-b from-white/30 to-white/5 backdrop-blur-[40px] shadow-[0_32px_80px_-10px_rgba(0,0,0,0.15)] rounded-full"></div>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <section class="mb-8 md:mb-16 px-6 md:px-margin-edge max-w-container-max mx-auto relative z-10">

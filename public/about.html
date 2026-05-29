@@ -137,6 +137,9 @@
             0%, 100% { transform: translate(0, 0); }
             50% { transform: translate(20px, -20px); }
         }
+        .animate-float {
+            animation: float 10s ease-in-out infinite;
+        }
         .typewriter-char {
             display: inline-block;
             opacity: 1;
@@ -309,10 +312,24 @@ GET STARTED
 </header>
 
 <main class="pt-28 md:pt-36 relative z-10 flex-grow overflow-hidden">
-    <!-- Background Circles -->
-    <div class="absolute top-[5%] left-[-5%] w-[300px] h-[300px] bg-black/5 rounded-full blur-[80px] pointer-events-none animate-[pulse_6s_ease-in-out_infinite] z-0"></div>
-    <div class="absolute top-[40%] right-[-10%] w-[500px] h-[500px] bg-black/5 rounded-full blur-[100px] pointer-events-none animate-[pulse_8s_ease-in-out_infinite] z-0"></div>
-    <div class="absolute bottom-[10%] left-[20%] w-[400px] h-[400px] bg-black/5 rounded-full blur-[90px] pointer-events-none animate-[pulse_7s_ease-in-out_infinite] z-0"></div>
+    <!-- Premium Borderless Glassmorphism Background Clusters -->
+    <div class="absolute top-[5%] left-[5%] w-[400px] h-[400px] pointer-events-none z-0">
+        <!-- Solid Base -->
+        <div class="absolute top-0 left-0 w-[200px] md:w-[300px] h-[200px] md:h-[300px] bg-gradient-to-br from-neutral-200 to-neutral-400 rounded-full animate-float"></div>
+        <!-- Premium Borderless Glass -->
+        <div class="absolute top-[20%] left-[20%] w-[180px] md:w-[280px] h-[180px] md:h-[280px] bg-gradient-to-b from-white/30 to-white/5 backdrop-blur-[40px] shadow-[0_32px_80px_-10px_rgba(0,0,0,0.15)] rounded-full animate-[float_12s_ease-in-out_infinite_reverse]" style="animation-delay: 2s;"></div>
+    </div>
+    
+    <div class="absolute top-[40%] right-[5%] w-[400px] h-[400px] pointer-events-none z-0">
+        <div class="absolute top-0 right-0 w-[250px] md:w-[350px] h-[250px] md:h-[350px] bg-gradient-to-br from-neutral-200 to-neutral-400 rounded-full animate-[float_14s_ease-in-out_infinite]"></div>
+        <!-- Premium Glass Circle (Borderless) -->
+        <div class="absolute top-[30%] right-[30%] w-[200px] md:w-[300px] h-[200px] md:h-[300px] bg-gradient-to-b from-white/30 to-white/5 backdrop-blur-[40px] shadow-[0_32px_80px_-10px_rgba(0,0,0,0.15)] rounded-full animate-float" style="animation-delay: 1s;"></div>
+    </div>
+
+    <div class="absolute bottom-[10%] left-[20%] w-[400px] h-[400px] pointer-events-none z-0">
+        <div class="absolute top-0 left-0 w-[200px] md:w-[300px] h-[200px] md:h-[300px] bg-gradient-to-br from-neutral-200 to-neutral-400 rounded-full animate-[float_12s_ease-in-out_infinite_reverse]" style="animation-delay: 3s;"></div>
+        <div class="absolute top-[10%] left-[40%] w-[150px] md:w-[250px] h-[150px] md:h-[250px] bg-gradient-to-b from-white/30 to-white/5 backdrop-blur-[40px] shadow-[0_32px_80px_-10px_rgba(0,0,0,0.15)] rounded-full animate-float" style="animation-delay: 4s;"></div>
+    </div>
 
     <!-- Hero Section -->
     <section class="mb-16 px-6 md:px-margin-edge max-w-container-max mx-auto relative z-10">
