@@ -303,10 +303,7 @@
                                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Title</label>
                                     <input type="text" id="vp-title" required class="w-full bg-gray-50 border border-black/5 rounded-xl p-3 text-sm focus:outline-none">
                                 </div>
-                                <div>
-                                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Category</label>
-                                    <input type="text" id="vp-category" required class="w-full bg-gray-50 border border-black/5 rounded-xl p-3 text-sm focus:outline-none" placeholder="e.g. Templates">
-                                </div>
+
                                 <div>
                                     <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1">Price (₹)</label>
                                     <input type="number" id="vp-price" required min="0" class="w-full bg-gray-50 border border-black/5 rounded-xl p-3 text-sm focus:outline-none">
@@ -323,7 +320,7 @@
                                     <label class="cursor-pointer block">
                                         <span class="material-symbols-outlined text-3xl text-gray-400 mb-2">cloud_upload</span>
                                         <p class="text-sm font-bold">Select Digital File (PDF, ZIP, DOCX)</p>
-                                        <input type="file" id="vp-file" required class="hidden" onchange="document.getElementById('file-name-display').innerText = this.files[0].name">
+                                        <input type="file" id="vp-file" class="hidden" onchange="document.getElementById('file-name-display').innerText = this.files[0].name">
                                         <p id="file-name-display" class="text-xs text-gray-500 mt-2"></p>
                                     </label>
                                 </div>
@@ -370,13 +367,19 @@
 
         async function uploadProduct(e) {
             e.preventDefault();
+
+            const fileInput = document.getElementById('vp-file');
+            if (!fileInput.files || fileInput.files.length === 0) {
+                alert('Please select a digital file to upload.');
+                return;
+            }
+
             const btn = document.getElementById('btn-upload-product');
             btn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> UPLOADING...';
             btn.disabled = true;
 
             const formData = new FormData();
             formData.append('title', document.getElementById('vp-title').value);
-            formData.append('category', document.getElementById('vp-category').value);
             formData.append('price', document.getElementById('vp-price').value);
             formData.append('coverImage', document.getElementById('vp-cover').value);
             formData.append('description', document.getElementById('vp-desc').value);
@@ -387,7 +390,14 @@
                     method: 'POST',
                     body: formData
                 });
-                const result = await res.json();
+                
+                const responseText = await res.text();
+                let result;
+                try {
+                    result = JSON.parse(responseText);
+                } catch (parseErr) {
+                    throw new Error("Server returned an invalid response: " + responseText.substring(0, 100));
+                }
                 
                 if(result.success) {
                     showToast('Product uploaded successfully!');
@@ -399,7 +409,7 @@
                 }
             } catch (err) {
                 console.error(err);
-                alert('Upload failed.');
+                alert('Upload failed: ' + err.message);
                 btn.innerHTML = '<span class="material-symbols-outlined">add</span> UPLOAD PRODUCT';
                 btn.disabled = false;
             }
