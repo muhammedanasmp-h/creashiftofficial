@@ -18,6 +18,12 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Ensure private_uploads directory exists
+const privateUploadsDir = path.join(__dirname, 'private_uploads');
+if (!fs.existsSync(privateUploadsDir)) {
+    fs.mkdirSync(privateUploadsDir, { recursive: true });
+}
+
 // Razorpay Config
 const razorpay = new Razorpay({
     key_id: process.env.RAZORPAY_KEY_ID || 'dummy_key_id',
