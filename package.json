@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "build:css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/main.min.css --minify",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,10 +28,15 @@
     "express-session": "^1.19.0",
     "mongoose": "^9.6.1",
     "multer": "^2.1.1",
-    "nodemailer": "^8.0.7",
+    "nodemailer": "^9.0.3",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "razorpay": "^2.9.6",
     "uuid": "^14.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/container-queries": "^0.1.1",
+    "@tailwindcss/forms": "^0.5.11",
+    "tailwindcss": "^3.4.17"
   }
 }
