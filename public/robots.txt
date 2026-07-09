@@ -1,5 +1,8 @@
 User-agent: *
 Allow: /
 Allow: /assets/
+Disallow: /admin
+Disallow: /login
+Disallow: /api/
 
 Sitemap: https://creashift.com/sitemap.xml
