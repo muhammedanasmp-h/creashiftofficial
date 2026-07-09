@@ -1314,8 +1314,8 @@
             </div>
         </div>
     </div>
-    <script>
-        // Blurry Typewriter Effect with Blinking Cursor
+        <script>
+        // Blurry Typewriter Effect with Blinking Cursor - Optimized to prevent Layout Thrashing
         function initTypewriter(elementId, delay = 0) {
             const element = document.getElementById(elementId);
             if (!element) return;
@@ -1359,11 +1359,29 @@
             }
 
             const allChars = element.querySelectorAll('.typewriter-char');
+            
+            // Batch queue for requestAnimationFrame to prevent Layout Thrashing
+            let activeFrame = null;
+            let charsToReveal = [];
+
             allChars.forEach((span, i) => {
                 setTimeout(() => {
-                    span.classList.add('visible');
-                    // Move cursor right after the currently visible character
-                    span.after(cursor);
+                    charsToReveal.push(span);
+                    if (!activeFrame) {
+                        activeFrame = requestAnimationFrame(() => {
+                            // Apply visibility to all queued characters in one batch DOM update
+                            charsToReveal.forEach(c => c.classList.add('visible'));
+                            
+                            // Only perform ONE DOM insertion for the cursor to the latest character
+                            const lastChar = charsToReveal[charsToReveal.length - 1];
+                            if (lastChar) {
+                                lastChar.after(cursor);
+                            }
+                            
+                            charsToReveal = [];
+                            activeFrame = null;
+                        });
+                    }
 
                     // Hide cursor after last char
                     if (i === allChars.length - 1) {
@@ -1371,19 +1389,169 @@
                             cursor.style.display = 'none';
                         }, 1000);
                     }
-                }, delay + (i * 10));
+                }, delay + (i * 25)); // Slightly increased delay to reduce CPU interrupts
             });
         }
 
-        // Initialize after a short delay
+        // Cached elements for puzzle tiles to prevent document.querySelectorAll queries in loop
+        let puzzleTiles = [];
+        let mouseX = 0, mouseY = 0;
+        let parallaxTicking = false;
+
+        // Initialize puzzle tiles caching
         window.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                initTypewriter('heroHeadline', 0);
-                initTypewriter('heroSubtext', 1500); // Staggered delay for subtext
-            }, 500);
+            puzzleTiles = Array.from(document.querySelectorAll('.puzzle-tile'));
         });
 
-        // Mobile Menu Logic
+        // Throttled mousemove parallax handler using requestAnimationFrame
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.pageX;
+            mouseY = e.pageY;
+
+            if (!parallaxTicking && puzzleTiles.length > 0) {
+                requestAnimationFrame(updateParallax);
+                parallaxTicking = true;
+            }
+        }, { passive: true }); // Passive event listener prevents thread blocking
+
+        function updateParallax() {
+            const x = (window.innerWidth / 2 - mouseX) / 50;
+            const y = (window.innerHeight / 2 - mouseY) / 50;
+
+            puzzleTiles.forEach(tile => {
+                const speed = parseFloat(tile.getAttribute('data-speed')) || 2;
+                const xOffset = x * speed;
+                const yOffset = y * speed;
+                // Perform batch style mutation
+                tile.style.transform = `translateX(${xOffset}px) translateY(${yOffset}px) rotateX(${yOffset * 0.1}deg) rotateY(${xOffset * 0.1}deg)`;
+            });
+
+            parallaxTicking = false;
+        }
+
+        // Defer heavy or non-essential initializations until after the page fully loads
+        window.addEventListener('load', () => {
+            const initHeavyScripts = () => {
+                // Initialize typewriter animations
+                initTypewriter('heroHeadline', 0);
+                initTypewriter('heroSubtext', 1500); // Staggered delay for subtext
+
+                // WhatsApp Button Delay
+                setTimeout(() => {
+                    const waBtn = document.getElementById('whatsappFloat');
+                    if (waBtn) waBtn.classList.add('visible');
+                }, 3000);
+
+                // Popup Delay - Robust Implementation
+                const popup = document.getElementById('leadPopup');
+                if (popup) {
+                    const showPopup = () => {
+                        const isSubmitted = localStorage.getItem('creashift_lead_submitted');
+                        if (isSubmitted) return;
+
+                        // Navigation Analysis: Show only on refresh or direct/external entry
+                        const navEntries = performance.getEntriesByType("navigation");
+                        const isRefresh = navEntries.length > 0 && navEntries[0].type === 'reload';
+                        const isInternalNav = document.referrer && document.referrer.includes(window.location.host);
+
+                        if (isRefresh || !isInternalNav) {
+                            popup.classList.add('active');
+                        }
+                    };
+                    
+                    // Show after 6 seconds
+                    setTimeout(showPopup, 6000);
+                }
+
+                // Reviews Auto-slide with IntersectionObserver (Only auto-scroll when visible)
+                const reviewsContainer = document.querySelector('.reviews-container');
+                if (reviewsContainer && 'IntersectionObserver' in window) {
+                    let autoScrollInterval;
+                    let isUserInteracting = false;
+
+                    function startAutoScroll() {
+                        if (autoScrollInterval) clearInterval(autoScrollInterval);
+                        autoScrollInterval = setInterval(() => {
+                            // Only auto-slide if on mobile and not interacting
+                            if (window.innerWidth <= 768 && !isUserInteracting) {
+                                const cards = reviewsContainer.querySelectorAll(':scope > a');
+                                if (cards.length === 0) return;
+                                
+                                const cardWidth = cards[0].offsetWidth + 32; // card width + gap (gap-8 is 32px)
+                                let nextScroll = reviewsContainer.scrollLeft + cardWidth;
+                                
+                                // Check if we reached the end (roughly)
+                                if (nextScroll >= reviewsContainer.scrollWidth - reviewsContainer.offsetWidth - 10) {
+                                    reviewsContainer.scrollTo({ left: 0, behavior: 'smooth' });
+                                } else {
+                                    reviewsContainer.scrollTo({ left: nextScroll, behavior: 'smooth' });
+                                }
+                            }
+                        }, 4000); 
+                    }
+
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                startAutoScroll();
+                            } else {
+                                clearInterval(autoScrollInterval);
+                            }
+                        });
+                    }, { threshold: 0.1 });
+
+                    observer.observe(reviewsContainer);
+
+                    reviewsContainer.addEventListener('touchstart', () => {
+                        isUserInteracting = true;
+                        clearInterval(autoScrollInterval);
+                    }, { passive: true });
+
+                    reviewsContainer.addEventListener('touchend', () => {
+                        isUserInteracting = false;
+                        setTimeout(startAutoScroll, 2000);
+                    }, { passive: true });
+                } else if (reviewsContainer) {
+                    // Fallback for older browsers without IntersectionObserver
+                    let autoScrollInterval;
+                    let isUserInteracting = false;
+                    function startAutoScroll() {
+                        if (autoScrollInterval) clearInterval(autoScrollInterval);
+                        autoScrollInterval = setInterval(() => {
+                            if (window.innerWidth <= 768 && !isUserInteracting) {
+                                const cards = reviewsContainer.querySelectorAll(':scope > a');
+                                if (cards.length === 0) return;
+                                const cardWidth = cards[0].offsetWidth + 32;
+                                let nextScroll = reviewsContainer.scrollLeft + cardWidth;
+                                if (nextScroll >= reviewsContainer.scrollWidth - reviewsContainer.offsetWidth - 10) {
+                                    reviewsContainer.scrollTo({ left: 0, behavior: 'smooth' });
+                                } else {
+                                    reviewsContainer.scrollTo({ left: nextScroll, behavior: 'smooth' });
+                                }
+                            }
+                        }, 4000);
+                    }
+                    startAutoScroll();
+                    reviewsContainer.addEventListener('touchstart', () => {
+                        isUserInteracting = true;
+                        clearInterval(autoScrollInterval);
+                    }, { passive: true });
+                    reviewsContainer.addEventListener('touchend', () => {
+                        isUserInteracting = false;
+                        setTimeout(startAutoScroll, 2000);
+                    }, { passive: true });
+                }
+            };
+
+            // Initialize using requestIdleCallback to completely run during idle times
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(() => initHeavyScripts(), { timeout: 2000 });
+            } else {
+                setTimeout(initHeavyScripts, 100);
+            }
+        });
+
+        // Mobile Menu Logic (Attached early on DOMContentLoaded to ensure high interactivity)
         window.addEventListener('DOMContentLoaded', () => {
             const menuBtn = document.getElementById('menuBtn');
             const closeDrawer = document.getElementById('closeDrawer');
@@ -1405,91 +1573,9 @@
             drawerLinks.forEach(link => {
                 link.addEventListener('click', () => toggleDrawer(false));
             });
-        });
-
-        // Reviews Auto-slide for Mobile
-        const reviewsContainer = document.querySelector('.reviews-container');
-        if (reviewsContainer) {
-            let autoScrollInterval;
-            let isUserInteracting = false;
-
-            function startAutoScroll() {
-                if (autoScrollInterval) clearInterval(autoScrollInterval);
-                autoScrollInterval = setInterval(() => {
-                    // Only auto-slide if on mobile and not interacting
-                    if (window.innerWidth <= 768 && !isUserInteracting) {
-                        const cards = reviewsContainer.querySelectorAll(':scope > a');
-                        if (cards.length === 0) return;
-                        
-                        const cardWidth = cards[0].offsetWidth + 32; // card width + gap (gap-8 is 32px)
-                        let nextScroll = reviewsContainer.scrollLeft + cardWidth;
-                        
-                        // Check if we reached the end (roughly)
-                        if (nextScroll >= reviewsContainer.scrollWidth - reviewsContainer.offsetWidth - 10) {
-                            reviewsContainer.scrollTo({ left: 0, behavior: 'smooth' });
-                        } else {
-                            reviewsContainer.scrollTo({ left: nextScroll, behavior: 'smooth' });
-                        }
-                    }
-                }, 4000); 
-            }
-            
-            startAutoScroll();
-            
-            reviewsContainer.addEventListener('touchstart', () => {
-                isUserInteracting = true;
-                clearInterval(autoScrollInterval);
-            }, {passive: true});
-
-            reviewsContainer.addEventListener('touchend', () => {
-                isUserInteracting = false;
-                setTimeout(startAutoScroll, 2000);
-            }, {passive: true});
-        }
-
-        document.addEventListener('mousemove', (e) => {
-            const tiles = document.querySelectorAll('.puzzle-tile');
-            const x = (window.innerWidth / 2 - e.pageX) / 50;
-            const y = (window.innerHeight / 2 - e.pageY) / 50;
-
-            tiles.forEach(tile => {
-                const speed = tile.getAttribute('data-speed') || 2;
-                const xOffset = x * speed;
-                const yOffset = y * speed;
-                tile.style.transform = `translateX(${xOffset}px) translateY(${yOffset}px) rotateX(${yOffset * 0.1}deg) rotateY(${xOffset * 0.1}deg)`;
-            });
-        });
-
-        // Lead Form Popup & WhatsApp Logic
-        document.addEventListener('DOMContentLoaded', () => {
-            // WhatsApp Button Delay
-            setTimeout(() => {
-                const waBtn = document.getElementById('whatsappFloat');
-                if (waBtn) waBtn.classList.add('visible');
-            }, 2000);
-
-            // Popup Delay - Robust Implementation
-            const popup = document.getElementById('leadPopup');
-            if (popup) {
-                const showPopup = () => {
-                    const isSubmitted = localStorage.getItem('creashift_lead_submitted');
-                    if (isSubmitted) return;
-
-                    // Navigation Analysis: Show only on refresh or direct/external entry
-                    const navEntries = performance.getEntriesByType("navigation");
-                    const isRefresh = navEntries.length > 0 && navEntries[0].type === 'reload';
-                    const isInternalNav = document.referrer && document.referrer.includes(window.location.host);
-
-                    if (isRefresh || !isInternalNav) {
-                        popup.classList.add('active');
-                    }
-                };
-                
-                // Show after 5 seconds
-                setTimeout(showPopup, 5000);
-            }
 
             // Close Popup Logic
+            const popup = document.getElementById('leadPopup');
             const closePopup = document.getElementById('closePopup');
             if (closePopup && popup) {
                 closePopup.addEventListener('click', () => {
@@ -1505,7 +1591,7 @@
 
             // Popup Form Submission
             const popupForm = document.getElementById('popupForm');
-            if (popupForm) {
+            if (popupForm && popup) {
                 popupForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
                     const submitBtn = e.target.querySelector('button[type="submit"]');
