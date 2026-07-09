@@ -118,6 +118,19 @@ app.use(passport.session());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
+// Dynamic Sitemap Route
+app.get('/sitemap.xml', (req, res) => {
+    try {
+        const { generateSitemapXml } = require('./bin/generate-sitemap');
+        const xml = generateSitemapXml();
+        res.header('Content-Type', 'application/xml');
+        res.send(xml);
+    } catch (err) {
+        console.error('Error serving dynamic sitemap:', err);
+        res.status(500).send('Error generating sitemap');
+    }
+});
+
 // Static Files
 app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
 
