@@ -241,11 +241,6 @@
                 { section: 'Hero Section', key: 'blog-hero-label', label: 'Hero Subtitle', type: 'text', limit: 30 },
                 { section: 'Hero Section', key: 'blog-hero-headline', label: 'Main Headline', type: 'text', limit: 50 },
                 { section: 'Hero Section', key: 'blog-hero-subtext', label: 'Hero Description', type: 'textarea', limit: 250 },
-                
-                { section: 'Featured Post', key: 'blog-featured-img', label: 'Featured Image URL', type: 'text' },
-                { section: 'Featured Post', key: 'blog-featured-cat', label: 'Featured Category', type: 'select', options: ['strategy', 'design', 'technology', 'case-studies'] },
-                { section: 'Featured Post', key: 'blog-featured-title', label: 'Featured Title', type: 'text', limit: 60 },
-                { section: 'Featured Post', key: 'blog-featured-desc', label: 'Featured Summary', type: 'textarea', limit: 200 }
             ],
             'portfolio': [
                 { section: 'Hero Section', key: 'portfolio-headline', label: 'Main Headline', type: 'text', limit: 50 },
@@ -474,18 +469,37 @@
                 } else {
                     articles.forEach(article => {
                         const card = document.createElement('div');
-                        card.className = 'glass rounded-[32px] p-6 space-y-4 bg-white hover:shadow-lg transition-all relative';
+                        const isFeatured = article.isFeatured;
+                        card.className = `glass rounded-[32px] p-6 space-y-4 bg-white hover:shadow-lg transition-all relative ${isFeatured ? 'border-2 border-black' : ''}`;
                         card.innerHTML = `
-                            <button onclick="deleteArticle('${article._id}')" class="absolute top-6 right-6 text-red-500 hover:text-red-700 transition-colors">
-                                <span class="material-symbols-outlined">delete</span>
-                            </button>
+                            <div class="absolute top-6 right-6 flex items-center gap-2">
+                                <button onclick="featureArticle('${article._id}')" class="text-gray-400 hover:text-yellow-500 transition-colors" title="Mark as Featured">
+                                    <span class="material-symbols-outlined ${isFeatured ? 'text-yellow-500' : ''}">${isFeatured ? 'star' : 'star_border'}</span>
+                                </button>
+                                <button onclick="deleteArticle('${article._id}')" class="text-red-500 hover:text-red-700 transition-colors" title="Delete">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
+                            </div>
                             <span class="text-[9px] font-bold text-black uppercase tracking-widest bg-gray-100 px-3 py-1 rounded-full">${article.category}</span>
-                            <h4 class="font-bold text-lg leading-tight pr-8">${article.title}</h4>
+                            <h4 class="font-bold text-lg leading-tight pr-16">${article.title}</h4>
                             <p class="text-xs text-gray-500 line-clamp-2">${article.summary}</p>
                             <img src="${article.imageUrl}" alt="" class="w-full h-32 object-cover rounded-xl mt-4">
                         `;
                         articlesContainer.appendChild(card);
                     });
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function featureArticle(id) {
+            try {
+                const response = await fetch('/api/articles/' + id + '/feature', { method: 'PUT' });
+                const result = await response.json();
+                if (result.success) {
+                    showToast('Article marked as featured');
+                    renderFields(); // Re-render to refresh list
                 }
             } catch (err) {
                 console.error(err);

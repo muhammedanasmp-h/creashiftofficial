@@ -116,8 +116,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 const gridContainer = document.getElementById('dynamic-grid-container');
                 if (!sidebarContainer || !gridContainer) return;
 
-                if (articles.length > 0) {
-                    const firstArticle = articles[0];
+                const featuredArticle = articles.find(a => a.isFeatured) || articles[0];
+                const restArticles = articles.filter(a => a._id !== (featuredArticle ? featuredArticle._id : null));
+
+                if (featuredArticle) {
+                    const featImg = document.getElementById('blog-featured-img');
+                    const featCat = document.getElementById('blog-featured-cat');
+                    const featTitle = document.getElementById('blog-featured-title');
+                    const featDesc = document.getElementById('blog-featured-desc');
+                    const featArticle = document.getElementById('blog-featured');
+                    
+                    if (featImg) featImg.src = featuredArticle.imageUrl || 'https://via.placeholder.com/800';
+                    if (featCat) featCat.innerText = featuredArticle.category;
+                    if (featTitle) featTitle.innerText = featuredArticle.title;
+                    if (featDesc) featDesc.innerText = featuredArticle.summary;
+                    if (featArticle) featArticle.setAttribute('data-category', featuredArticle.category.toLowerCase());
+                }
+
+                if (restArticles.length > 0) {
+                    const firstArticle = restArticles[0];
                     sidebarContainer.innerHTML = `
                         <article class="masonry-item group cursor-pointer" data-category="${firstArticle.category.toLowerCase()}">
                             <div class="mb-8 overflow-hidden aspect-square bg-gray-50">
@@ -130,9 +147,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     `;
                 }
 
-                if (articles.length > 1) {
-                    const restArticles = articles.slice(1);
-                    gridContainer.innerHTML = restArticles.map(article => `
+                if (restArticles.length > 1) {
+                    const gridArticles = restArticles.slice(1);
+                    gridContainer.innerHTML = gridArticles.map(article => `
                         <article class="masonry-item group flex flex-col" data-category="${article.category.toLowerCase()}">
                             <div class="mb-8 overflow-hidden aspect-[1/1] bg-gray-50">
                                 <img alt="${article.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="${article.imageUrl || 'https://via.placeholder.com/600'}"/>

@@ -197,6 +197,18 @@ app.delete('/api/articles/:id', isAdmin, async (req, res) => {
     }
 });
 
+app.put('/api/articles/:id/feature', isAdmin, async (req, res) => {
+    try {
+        // Un-feature all articles first
+        await Article.updateMany({}, { isFeatured: false });
+        // Feature the specified article
+        const featuredArticle = await Article.findByIdAndUpdate(req.params.id, { isFeatured: true }, { new: true });
+        res.json({ success: true, article: featuredArticle });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
+
 app.post('/api/contact', async (req, res) => {
     const { name, email, phone, message } = req.body;
 
