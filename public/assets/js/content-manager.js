@@ -32,6 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(contentMap => {
             applyContent(contentMap);
+            if (page === 'blog-premium') {
+                fetchArticles();
+            }
         })
         .catch(err => console.error('Error fetching dynamic content:', err));
 
@@ -103,5 +106,47 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
         });
+    }
+
+    function fetchArticles() {
+        fetch('/api/articles')
+            .then(res => res.json())
+            .then(articles => {
+                const sidebarContainer = document.getElementById('dynamic-sidebar-container');
+                const gridContainer = document.getElementById('dynamic-grid-container');
+                if (!sidebarContainer || !gridContainer) return;
+
+                if (articles.length > 0) {
+                    const firstArticle = articles[0];
+                    sidebarContainer.innerHTML = `
+                        <article class="masonry-item group cursor-pointer" data-category="${firstArticle.category.toLowerCase()}">
+                            <div class="mb-8 overflow-hidden aspect-square bg-gray-50">
+                                <img alt="${firstArticle.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" src="${firstArticle.imageUrl || 'https://via.placeholder.com/600'}"/>
+                            </div>
+                            <span class="font-label-sm text-[10px] text-gray-400 mb-4 block uppercase tracking-widest"><span>${firstArticle.category}</span></span>
+                            <h3 class="text-2xl font-bold mb-4 leading-tight">${firstArticle.title}</h3>
+                            <p class="text-gray-500 text-sm leading-relaxed line-clamp-2">${firstArticle.summary}</p>
+                        </article>
+                    `;
+                }
+
+                if (articles.length > 1) {
+                    const restArticles = articles.slice(1);
+                    gridContainer.innerHTML = restArticles.map(article => `
+                        <article class="masonry-item group flex flex-col" data-category="${article.category.toLowerCase()}">
+                            <div class="mb-8 overflow-hidden aspect-[1/1] bg-gray-50">
+                                <img alt="${article.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="${article.imageUrl || 'https://via.placeholder.com/600'}"/>
+                            </div>
+                            <span class="font-label-sm text-[10px] text-black mb-4 uppercase"><span>${article.category}</span></span>
+                            <h3 class="text-xl font-semibold mb-4 leading-snug">${article.title}</h3>
+                            <p class="text-gray-500 text-sm line-clamp-3 mb-6">${article.summary}</p>
+                        </article>
+                    `).join('');
+                }
+                
+                // Re-initialize filters for the dynamically added items
+                initFilters();
+            })
+            .catch(err => console.error('Error fetching dynamic articles:', err));
     }
 });

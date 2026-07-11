@@ -220,32 +220,27 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-x-12 gap-y-32" id="blogGrid">
                 
                 <!-- Feature Article -->
-                <article id="blog-item-1" class="masonry-item lg:col-span-8 group cursor-pointer" data-category="strategy">
+                <article id="blog-featured" class="masonry-item lg:col-span-8 group cursor-pointer" data-category="strategy">
                     <div class="mb-10 overflow-hidden aspect-[16/9] bg-gray-50">
-                        <img id="blog-item-1-img" alt="Architectural space" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBAovw4N08jYJmH9q7q-G-95Hj9u6Wn2Sshn8tA5yO5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O"/>
+                        <img id="blog-featured-img" alt="Featured Post" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBAovw4N08jYJmH9q7q-G-95Hj9u6Wn2Sshn8tA5yO5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O"/>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-8 gap-8">
                         <div class="md:col-span-2">
-                            <span class="font-label-sm text-[10px] text-black font-bold uppercase tracking-widest block mb-4" id="blog-item-1-cat">STRATEGY</span>
-                            <span class="text-gray-400 text-[10px] uppercase tracking-widest">SEP 12, 2024</span>
+                            <span class="font-label-sm text-[10px] text-black font-bold uppercase tracking-widest block mb-4" id="blog-featured-cat">STRATEGY</span>
+                            <span class="text-gray-400 text-[10px] uppercase tracking-widest">LATEST</span>
                         </div>
                         <div class="md:col-span-6">
-                            <h2 id="blog-item-1-title" class="text-3xl md:text-5xl font-black mb-6 leading-tight group-hover:underline decoration-1 underline-offset-8">THE ARCHITECTURE OF CONVERSION.</h2>
-                            <p id="blog-item-1-desc" class="text-gray-500 text-lg leading-relaxed max-w-xl">How structural integrity in <a href="/service-web" class="underline hover:text-black/60 transition-colors">web design</a> directly influences user trust and algorithmic authority. A deep dive into technical <a href="/service-seo" class="underline hover:text-black/60 transition-colors">SEO</a> and UX alignment.</p>
+                            <h2 id="blog-featured-title" class="text-3xl md:text-5xl font-black mb-6 leading-tight group-hover:underline decoration-1 underline-offset-8">THE ARCHITECTURE OF CONVERSION.</h2>
+                            <p id="blog-featured-desc" class="text-gray-500 text-lg leading-relaxed max-w-xl">How structural integrity in <a href="/service-web" class="underline hover:text-black/60 transition-colors">web design</a> directly influences user trust and algorithmic authority. A deep dive into technical <a href="/service-seo" class="underline hover:text-black/60 transition-colors">SEO</a> and UX alignment.</p>
                         </div>
                     </div>
                 </article>
 
                 <!-- Sidebar Content -->
                 <aside class="lg:col-span-4 flex flex-col gap-24">
-                    <article id="blog-item-2" class="masonry-item group cursor-pointer" data-category="design">
-                        <div class="mb-8 overflow-hidden aspect-square bg-gray-50">
-                            <img id="blog-item-2-img" alt="Minimalist detail" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_6k6H8_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7"/>
-                        </div>
-                        <span class="font-label-sm text-[10px] text-gray-400 mb-4 block uppercase tracking-widest"><span id="blog-item-2-cat">DESIGN</span> • SEP 05</span>
-                        <h3 id="blog-item-2-title" class="text-2xl font-bold mb-4 leading-tight">Minimalism as a Performance Metric.</h3>
-                        <p id="blog-item-2-desc" class="text-gray-500 text-sm leading-relaxed line-clamp-2">Reducing visual noise through core <a href="/service-design" class="underline hover:text-black/60 transition-colors">design principles</a> to accelerate processing speed and user decision-making.</p>
-                    </article>
+                    <div id="dynamic-sidebar-container">
+                        <!-- First dynamic article will be injected here -->
+                    </div>
 
                     <div class="bg-black p-12 text-white rounded-[40px]">
                         <h4 class="text-xs font-bold uppercase tracking-[0.3em] mb-8 text-white/40">The Manifest</h4>
@@ -259,42 +254,7 @@
         <!-- Secondary Grid Section -->
         <section class="max-w-[1440px] mx-auto px-6 py-section-gap border-t border-black/5">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-12 gap-y-24">
-                <!-- Article Card 3 -->
-                <article id="blog-item-3" class="masonry-item group flex flex-col" data-category="technology">
-                    <div class="mb-8 overflow-hidden aspect-[1/1] bg-gray-50">
-                        <img id="blog-item-3-img" alt="Designer lamp" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_6k6H8_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7"/>
-                    </div>
-                    <span class="font-label-sm text-[10px] text-black mb-4 uppercase"><span id="blog-item-3-cat">TECH</span> • Aug 30</span>
-                    <h3 id="blog-item-3-title" class="text-xl font-semibold mb-4 leading-snug">Generative Luxury</h3>
-                    <p id="blog-item-3-desc" class="text-gray-500 text-sm line-clamp-3 mb-6">Leveraging AI without compromising brand integrity. Maintaining a human-centric approach in line with our <a href="/about" class="underline hover:text-black/60 transition-colors">creative agency guidelines</a>.</p>
-                </article>
-                <!-- Article Card 4 -->
-                <article id="blog-item-4" class="masonry-item group flex flex-col" data-category="design">
-                    <div class="mb-8 overflow-hidden aspect-[1/1] bg-gray-50">
-                        <img id="blog-item-4-img" alt="Workstation" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_6k6H8_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7"/>
-                    </div>
-                    <span class="font-label-sm text-[10px] text-black mb-4 uppercase"><span id="blog-item-4-cat">DESIGN</span> • Aug 12</span>
-                    <h3 id="blog-item-4-title" class="text-xl font-semibold mb-4 leading-snug">Visual Pacing</h3>
-                    <p id="blog-item-4-desc" class="text-gray-500 text-sm line-clamp-3 mb-6">Using cinematic <a href="/service-video" class="underline hover:text-black/60 transition-colors">motion</a> to control the user's emotional journey through a premium <a href="/portfolio" class="underline hover:text-black/60 transition-colors">digital case study</a>.</p>
-                </article>
-                <!-- Article Card 5 -->
-                <article id="blog-item-5" class="masonry-item group flex flex-col" data-category="technology">
-                    <div class="mb-8 overflow-hidden aspect-[1/1] bg-gray-50">
-                        <img id="blog-item-5-img" alt="Digital pixels" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_6k6H8_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7"/>
-                    </div>
-                    <span class="font-label-sm text-[10px] text-black mb-4 uppercase"><span id="blog-item-5-cat">TECH</span> • Jul 24</span>
-                    <h3 id="blog-item-5-title" class="text-xl font-semibold mb-4 leading-snug">Headless Commerce</h3>
-                    <p id="blog-item-5-desc" class="text-gray-500 text-sm line-clamp-3 mb-6">The structural shift in how we <a href="/service-web" class="underline hover:text-black/60 transition-colors">build high-performance shopping experiences</a>.</p>
-                </article>
-                <!-- Article Card 6 -->
-                <article id="blog-item-6" class="masonry-item group flex flex-col" data-category="case-studies">
-                    <div class="mb-8 overflow-hidden aspect-[1/1] bg-gray-50">
-                        <img id="blog-item-6-img" alt="Brutalist building" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_6k6H8_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7_k7H7"/>
-                    </div>
-                    <span class="font-label-sm text-[10px] text-black mb-4 uppercase"><span id="blog-item-6-cat">CASE STUDIES</span> • Jul 05</span>
-                    <h3 id="blog-item-6-title" class="text-xl font-semibold mb-4 leading-snug">Rebranding Obsidian</h3>
-                    <p id="blog-item-6-desc" class="text-gray-500 text-sm line-clamp-3 mb-6">A deep dive into our <a href="/service-design" class="underline hover:text-black/60 transition-colors">transformation of a legacy tech firm</a> through radical simplification.</p>
-                </article>
+                <!-- Dynamic grid articles injected here via JS -->
             </div>
         </section>
 

@@ -71,15 +71,80 @@
     </aside>
 
     <!-- Main Content -->
+    <meta name="robots" content="noindex, nofollow">
+    <title>Dashboard | CREASHIFT Admin</title>
+    
+    
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(0,0,0,0.05); }
+        .sidebar-item.active { background: black; color: white; }
+    </style>
+</head>
+<body class="bg-[#fcf8fb] text-[#1b1b1d] min-h-screen flex">
+    <!-- Sidebar -->
+    <aside class="w-72 border-r border-black/5 p-8 flex flex-col h-screen sticky top-0 bg-white">
+        <div class="mb-12">
+            <h1 class="text-xl font-black tracking-tighter">CREASHIFT</h1>
+            <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Admin Dashboard</p>
+        </div>
+        
+        <nav class="flex-grow space-y-2 overflow-y-auto pb-4 pr-2">
+            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Pages</p>
+            <button onclick="selectPage('services')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all hover:bg-gray-100 flex items-center justify-between group active" id="btn-services">
+                Services
+                <span class="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+            </button>
+            <button onclick="selectPage('portfolio')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all hover:bg-gray-100 flex items-center justify-between group" id="btn-portfolio">
+                Portfolio
+                <span class="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+            </button>
+            <button onclick="selectPage('blog-premium')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all hover:bg-gray-100 flex items-center justify-between group" id="btn-blog-premium">
+                Blog / Editorial
+                <span class="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+            </button>
+            <button onclick="selectPage('contact')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all hover:bg-gray-100 flex items-center justify-between group" id="btn-contact">
+                Contact
+                <span class="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+            </button>
+            
+            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest pt-6 mb-4">Service Details</p>
+            <button onclick="selectPage('service-seo')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-seo">SEO Architecture</button>
+            <button onclick="selectPage('service-social')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-social">Social Ecosystems</button>
+            <button onclick="selectPage('service-web')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-web">Web Engineering</button>
+            <button onclick="selectPage('service-ads')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-ads">Paid Ads</button>
+            <button onclick="selectPage('service-design')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-design">Design & Identity</button>
+            <button onclick="selectPage('service-video')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-video">Video Production</button>
+        </nav>
+        
+        <div class="pt-8 border-t border-black/5 mt-auto">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center font-bold">
+                    <%= user.displayName.charAt(0) %>
+                </div>
+                <div>
+                    <p class="text-sm font-bold truncate max-w-[140px]"><%= user.displayName %></p>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Administrator</p>
+                </div>
+            </div>
+            <a href="/logout" class="flex items-center gap-2 text-xs font-bold text-red-500 hover:opacity-70 transition-opacity">
+                <span class="material-symbols-outlined text-lg">logout</span>
+                SIGN OUT
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
     <main class="flex-grow p-12 overflow-y-auto">
         <header class="flex justify-between items-center mb-12">
             <div>
                 <h2 id="currentPageTitle" class="text-4xl font-black uppercase tracking-tighter">SERVICES PAGE</h2>
                 <p class="text-gray-500 text-sm mt-1">Manage content and service cards for this page.</p>
             </div>
-            <button onclick="addNewField()" class="flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full text-sm font-bold hover:scale-105 transition-all">
+            <button onclick="openArticleModal()" id="addSectionBtn" class="hidden flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full text-sm font-bold hover:scale-105 transition-all">
                 <span class="material-symbols-outlined">add</span>
-                ADD SECTION
+                PUBLISH ARTICLE
             </button>
         </header>
 
@@ -97,6 +162,40 @@
     <div id="toast" class="fixed bottom-8 right-8 bg-black text-white px-6 py-4 rounded-2xl shadow-2xl translate-y-20 opacity-0 transition-all duration-500 flex items-center gap-3 z-50">
         <span class="material-symbols-outlined text-green-400">check_circle</span>
         <span id="toastMessage">Changes saved successfully</span>
+    </div>
+
+    <!-- Article Publish Modal -->
+    <div id="articleModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        <div class="bg-white w-full max-w-lg rounded-[32px] p-8 relative">
+            <button onclick="closeArticleModal()" class="absolute top-6 right-6 text-gray-400 hover:text-black">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            <h2 class="text-2xl font-black uppercase tracking-tighter mb-6">Publish Article</h2>
+            <form id="newArticleForm" onsubmit="publishArticle(event)" class="space-y-4">
+                <div>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2">Category</label>
+                    <select id="art-category" required class="w-full bg-transparent border border-black/5 rounded-xl p-4 text-sm focus:outline-none focus:border-black/20">
+                        <option value="strategy">STRATEGY</option>
+                        <option value="design">DESIGN</option>
+                        <option value="technology">TECHNOLOGY</option>
+                        <option value="case-studies">CASE STUDIES</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2">Image URL</label>
+                    <input type="text" id="art-img" required class="w-full bg-transparent border border-black/5 rounded-xl p-4 text-sm focus:outline-none focus:border-black/20" placeholder="https://...">
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2">Title</label>
+                    <input type="text" id="art-title" required class="w-full bg-transparent border border-black/5 rounded-xl p-4 text-sm focus:outline-none focus:border-black/20" placeholder="Article title">
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2">Summary</label>
+                    <textarea id="art-summary" required class="w-full bg-transparent border border-black/5 rounded-xl p-4 text-sm focus:outline-none focus:border-black/20 min-h-[100px]" placeholder="Short description..."></textarea>
+                </div>
+                <button type="submit" id="btnPublishArticle" class="w-full bg-black text-white font-bold py-4 rounded-xl hover:scale-[1.02] transition-transform text-sm tracking-widest mt-4">PUBLISH</button>
+            </form>
+        </div>
     </div>
 
     <script>
@@ -207,37 +306,7 @@
                 { section: 'Featured Post', key: 'blog-featured-img', label: 'Featured Image URL', type: 'text' },
                 { section: 'Featured Post', key: 'blog-featured-cat', label: 'Featured Category', type: 'select', options: ['strategy', 'design', 'technology', 'case-studies'] },
                 { section: 'Featured Post', key: 'blog-featured-title', label: 'Featured Title', type: 'text', limit: 60 },
-                { section: 'Featured Post', key: 'blog-featured-desc', label: 'Featured Summary', type: 'textarea', limit: 200 },
-                
-                { section: 'Article 1', key: 'blog-item-1-img', label: 'Article 1: Image URL', type: 'text' },
-                { section: 'Article 1', key: 'blog-item-1-cat', label: 'Article 1: Category', type: 'select', options: ['strategy', 'design', 'technology', 'case-studies'] },
-                { section: 'Article 1', key: 'blog-item-1-title', label: 'Article 1: Title', type: 'text', limit: 50 },
-                { section: 'Article 1', key: 'blog-item-1-desc', label: 'Article 1: Summary', type: 'textarea', limit: 150 },
-                
-                { section: 'Article 2', key: 'blog-item-2-img', label: 'Article 2: Image URL', type: 'text' },
-                { section: 'Article 2', key: 'blog-item-2-cat', label: 'Article 2: Category', type: 'select', options: ['strategy', 'design', 'technology', 'case-studies'] },
-                { section: 'Article 2', key: 'blog-item-2-title', label: 'Article 2: Title', type: 'text', limit: 50 },
-                { section: 'Article 2', key: 'blog-item-2-desc', label: 'Article 2: Summary', type: 'textarea', limit: 150 },
-                
-                { section: 'Article 3', key: 'blog-item-3-img', label: 'Article 3: Image URL', type: 'text' },
-                { section: 'Article 3', key: 'blog-item-3-cat', label: 'Article 3: Category', type: 'select', options: ['strategy', 'design', 'technology', 'case-studies'] },
-                { section: 'Article 3', key: 'blog-item-3-title', label: 'Article 3: Title', type: 'text', limit: 50 },
-                { section: 'Article 3', key: 'blog-item-3-desc', label: 'Article 3: Summary', type: 'textarea', limit: 150 },
-                
-                { section: 'Article 4', key: 'blog-item-4-img', label: 'Article 4: Image URL', type: 'text' },
-                { section: 'Article 4', key: 'blog-item-4-cat', label: 'Article 4: Category', type: 'select', options: ['strategy', 'design', 'technology', 'case-studies'] },
-                { section: 'Article 4', key: 'blog-item-4-title', label: 'Article 4: Title', type: 'text', limit: 50 },
-                { section: 'Article 4', key: 'blog-item-4-desc', label: 'Article 4: Summary', type: 'textarea', limit: 150 },
-                
-                { section: 'Article 5', key: 'blog-item-5-img', label: 'Article 5: Image URL', type: 'text' },
-                { section: 'Article 5', key: 'blog-item-5-cat', label: 'Article 5: Category', type: 'select', options: ['strategy', 'design', 'technology', 'case-studies'] },
-                { section: 'Article 5', key: 'blog-item-5-title', label: 'Article 5: Title', type: 'text', limit: 50 },
-                { section: 'Article 5', key: 'blog-item-5-desc', label: 'Article 5: Summary', type: 'textarea', limit: 150 },
-                
-                { section: 'Article 6', key: 'blog-item-6-img', label: 'Article 6: Image URL', type: 'text' },
-                { section: 'Article 6', key: 'blog-item-6-cat', label: 'Article 6: Category', type: 'select', options: ['strategy', 'design', 'technology', 'case-studies'] },
-                { section: 'Article 6', key: 'blog-item-6-title', label: 'Article 6: Title', type: 'text', limit: 50 },
-                { section: 'Article 6', key: 'blog-item-6-desc', label: 'Article 6: Summary', type: 'textarea', limit: 150 }
+                { section: 'Featured Post', key: 'blog-featured-desc', label: 'Featured Summary', type: 'textarea', limit: 200 }
             ],
             'portfolio': [
                 { section: 'Hero Section', key: 'portfolio-headline', label: 'Main Headline', type: 'text', limit: 50 },
@@ -278,6 +347,14 @@
             if (btn) btn.classList.add('active');
             
             document.getElementById('currentPageTitle').innerText = page.replace('-', ' ').toUpperCase() + ' PAGE';
+            
+            // Hide the 'ADD SECTION' button if we aren't managing blog-premium
+            const addSectionBtn = document.getElementById('addSectionBtn');
+            if (page === 'blog-premium') {
+                addSectionBtn.classList.remove('hidden');
+            } else {
+                addSectionBtn.classList.add('hidden');
+            }
             
             loadContent();
         }
@@ -373,6 +450,10 @@
                 `;
                 sectionContainer.appendChild(card);
             });
+            
+            if (currentPage === 'blog-premium') {
+                loadDynamicArticles(grid);
+            }
         }
 
         function updateCounter(key, limit) {
@@ -431,6 +512,107 @@
                 toast.classList.add('translate-y-20', 'opacity-0');
             }, 3000);
         }
+
+        async function loadDynamicArticles(grid) {
+            const sectionHeader = document.createElement('div');
+            sectionHeader.className = 'col-span-full pt-12 pb-4 flex justify-between items-end';
+            sectionHeader.innerHTML = `
+                <h3 class="text-xs font-black uppercase tracking-[0.3em] text-gray-400">PUBLISHED ARTICLES</h3>
+            `;
+            grid.appendChild(sectionHeader);
+
+            const articlesContainer = document.createElement('div');
+            articlesContainer.className = 'grid grid-cols-1 md:grid-cols-2 gap-6 col-span-full';
+            articlesContainer.id = 'articlesContainer';
+            grid.appendChild(articlesContainer);
+
+            try {
+                const response = await fetch('/api/articles');
+                const articles = await response.json();
+                
+                if (articles.length === 0) {
+                    articlesContainer.innerHTML = '<p class="text-gray-400 text-sm col-span-full">No articles published yet.</p>';
+                } else {
+                    articles.forEach(article => {
+                        const card = document.createElement('div');
+                        card.className = 'glass rounded-[32px] p-6 space-y-4 bg-white hover:shadow-lg transition-all relative';
+                        card.innerHTML = `
+                            <button onclick="deleteArticle('${article._id}')" class="absolute top-6 right-6 text-red-500 hover:text-red-700 transition-colors">
+                                <span class="material-symbols-outlined">delete</span>
+                            </button>
+                            <span class="text-[9px] font-bold text-black uppercase tracking-widest bg-gray-100 px-3 py-1 rounded-full">${article.category}</span>
+                            <h4 class="font-bold text-lg leading-tight pr-8">${article.title}</h4>
+                            <p class="text-xs text-gray-500 line-clamp-2">${article.summary}</p>
+                            <img src="${article.imageUrl}" alt="" class="w-full h-32 object-cover rounded-xl mt-4">
+                        `;
+                        articlesContainer.appendChild(card);
+                    });
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function deleteArticle(id) {
+            if (!confirm('Are you sure you want to delete this article?')) return;
+            try {
+                const response = await fetch('/api/articles/' + id, { method: 'DELETE' });
+                const result = await response.json();
+                if (result.success) {
+                    showToast('Article deleted');
+                    renderFields(); // Re-render to refresh list
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function openArticleModal() {
+            document.getElementById('articleModal').classList.remove('hidden');
+            document.getElementById('articleModal').classList.add('flex');
+        }
+
+        function closeArticleModal() {
+            document.getElementById('articleModal').classList.add('hidden');
+            document.getElementById('articleModal').classList.remove('flex');
+            document.getElementById('newArticleForm').reset();
+        }
+
+        async function publishArticle(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btnPublishArticle');
+            btn.innerHTML = 'PUBLISHING...';
+            btn.disabled = true;
+
+            const data = {
+                title: document.getElementById('art-title').value,
+                summary: document.getElementById('art-summary').value,
+                category: document.getElementById('art-category').value,
+                imageUrl: document.getElementById('art-img').value
+            };
+
+            try {
+                const response = await fetch('/api/articles', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if (result.success) {
+                    showToast('Article published');
+                    closeArticleModal();
+                    renderFields();
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (err) {
+                console.error(err);
+            } finally {
+                btn.innerHTML = 'PUBLISH';
+                btn.disabled = false;
+            }
+        }
+
 
         // Initial Load
         selectPage('services');

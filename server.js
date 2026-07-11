@@ -32,6 +32,7 @@ connectDB();
 // Models
 const Content = require('./models/Content');
 const User = require('./models/User');
+const Article = require('./models/Article');
 
 // Passport Config
 passport.use(new GoogleStrategy({
@@ -160,6 +161,36 @@ app.post('/api/content', isAdmin, async (req, res) => {
             { value },
             { upsert: true, new: true }
         );
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
+
+// Article Routes
+app.get('/api/articles', async (req, res) => {
+    try {
+        const articles = await Article.find().sort({ createdAt: -1 });
+        res.json(articles);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+app.post('/api/articles', isAdmin, async (req, res) => {
+    try {
+        const { title, summary, category, imageUrl } = req.body;
+        const newArticle = new Article({ title, summary, category, imageUrl });
+        await newArticle.save();
+        res.json({ success: true, article: newArticle });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
+
+app.delete('/api/articles/:id', isAdmin, async (req, res) => {
+    try {
+        await Article.findByIdAndDelete(req.params.id);
         res.json({ success: true });
     } catch (err) {
         res.status(500).json({ success: false, error: err.message });
