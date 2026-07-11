@@ -5,6 +5,12 @@ module.exports = {
     "./public/**/*.html",
     "./views/**/*.ejs"
   ],
+  safelist: [
+    'md:max-w-2xl',
+    'md:max-w-4xl',
+    'max-w-4xl',
+    'md:w-[800px]'
+  ],
   theme: {
     extend: {
       colors: {
