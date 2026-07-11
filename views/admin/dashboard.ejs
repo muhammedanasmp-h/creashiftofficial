@@ -101,12 +101,12 @@
 
     <!-- Article Publish Modal -->
     <div id="articleModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-        <div class="bg-[#f8f9fa] w-full rounded-[24px] p-6 md:p-12 relative" style="max-width: 900px;">
+        <div class="bg-[#f8f9fa] w-full rounded-[24px] p-6 md:p-8 relative max-h-[90vh] overflow-y-auto" style="max-width: 900px;">
             <button onclick="closeArticleModal()" class="absolute top-4 right-4 md:top-6 md:right-6 text-gray-400 hover:text-black">
                 <span class="material-symbols-outlined">close</span>
             </button>
             <h2 class="text-xl md:text-2xl font-black uppercase tracking-tighter mb-4 md:mb-6">Publish Article</h2>
-            <form id="newArticleForm" onsubmit="publishArticle(event)" class="space-y-3 md:space-y-5">
+            <form id="newArticleForm" onsubmit="publishArticle(event)" class="space-y-3 md:space-y-4">
                 <div>
                     <label class="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1 md:mb-2">Category</label>
                     <select id="art-category" required class="w-full bg-transparent border border-black/5 rounded-lg md:rounded-xl p-3 md:p-4 text-sm md:text-base focus:outline-none focus:border-black/20">
@@ -126,11 +126,11 @@
                 </div>
                 <div>
                     <label class="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1 md:mb-2">Summary</label>
-                    <textarea id="art-summary" required class="w-full bg-transparent border border-black/5 rounded-lg md:rounded-xl p-3 md:p-4 text-sm md:text-base focus:outline-none focus:border-black/20 min-h-[60px] md:min-h-[100px]" placeholder="Short description..."></textarea>
+                    <textarea id="art-summary" required class="w-full bg-transparent border border-black/5 rounded-lg md:rounded-xl p-3 md:p-4 text-sm md:text-base focus:outline-none focus:border-black/20 min-h-[60px]" placeholder="Short description..."></textarea>
                 </div>
                 <div>
                     <label class="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1 md:mb-2">Detailed Description</label>
-                    <textarea id="art-description" required class="w-full bg-transparent border border-black/5 rounded-lg md:rounded-xl p-3 md:p-4 text-sm md:text-base focus:outline-none focus:border-black/20 min-h-[100px] md:min-h-[200px]" placeholder="Full article content..."></textarea>
+                    <textarea id="art-description" required class="w-full bg-transparent border border-black/5 rounded-lg md:rounded-xl p-3 md:p-4 text-sm md:text-base focus:outline-none focus:border-black/20 min-h-[100px] md:min-h-[120px]" placeholder="Full article content..."></textarea>
                 </div>
                 <button type="submit" id="btnPublishArticle" class="w-full bg-black text-white font-bold py-3 md:py-4 rounded-lg md:rounded-xl hover:scale-[1.02] transition-transform text-sm md:text-base tracking-widest mt-2 md:mt-4">PUBLISH</button>
             </form>
