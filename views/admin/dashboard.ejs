@@ -101,15 +101,15 @@
 
     <!-- Article Publish Modal -->
     <div id="articleModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-        <div class="bg-white w-full max-w-lg rounded-[32px] p-8 relative">
-            <button onclick="closeArticleModal()" class="absolute top-6 right-6 text-gray-400 hover:text-black">
+        <div class="bg-white w-full max-w-md rounded-[24px] p-6 relative">
+            <button onclick="closeArticleModal()" class="absolute top-4 right-4 text-gray-400 hover:text-black">
                 <span class="material-symbols-outlined">close</span>
             </button>
-            <h2 class="text-2xl font-black uppercase tracking-tighter mb-6">Publish Article</h2>
-            <form id="newArticleForm" onsubmit="publishArticle(event)" class="space-y-4">
+            <h2 class="text-xl font-black uppercase tracking-tighter mb-4">Publish Article</h2>
+            <form id="newArticleForm" onsubmit="publishArticle(event)" class="space-y-3">
                 <div>
-                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2">Category</label>
-                    <select id="art-category" required class="w-full bg-transparent border border-black/5 rounded-xl p-4 text-sm focus:outline-none focus:border-black/20">
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Category</label>
+                    <select id="art-category" required class="w-full bg-transparent border border-black/5 rounded-lg p-3 text-sm focus:outline-none focus:border-black/20">
                         <option value="strategy">STRATEGY</option>
                         <option value="design">DESIGN</option>
                         <option value="technology">TECHNOLOGY</option>
@@ -117,22 +117,22 @@
                     </select>
                 </div>
                 <div>
-                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2">Image URL</label>
-                    <input type="text" id="art-img" required class="w-full bg-transparent border border-black/5 rounded-xl p-4 text-sm focus:outline-none focus:border-black/20" placeholder="https://...">
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Image URL</label>
+                    <input type="text" id="art-img" required class="w-full bg-transparent border border-black/5 rounded-lg p-3 text-sm focus:outline-none focus:border-black/20" placeholder="https://...">
                 </div>
                 <div>
-                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2">Title</label>
-                    <input type="text" id="art-title" required class="w-full bg-transparent border border-black/5 rounded-xl p-4 text-sm focus:outline-none focus:border-black/20" placeholder="Article title">
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Title</label>
+                    <input type="text" id="art-title" required class="w-full bg-transparent border border-black/5 rounded-lg p-3 text-sm focus:outline-none focus:border-black/20" placeholder="Article title">
                 </div>
                 <div>
-                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2">Summary</label>
-                    <textarea id="art-summary" required class="w-full bg-transparent border border-black/5 rounded-xl p-4 text-sm focus:outline-none focus:border-black/20 min-h-[100px]" placeholder="Short description..."></textarea>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Summary</label>
+                    <textarea id="art-summary" required class="w-full bg-transparent border border-black/5 rounded-lg p-3 text-sm focus:outline-none focus:border-black/20 min-h-[60px]" placeholder="Short description..."></textarea>
                 </div>
                 <div>
-                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2">Detailed Description</label>
-                    <textarea id="art-description" required class="w-full bg-transparent border border-black/5 rounded-xl p-4 text-sm focus:outline-none focus:border-black/20 min-h-[150px]" placeholder="Full article content..."></textarea>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-1">Detailed Description</label>
+                    <textarea id="art-description" required class="w-full bg-transparent border border-black/5 rounded-lg p-3 text-sm focus:outline-none focus:border-black/20 min-h-[100px]" placeholder="Full article content..."></textarea>
                 </div>
-                <button type="submit" id="btnPublishArticle" class="w-full bg-black text-white font-bold py-4 rounded-xl hover:scale-[1.02] transition-transform text-sm tracking-widest mt-4">PUBLISH</button>
+                <button type="submit" id="btnPublishArticle" class="w-full bg-black text-white font-bold py-3 rounded-lg hover:scale-[1.02] transition-transform text-sm tracking-widest mt-2">PUBLISH</button>
             </form>
         </div>
     </div>
