@@ -71,71 +71,6 @@
     </aside>
 
     <!-- Main Content -->
-    <meta name="robots" content="noindex, nofollow">
-    <title>Dashboard | CREASHIFT Admin</title>
-    
-    
-    
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .glass { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border: 1px solid rgba(0,0,0,0.05); }
-        .sidebar-item.active { background: black; color: white; }
-    </style>
-</head>
-<body class="bg-[#fcf8fb] text-[#1b1b1d] min-h-screen flex">
-    <!-- Sidebar -->
-    <aside class="w-72 border-r border-black/5 p-8 flex flex-col h-screen sticky top-0 bg-white">
-        <div class="mb-12">
-            <h1 class="text-xl font-black tracking-tighter">CREASHIFT</h1>
-            <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Admin Dashboard</p>
-        </div>
-        
-        <nav class="flex-grow space-y-2 overflow-y-auto pb-4 pr-2">
-            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">Pages</p>
-            <button onclick="selectPage('services')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all hover:bg-gray-100 flex items-center justify-between group active" id="btn-services">
-                Services
-                <span class="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
-            </button>
-            <button onclick="selectPage('portfolio')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all hover:bg-gray-100 flex items-center justify-between group" id="btn-portfolio">
-                Portfolio
-                <span class="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
-            </button>
-            <button onclick="selectPage('blog-premium')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all hover:bg-gray-100 flex items-center justify-between group" id="btn-blog-premium">
-                Blog / Editorial
-                <span class="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
-            </button>
-            <button onclick="selectPage('contact')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all hover:bg-gray-100 flex items-center justify-between group" id="btn-contact">
-                Contact
-                <span class="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
-            </button>
-            
-            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest pt-6 mb-4">Service Details</p>
-            <button onclick="selectPage('service-seo')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-seo">SEO Architecture</button>
-            <button onclick="selectPage('service-social')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-social">Social Ecosystems</button>
-            <button onclick="selectPage('service-web')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-web">Web Engineering</button>
-            <button onclick="selectPage('service-ads')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-ads">Paid Ads</button>
-            <button onclick="selectPage('service-design')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-design">Design & Identity</button>
-            <button onclick="selectPage('service-video')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-xs font-medium transition-all hover:bg-gray-100" id="btn-service-video">Video Production</button>
-        </nav>
-        
-        <div class="pt-8 border-t border-black/5 mt-auto">
-            <div class="flex items-center gap-3 mb-6">
-                <div class="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center font-bold">
-                    <%= user.displayName.charAt(0) %>
-                </div>
-                <div>
-                    <p class="text-sm font-bold truncate max-w-[140px]"><%= user.displayName %></p>
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Administrator</p>
-                </div>
-            </div>
-            <a href="/logout" class="flex items-center gap-2 text-xs font-bold text-red-500 hover:opacity-70 transition-opacity">
-                <span class="material-symbols-outlined text-lg">logout</span>
-                SIGN OUT
-            </a>
-        </div>
-    </aside>
-
-    <!-- Main Content -->
     <main class="flex-grow p-12 overflow-y-auto">
         <header class="flex justify-between items-center mb-12">
             <div>
@@ -192,6 +127,10 @@
                 <div>
                     <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2">Summary</label>
                     <textarea id="art-summary" required class="w-full bg-transparent border border-black/5 rounded-xl p-4 text-sm focus:outline-none focus:border-black/20 min-h-[100px]" placeholder="Short description..."></textarea>
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2">Detailed Description</label>
+                    <textarea id="art-description" required class="w-full bg-transparent border border-black/5 rounded-xl p-4 text-sm focus:outline-none focus:border-black/20 min-h-[150px]" placeholder="Full article content..."></textarea>
                 </div>
                 <button type="submit" id="btnPublishArticle" class="w-full bg-black text-white font-bold py-4 rounded-xl hover:scale-[1.02] transition-transform text-sm tracking-widest mt-4">PUBLISH</button>
             </form>
@@ -587,6 +526,7 @@
             const data = {
                 title: document.getElementById('art-title').value,
                 summary: document.getElementById('art-summary').value,
+                description: document.getElementById('art-description').value,
                 category: document.getElementById('art-category').value,
                 imageUrl: document.getElementById('art-img').value
             };

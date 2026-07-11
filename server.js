@@ -179,8 +179,8 @@ app.get('/api/articles', async (req, res) => {
 
 app.post('/api/articles', isAdmin, async (req, res) => {
     try {
-        const { title, summary, category, imageUrl } = req.body;
-        const newArticle = new Article({ title, summary, category, imageUrl });
+        const { title, summary, description, category, imageUrl } = req.body;
+        const newArticle = new Article({ title, summary, description, category, imageUrl });
         await newArticle.save();
         res.json({ success: true, article: newArticle });
     } catch (err) {
