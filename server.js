@@ -177,6 +177,16 @@ app.get('/api/articles', async (req, res) => {
     }
 });
 
+app.get('/api/articles/:id', async (req, res) => {
+    try {
+        const article = await Article.findById(req.params.id);
+        if (!article) return res.status(404).json({ error: 'Article not found' });
+        res.json(article);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 app.post('/api/articles', isAdmin, async (req, res) => {
     try {
         const { title, summary, description, category, imageUrl } = req.body;

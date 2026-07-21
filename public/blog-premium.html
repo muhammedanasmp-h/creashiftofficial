@@ -221,21 +221,23 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-x-12 gap-y-32" id="blogGrid">
                 
                 <!-- Feature Article -->
-                <article id="blog-featured" class="masonry-item lg:col-span-8 group cursor-pointer" data-category="strategy">
-                    <div class="mb-10 overflow-hidden aspect-[16/9] bg-gray-50">
-                        <img id="blog-featured-img" alt="Featured Post" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBAovw4N08jYJmH9q7q-G-95Hj9u6Wn2Sshn8tA5yO5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O"/>
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-8 gap-8">
-                        <div class="md:col-span-2">
-                            <span class="font-label-sm text-[10px] text-black font-bold uppercase tracking-widest block mb-4" id="blog-featured-cat">STRATEGY</span>
-                            <span class="text-gray-400 text-[10px] uppercase tracking-widest">LATEST</span>
+                <a id="blog-featured-link" href="#" class="lg:col-span-8 group block cursor-pointer">
+                    <article id="blog-featured" class="masonry-item" data-category="strategy">
+                        <div class="mb-10 overflow-hidden aspect-[16/9] bg-gray-50">
+                            <img id="blog-featured-img" alt="Featured Post" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBAovw4N08jYJmH9q7q-G-95Hj9u6Wn2Sshn8tA5yO5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O5k4O"/>
                         </div>
-                        <div class="md:col-span-6">
-                            <h2 id="blog-featured-title" class="text-3xl md:text-5xl font-black mb-6 leading-tight group-hover:underline decoration-1 underline-offset-8">THE ARCHITECTURE OF CONVERSION.</h2>
-                            <p id="blog-featured-desc" class="text-gray-500 text-lg leading-relaxed max-w-xl">How structural integrity in <a href="/service-web" class="underline hover:text-black/60 transition-colors">web design</a> directly influences user trust and algorithmic authority. A deep dive into technical <a href="/service-seo" class="underline hover:text-black/60 transition-colors">SEO</a> and UX alignment.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-8 gap-8">
+                            <div class="md:col-span-2">
+                                <span class="font-label-sm text-[10px] text-black font-bold uppercase tracking-widest block mb-4" id="blog-featured-cat">STRATEGY</span>
+                                <span class="text-gray-400 text-[10px] uppercase tracking-widest">LATEST</span>
+                            </div>
+                            <div class="md:col-span-6">
+                                <h2 id="blog-featured-title" class="text-3xl md:text-5xl font-black mb-6 leading-tight group-hover:underline decoration-1 underline-offset-8 text-black">THE ARCHITECTURE OF CONVERSION.</h2>
+                                <p id="blog-featured-desc" class="text-gray-500 text-lg leading-relaxed max-w-xl">How structural integrity in web design directly influences user trust and algorithmic authority. A deep dive into technical SEO and UX alignment.</p>
+                            </div>
                         </div>
-                    </div>
-                </article>
+                    </article>
+                </a>
 
                 <!-- Sidebar Content -->
                 <aside class="lg:col-span-4 flex flex-col gap-24">

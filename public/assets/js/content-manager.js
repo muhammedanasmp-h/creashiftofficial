@@ -125,39 +125,45 @@ document.addEventListener('DOMContentLoaded', () => {
                     const featTitle = document.getElementById('blog-featured-title');
                     const featDesc = document.getElementById('blog-featured-desc');
                     const featArticle = document.getElementById('blog-featured');
+                    const featLink = document.getElementById('blog-featured-link');
                     
                     if (featImg) featImg.src = featuredArticle.imageUrl || 'https://via.placeholder.com/800';
                     if (featCat) featCat.innerText = featuredArticle.category;
                     if (featTitle) featTitle.innerText = featuredArticle.title;
                     if (featDesc) featDesc.innerText = featuredArticle.summary;
                     if (featArticle) featArticle.setAttribute('data-category', featuredArticle.category.toLowerCase());
+                    if (featLink) featLink.href = `/blog-post?id=${featuredArticle._id}`;
                 }
 
                 if (restArticles.length > 0) {
                     const firstArticle = restArticles[0];
                     sidebarContainer.innerHTML = `
-                        <article class="masonry-item group cursor-pointer" data-category="${firstArticle.category.toLowerCase()}">
-                            <div class="mb-8 overflow-hidden aspect-square bg-gray-50">
-                                <img alt="${firstArticle.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" src="${firstArticle.imageUrl || 'https://via.placeholder.com/600'}"/>
-                            </div>
-                            <span class="font-label-sm text-[10px] text-gray-400 mb-4 block uppercase tracking-widest"><span>${firstArticle.category}</span></span>
-                            <h3 class="text-2xl font-bold mb-4 leading-tight">${firstArticle.title}</h3>
-                            <p class="text-gray-500 text-sm leading-relaxed line-clamp-2">${firstArticle.summary}</p>
-                        </article>
+                        <a href="/blog-post?id=${firstArticle._id}" class="block group cursor-pointer">
+                            <article class="masonry-item" data-category="${firstArticle.category.toLowerCase()}">
+                                <div class="mb-8 overflow-hidden aspect-square bg-gray-50">
+                                    <img alt="${firstArticle.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" src="${firstArticle.imageUrl || 'https://via.placeholder.com/600'}"/>
+                                </div>
+                                <span class="font-label-sm text-[10px] text-gray-400 mb-4 block uppercase tracking-widest"><span>${firstArticle.category}</span></span>
+                                <h3 class="text-2xl font-bold mb-4 leading-tight text-black group-hover:underline decoration-1 underline-offset-4">${firstArticle.title}</h3>
+                                <p class="text-gray-500 text-sm leading-relaxed line-clamp-2">${firstArticle.summary}</p>
+                            </article>
+                        </a>
                     `;
                 }
 
                 if (restArticles.length > 1) {
                     const gridArticles = restArticles.slice(1);
                     gridContainer.innerHTML = gridArticles.map(article => `
-                        <article class="masonry-item group flex flex-col" data-category="${article.category.toLowerCase()}">
-                            <div class="mb-8 overflow-hidden aspect-[1/1] bg-gray-50">
-                                <img alt="${article.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="${article.imageUrl || 'https://via.placeholder.com/600'}"/>
-                            </div>
-                            <span class="font-label-sm text-[10px] text-black mb-4 uppercase"><span>${article.category}</span></span>
-                            <h3 class="text-xl font-semibold mb-4 leading-snug">${article.title}</h3>
-                            <p class="text-gray-500 text-sm line-clamp-3 mb-6">${article.summary}</p>
-                        </article>
+                        <a href="/blog-post?id=${article._id}" class="block group cursor-pointer">
+                            <article class="masonry-item flex flex-col" data-category="${article.category.toLowerCase()}">
+                                <div class="mb-8 overflow-hidden aspect-[1/1] bg-gray-50">
+                                    <img alt="${article.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="${article.imageUrl || 'https://via.placeholder.com/600'}"/>
+                                </div>
+                                <span class="font-label-sm text-[10px] text-black mb-4 uppercase"><span>${article.category}</span></span>
+                                <h3 class="text-xl font-semibold mb-4 leading-snug text-black group-hover:underline decoration-1 underline-offset-4">${article.title}</h3>
+                                <p class="text-gray-500 text-sm line-clamp-3 mb-6">${article.summary}</p>
+                            </article>
+                        </a>
                     `).join('');
                 }
                 
