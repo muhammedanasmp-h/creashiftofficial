@@ -173,9 +173,40 @@ app.get(['/blog-post', '/blog-post.html'], async (req, res, next) => {
     next();
 });
 
-// Serve blog-post.html for SEO-friendly slug routes
-app.get('/blog/:slug', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'blog-post.html'));
+// Serve blog-post.html for SEO-friendly slug routes with SSR metadata injection
+app.get('/blog/:slug', async (req, res) => {
+    try {
+        const article = await Article.findOne({ slug: req.params.slug });
+        const filePath = path.join(__dirname, 'public', 'blog-post.html');
+        fs.readFile(filePath, 'utf8', (err, html) => {
+            if (err) {
+                console.error('Error reading blog-post.html:', err);
+                return res.status(500).send('Server Error');
+            }
+            
+            let title = 'Blog | CREASHIFT';
+            let description = 'Read our latest digital marketing, design, and SEO strategies.';
+            if (article) {
+                title = `${article.title} | CREASHIFT`;
+                description = article.summary;
+            }
+            
+            let modifiedHtml = html
+                .replace('<title>Blog | CREASHIFT</title>', `<title>${title}</title>`)
+                .replace(
+                    '<meta name="description" content="Read our latest digital marketing, design, and SEO strategies.">',
+                    `<meta name="description" content="${description}">`
+                )
+                .replace(
+                    '<link id="canonical-link" rel="canonical" href="https://creashift.com/blog">',
+                    `<link id="canonical-link" rel="canonical" href="https://creashift.com/blog/${req.params.slug}">`
+                );
+            res.send(modifiedHtml);
+        });
+    } catch (err) {
+        console.error('Error executing SSR metadata injection:', err);
+        res.sendFile(path.join(__dirname, 'public', 'blog-post.html'));
+    }
 });
 
 // Static Files
