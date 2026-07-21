@@ -3,6 +3,7 @@
 <head>
     <title>Blog | CREASHIFT</title>
     <meta name="description" content="Read our latest digital marketing, design, and SEO strategies.">
+    <link id="canonical-link" rel="canonical" href="https://creashift.com/blog">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#000000">
 
@@ -307,21 +308,22 @@
                 if (waBtn) waBtn.classList.add('visible');
             }, 2000);
 
-            // Fetch single article
-            const params = new URLSearchParams(window.location.search);
-            const articleId = params.get('id');
+            // Fetch single article using slug from URL pathname
+            const pathParts = window.location.pathname.split('/').filter(Boolean);
+            const slug = pathParts[pathParts.length - 1];
+            const isSlugMode = window.location.pathname.startsWith('/blog/') && slug && slug !== 'blog';
 
             const loadingState = document.getElementById('loading-state');
             const errorState = document.getElementById('error-state');
             const articleContent = document.getElementById('article-content');
 
-            if (!articleId) {
+            if (!isSlugMode) {
                 loadingState.classList.add('hidden');
                 errorState.classList.remove('hidden');
                 return;
             }
 
-            fetch(`/api/articles/${articleId}`)
+            fetch(`/api/articles/by-slug/${slug}`)
                 .then(res => {
                     if (!res.ok) throw new Error('Not found');
                     return res.json();
@@ -335,6 +337,21 @@
                     document.getElementById('post-image').src = article.imageUrl || 'https://via.placeholder.com/1200';
                     document.getElementById('post-image').alt = article.title;
                     
+                    // Update canonical tag
+                    const canonicalLink = document.getElementById('canonical-link');
+                    if (canonicalLink) {
+                        canonicalLink.href = `https://creashift.com/blog/${article.slug}`;
+                    }
+
+                    // Update meta description dynamically for SEO
+                    let metaDesc = document.querySelector('meta[name="description"]');
+                    if (!metaDesc) {
+                        metaDesc = document.createElement('meta');
+                        metaDesc.name = 'description';
+                        document.head.appendChild(metaDesc);
+                    }
+                    metaDesc.content = article.summary;
+
                     // Format created date
                     if (article.createdAt) {
                         const date = new Date(article.createdAt);

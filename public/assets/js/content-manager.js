@@ -132,13 +132,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (featTitle) featTitle.innerText = featuredArticle.title;
                     if (featDesc) featDesc.innerText = featuredArticle.summary;
                     if (featArticle) featArticle.setAttribute('data-category', featuredArticle.category.toLowerCase());
-                    if (featLink) featLink.href = `/blog-post?id=${featuredArticle._id}`;
+                    if (featLink) featLink.href = `/blog/${featuredArticle.slug}`;
                 }
 
                 if (restArticles.length > 0) {
                     const firstArticle = restArticles[0];
                     sidebarContainer.innerHTML = `
-                        <a href="/blog-post?id=${firstArticle._id}" class="block group cursor-pointer">
+                        <a href="/blog/${firstArticle.slug}" class="block group cursor-pointer">
                             <article class="masonry-item" data-category="${firstArticle.category.toLowerCase()}">
                                 <div class="mb-8 overflow-hidden aspect-square bg-gray-50">
                                     <img alt="${firstArticle.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" src="${firstArticle.imageUrl || 'https://via.placeholder.com/600'}"/>
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (restArticles.length > 1) {
                     const gridArticles = restArticles.slice(1);
                     gridContainer.innerHTML = gridArticles.map(article => `
-                        <a href="/blog-post?id=${article._id}" class="block group cursor-pointer">
+                        <a href="/blog/${article.slug}" class="block group cursor-pointer">
                             <article class="masonry-item flex flex-col" data-category="${article.category.toLowerCase()}">
                                 <div class="mb-8 overflow-hidden aspect-[1/1] bg-gray-50">
                                     <img alt="${article.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" src="${article.imageUrl || 'https://via.placeholder.com/600'}"/>

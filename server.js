@@ -27,7 +27,22 @@ const transporter = nodemailer.createTransport({
 
 // Connect to MongoDB
 const connectDB = require('./db');
-connectDB();
+const { generateUniqueSlug } = require('./utils/slugify');
+
+connectDB().then(async () => {
+    try {
+        const Article = require('./models/Article');
+        const articles = await Article.find({ $or: [{ slug: { $exists: false } }, { slug: null }, { slug: '' }] });
+        for (const article of articles) {
+            const uniqueSlug = await generateUniqueSlug(article.title, Article);
+            article.slug = uniqueSlug;
+            await article.save();
+            console.log(`Migrated slug for "${article.title}" -> "${uniqueSlug}"`);
+        }
+    } catch (err) {
+        console.error('Error during article slug migration:', err);
+    }
+});
 
 // Models
 const Content = require('./models/Content');
@@ -113,16 +128,37 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Dynamic Sitemap Route
-app.get('/sitemap.xml', (req, res) => {
+app.get('/sitemap.xml', async (req, res) => {
     try {
         const { generateSitemapXml } = require('./bin/generate-sitemap');
-        const xml = generateSitemapXml();
+        const xml = await generateSitemapXml();
         res.header('Content-Type', 'application/xml');
         res.send(xml);
     } catch (err) {
         console.error('Error serving dynamic sitemap:', err);
         res.status(500).send('Error generating sitemap');
     }
+});
+
+// 301 Redirect for old blog-post URL structure to preserve SEO
+app.get(['/blog-post', '/blog-post.html'], async (req, res, next) => {
+    const id = req.query.id;
+    if (id) {
+        try {
+            const article = await Article.findById(id);
+            if (article && article.slug) {
+                return res.redirect(301, `/blog/${article.slug}`);
+            }
+        } catch (err) {
+            console.error('Error redirecting old blog post ID:', err);
+        }
+    }
+    next();
+});
+
+// Serve blog-post.html for SEO-friendly slug routes
+app.get('/blog/:slug', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'blog-post.html'));
 });
 
 // Static Files
@@ -208,10 +244,21 @@ app.get('/api/articles/:id', async (req, res) => {
     }
 });
 
+app.get('/api/articles/by-slug/:slug', async (req, res) => {
+    try {
+        const article = await Article.findOne({ slug: req.params.slug });
+        if (!article) return res.status(404).json({ error: 'Article not found' });
+        res.json(article);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
 app.post('/api/articles', isAdmin, async (req, res) => {
     try {
         const { title, summary, description, category, imageUrl } = req.body;
-        const newArticle = new Article({ title, summary, description, category, imageUrl });
+        const slug = await generateUniqueSlug(title, Article);
+        const newArticle = new Article({ title, summary, description, category, imageUrl, slug });
         await newArticle.save();
         res.json({ success: true, article: newArticle });
     } catch (err) {
@@ -222,13 +269,23 @@ app.post('/api/articles', isAdmin, async (req, res) => {
 app.put('/api/articles/:id', isAdmin, async (req, res) => {
     try {
         const { title, summary, description, category, imageUrl } = req.body;
-        const updatedArticle = await Article.findByIdAndUpdate(
-            req.params.id,
-            { title, summary, description, category, imageUrl },
-            { new: true }
-        );
-        if (!updatedArticle) return res.status(404).json({ success: false, error: 'Article not found' });
-        res.json({ success: true, article: updatedArticle });
+        const article = await Article.findById(req.params.id);
+        if (!article) return res.status(404).json({ success: false, error: 'Article not found' });
+
+        let slug = article.slug;
+        if (!slug || article.title !== title) {
+            slug = await generateUniqueSlug(title, Article, article._id);
+        }
+
+        article.title = title;
+        article.summary = summary;
+        article.description = description;
+        article.category = category;
+        article.imageUrl = imageUrl;
+        article.slug = slug;
+
+        await article.save();
+        res.json({ success: true, article });
     } catch (err) {
         res.status(500).json({ success: false, error: err.message });
     }
