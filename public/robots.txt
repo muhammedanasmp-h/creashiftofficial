@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Allow: /assets/
+Allow: /api/articles/
 Disallow: /admin
 Disallow: /login
 Disallow: /api/
