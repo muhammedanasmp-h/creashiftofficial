@@ -35,7 +35,7 @@
                 Portfolio
                 <span class="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
             </button>
-            <button onclick="selectPage('blog-premium')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all hover:bg-gray-100 flex items-center justify-between group" id="btn-blog-premium">
+            <button onclick="selectPage('blog')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all hover:bg-gray-100 flex items-center justify-between group" id="btn-blog">
                 Blog / Editorial
                 <span class="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
             </button>
@@ -239,7 +239,7 @@
                 { section: 'Features', key: 'video-card-2-title', label: 'Feature 2: Title', type: 'text', limit: 40 },
                 { section: 'Features', key: 'video-card-2-desc', label: 'Feature 2: Description', type: 'textarea', limit: 150 }
             ],
-            'blog-premium': [
+            'blog': [
                 { section: 'Hero Section', key: 'blog-hero-label', label: 'Hero Subtitle', type: 'text', limit: 30 },
                 { section: 'Hero Section', key: 'blog-hero-headline', label: 'Main Headline', type: 'text', limit: 50 },
                 { section: 'Hero Section', key: 'blog-hero-subtext', label: 'Hero Description', type: 'textarea', limit: 250 },
@@ -284,9 +284,9 @@
             
             document.getElementById('currentPageTitle').innerText = page.replace('-', ' ').toUpperCase() + ' PAGE';
             
-            // Hide the 'ADD SECTION' button if we aren't managing blog-premium
+            // Hide the 'ADD SECTION' button if we aren't managing blog
             const addSectionBtn = document.getElementById('addSectionBtn');
-            if (page === 'blog-premium') {
+            if (page === 'blog') {
                 addSectionBtn.classList.remove('hidden');
             } else {
                 addSectionBtn.classList.add('hidden');
@@ -387,7 +387,7 @@
                 sectionContainer.appendChild(card);
             });
             
-            if (currentPage === 'blog-premium') {
+            if (currentPage === 'blog') {
                 loadDynamicArticles(grid);
             }
         }

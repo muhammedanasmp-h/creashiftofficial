@@ -34,6 +34,27 @@ const Content = require('./models/Content');
 const User = require('./models/User');
 const Article = require('./models/Article');
 
+const migrateBlogContent = async () => {
+    try {
+        const count = await Content.countDocuments({ page: 'blog' });
+        if (count === 0) {
+            const premiumContents = await Content.find({ page: 'blog-premium' });
+            for (const item of premiumContents) {
+                const newItem = new Content({
+                    page: 'blog',
+                    key: item.key,
+                    value: item.value
+                });
+                await newItem.save();
+                console.log(`Migrated content key ${item.key} from blog-premium to blog`);
+            }
+        }
+    } catch (err) {
+        console.error('Error migrating content keys:', err);
+    }
+};
+migrateBlogContent();
+
 // Passport Config
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID || 'your_google_client_id',
