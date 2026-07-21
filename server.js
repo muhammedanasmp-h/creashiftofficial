@@ -198,6 +198,21 @@ app.post('/api/articles', isAdmin, async (req, res) => {
     }
 });
 
+app.put('/api/articles/:id', isAdmin, async (req, res) => {
+    try {
+        const { title, summary, description, category, imageUrl } = req.body;
+        const updatedArticle = await Article.findByIdAndUpdate(
+            req.params.id,
+            { title, summary, description, category, imageUrl },
+            { new: true }
+        );
+        if (!updatedArticle) return res.status(404).json({ success: false, error: 'Article not found' });
+        res.json({ success: true, article: updatedArticle });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
+
 app.delete('/api/articles/:id', isAdmin, async (req, res) => {
     try {
         await Article.findByIdAndDelete(req.params.id);

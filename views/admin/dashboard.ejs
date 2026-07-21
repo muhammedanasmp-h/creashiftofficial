@@ -105,7 +105,7 @@
             <button onclick="closeArticleModal()" class="absolute top-4 right-4 md:top-6 md:right-6 text-gray-400 hover:text-black">
                 <span class="material-symbols-outlined">close</span>
             </button>
-            <h2 class="text-xl md:text-2xl font-black uppercase tracking-tighter mb-4 md:mb-6">Publish Article</h2>
+            <h2 id="articleModalTitle" class="text-xl md:text-2xl font-black uppercase tracking-tighter mb-4 md:mb-6">Publish Article</h2>
             <form id="newArticleForm" onsubmit="publishArticle(event)" class="space-y-3 md:space-y-4">
                 <div>
                     <label class="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1 md:mb-2">Category</label>
@@ -140,6 +140,8 @@
     <script>
         let currentPage = 'services';
         let pageContents = {};
+        let loadedArticles = [];
+        let editingArticleId = null;
 
         // Define the "Premium Schema" - Every field on every page is mapped here
         const pageSchema = {
@@ -462,12 +464,12 @@
 
             try {
                 const response = await fetch('/api/articles');
-                const articles = await response.json();
+                loadedArticles = await response.json();
                 
-                if (articles.length === 0) {
+                if (loadedArticles.length === 0) {
                     articlesContainer.innerHTML = '<p class="text-gray-400 text-sm col-span-full">No articles published yet.</p>';
                 } else {
-                    articles.forEach(article => {
+                    loadedArticles.forEach(article => {
                         const card = document.createElement('div');
                         const isFeatured = article.isFeatured;
                         card.className = `glass rounded-[32px] p-6 space-y-4 bg-white hover:shadow-lg transition-all relative ${isFeatured ? 'border-2 border-black' : ''}`;
@@ -476,12 +478,15 @@
                                 <button onclick="featureArticle('${article._id}')" class="text-gray-400 hover:text-yellow-500 transition-colors" title="Mark as Featured">
                                     <span class="material-symbols-outlined ${isFeatured ? 'text-yellow-500' : ''}">${isFeatured ? 'star' : 'star_border'}</span>
                                 </button>
+                                <button onclick="openArticleModal('${article._id}')" class="text-blue-500 hover:text-blue-700 transition-colors" title="Edit Article">
+                                    <span class="material-symbols-outlined">edit</span>
+                                </button>
                                 <button onclick="deleteArticle('${article._id}')" class="text-red-500 hover:text-red-700 transition-colors" title="Delete">
                                     <span class="material-symbols-outlined">delete</span>
                                 </button>
                             </div>
                             <span class="text-[9px] font-bold text-black uppercase tracking-widest bg-gray-100 px-3 py-1 rounded-full">${article.category}</span>
-                            <h4 class="font-bold text-lg leading-tight pr-16">${article.title}</h4>
+                            <h4 class="font-bold text-lg leading-tight pr-24">${article.title}</h4>
                             <p class="text-xs text-gray-500 line-clamp-2">${article.summary}</p>
                             <img src="${article.imageUrl}" alt="" class="w-full h-32 object-cover rounded-xl mt-4">
                         `;
@@ -520,7 +525,30 @@
             }
         }
 
-        function openArticleModal() {
+        function openArticleModal(articleId = null) {
+            const modalTitle = document.getElementById('articleModalTitle');
+            const submitBtn = document.getElementById('btnPublishArticle');
+
+            if (articleId) {
+                editingArticleId = articleId;
+                const article = loadedArticles.find(a => a._id === articleId);
+                if (article) {
+                    if (modalTitle) modalTitle.innerText = 'Edit Article';
+                    if (submitBtn) submitBtn.innerText = 'SAVE CHANGES';
+                    
+                    document.getElementById('art-category').value = article.category;
+                    document.getElementById('art-img').value = article.imageUrl;
+                    document.getElementById('art-title').value = article.title;
+                    document.getElementById('art-summary').value = article.summary;
+                    document.getElementById('art-description').value = article.description || '';
+                }
+            } else {
+                editingArticleId = null;
+                if (modalTitle) modalTitle.innerText = 'Publish Article';
+                if (submitBtn) submitBtn.innerText = 'PUBLISH';
+                document.getElementById('newArticleForm').reset();
+            }
+
             document.getElementById('articleModal').classList.remove('hidden');
             document.getElementById('articleModal').classList.add('flex');
         }
@@ -529,12 +557,14 @@
             document.getElementById('articleModal').classList.add('hidden');
             document.getElementById('articleModal').classList.remove('flex');
             document.getElementById('newArticleForm').reset();
+            editingArticleId = null;
         }
 
         async function publishArticle(e) {
             e.preventDefault();
             const btn = document.getElementById('btnPublishArticle');
-            btn.innerHTML = 'PUBLISHING...';
+            const isEditing = !!editingArticleId;
+            btn.innerHTML = isEditing ? 'SAVING...' : 'PUBLISHING...';
             btn.disabled = true;
 
             const data = {
@@ -546,14 +576,17 @@
             };
 
             try {
-                const response = await fetch('/api/articles', {
-                    method: 'POST',
+                const url = isEditing ? `/api/articles/${editingArticleId}` : '/api/articles';
+                const method = isEditing ? 'PUT' : 'POST';
+
+                const response = await fetch(url, {
+                    method: method,
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(data)
                 });
                 const result = await response.json();
                 if (result.success) {
-                    showToast('Article published');
+                    showToast(isEditing ? 'Article updated' : 'Article published');
                     closeArticleModal();
                     renderFields();
                 } else {
@@ -562,7 +595,7 @@
             } catch (err) {
                 console.error(err);
             } finally {
-                btn.innerHTML = 'PUBLISH';
+                btn.innerHTML = isEditing ? 'SAVE CHANGES' : 'PUBLISH';
                 btn.disabled = false;
             }
         }
