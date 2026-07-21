@@ -123,6 +123,23 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Clean URLs middleware: Redirect .html requests to clean paths, and index.html to /
+app.use((req, res, next) => {
+    if (req.method !== 'GET') {
+        return next();
+    }
+    const path = req.path;
+    if (path.endsWith('.html')) {
+        let cleanPath = path.slice(0, -5);
+        if (cleanPath === '/index') {
+            cleanPath = '/';
+        }
+        const query = req.url.slice(path.length);
+        return res.redirect(301, cleanPath + query);
+    }
+    next();
+});
+
 // Set View Engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
