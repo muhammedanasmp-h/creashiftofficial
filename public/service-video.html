@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        if (window.location.pathname.endsWith('.html')) {
+            var cleanPath = window.location.pathname.slice(0, -5);
+            if (cleanPath.endsWith('/index')) cleanPath = '/';
+            window.location.replace(cleanPath + window.location.search + window.location.hash);
+        }
+    </script>
 <title>Video Production, Reels, & Commercial Content | CREASHIFT</title>
     <meta name="description" content="High-impact video editing, cinematography, and short-form storytelling. We create engaging video content to connect with modern audiences on a deeper level.">
     <link rel="canonical" href="https://creashift.com/service-video">

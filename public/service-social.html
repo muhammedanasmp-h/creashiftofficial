@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        if (window.location.pathname.endsWith('.html')) {
+            var cleanPath = window.location.pathname.slice(0, -5);
+            if (cleanPath.endsWith('/index')) cleanPath = '/';
+            window.location.replace(cleanPath + window.location.search + window.location.hash);
+        }
+    </script>
 <title>Social Media Marketing & Community Ecosystems | CREASHIFT</title>
     <meta name="description" content="Build loyal customer communities through cultural resonance and premium content strategies. Drive engagement and awareness on Instagram, LinkedIn, and more.">
     <link rel="canonical" href="https://creashift.com/service-social">

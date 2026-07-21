@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 
 <html class="light overflow-x-hidden" lang="en"><head>
+    <script>
+        if (window.location.pathname.endsWith('.html')) {
+            var cleanPath = window.location.pathname.slice(0, -5);
+            if (cleanPath.endsWith('/index')) cleanPath = '/';
+            window.location.replace(cleanPath + window.location.search + window.location.hash);
+        }
+    </script>
 <title>Client Portfolio & Case Studies | CREASHIFT</title>
     <meta name="description" content="Explore selected digital landmarks, technical audits, and strategic brand campaigns created by CREASHIFT for businesses globally.">
     <link rel="canonical" href="https://creashift.com/portfolio">

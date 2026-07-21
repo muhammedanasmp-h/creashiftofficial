@@ -3,6 +3,13 @@
 <html class="light overflow-x-hidden" lang="en">
 
 <head>
+    <script>
+        if (window.location.pathname.endsWith('.html')) {
+            var cleanPath = window.location.pathname.slice(0, -5);
+            if (cleanPath.endsWith('/index')) cleanPath = '/';
+            window.location.replace(cleanPath + window.location.search + window.location.hash);
+        }
+    </script>
 <title>Best Digital Marketing Agency in Kerala | CREASHIFT</title>
     <meta name="description" content="CREASHIFT is the best advertising and digital marketing agency in Kerala, specializing in premium SEO, high-end web engineering, and strategic brand growth.">
     <link rel="canonical" href="https://creashift.com/">

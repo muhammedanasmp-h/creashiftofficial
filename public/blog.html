@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        if (window.location.pathname.endsWith('.html')) {
+            var cleanPath = window.location.pathname.slice(0, -5);
+            if (cleanPath.endsWith('/index')) cleanPath = '/';
+            window.location.replace(cleanPath + window.location.search + window.location.hash);
+        }
+    </script>
 <title>Premium Marketing & Design Insights Blog | CREASHIFT</title>
     <meta name="description" content="Articles, tips, and guidelines on SEO performance, web design trends, conversion optimization, and brand scaling strategies.">
     <link rel="canonical" href="https://creashift.com/blog">

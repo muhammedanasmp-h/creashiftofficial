@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        if (window.location.pathname.endsWith('.html')) {
+            var cleanPath = window.location.pathname.slice(0, -5);
+            if (cleanPath.endsWith('/index')) cleanPath = '/';
+            window.location.replace(cleanPath + window.location.search + window.location.hash);
+        }
+    </script>
 <title>Search Engine Optimization (SEO) Services | CREASHIFT</title>
     <meta name="description" content="Architecting digital visibility through technical precision and algorithmic intelligence. Dominate search landscapes globally with our premium SEO services.">
     <link rel="canonical" href="https://creashift.com/service-seo">

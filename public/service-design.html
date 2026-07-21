@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        if (window.location.pathname.endsWith('.html')) {
+            var cleanPath = window.location.pathname.slice(0, -5);
+            if (cleanPath.endsWith('/index')) cleanPath = '/';
+            window.location.replace(cleanPath + window.location.search + window.location.hash);
+        }
+    </script>
 <title>Brand Identity, Creative Design, & Typography | CREASHIFT</title>
     <meta name="description" content="Premium brand design and graphic systems that communicate authority. Crafting unique logos, design assets, and luxury aesthetics.">
     <link rel="canonical" href="https://creashift.com/service-design">

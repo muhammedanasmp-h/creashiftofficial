@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        if (window.location.pathname.endsWith('.html')) {
+            var cleanPath = window.location.pathname.slice(0, -5);
+            if (cleanPath.endsWith('/index')) cleanPath = '/';
+            window.location.replace(cleanPath + window.location.search + window.location.hash);
+        }
+    </script>
 <title>User Agreement & Service Terms | CREASHIFT</title>
     <meta name="description" content="Read the user agreement outlining rights, client obligations, and premium service guidelines for CREASHIFT's advertising, SEO, and web engineering clients.">
     <link rel="canonical" href="https://creashift.com/agreement">

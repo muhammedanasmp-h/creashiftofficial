@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+        if (window.location.pathname.endsWith('.html')) {
+            var cleanPath = window.location.pathname.slice(0, -5);
+            if (cleanPath.endsWith('/index')) cleanPath = '/';
+            window.location.replace(cleanPath + window.location.search + window.location.hash);
+        }
+    </script>
     <title>Blog | CREASHIFT</title>
     <meta name="description" content="Read our latest digital marketing, design, and SEO strategies.">
     <link id="canonical-link" rel="canonical" href="https://creashift.com/blog">
@@ -307,6 +314,28 @@
                 const waBtn = document.getElementById('whatsappFloat');
                 if (waBtn) waBtn.classList.add('visible');
             }, 2000);
+
+            // Check if legacy ID format is used
+            const params = new URLSearchParams(window.location.search);
+            const articleId = params.get('id');
+            if (articleId) {
+                fetch(`/api/articles/${articleId}`)
+                    .then(res => res.json())
+                    .then(article => {
+                        if (article && article.slug) {
+                            window.location.replace(`/blog/${article.slug}`);
+                        } else {
+                            document.getElementById('loading-state').classList.add('hidden');
+                            document.getElementById('error-state').classList.remove('hidden');
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Error redirecting legacy ID:', err);
+                        document.getElementById('loading-state').classList.add('hidden');
+                        document.getElementById('error-state').classList.remove('hidden');
+                    });
+                return;
+            }
 
             // Fetch single article using slug from URL pathname
             const pathParts = window.location.pathname.split('/').filter(Boolean);
