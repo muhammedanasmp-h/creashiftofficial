@@ -145,7 +145,54 @@
                 padding-top: 100px !important;
             }
         }
-    </style>
+    
+    /* Mobile Navigation Popup Styles */
+    #drawer {
+        position: fixed !important;
+        inset: 0 !important;
+        z-index: 99999 !important;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    #drawer.opacity-100 {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
+    .drawer-backdrop {
+        position: absolute !important;
+        inset: 0 !important;
+        background: rgba(0, 0, 0, 0.3) !important;
+        backdrop-filter: blur(4px) !important;
+        -webkit-backdrop-filter: blur(4px) !important;
+    }
+    #drawerBox {
+        position: absolute !important;
+        top: 16px !important;
+        right: 16px !important;
+        left: auto !important;
+        bottom: auto !important;
+        width: 78% !important;
+        max-width: 320px !important;
+        background: #ffffff !important;
+        border-radius: 28px !important;
+        transform-origin: top right !important;
+        transform: scale(0.3) !important;
+        opacity: 0 !important;
+        transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.4s ease !important;
+        box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.25) !important;
+        border: 1px solid rgba(0, 0, 0, 0.05) !important;
+        overflow: hidden !important;
+        z-index: 100000 !important;
+    }
+    #drawer.opacity-100 #drawerBox {
+        transform: scale(1) !important;
+        opacity: 1 !important;
+    }
+
+</style>
 <style>
     body {
       min-height: 100vh;
@@ -499,7 +546,7 @@ GET STARTED
         <!-- Backdrop -->
         <div class="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
         <!-- Popup Box -->
-        <div class="absolute top-[12px] right-[12px] w-[92%] max-w-[400px] bg-white rounded-[28px] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.25)] border border-black/5 overflow-hidden origin-top-right scale-[0.3] opacity-0 transition-all duration-400 ease-[cubic-bezier(0.32,0.72,0,1)]" id="drawerBox">
+        <div class="absolute top-[12px] right-[12px] w-[78%] max-w-[320px] bg-white rounded-[28px] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.25)] border border-black/5 overflow-hidden origin-top-right scale-[0.3] opacity-0 transition-all duration-400 ease-[cubic-bezier(0.32,0.72,0,1)]" id="drawerBox">
             <!-- Header -->
             <div class="flex justify-between items-center px-8 pt-7 pb-4">
                 <div class="flex items-center gap-2.5">
@@ -562,17 +609,17 @@ GET STARTED
         const menuBtn = document.getElementById('menuBtn');
         const closeDrawer = document.getElementById('closeDrawer');
         const drawer = document.getElementById('drawer');
-        const drawerBox = document.getElementById('drawerBox');
-        const drawerLinks = drawer.querySelectorAll('nav a');
+                const drawerLinks = drawer.querySelectorAll('nav a');
 
-        function toggleDrawer(open) {
+                function toggleDrawer(open) {
             if (open) {
-                drawer.classList.remove('opacity-0', 'invisible', 'pointer-events-none');
                 drawer.classList.add('opacity-100');
-                if (drawerBox) {
-                    drawerBox.classList.remove('scale-[0.3]', 'opacity-0');
-                    drawerBox.classList.add('scale-100', 'opacity-100');
-                }
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawer.classList.remove('opacity-100');
+                document.body.style.overflow = '';
+            }
+        }
                 document.body.style.overflow = 'hidden';
             } else {
                 drawer.classList.add('opacity-0', 'invisible', 'pointer-events-none');
@@ -590,14 +637,14 @@ GET STARTED
         drawerLinks.forEach(link => {
             link.addEventListener('click', () => toggleDrawer(false));
         });
+
         // Close on backdrop tap
         drawer.addEventListener('click', (e) => {
-            if (e.target === drawer || e.target.classList.contains('backdrop-blur-md')) {
+            if (e.target === drawer || e.target.classList.contains('drawer-backdrop')) {
                 toggleDrawer(false);
             }
         });
-
-        // WhatsApp Button Delay
+                // WhatsApp Button Delay
         setTimeout(() => {
             const waBtn = document.getElementById('whatsappFloat');
             if (waBtn) waBtn.classList.add('visible');

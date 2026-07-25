@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html class="light overflow-x-hidden" lang="en"><head>
     <script>
@@ -159,7 +159,54 @@
         transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .whatsapp-float.visible { opacity: 1; transform: scale(1); }
-    </style>
+    
+    /* Mobile Navigation Popup Styles */
+    #drawer {
+        position: fixed !important;
+        inset: 0 !important;
+        z-index: 99999 !important;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    #drawer.opacity-100 {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
+    .drawer-backdrop {
+        position: absolute !important;
+        inset: 0 !important;
+        background: rgba(0, 0, 0, 0.3) !important;
+        backdrop-filter: blur(4px) !important;
+        -webkit-backdrop-filter: blur(4px) !important;
+    }
+    #drawerBox {
+        position: absolute !important;
+        top: 16px !important;
+        right: 16px !important;
+        left: auto !important;
+        bottom: auto !important;
+        width: 78% !important;
+        max-width: 320px !important;
+        background: #ffffff !important;
+        border-radius: 28px !important;
+        transform-origin: top right !important;
+        transform: scale(0.3) !important;
+        opacity: 0 !important;
+        transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.4s ease !important;
+        box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.25) !important;
+        border: 1px solid rgba(0, 0, 0, 0.05) !important;
+        overflow: hidden !important;
+        z-index: 100000 !important;
+    }
+    #drawer.opacity-100 #drawerBox {
+        transform: scale(1) !important;
+        opacity: 1 !important;
+    }
+
+</style>
 
     <style>
     /* 'Punched' Watermark Textures (Large & Subtle) */
@@ -526,7 +573,7 @@ GET STARTED
 
             <!-- Bottom Bar -->
             <div class="pt-8 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-6">
-                <p class="text-[10px] uppercase tracking-[0.2em] text-black/30 text-center md:text-left">© 2024 CREASHIFT. SHIFTING VISIONS. ALL RIGHTS RESERVED.</p>
+                <p class="text-[10px] uppercase tracking-[0.2em] text-black/30 text-center md:text-left">� 2024 CREASHIFT. SHIFTING VISIONS. ALL RIGHTS RESERVED.</p>
                 <div class="flex gap-8">
                     <span class="text-[10px] uppercase tracking-[0.2em] text-black/30">BASED IN KERALA</span>
                     <span class="text-[10px] uppercase tracking-[0.2em] text-black/30">GLOBAL STANDARDS</span>
@@ -542,69 +589,63 @@ GET STARTED
     </svg>
 </a>
 
-    <!-- Hidden Navigation Drawer -->
-    <div class="h-full w-full fixed inset-0 z-[60] bg-white translate-x-full transition-all duration-700 cubic-bezier(0.85, 0, 0.15, 1) invisible pointer-events-none"
-        id="drawer">
-        <div class="flex flex-col h-full px-8 py-12 relative overflow-hidden">
-            <!-- Background Detail -->
-            <div class="absolute top-[-10%] right-[-10%] w-64 h-64 bg-black/5 blur-[100px] rounded-full"></div>
-
-            <div class="flex justify-between items-center mb-16 md:mb-20">
-                <div class="flex items-center gap-2">
-                    <div class="h-8 w-8 overflow-hidden flex-shrink-0">
-                        <img src="assets/logo123.png?v=2" alt="CREASHIFT Logo" class="h-full w-auto max-w-none object-cover object-left">
+    <!-- Mobile Navigation Popup -->
+    <div class="fixed inset-0 z-[60] opacity-0 invisible pointer-events-none transition-all duration-400" id="drawer">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+        <!-- Popup Box -->
+        <div class="absolute top-[12px] right-[12px] w-[78%] max-w-[320px] bg-white rounded-[28px] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.25)] border border-black/5 overflow-hidden origin-top-right scale-[0.3] opacity-0 transition-all duration-400 ease-[cubic-bezier(0.32,0.72,0,1)]" id="drawerBox">
+            <!-- Header -->
+            <div class="flex justify-between items-center px-8 pt-7 pb-4">
+                <div class="flex items-center gap-2.5">
+                    <div class="h-7 w-7 overflow-hidden flex-shrink-0">
+                        <img src="/assets/logo123.png?v=2" alt="CREASHIFT Logo" class="h-full w-auto max-w-none object-cover object-left">
                     </div>
-                    <span class="text-xl font-black tracking-tighter text-black uppercase">CREASHIFT</span>
+                    <span class="text-base font-black tracking-tighter text-black uppercase">CREASHIFT</span>
                 </div>
-                <button class="text-black flex items-center gap-2" id="closeDrawer">
-                    <span class="text-[10px] uppercase tracking-[0.3em] font-medium opacity-50 group-hover:opacity-100 transition-opacity">Close</span>
-                    <span class="material-symbols-outlined text-3xl font-light">close</span>
+                <button class="w-10 h-10 flex items-center justify-center rounded-full bg-black/5 hover:bg-black/10 transition-colors" id="closeDrawer" aria-label="Close menu">
+                    <span class="material-symbols-outlined text-xl">close</span>
                 </button>
             </div>
-            <nav class="flex flex-col space-y-0 w-full relative z-10">
-                <a class="group py-5 flex items-center justify-between border-b border-black/5" href="/">
-                    <span class="text-2xl font-medium tracking-tight text-black group-hover:pl-4 transition-all duration-500">HOME</span>
-                    <span class="material-symbols-outlined text-black/20 group-hover:text-black transition-colors text-xl">arrow_outward</span>
+            <!-- Nav Links -->
+            <nav class="px-8 py-3">
+                <a class="group flex items-center justify-between py-4 border-b border-black/5" href="/">
+                    <span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">Home</span>
+                    <span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span>
                 </a>
-                <a class="group py-5 flex items-center justify-between border-b border-black/5" href="/about">
-                    <span class="text-2xl font-medium tracking-tight text-black/40 group-hover:text-black group-hover:pl-4 transition-all duration-500">ABOUT</span>
-                    <span class="material-symbols-outlined text-black/20 group-hover:text-black transition-colors text-xl">arrow_outward</span>
+                <a class="group flex items-center justify-between py-4 border-b border-black/5" href="/about">
+                    <span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">About</span>
+                    <span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span>
                 </a>
-                <a class="group py-5 flex items-center justify-between border-b border-black/5" href="/services">
-                    <span class="text-2xl font-medium tracking-tight text-black group-hover:pl-4 transition-all duration-500">SERVICES</span>
-                    <span class="material-symbols-outlined text-black/20 group-hover:text-black transition-colors text-xl">arrow_outward</span>
+                <a class="group flex items-center justify-between py-4 border-b border-black/5" href="/services">
+                    <span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">Services</span>
+                    <span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span>
                 </a>
-                <a class="group py-5 flex items-center justify-between border-b border-black/5" href="/portfolio">
-                    <span class="text-2xl font-medium tracking-tight text-black/40 group-hover:text-black group-hover:pl-4 transition-all duration-500">PORTFOLIO</span>
-                    <span class="material-symbols-outlined text-black/20 group-hover:text-black transition-colors text-xl">arrow_outward</span>
+                <a class="group flex items-center justify-between py-4 border-b border-black/5" href="/portfolio">
+                    <span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">Portfolio</span>
+                    <span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span>
                 </a>
-                <a class="group py-5 flex items-center justify-between border-b border-black/5" href="/blog">
-                    <span class="text-2xl font-medium tracking-tight text-black/40 group-hover:text-black group-hover:pl-4 transition-all duration-500">BLOG</span>
-                    <span class="material-symbols-outlined text-black/20 group-hover:text-black transition-colors text-xl">arrow_outward</span>
+                <a class="group flex items-center justify-between py-4 border-b border-black/5" href="/blog">
+                    <span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">Blog</span>
+                    <span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span>
                 </a>
-                <a class="group py-5 flex items-center justify-between border-b border-black/5" href="/contact">
-                    <span class="text-2xl font-medium tracking-tight text-black/40 group-hover:text-black group-hover:pl-4 transition-all duration-500">CONTACT</span>
-                    <span class="material-symbols-outlined text-black/20 group-hover:text-black transition-colors text-xl">arrow_outward</span>
+                <a class="group flex items-center justify-between py-4" href="/contact">
+                    <span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">Contact</span>
+                    <span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span>
                 </a>
             </nav>
-
-            <div class="mt-auto relative z-10">
-                <div class="grid grid-cols-2 gap-8 mb-12">
-                    <div>
-                        <span class="block text-[10px] uppercase tracking-[0.3em] text-black/30 mb-4">Connect</span>
-                        <div class="flex flex-col space-y-2">
-                            <a href="#" class="text-xs text-black/60 hover:text-black">Instagram</a>
-                            <a href="#" class="text-xs text-black/60 hover:text-black">LinkedIn</a>
-                        </div>
-                    </div>
-                    <div>
-                        <span class="block text-[10px] uppercase tracking-[0.3em] text-black/30 mb-4">Say Hello</span>
-                        <a href="mailto:hello@creashift.com" class="text-xs text-black/60 hover:text-black">hello@creashift.com</a>
-                    </div>
+            <!-- Bottom CTA -->
+            <div class="px-8 pb-7 pt-3">
+                <a href="/contact" class="block w-full bg-black text-white text-center font-bold text-[12px] uppercase tracking-[0.2em] py-4.5 rounded-2xl hover:bg-zinc-800 transition-colors">
+                    Start a Project
+                </a>
+                <div class="flex items-center justify-center gap-6 mt-5">
+                    <a href="https://www.instagram.com/creashiftads" target="_blank" class="text-[10px] uppercase tracking-[0.2em] text-black/30 hover:text-black transition-colors">Instagram</a>
+                    <span class="w-1 h-1 rounded-full bg-black/10"></span>
+                    <a href="https://www.linkedin.com/company/creashift/" target="_blank" class="text-[10px] uppercase tracking-[0.2em] text-black/30 hover:text-black transition-colors">LinkedIn</a>
+                    <span class="w-1 h-1 rounded-full bg-black/10"></span>
+                    <a href="https://wa.me/918086180780" target="_blank" class="text-[10px] uppercase tracking-[0.2em] text-black/30 hover:text-black transition-colors">WhatsApp</a>
                 </div>
-                <button class="w-full bg-black text-white font-['Inter'] text-[11px] uppercase tracking-[0.2em] font-bold py-5 rounded-full hover:bg-zinc-800 transition-colors">
-                    START A PROJECT
-                </button>
             </div>
         </div>
     </div>
@@ -615,15 +656,26 @@ GET STARTED
             const closeDrawer = document.getElementById('closeDrawer');
             const drawer = document.getElementById('drawer');
 
-            function toggleDrawer(open) {
-                if (open) {
-                    drawer.classList.remove('translate-x-full', 'invisible', 'pointer-events-none');
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    drawer.classList.add('translate-x-full', 'invisible', 'pointer-events-none');
-                    document.body.style.overflow = '';
-                }
+                    function toggleDrawer(open) {
+            if (open) {
+                drawer.classList.add('opacity-100');
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawer.classList.remove('opacity-100');
+                document.body.style.overflow = '';
             }
+        }
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawer.classList.add('opacity-0', 'invisible', 'pointer-events-none');
+                drawer.classList.remove('opacity-100');
+                if (drawerBox) {
+                    drawerBox.classList.add('scale-[0.3]', 'opacity-0');
+                    drawerBox.classList.remove('scale-100', 'opacity-100');
+                }
+                document.body.style.overflow = '';
+            }
+        }
 
             if (menuBtn) menuBtn.addEventListener('click', () => toggleDrawer(true));
             if (closeDrawer) closeDrawer.addEventListener('click', () => toggleDrawer(false));

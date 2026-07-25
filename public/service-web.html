@@ -1,7 +1,44 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>
+        <!-- Mobile Navigation Popup -->
+    <div class="fixed inset-0 z-[60] opacity-0 invisible pointer-events-none transition-all duration-400" id="drawer">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+        <!-- Popup Box -->
+        <div class="absolute top-[12px] right-[12px] w-[78%] max-w-[320px] bg-white rounded-[28px] shadow-[0_20px_60px_-10px_rgba(0,0,0,0.25)] border border-black/5 overflow-hidden origin-top-right scale-[0.3] opacity-0 transition-all duration-400 ease-[cubic-bezier(0.32,0.72,0,1)]" id="drawerBox">
+            <div class="flex justify-between items-center px-8 pt-7 pb-4">
+                <div class="flex items-center gap-2.5">
+                    <div class="h-7 w-7 overflow-hidden flex-shrink-0">
+                        <img src="/assets/logo123.png?v=2" alt="CREASHIFT Logo" class="h-full w-auto max-w-none object-cover object-left">
+                    </div>
+                    <span class="text-base font-black tracking-tighter text-black uppercase">CREASHIFT</span>
+                </div>
+                <button class="w-10 h-10 flex items-center justify-center rounded-full bg-black/5 hover:bg-black/10 transition-colors" id="closeDrawer" aria-label="Close menu">
+                    <span class="material-symbols-outlined text-xl">close</span>
+                </button>
+            </div>
+            <nav class="px-8 py-3">
+                <a class="group flex items-center justify-between py-4 border-b border-black/5" href="/"><span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">Home</span><span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span></a>
+                <a class="group flex items-center justify-between py-4 border-b border-black/5" href="/about"><span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">About</span><span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span></a>
+                <a class="group flex items-center justify-between py-4 border-b border-black/5" href="/services"><span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">Services</span><span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span></a>
+                <a class="group flex items-center justify-between py-4 border-b border-black/5" href="/portfolio"><span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">Portfolio</span><span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span></a>
+                <a class="group flex items-center justify-between py-4 border-b border-black/5" href="/blog"><span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">Blog</span><span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span></a>
+                <a class="group flex items-center justify-between py-4" href="/contact"><span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">Contact</span><span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span></a>
+            </nav>
+            <div class="px-8 pb-7 pt-3">
+                <a href="/contact" class="block w-full bg-black text-white text-center font-bold text-[12px] uppercase tracking-[0.2em] py-4.5 rounded-2xl hover:bg-zinc-800 transition-colors">Start a Project</a>
+                <div class="flex items-center justify-center gap-6 mt-5">
+                    <a href="https://www.instagram.com/creashiftads" target="_blank" class="text-[10px] uppercase tracking-[0.2em] text-black/30 hover:text-black transition-colors">Instagram</a>
+                    <span class="w-1 h-1 rounded-full bg-black/10"></span>
+                    <a href="https://www.linkedin.com/company/creashift/" target="_blank" class="text-[10px] uppercase tracking-[0.2em] text-black/30 hover:text-black transition-colors">LinkedIn</a>
+                    <span class="w-1 h-1 rounded-full bg-black/10"></span>
+                    <a href="https://wa.me/918086180780" target="_blank" class="text-[10px] uppercase tracking-[0.2em] text-black/30 hover:text-black transition-colors">WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
         if (window.location.pathname.endsWith('.html')) {
             var cleanPath = window.location.pathname.slice(0, -5);
             if (cleanPath.endsWith('/index')) cleanPath = '/';
@@ -195,7 +232,54 @@
     .leaf-decoration-2 { bottom: -20px; right: -10px; width: 100px; height: 100px; transform: rotate(165deg); }
     .leaf-decoration-3 { top: 40%; right: -25px; width: 60px; height: 60px; transform: rotate(45deg); }
     .leaf-decoration-4 { bottom: 30%; left: -15px; width: 50px; height: 50px; transform: rotate(-110deg); }
-    </style>
+    
+    /* Mobile Navigation Popup Styles */
+    #drawer {
+        position: fixed !important;
+        inset: 0 !important;
+        z-index: 99999 !important;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    #drawer.opacity-100 {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
+    .drawer-backdrop {
+        position: absolute !important;
+        inset: 0 !important;
+        background: rgba(0, 0, 0, 0.3) !important;
+        backdrop-filter: blur(4px) !important;
+        -webkit-backdrop-filter: blur(4px) !important;
+    }
+    #drawerBox {
+        position: absolute !important;
+        top: 16px !important;
+        right: 16px !important;
+        left: auto !important;
+        bottom: auto !important;
+        width: 78% !important;
+        max-width: 320px !important;
+        background: #ffffff !important;
+        border-radius: 28px !important;
+        transform-origin: top right !important;
+        transform: scale(0.3) !important;
+        opacity: 0 !important;
+        transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.4s ease !important;
+        box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.25) !important;
+        border: 1px solid rgba(0, 0, 0, 0.05) !important;
+        overflow: hidden !important;
+        z-index: 100000 !important;
+    }
+    #drawer.opacity-100 #drawerBox {
+        transform: scale(1) !important;
+        opacity: 1 !important;
+    }
+
+</style>
     <script src="assets/js/content-manager.js?v=13" defer></script>
 <script type="application/ld+json">
 {
@@ -446,7 +530,7 @@
 
             <!-- Bottom Bar -->
             <div class="pt-8 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-6">
-                <p class="text-[10px] uppercase tracking-[0.2em] text-black/30 text-center md:text-left">© 2024 CREASHIFT. SHIFTING VISIONS. ALL RIGHTS RESERVED.</p>
+                <p class="text-[10px] uppercase tracking-[0.2em] text-black/30 text-center md:text-left">� 2024 CREASHIFT. SHIFTING VISIONS. ALL RIGHTS RESERVED.</p>
                 <div class="flex gap-8">
                     <span class="text-[10px] uppercase tracking-[0.2em] text-black/30">BASED IN KERALA</span>
                     <span class="text-[10px] uppercase tracking-[0.2em] text-black/30">GLOBAL STANDARDS</span>
@@ -463,45 +547,32 @@
     </a>
 
     <!-- Mobile Drawer -->
-    <div class="h-full w-full fixed inset-0 z-[60] bg-white translate-x-full transition-all duration-700 cubic-bezier(0.85, 0, 0.15, 1) invisible pointer-events-none" id="drawer">
-        <div class="flex flex-col h-full px-8 py-12 relative">
-            <div class="flex justify-between items-center mb-16 md:mb-20">
-                <div class="flex items-center gap-2">
-                    <div class="h-8 w-8 overflow-hidden flex-shrink-0">
-                        <img src="assets/logo123.png?v=2" alt="CREASHIFT Logo" class="h-full w-auto max-w-none object-cover object-left">
-                    </div>
-                    <span class="text-xl font-black tracking-tighter text-black uppercase">CREASHIFT</span>
-                </div>
-                <button class="text-black flex items-center gap-2" id="closeDrawer">
-                    <span class="text-[10px] uppercase tracking-widest opacity-50">Close</span>
-                    <span class="material-symbols-outlined text-3xl font-light">close</span>
-                </button>
-            </div>
-            <nav class="flex flex-col space-y-4 md:space-y-6">
-                <a class="text-3xl md:text-4xl font-black text-black/20 hover:text-black transition-colors" href="/">HOME</a>
-                <a class="text-3xl md:text-4xl font-black text-black/20 hover:text-black transition-colors" href="/about">ABOUT</a>
-                <a class="text-3xl md:text-4xl font-black text-black hover:text-black transition-colors" href="/services">SERVICES</a>
-                <a class="text-3xl md:text-4xl font-black text-black/20 hover:text-black transition-colors" href="/portfolio">PORTFOLIO</a>
-                <a class="text-3xl md:text-4xl font-black text-black/20 hover:text-black transition-colors" href="/contact">CONTACT</a>
-            </nav>
-        </div>
-    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const menuBtn = document.getElementById('menuBtn');
             const closeDrawer = document.getElementById('closeDrawer');
             const drawer = document.getElementById('drawer');
-
-            function toggleDrawer(open) {
-                if (open) {
-                    drawer.classList.remove('translate-x-full', 'invisible', 'pointer-events-none');
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    drawer.classList.add('translate-x-full', 'invisible', 'pointer-events-none');
-                    document.body.style.overflow = '';
-                }
+                            function toggleDrawer(open) {
+            if (open) {
+                drawer.classList.add('opacity-100');
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawer.classList.remove('opacity-100');
+                document.body.style.overflow = '';
             }
+        }
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawer.classList.add('opacity-0', 'invisible', 'pointer-events-none');
+                drawer.classList.remove('opacity-100');
+                if (drawerBox) {
+                    drawerBox.classList.add('scale-[0.3]', 'opacity-0');
+                    drawerBox.classList.remove('scale-100', 'opacity-100');
+                }
+                document.body.style.overflow = '';
+            }
+        }
 
             if (menuBtn) menuBtn.addEventListener('click', () => toggleDrawer(true));
             if (closeDrawer) closeDrawer.addEventListener('click', () => toggleDrawer(false));
