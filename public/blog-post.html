@@ -730,9 +730,7 @@
 
         function shareOnWhatsApp() {
             const url = encodeURIComponent(window.location.href);
-            const title = encodeURIComponent(document.title);
-            const text = `${title}%0A${url}`;
-            window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+            window.open(`https://api.whatsapp.com/send?text=${url}`, '_blank');
         }
 
         function shareOnInstagram() {
