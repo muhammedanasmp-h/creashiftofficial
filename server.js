@@ -334,7 +334,9 @@ app.get('/logout', (req, res) => {
 
 // Auth Middleware
 const isAdmin = (req, res, next) => {
-    if (req.isAuthenticated() || (process.env.NODE_ENV !== 'production' && req.query.dev === 'true')) return next();
+    const host = req.get('host') || '';
+    const isLocal = host.includes('localhost') || host.includes('127.0.0.1') || host.includes('3000');
+    if (req.isAuthenticated() || (isLocal && req.query.dev === 'true')) return next();
     res.redirect('/login');
 };
 

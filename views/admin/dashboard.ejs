@@ -721,14 +721,6 @@
             tempDiv.innerHTML = text;
 
             const opportunities = [];
-            const foundUrls = new Set();
-
-            // Find all existing <a> URLs in the text already
-            const existingLinks = tempDiv.querySelectorAll('a');
-            existingLinks.forEach(lnk => {
-                const href = lnk.getAttribute('href');
-                if (href) foundUrls.add(href.toLowerCase().replace(/\/$/, ''));
-            });
 
             // Recursive walker
             function walk(node) {
@@ -740,8 +732,6 @@
                 } else if (node.nodeType === Node.TEXT_NODE) {
                     const content = node.nodeValue;
                     allRules.forEach(rule => {
-                        const cleanUrl = rule.url.toLowerCase().replace(/\/$/, '');
-                        if (foundUrls.has(cleanUrl)) return;
 
                         rule.phrases.forEach(phrase => {
                             const regex = new RegExp('\\b' + escapeRegExp(phrase) + '\\b', 'gi');
