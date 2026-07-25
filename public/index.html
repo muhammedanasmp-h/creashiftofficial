@@ -220,6 +220,9 @@
             transform: scale(1.1) rotate(-5deg);
         }
     
+    
+
+
     /* Mobile Navigation Popup Styles */
     #drawer {
         position: fixed !important;
@@ -245,11 +248,12 @@
     #drawerBox {
         position: absolute !important;
         top: 16px !important;
+        bottom: 16px !important;
         right: 16px !important;
         left: auto !important;
-        bottom: auto !important;
-        width: 78% !important;
-        max-width: 320px !important;
+        width: 80% !important;
+        max-width: 340px !important;
+        height: calc(100dvh - 32px) !important;
         background: #ffffff !important;
         border-radius: 28px !important;
         transform-origin: top right !important;
@@ -260,6 +264,8 @@
         border: 1px solid rgba(0, 0, 0, 0.05) !important;
         overflow: hidden !important;
         z-index: 100000 !important;
+        display: flex !important;
+        flex-direction: column !important;
     }
     #drawer.opacity-100 #drawerBox {
         transform: scale(1) !important;
@@ -1727,14 +1733,14 @@
             }
         });
 
-        // Mobile Menu Logic (Attached early on DOMContentLoaded to ensure high interactivity)
-        window.addEventListener('DOMContentLoaded', () => {
-            const menuBtn = document.getElementById('menuBtn');
-            const closeDrawer = document.getElementById('closeDrawer');
-            const drawer = document.getElementById('drawer');
-                    const drawerLinks = drawer.querySelectorAll('nav a');
+            // Mobile Menu Logic
+    window.addEventListener('DOMContentLoaded', () => {
+                        const menuBtn = document.getElementById('menuBtn');
+        const closeDrawer = document.getElementById('closeDrawer');
+        const drawer = document.getElementById('drawer');
+        const drawerLinks = drawer.querySelectorAll('nav a');
 
-                    function toggleDrawer(open) {
+        function toggleDrawer(open) {
             if (open) {
                 drawer.classList.add('opacity-100');
                 document.body.style.overflow = 'hidden';
@@ -1743,23 +1749,12 @@
                 document.body.style.overflow = '';
             }
         }
-                document.body.style.overflow = 'hidden';
-            } else {
-                drawer.classList.add('opacity-0', 'invisible', 'pointer-events-none');
-                drawer.classList.remove('opacity-100');
-                if (drawerBox) {
-                    drawerBox.classList.add('scale-[0.3]', 'opacity-0');
-                    drawerBox.classList.remove('scale-100', 'opacity-100');
-                }
-                document.body.style.overflow = '';
-            }
-        }
 
-            if (menuBtn) menuBtn.addEventListener('click', () => toggleDrawer(true));
-            if (closeDrawer) closeDrawer.addEventListener('click', () => toggleDrawer(false));
-            drawerLinks.forEach(link => {
-                link.addEventListener('click', () => toggleDrawer(false));
-            });
+        if (menuBtn) menuBtn.addEventListener('click', () => toggleDrawer(true));
+        if (closeDrawer) closeDrawer.addEventListener('click', () => toggleDrawer(false));
+        drawerLinks.forEach(link => {
+            link.addEventListener('click', () => toggleDrawer(false));
+        });
 
         // Close on backdrop tap
         drawer.addEventListener('click', (e) => {
@@ -1767,7 +1762,15 @@
                 toggleDrawer(false);
             }
         });
-                    // Close Popup Logic
+
+        // Close on backdrop tap
+        drawer.addEventListener('click', (e) => {
+            if (e.target === drawer || e.target.classList.contains('drawer-backdrop')) {
+                toggleDrawer(false);
+            }
+        });
+
+                            // Close Popup Logic
             const popup = document.getElementById('leadPopup');
             const closePopup = document.getElementById('closePopup');
             if (closePopup && popup) {

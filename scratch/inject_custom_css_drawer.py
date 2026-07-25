@@ -43,11 +43,12 @@ customCSS = """
     #drawerBox {
         position: absolute !important;
         top: 16px !important;
+        bottom: 16px !important;
         right: 16px !important;
         left: auto !important;
-        bottom: auto !important;
-        width: 78% !important;
-        max-width: 320px !important;
+        width: 80% !important;
+        max-width: 340px !important;
+        height: calc(100dvh - 32px) !important;
         background: #ffffff !important;
         border-radius: 28px !important;
         transform-origin: top right !important;
@@ -58,6 +59,8 @@ customCSS = """
         border: 1px solid rgba(0, 0, 0, 0.05) !important;
         overflow: hidden !important;
         z-index: 100000 !important;
+        display: flex !important;
+        flex-direction: column !important;
     }
     #drawer.opacity-100 #drawerBox {
         transform: scale(1) !important;
@@ -85,7 +88,7 @@ newPopupHTML = """
                 </button>
             </div>
             <!-- Nav Links -->
-            <nav class="px-8 py-3">
+            <nav class="px-8 py-3 flex-grow flex flex-col justify-center">
                 <a class="group flex items-center justify-between py-4 border-b border-black/5" href="/">
                     <span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">Home</span>
                     <span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span>
@@ -141,7 +144,6 @@ newToggleJS = """        function toggleDrawer(open) {
 for filename in files:
     filepath = os.path.join("d:\\creashiiftads\\public", filename)
     
-    # Try reading with utf-8 first, fall back to cp1252
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
             content = f.read()
@@ -151,24 +153,25 @@ for filename in files:
             content = f.read()
             encoding_used = 'cp1252'
 
-    # 1. Inject CSS if not already there
-    if 'Mobile Navigation Popup Styles' not in content:
-        content = content.replace('</style>', customCSS + '\n</style>', 1)
+    # Remove existing Mobile Navigation Styles block if it exists
+    content = re.sub(r'/\* Mobile Navigation Popup Styles \*/.*?(?=\n\s*</style>)', '', content, flags=re.DOTALL)
+    
+    # Inject CSS
+    content = content.replace('</style>', customCSS + '\n</style>', 1)
 
-    # 2. Clean up any existing Mobile Navigation Popup or Hidden Navigation Drawer HTML blocks
+    # Clean up and replace the HTML popup block
     html_pattern = re.compile(r'<!-- (Mobile Navigation Popup|Hidden Navigation Drawer) -->.*?<div id="drawer".*?</div>\s*</div>\s*</div>\s*(?=<script>)', re.DOTALL)
     if html_pattern.search(content):
         content = html_pattern.sub(newPopupHTML, content)
     else:
-        # Try replacing any other drawer pattern
         pattern2 = re.compile(r'<div class="h-full w-full fixed inset-0 z-\[60\] bg-white translate-x-full.*?START A PROJECT\s*</(button|a)>\s*</div>\s*</div>\s*</div>', re.DOTALL)
         if pattern2.search(content):
             content = pattern2.sub(newPopupHTML, content)
 
-    # Let's clean up any double occurrences or weird residues
+    # Cleanup double/weird residues
     content = re.sub(r'<!-- Mobile Navigation Popup -->.*?<div id="drawer">.*?</div>\s*</div>\s*</div>\s*<!-- Mobile Navigation Popup -->', newPopupHTML, content, flags=re.DOTALL)
 
-    # 3. Update the toggleDrawer function in JS
+    # Update toggle JS
     toggle_pattern = re.compile(r'function toggleDrawer\(open\)\s*\{.*?\}', re.DOTALL)
     content = toggle_pattern.sub(newToggleJS, content)
 
@@ -177,10 +180,10 @@ for filename in files:
     content = re.sub(r'if\s*\(drawerBox\)\s*\{\s*drawerBox\.classList\..*?\n\s*\}', '', content)
     content = re.sub(r'if\s*\(drawerBox\)\s*drawerBox\.classList\..*?\n', '', content)
 
-    # 4. Clean backdrop tap listener to avoid duplicates
+    # Clean backdrop tap listener
     content = re.sub(r'// Close on backdrop tap\s*drawer\.addEventListener\(\'click\',.*?\}\);\s*\n', '', content, flags=re.DOTALL)
 
-    # Find the drawerLinks event listener block and insert the backdrop listener right below it
+    # Insert clean backdrop tap listener
     drawer_links_pattern = re.compile(r'(drawerLinks\.forEach\(link\s*=>\s*\{\s*\n?\s*link\.addEventListener\(\'click\',\s*\(\)\s*=>\s*toggleDrawer\(false\)\);\s*\n?\s*\}\);)')
     backdrop_listener = r"""\1
 
@@ -192,7 +195,6 @@ for filename in files:
         });"""
     content = drawer_links_pattern.sub(backdrop_listener, content)
 
-    # Write back using the same encoding
     with open(filepath, 'w', encoding=encoding_used) as f:
         f.write(content)
     print(f"Successfully processed: {filename} ({encoding_used})")
