@@ -40,9 +40,14 @@
     <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/css/main.min.css">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
     <style>
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+            position: relative;
+        }
         body { font-family: 'Inter', sans-serif; }
         .bg-grid {
             background-image: linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
