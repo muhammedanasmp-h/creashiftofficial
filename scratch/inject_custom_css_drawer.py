@@ -77,7 +77,7 @@ newPopupHTML = """
         <!-- Popup Box -->
         <div id="drawerBox">
             <!-- Header -->
-            <div class="flex justify-between items-center px-8 pt-7 pb-4">
+            <div class="flex justify-between items-center px-8 pt-10 pb-4">
                 <div class="flex items-center gap-2.5">
                     <div class="h-7 w-7 overflow-hidden flex-shrink-0">
                         <img src="/assets/logo123.png?v=2" alt="CREASHIFT Logo" class="h-full w-auto max-w-none object-cover object-left">
