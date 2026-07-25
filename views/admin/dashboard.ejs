@@ -131,6 +131,23 @@
                 <div>
                     <label class="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1 md:mb-2">Detailed Description</label>
                     <textarea id="art-description" required class="w-full bg-transparent border border-black/5 rounded-lg md:rounded-xl p-3 md:p-4 text-sm md:text-base focus:outline-none focus:border-black/20 min-h-[100px] md:min-h-[120px]" placeholder="Full article content..."></textarea>
+                    
+                    <!-- Internal Linking Helper UI -->
+                    <div class="mt-2 border border-black/5 rounded-lg md:rounded-xl p-3 md:p-4 bg-white/50 backdrop-blur-sm">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-gray-400 text-base md:text-lg">link</span>
+                                <span class="text-[10px] md:text-xs font-bold text-gray-500 uppercase tracking-wider">Internal Linking Helper</span>
+                            </div>
+                            <button type="button" onclick="scanInternalLinks()" class="bg-black text-white hover:bg-black/90 text-[10px] md:text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-lg transition-all active:scale-95">Scan Text</button>
+                        </div>
+                        <div id="linking-suggestions-container" class="mt-3 hidden border-t border-black/5 pt-3">
+                            <p id="suggestions-header-text" class="text-[10px] md:text-xs text-gray-400 font-bold mb-2 uppercase tracking-wider">Suggested Links</p>
+                            <div id="linking-suggestions-list" class="flex flex-wrap gap-2">
+                                <!-- Dynamic chips will be injected here -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <!-- SEO Section -->
@@ -587,6 +604,12 @@
             document.getElementById('art-meta-description').value = '';
             document.getElementById('art-focus-keyword').value = '';
             editingArticleId = null;
+
+            const container = document.getElementById('linking-suggestions-container');
+            if (container) {
+                container.classList.add('hidden');
+                document.getElementById('linking-suggestions-list').innerHTML = '';
+            }
         }
 
         async function publishArticle(e) {
@@ -629,6 +652,201 @@
             } finally {
                 btn.innerHTML = isEditing ? 'SAVE CHANGES' : 'PUBLISH';
                 btn.disabled = false;
+            }
+        }
+
+        const STATIC_LINKS = [
+            { phrases: ["contact us", "get in touch", "say hello", "contact page"], url: "/contact", label: "Contact Page" },
+            { phrases: ["whatsapp", "chat with us", "message us"], url: "https://wa.me/918086180780", label: "WhatsApp Chat" },
+            { phrases: ["home page", "creashift ads", "creashift"], url: "/", label: "Home" },
+            { phrases: ["seo", "search engine optimization", "search ranking", "geo", "generative engine optimization"], url: "/service-seo", label: "SEO Service" },
+            { phrases: ["social media", "instagram marketing", "facebook marketing", "social media branding"], url: "/service-social", label: "Social Media Service" },
+            { phrases: ["website", "web design", "web development", "web engineering"], url: "/service-web", label: "Web Service" },
+            { phrases: ["paid ads", "google ads", "meta ads", "advertising", "advertising campaigns"], url: "/service-ads", label: "Ads Service" },
+            { phrases: ["brand design", "logo design", "graphic design", "identity branding"], url: "/service-design", label: "Design Service" },
+            { phrases: ["video production", "reels production", "video shoot", "cinematic shoot"], url: "/service-video", label: "Video Service" }
+        ];
+
+        function escapeRegExp(string) {
+            return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        function scanInternalLinks() {
+            const textarea = document.getElementById('art-description');
+            const container = document.getElementById('linking-suggestions-container');
+            const list = document.getElementById('linking-suggestions-list');
+            const headerText = document.getElementById('suggestions-header-text');
+
+            if (!textarea || !container || !list) return;
+
+            const text = textarea.value;
+            if (!text.trim()) {
+                container.classList.remove('hidden');
+                headerText.innerText = "No content to scan";
+                list.innerHTML = `<p class="text-[11px] text-gray-500 italic">Please write some article content first.</p>`;
+                return;
+            }
+
+            // Build rules
+            const allRules = [...STATIC_LINKS];
+
+            if (typeof loadedArticles !== 'undefined' && Array.isArray(loadedArticles)) {
+                loadedArticles.forEach(article => {
+                    if (editingArticleId && article._id === editingArticleId) return;
+
+                    const url = `/blog/${article.slug}`;
+                    const phrases = [];
+                    if (article.title) {
+                        phrases.push(article.title.toLowerCase());
+                        const shortTitle = article.title.split('|')[0].trim().toLowerCase();
+                        if (shortTitle && shortTitle !== article.title.toLowerCase()) {
+                            phrases.push(shortTitle);
+                        }
+                    }
+                    if (article.focusKeyword) {
+                        phrases.push(article.focusKeyword.toLowerCase());
+                    }
+                    if (phrases.length > 0) {
+                        allRules.push({
+                            phrases: Array.from(new Set(phrases)),
+                            url: url,
+                            label: `Blog: "${article.title.split('|')[0].trim()}"`
+                        });
+                    }
+                });
+            }
+
+            // Parse HTML structure using a temporary div to avoid matching inside attributes/tags
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = text;
+
+            const opportunities = [];
+            const foundUrls = new Set();
+
+            // Find all existing <a> URLs in the text already
+            const existingLinks = tempDiv.querySelectorAll('a');
+            existingLinks.forEach(lnk => {
+                const href = lnk.getAttribute('href');
+                if (href) foundUrls.add(href.toLowerCase().replace(/\/$/, ''));
+            });
+
+            // Recursive walker
+            function walk(node) {
+                if (node.nodeType === Node.ELEMENT_NODE) {
+                    if (node.tagName.toLowerCase() === 'a') return; // skip text inside links
+                    for (let child of node.childNodes) {
+                        walk(child);
+                    }
+                } else if (node.nodeType === Node.TEXT_NODE) {
+                    const content = node.nodeValue;
+                    allRules.forEach(rule => {
+                        const cleanUrl = rule.url.toLowerCase().replace(/\/$/, '');
+                        if (foundUrls.has(cleanUrl)) return;
+
+                        rule.phrases.forEach(phrase => {
+                            const regex = new RegExp('\\b' + escapeRegExp(phrase) + '\\b', 'gi');
+                            let match;
+                            while ((match = regex.exec(content)) !== null) {
+                                opportunities.push({
+                                    phrase: match[0],
+                                    matchedPhrase: phrase,
+                                    url: rule.url,
+                                    label: rule.label
+                                });
+                            }
+                        });
+                    });
+                }
+            }
+
+            walk(tempDiv);
+
+            // Deduplicate opportunities by matchedPhrase (only suggest linking a phrase once)
+            const uniqueOpportunities = [];
+            const seenPhrases = new Set();
+            opportunities.forEach(opp => {
+                const key = opp.matchedPhrase.toLowerCase() + '::' + opp.url;
+                if (!seenPhrases.has(key)) {
+                    seenPhrases.add(key);
+                    uniqueOpportunities.push(opp);
+                }
+            });
+
+            list.innerHTML = '';
+            container.classList.remove('hidden');
+
+            if (uniqueOpportunities.length === 0) {
+                headerText.innerText = "Suggested Links";
+                list.innerHTML = `<p class="text-[11px] text-gray-500 italic">No new linking opportunities found.</p>`;
+                return;
+            }
+
+            headerText.innerText = "Suggested Links";
+            uniqueOpportunities.forEach(opp => {
+                const chip = document.createElement('button');
+                chip.type = 'button';
+                const escapedPhrase = opp.phrase.replace(/"/g, '&quot;');
+                const escapedUrl = opp.url.replace(/"/g, '&quot;');
+                
+                chip.className = 'flex items-center gap-1.5 bg-black/5 hover:bg-black/10 px-2.5 py-1.5 rounded-lg text-[10px] md:text-xs font-semibold transition-all text-black/70 border border-black/5 active:scale-95';
+                chip.onclick = () => applyInternalLink(opp.phrase, opp.url);
+                chip.innerHTML = `
+                    <span class="material-symbols-outlined text-xs md:text-sm text-gray-400 font-normal">link</span>
+                    Link "${escapedPhrase}" to ${opp.label}
+                `;
+                list.appendChild(chip);
+            });
+        }
+
+        function applyInternalLink(phrase, url) {
+            const textarea = document.getElementById('art-description');
+            if (!textarea) return;
+
+            const text = textarea.value;
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = text;
+
+            let applied = false;
+
+            function walkAndReplace(node) {
+                if (node.nodeType === Node.ELEMENT_NODE) {
+                    if (node.tagName.toLowerCase() === 'a') return;
+                    for (let child of Array.from(node.childNodes)) {
+                        walkAndReplace(child);
+                        if (applied) break;
+                    }
+                } else if (node.nodeType === Node.TEXT_NODE) {
+                    const content = node.nodeValue;
+                    const regex = new RegExp('\\b' + escapeRegExp(phrase) + '\\b', 'i');
+                    const match = regex.exec(content);
+
+                    if (match) {
+                        const beforeText = content.substring(0, match.index);
+                        const afterText = content.substring(match.index + match[0].length);
+
+                        const anchor = document.createElement('a');
+                        anchor.href = url;
+                        anchor.textContent = match[0];
+
+                        const parent = node.parentNode;
+                        if (beforeText) {
+                            parent.insertBefore(document.createTextNode(beforeText), node);
+                        }
+                        parent.insertBefore(anchor, node);
+                        if (afterText) {
+                            parent.insertBefore(document.createTextNode(afterText), node);
+                        }
+                        parent.removeChild(node);
+                        applied = true;
+                    }
+                }
+            }
+
+            walkAndReplace(tempDiv);
+
+            if (applied) {
+                textarea.value = tempDiv.innerHTML;
+                scanInternalLinks();
             }
         }
 
