@@ -17,58 +17,6 @@ files = [
     'services.html'
 ]
 
-customCSS = """
-    /* Mobile Navigation Popup Styles */
-    #drawer {
-        position: fixed !important;
-        inset: 0 !important;
-        z-index: 99999 !important;
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        transition: opacity 0.4s ease, visibility 0.4s ease;
-    }
-    #drawer.opacity-100 {
-        opacity: 1 !important;
-        visibility: visible !important;
-        pointer-events: auto !important;
-    }
-    .drawer-backdrop {
-        position: absolute !important;
-        inset: 0 !important;
-        background: rgba(0, 0, 0, 0.3) !important;
-        backdrop-filter: blur(4px) !important;
-        -webkit-backdrop-filter: blur(4px) !important;
-    }
-    #drawerBox {
-        position: absolute !important;
-        top: 16px !important;
-        right: 16px !important;
-        left: auto !important;
-        bottom: auto !important;
-        width: 80% !important;
-        max-width: 340px !important;
-        max-height: calc(100dvh - 32px) !important;
-        height: auto !important;
-        background: #ffffff !important;
-        border-radius: 28px !important;
-        transform-origin: top right !important;
-        transform: scale(0.3) !important;
-        opacity: 0 !important;
-        transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.4s ease !important;
-        box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.25) !important;
-        border: 1px solid rgba(0, 0, 0, 0.05) !important;
-        overflow-y: auto !important;
-        z-index: 100000 !important;
-        display: flex !important;
-        flex-direction: column !important;
-    }
-    #drawer.opacity-100 #drawerBox {
-        transform: scale(1) !important;
-        opacity: 1 !important;
-    }
-"""
-
 newPopupHTML = """
     <!-- Mobile Navigation Popup -->
     <div id="drawer">
@@ -142,7 +90,6 @@ drawer_pattern = re.compile(
 
 for filename in files:
     filepath = os.path.join("d:\\creashiiftads\\public", filename)
-    
     try:
         with open(filepath, 'r', encoding='utf-8') as f:
             content = f.read()
@@ -152,23 +99,20 @@ for filename in files:
             content = f.read()
             encoding_used = 'cp1252'
 
-    # Remove existing Mobile Navigation Styles block if it exists
-    content = re.sub(r'/\* Mobile Navigation Popup Styles \*/.*?(?=\n\s*</style>)', '', content, flags=re.DOTALL)
-    
-    # Inject CSS
-    content = content.replace('</style>', customCSS + '\n</style>', 1)
-
     # 1. Delete the existing drawer block
     if drawer_pattern.search(content):
         content = drawer_pattern.sub('', content)
         
-    # 2. Find the body tag and insert newPopupHTML right after it
-    body_pattern = re.compile(r'<body[^>]*>', re.IGNORECASE)
-    body_match = body_pattern.search(content)
-    if body_match:
-        body_tag = body_match.group(0)
-        content = content.replace(body_tag, body_tag + '\n' + newPopupHTML, 1)
-
-    with open(filepath, 'w', encoding=encoding_used) as f:
-        f.write(content)
-    print(f"Successfully updated and relocated: {filename} ({encoding_used})")
+        # 2. Find the body tag and insert newPopupHTML right after it
+        body_pattern = re.compile(r'<body[^>]*>', re.IGNORECASE)
+        body_match = body_pattern.search(content)
+        if body_match:
+            body_tag = body_match.group(0)
+            content = content.replace(body_tag, body_tag + '\n' + newPopupHTML, 1)
+            with open(filepath, 'w', encoding=encoding_used) as f:
+                f.write(content)
+            print(f"Successfully relocated drawer HTML to <body> tag in: {filename}")
+        else:
+            print(f"ERROR: Could not find <body> tag in {filename}")
+    else:
+        print(f"ERROR: Could not find drawer block to remove in {filename}")
