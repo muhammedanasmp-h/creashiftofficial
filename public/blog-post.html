@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <script>
@@ -414,7 +414,7 @@
                 })
                 .then(article => {
                     // Populate details
-                    document.title = `${article.title} | CREASHIFT`;
+                    document.title = article.metaTitle || `${article.title} | CREASHIFT`;
                     document.getElementById('post-category').innerText = article.category;
                     document.getElementById('post-title').innerText = article.title;
                     document.getElementById('post-summary').innerText = article.summary;
@@ -434,7 +434,26 @@
                         metaDesc.name = 'description';
                         document.head.appendChild(metaDesc);
                     }
-                    metaDesc.content = article.summary;
+                    metaDesc.content = article.metaDescription || article.summary;
+
+                    // Update keywords / focus keyword dynamically for SEO
+                    if (article.focusKeyword) {
+                        let metaKeywords = document.querySelector('meta[name="keywords"]');
+                        if (!metaKeywords) {
+                            metaKeywords = document.createElement('meta');
+                            metaKeywords.name = 'keywords';
+                            document.head.appendChild(metaKeywords);
+                        }
+                        metaKeywords.content = article.focusKeyword;
+
+                        let metaFocus = document.querySelector('meta[name="focus-keyword"]');
+                        if (!metaFocus) {
+                            metaFocus = document.createElement('meta');
+                            metaFocus.name = 'focus-keyword';
+                            document.head.appendChild(metaFocus);
+                        }
+                        metaFocus.content = article.focusKeyword;
+                    }
 
                     // Format created date
                     if (article.createdAt) {

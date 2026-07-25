@@ -186,16 +186,20 @@ app.get('/blog/:slug', async (req, res) => {
             
             let title = 'Blog | CREASHIFT';
             let description = 'Read our latest digital marketing, design, and SEO strategies.';
+            let keywordsMeta = '';
             if (article) {
-                title = `${article.title} | CREASHIFT`;
-                description = article.summary;
+                title = article.metaTitle || `${article.title} | CREASHIFT`;
+                description = article.metaDescription || article.summary;
+                if (article.focusKeyword) {
+                    keywordsMeta = `\n    <meta name="keywords" content="${article.focusKeyword}">\n    <meta name="focus-keyword" content="${article.focusKeyword}">`;
+                }
             }
             
             let modifiedHtml = html
                 .replace('<title>Blog | CREASHIFT</title>', `<title>${title}</title>`)
                 .replace(
                     '<meta name="description" content="Read our latest digital marketing, design, and SEO strategies.">',
-                    `<meta name="description" content="${description}">`
+                    `<meta name="description" content="${description}">${keywordsMeta}`
                 )
                 .replace(
                     '<link id="canonical-link" rel="canonical" href="https://creashift.com/blog">',
@@ -304,9 +308,9 @@ app.get('/api/articles/by-slug/:slug', async (req, res) => {
 
 app.post('/api/articles', isAdmin, async (req, res) => {
     try {
-        const { title, summary, description, category, imageUrl } = req.body;
+        const { title, summary, description, category, imageUrl, metaTitle, metaDescription, focusKeyword } = req.body;
         const slug = await generateUniqueSlug(title, Article);
-        const newArticle = new Article({ title, summary, description, category, imageUrl, slug });
+        const newArticle = new Article({ title, summary, description, category, imageUrl, slug, metaTitle, metaDescription, focusKeyword });
         await newArticle.save();
         res.json({ success: true, article: newArticle });
     } catch (err) {
@@ -316,7 +320,7 @@ app.post('/api/articles', isAdmin, async (req, res) => {
 
 app.put('/api/articles/:id', isAdmin, async (req, res) => {
     try {
-        const { title, summary, description, category, imageUrl } = req.body;
+        const { title, summary, description, category, imageUrl, metaTitle, metaDescription, focusKeyword } = req.body;
         const article = await Article.findById(req.params.id);
         if (!article) return res.status(404).json({ success: false, error: 'Article not found' });
 
@@ -331,6 +335,9 @@ app.put('/api/articles/:id', isAdmin, async (req, res) => {
         article.category = category;
         article.imageUrl = imageUrl;
         article.slug = slug;
+        article.metaTitle = metaTitle;
+        article.metaDescription = metaDescription;
+        article.focusKeyword = focusKeyword;
 
         await article.save();
         res.json({ success: true, article });

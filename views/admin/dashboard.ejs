@@ -132,6 +132,26 @@
                     <label class="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1 md:mb-2">Detailed Description</label>
                     <textarea id="art-description" required class="w-full bg-transparent border border-black/5 rounded-lg md:rounded-xl p-3 md:p-4 text-sm md:text-base focus:outline-none focus:border-black/20 min-h-[100px] md:min-h-[120px]" placeholder="Full article content..."></textarea>
                 </div>
+                
+                <!-- SEO Section -->
+                <div class="border-t border-black/5 pt-6 mt-6">
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-4">SEO Optimization (Optional)</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1 md:mb-2">Meta Title</label>
+                            <input type="text" id="art-meta-title" class="w-full bg-transparent border border-black/5 rounded-lg md:rounded-xl p-3 md:p-4 text-sm md:text-base focus:outline-none focus:border-black/20" placeholder="Custom page title for search engine results">
+                        </div>
+                        <div>
+                            <label class="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1 md:mb-2">Meta Description</label>
+                            <textarea id="art-meta-description" class="w-full bg-transparent border border-black/5 rounded-lg md:rounded-xl p-3 md:p-4 text-sm md:text-base focus:outline-none focus:border-black/20 min-h-[60px]" placeholder="Custom meta description for search snippets"></textarea>
+                        </div>
+                        <div>
+                            <label class="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1 md:mb-2">Focus Keyword</label>
+                            <input type="text" id="art-focus-keyword" class="w-full bg-transparent border border-black/5 rounded-lg md:rounded-xl p-3 md:p-4 text-sm md:text-base focus:outline-none focus:border-black/20" placeholder="Target keyword (e.g. digital marketing agency)">
+                        </div>
+                    </div>
+                </div>
+
                 <button type="submit" id="btnPublishArticle" class="w-full bg-black text-white font-bold py-3 md:py-4 rounded-lg md:rounded-xl hover:scale-[1.02] transition-transform text-sm md:text-base tracking-widest mt-2 md:mt-4">PUBLISH</button>
             </form>
         </div>
@@ -541,12 +561,18 @@
                     document.getElementById('art-title').value = article.title;
                     document.getElementById('art-summary').value = article.summary;
                     document.getElementById('art-description').value = article.description || '';
+                    document.getElementById('art-meta-title').value = article.metaTitle || '';
+                    document.getElementById('art-meta-description').value = article.metaDescription || '';
+                    document.getElementById('art-focus-keyword').value = article.focusKeyword || '';
                 }
             } else {
                 editingArticleId = null;
                 if (modalTitle) modalTitle.innerText = 'Publish Article';
                 if (submitBtn) submitBtn.innerText = 'PUBLISH';
                 document.getElementById('newArticleForm').reset();
+                document.getElementById('art-meta-title').value = '';
+                document.getElementById('art-meta-description').value = '';
+                document.getElementById('art-focus-keyword').value = '';
             }
 
             document.getElementById('articleModal').classList.remove('hidden');
@@ -557,6 +583,9 @@
             document.getElementById('articleModal').classList.add('hidden');
             document.getElementById('articleModal').classList.remove('flex');
             document.getElementById('newArticleForm').reset();
+            document.getElementById('art-meta-title').value = '';
+            document.getElementById('art-meta-description').value = '';
+            document.getElementById('art-focus-keyword').value = '';
             editingArticleId = null;
         }
 
@@ -572,7 +601,10 @@
                 summary: document.getElementById('art-summary').value,
                 description: document.getElementById('art-description').value,
                 category: document.getElementById('art-category').value,
-                imageUrl: document.getElementById('art-img').value
+                imageUrl: document.getElementById('art-img').value,
+                metaTitle: document.getElementById('art-meta-title').value,
+                metaDescription: document.getElementById('art-meta-description').value,
+                focusKeyword: document.getElementById('art-focus-keyword').value
             };
 
             try {

@@ -7,7 +7,10 @@ const articleSchema = new mongoose.Schema({
     category: { type: String, required: true }, // e.g., 'strategy', 'design', 'technology', 'case-studies'
     imageUrl: { type: String, required: true },
     isFeatured: { type: Boolean, default: false },
-    slug: { type: String, required: true, unique: true }
+    slug: { type: String, required: true, unique: true },
+    metaTitle: { type: String },
+    metaDescription: { type: String },
+    focusKeyword: { type: String }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Article', articleSchema);
