@@ -190,7 +190,7 @@ app.get('/blog/:slug', async (req, res) => {
             article = {
                 title: title,
                 summary: `A masterclass about ${title} through technical precision and execution.`,
-                description: `<p>Deep content detailing ${title} frameworks, integration, and optimization for search dominance.</p>`,
+                description: `<h2>Technical SEO Architecture</h2><p>This is paragraph text explaining the framework and baseline parameters of modern indexation.</p><h3>Algorithmic Intelligence</h3><p>We use state-of-the-art tooling to index sites and establish sustainable organic authority.</p><h4>Subheading Level 4</h4><p>Details about mobile usability, latency optimization, and core web vitals performance.</p>`,
                 category: "strategy",
                 imageUrl: "/assets/portfolio/SOCIAL MEDIA BRANDING-01-01.webp",
                 slug: req.params.slug,
@@ -409,7 +409,7 @@ app.get('/api/articles/by-slug/:slug', async (req, res) => {
             article = {
                 title: title,
                 summary: `A masterclass about ${title} through technical precision and execution.`,
-                description: `<p>Deep content detailing ${title} frameworks, integration, and optimization for search dominance.</p>`,
+                description: `<h2>Technical SEO Architecture</h2><p>This is paragraph text explaining the framework and baseline parameters of modern indexation.</p><h3>Algorithmic Intelligence</h3><p>We use state-of-the-art tooling to index sites and establish sustainable organic authority.</p><h4>Subheading Level 4</h4><p>Details about mobile usability, latency optimization, and core web vitals performance.</p>`,
                 category: "strategy",
                 imageUrl: "/assets/portfolio/SOCIAL MEDIA BRANDING-01-01.webp",
                 slug: req.params.slug,
