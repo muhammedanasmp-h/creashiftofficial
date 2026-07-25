@@ -43,12 +43,13 @@ customCSS = """
     #drawerBox {
         position: absolute !important;
         top: 16px !important;
-        bottom: 16px !important;
         right: 16px !important;
         left: auto !important;
+        bottom: auto !important;
         width: 80% !important;
         max-width: 340px !important;
-        height: calc(100dvh - 32px) !important;
+        max-height: calc(100dvh - 32px) !important;
+        height: auto !important;
         background: #ffffff !important;
         border-radius: 28px !important;
         transform-origin: top right !important;
@@ -57,7 +58,7 @@ customCSS = """
         transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.4s ease !important;
         box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.25) !important;
         border: 1px solid rgba(0, 0, 0, 0.05) !important;
-        overflow: hidden !important;
+        overflow-y: auto !important;
         z-index: 100000 !important;
         display: flex !important;
         flex-direction: column !important;
@@ -88,7 +89,7 @@ newPopupHTML = """
                 </button>
             </div>
             <!-- Nav Links -->
-            <nav class="px-8 py-3 flex-grow flex flex-col justify-center">
+            <nav class="px-8 py-2">
                 <a class="group flex items-center justify-between py-4 border-b border-black/5" href="/">
                     <span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">Home</span>
                     <span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span>
@@ -131,16 +132,6 @@ newPopupHTML = """
     </div>
 """
 
-newToggleJS = """        function toggleDrawer(open) {
-            if (open) {
-                drawer.classList.add('opacity-100');
-                document.body.style.overflow = 'hidden';
-            } else {
-                drawer.classList.remove('opacity-100');
-                document.body.style.overflow = '';
-            }
-        }"""
-
 for filename in files:
     filepath = os.path.join("d:\\creashiiftads\\public", filename)
     
@@ -171,30 +162,6 @@ for filename in files:
     # Cleanup double/weird residues
     content = re.sub(r'<!-- Mobile Navigation Popup -->.*?<div id="drawer">.*?</div>\s*</div>\s*</div>\s*<!-- Mobile Navigation Popup -->', newPopupHTML, content, flags=re.DOTALL)
 
-    # Update toggle JS
-    toggle_pattern = re.compile(r'function toggleDrawer\(open\)\s*\{.*?\}', re.DOTALL)
-    content = toggle_pattern.sub(newToggleJS, content)
-
-    # Clean up redundant drawerBox variable if present
-    content = re.sub(r'const drawerBox = document\.getElementById\(\'drawerBox\'\);\s*\n', '', content)
-    content = re.sub(r'if\s*\(drawerBox\)\s*\{\s*drawerBox\.classList\..*?\n\s*\}', '', content)
-    content = re.sub(r'if\s*\(drawerBox\)\s*drawerBox\.classList\..*?\n', '', content)
-
-    # Clean backdrop tap listener
-    content = re.sub(r'// Close on backdrop tap\s*drawer\.addEventListener\(\'click\',.*?\}\);\s*\n', '', content, flags=re.DOTALL)
-
-    # Insert clean backdrop tap listener
-    drawer_links_pattern = re.compile(r'(drawerLinks\.forEach\(link\s*=>\s*\{\s*\n?\s*link\.addEventListener\(\'click\',\s*\(\)\s*=>\s*toggleDrawer\(false\)\);\s*\n?\s*\}\);)')
-    backdrop_listener = r"""\1
-
-        // Close on backdrop tap
-        drawer.addEventListener('click', (e) => {
-            if (e.target === drawer || e.target.classList.contains('drawer-backdrop')) {
-                toggleDrawer(false);
-            }
-        });"""
-    content = drawer_links_pattern.sub(backdrop_listener, content)
-
     with open(filepath, 'w', encoding=encoding_used) as f:
         f.write(content)
-    print(f"Successfully processed: {filename} ({encoding_used})")
+    print(f"Successfully updated HTML & CSS for auto-height: {filename} ({encoding_used})")
