@@ -659,12 +659,12 @@
             { phrases: ["contact us", "get in touch", "say hello", "contact page"], url: "/contact", label: "Contact Page" },
             { phrases: ["whatsapp", "chat with us", "message us"], url: "https://wa.me/918086180780", label: "WhatsApp Chat" },
             { phrases: ["home page", "creashift ads", "creashift"], url: "/", label: "Home" },
-            { phrases: ["seo", "search engine optimization", "search ranking", "geo", "generative engine optimization"], url: "/service-seo", label: "SEO Service" },
-            { phrases: ["social media", "instagram marketing", "facebook marketing", "social media branding"], url: "/service-social", label: "Social Media Service" },
-            { phrases: ["website", "web design", "web development", "web engineering"], url: "/service-web", label: "Web Service" },
-            { phrases: ["paid ads", "google ads", "meta ads", "advertising", "advertising campaigns"], url: "/service-ads", label: "Ads Service" },
-            { phrases: ["brand design", "logo design", "graphic design", "identity branding"], url: "/service-design", label: "Design Service" },
-            { phrases: ["video production", "reels production", "video shoot", "cinematic shoot"], url: "/service-video", label: "Video Service" }
+            { phrases: ["seo management", "seo services", "seo strategy", "search engine optimization", "search ranking", "geo", "generative engine optimization", "seo"], url: "/service-seo", label: "SEO Service" },
+            { phrases: ["social media marketing", "social media management", "instagram marketing", "facebook marketing", "social media branding", "social media"], url: "/service-social", label: "Social Media Service" },
+            { phrases: ["web development", "website development", "website design", "web design", "web engineering", "website"], url: "/service-web", label: "Web Service" },
+            { phrases: ["paid advertising", "google ads", "meta ads", "paid ads", "ad campaigns", "advertising"], url: "/service-ads", label: "Ads Service" },
+            { phrases: ["brand identity", "logo design", "graphic design", "brand design", "identity branding"], url: "/service-design", label: "Design Service" },
+            { phrases: ["video production", "reels production", "video shoot", "cinematic video", "cinematic shoot"], url: "/service-video", label: "Video Service" }
         ];
 
         function escapeRegExp(string) {
@@ -722,6 +722,19 @@
 
             const opportunities = [];
 
+            // Flatten all rule phrases and sort them by length descending
+            const flatPhrases = [];
+            allRules.forEach(rule => {
+                rule.phrases.forEach(phrase => {
+                    flatPhrases.push({
+                        phrase: phrase,
+                        url: rule.url,
+                        label: rule.label
+                    });
+                });
+            });
+            flatPhrases.sort((a, b) => b.phrase.length - a.phrase.length);
+
             // Recursive walker
             function walk(node) {
                 if (node.nodeType === Node.ELEMENT_NODE) {
@@ -731,20 +744,27 @@
                     }
                 } else if (node.nodeType === Node.TEXT_NODE) {
                     const content = node.nodeValue;
-                    allRules.forEach(rule => {
+                    const matchedRanges = []; // track matched ranges to prevent shorter overlaps
 
-                        rule.phrases.forEach(phrase => {
-                            const regex = new RegExp('\\b' + escapeRegExp(phrase) + '\\b', 'gi');
-                            let match;
-                            while ((match = regex.exec(content)) !== null) {
+                    flatPhrases.forEach(item => {
+                        const regex = new RegExp('\\b' + escapeRegExp(item.phrase) + '\\b', 'gi');
+                        let match;
+                        while ((match = regex.exec(content)) !== null) {
+                            const start = match.index;
+                            const end = start + match[0].length;
+
+                            // Check overlap with previously matched longer phrases
+                            const overlaps = matchedRanges.some(r => (start >= r.start && start < r.end) || (end > r.start && end <= r.end));
+                            if (!overlaps) {
                                 opportunities.push({
                                     phrase: match[0],
-                                    matchedPhrase: phrase,
-                                    url: rule.url,
-                                    label: rule.label
+                                    matchedPhrase: item.phrase,
+                                    url: item.url,
+                                    label: item.label
                                 });
+                                matchedRanges.push({ start, end });
                             }
-                        });
+                        }
                     });
                 }
             }
