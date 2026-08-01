@@ -173,6 +173,29 @@ app.get(['/blog-post', '/blog-post.html'], async (req, res, next) => {
     next();
 });
 
+// 301 Redirects: old flat service URLs → new SEO-friendly /services/:slug URLs
+app.get([
+    '/service-seo', '/service-seo.html',
+    '/service-ads', '/service-ads.html',
+    '/service-social', '/service-social.html',
+    '/service-web', '/service-web.html',
+    '/service-design', '/service-design.html',
+    '/service-video', '/service-video.html'
+], (req, res) => {
+    const oldServiceRedirects = {
+        'service-seo':    '/services/seo-services-kerala',
+        'service-ads':    '/services/google-ads-management',
+        'service-social': '/services/social-media-marketing',
+        'service-web':    '/services/web-development-company',
+        'service-design': '/services/graphic-design-branding',
+        'service-video':  '/services/video-production-services'
+    };
+    const key = req.path.replace(/^\//, '').replace(/\.html$/, '');
+    const newUrl = oldServiceRedirects[key];
+    if (newUrl) return res.redirect(301, newUrl);
+    res.status(404).send('Not found');
+});
+
 // Serve blog-post.html for SEO-friendly slug routes with SSR metadata injection
 app.get('/blog/:slug', async (req, res) => {
     try {
@@ -312,6 +335,24 @@ app.get('/blog/:slug', async (req, res) => {
         console.error('Error executing SSR metadata injection:', err);
         res.sendFile(path.join(__dirname, 'public', 'blog-post.html'));
     }
+});
+
+// Dynamic /services/:slug route — maps SEO-friendly slugs to static service HTML files
+const serviceSlugMap = {
+    'seo-services-kerala':       'service-seo.html',
+    'google-ads-management':     'service-ads.html',
+    'social-media-marketing':    'service-social.html',
+    'web-development-company':   'service-web.html',
+    'graphic-design-branding':   'service-design.html',
+    'video-production-services': 'service-video.html'
+};
+
+app.get('/services/:slug', (req, res, next) => {
+    const file = serviceSlugMap[req.params.slug];
+    if (file) {
+        return res.sendFile(path.join(__dirname, 'public', file));
+    }
+    next();
 });
 
 // Static Files

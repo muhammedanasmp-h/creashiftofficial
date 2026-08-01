@@ -20,15 +20,29 @@ async function generateSitemapXml() {
   let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
   xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
 
+  // Service file → SEO-friendly slug mapping
+  const serviceSlugMap = {
+    'service-seo.html':    '/services/seo-services-kerala',
+    'service-ads.html':    '/services/google-ads-management',
+    'service-social.html': '/services/social-media-marketing',
+    'service-web.html':    '/services/web-development-company',
+    'service-design.html': '/services/graphic-design-branding',
+    'service-video.html':  '/services/video-production-services'
+  };
+
   // 1. Static Pages
   activeFiles.forEach(filename => {
     const filePath = path.join(PUBLIC_DIR, filename);
     const stats = fs.statSync(filePath);
     const lastmod = stats.mtime.toISOString().split('T')[0];
 
-    // Build clean URL
+    // Build clean URL (service pages use SEO-friendly /services/:slug paths)
     let cleanPath = '';
-    if (filename !== 'index.html') {
+    if (filename === 'index.html') {
+      cleanPath = '';
+    } else if (serviceSlugMap[filename]) {
+      cleanPath = serviceSlugMap[filename];
+    } else {
       cleanPath = '/' + filename.replace('.html', '');
     }
     const loc = `${BASE_URL}${cleanPath}`;
