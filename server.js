@@ -129,7 +129,7 @@ app.get(['/services', '/services/'], (req, res) => {
     if (!fs.existsSync(filePath)) {
         filePath = path.join(__dirname, 'services.html');
     }
-    res.sendFile(filePath);
+    res.sendFile(path.resolve(filePath));
 });
 
 // Clean URLs & Trailing Slash middleware
