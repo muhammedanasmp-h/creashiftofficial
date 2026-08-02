@@ -183,7 +183,10 @@ app.get(['/services', '/services/'], (req, res) => {
 // Explicit route for individual sub-services under /services/:slug
 app.get('/services/:slug', (req, res, next) => {
     const slug = req.params.slug;
-    const filePath = path.join(__dirname, 'public', 'service-pages', `${slug}.html`);
+    let filePath = path.join(__dirname, 'public', 'services', `${slug}.html`);
+    if (!fs.existsSync(filePath)) {
+        filePath = path.join(__dirname, 'public', 'service-pages', `${slug}.html`);
+    }
     if (fs.existsSync(filePath)) {
         return res.sendFile(filePath);
     }
