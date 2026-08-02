@@ -175,6 +175,11 @@ app.get(['/blog-post', '/blog-post.html'], async (req, res, next) => {
     next();
 });
 
+// Explicit route for main services page
+app.get('/services', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'services.html'));
+});
+
 // Explicit route for individual sub-services under /services/:slug
 app.get('/services/:slug', (req, res, next) => {
     const slug = req.params.slug;
