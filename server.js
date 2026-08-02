@@ -180,20 +180,33 @@ app.get(['/services', '/services/'], (req, res) => {
     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.setHeader('Pragma', 'no-cache');
     res.setHeader('Expires', '0');
-    res.sendFile(path.join(__dirname, 'public', 'services.html'), (err) => {
-        if (err) {
-            console.error('Error sending services.html:', err);
-            res.status(500).send('Error loading services page: ' + err.message);
-        }
-    });
+
+    const candidates = [
+        path.join(__dirname, 'public', 'services.html'),
+        path.join(process.cwd(), 'public', 'services.html'),
+        path.join(__dirname, 'services.html'),
+        path.join(process.cwd(), 'services.html')
+    ];
+
+    const foundPath = candidates.find(p => fs.existsSync(p));
+    if (foundPath) {
+        return res.sendFile(foundPath);
+    }
+    res.status(404).send('services.html not found');
 });
 
 // Explicit route for individual sub-services under /services/:slug
 app.get('/services/:slug', (req, res, next) => {
     const slug = req.params.slug;
-    const filePath = path.join(__dirname, 'public', 'service-pages', `${slug}.html`);
-    if (fs.existsSync(filePath)) {
-        return res.sendFile(filePath);
+    const candidates = [
+        path.join(__dirname, 'public', 'service-pages', `${slug}.html`),
+        path.join(process.cwd(), 'public', 'service-pages', `${slug}.html`),
+        path.join(__dirname, 'service-pages', `${slug}.html`),
+        path.join(process.cwd(), 'service-pages', `${slug}.html`)
+    ];
+    const foundPath = candidates.find(p => fs.existsSync(p));
+    if (foundPath) {
+        return res.sendFile(foundPath);
     }
     next();
 });
