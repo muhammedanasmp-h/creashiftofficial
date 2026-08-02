@@ -123,12 +123,19 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Direct route for /services and /services/ using official Express root option
+// Direct route for /services and /services/ with multi-path resolution to guarantee 200 OK
 app.get(['/services', '/services/'], (req, res) => {
-    const rootDir = fs.existsSync(path.join(__dirname, 'public', 'services.html'))
-        ? path.join(__dirname, 'public')
-        : __dirname;
-    res.sendFile('services.html', { root: rootDir });
+    const p1 = path.join(__dirname, 'public', 'services.html');
+    const p2 = path.join(__dirname, 'services.html');
+    const p3 = path.join(process.cwd(), 'public', 'services.html');
+    const p4 = path.join(process.cwd(), 'services.html');
+
+    if (fs.existsSync(p1)) return res.sendFile(p1);
+    if (fs.existsSync(p2)) return res.sendFile(p2);
+    if (fs.existsSync(p3)) return res.sendFile(p3);
+    if (fs.existsSync(p4)) return res.sendFile(p4);
+
+    return res.sendFile(path.resolve(__dirname, 'public', 'services.html'));
 });
 
 // Clean URLs & Trailing Slash middleware
