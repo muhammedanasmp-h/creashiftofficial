@@ -123,25 +123,12 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Helper to resolve static HTML file paths across all deployment environments (Hostinger / local)
-const resolveHtmlFile = (filename) => {
-    const candidates = [
-        path.join(__dirname, 'public', filename),
-        path.join(__dirname, filename),
-        path.resolve(process.cwd(), 'public', filename),
-        path.resolve(process.cwd(), filename)
-    ];
-    for (const file of candidates) {
-        if (fs.existsSync(file)) {
-            return file;
-        }
-    }
-    return candidates[0];
-};
-
-// Direct route for /services and /services/ to guarantee 200 OK response
+// Direct route for /services and /services/ using official Express root option
 app.get(['/services', '/services/'], (req, res) => {
-    res.sendFile(resolveHtmlFile('services.html'));
+    const rootDir = fs.existsSync(path.join(__dirname, 'public', 'services.html'))
+        ? path.join(__dirname, 'public')
+        : __dirname;
+    res.sendFile('services.html', { root: rootDir });
 });
 
 // Clean URLs & Trailing Slash middleware
