@@ -123,9 +123,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Direct route for /services and /services/ to serve services.html immediately with 200 OK
+// Direct route for /services and /services/ with dual-path resolution (works on both local and Hostinger web root)
 app.get(['/services', '/services/'], (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'services.html'));
+    let filePath = path.join(__dirname, 'public', 'services.html');
+    if (!fs.existsSync(filePath)) {
+        filePath = path.join(__dirname, 'services.html');
+    }
+    res.sendFile(filePath);
 });
 
 // Clean URLs & Trailing Slash middleware
