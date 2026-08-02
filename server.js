@@ -188,9 +188,11 @@ app.get(['/services', '/services/'], (req, res) => {
         path.join(process.cwd(), 'services.html')
     ];
 
-    const foundPath = candidates.find(p => fs.existsSync(p));
-    if (foundPath) {
-        return res.sendFile(foundPath);
+    for (const p of candidates) {
+        if (fs.existsSync(p)) {
+            const html = fs.readFileSync(p, 'utf8');
+            return res.type('html').send(html);
+        }
     }
     res.status(404).send('services.html not found');
 });
@@ -204,9 +206,11 @@ app.get('/services/:slug', (req, res, next) => {
         path.join(__dirname, 'service-pages', `${slug}.html`),
         path.join(process.cwd(), 'service-pages', `${slug}.html`)
     ];
-    const foundPath = candidates.find(p => fs.existsSync(p));
-    if (foundPath) {
-        return res.sendFile(foundPath);
+    for (const p of candidates) {
+        if (fs.existsSync(p)) {
+            const html = fs.readFileSync(p, 'utf8');
+            return res.type('html').send(html);
+        }
     }
     next();
 });
