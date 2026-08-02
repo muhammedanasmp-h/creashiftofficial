@@ -175,51 +175,7 @@ app.get(['/blog-post', '/blog-post.html'], async (req, res, next) => {
     next();
 });
 
-// Explicit route for main services page - matches /about and /blog structure
-app.get('/services', (req, res, next) => {
-    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    res.setHeader('Pragma', 'no-cache');
-    res.setHeader('Expires', '0');
 
-    const filePath = path.join(__dirname, 'public', 'services.html');
-    if (fs.existsSync(filePath)) {
-        return res.sendFile(filePath);
-    }
-    next();
-});
-
-// Explicit route for individual sub-services under /services/:slug
-app.get('/services/:slug', (req, res, next) => {
-    const slug = req.params.slug;
-    const filePath = path.join(__dirname, 'public', 'service-pages', `${slug}.html`);
-    if (fs.existsSync(filePath)) {
-        return res.sendFile(filePath);
-    }
-    next();
-});
-
-// 301 Redirects: old flat service URLs → new SEO-friendly /services/:slug URLs
-app.get([
-    '/service-seo', '/service-seo.html',
-    '/service-ads', '/service-ads.html',
-    '/service-social', '/service-social.html',
-    '/service-web', '/service-web.html',
-    '/service-design', '/service-design.html',
-    '/service-video', '/service-video.html'
-], (req, res) => {
-    const oldServiceRedirects = {
-        'service-seo':    '/services/seo-services-kerala',
-        'service-ads':    '/services/google-ads-management',
-        'service-social': '/services/social-media-marketing',
-        'service-web':    '/services/web-development-company',
-        'service-design': '/services/graphic-design-branding',
-        'service-video':  '/services/video-production-services'
-    };
-    const key = req.path.replace(/^\//, '').replace(/\.html$/, '');
-    const newUrl = oldServiceRedirects[key];
-    if (newUrl) return res.redirect(301, newUrl);
-    return next();
-});
 
 // Serve blog-post.html for SEO-friendly slug routes with SSR metadata injection
 app.get('/blog/:slug', async (req, res) => {
