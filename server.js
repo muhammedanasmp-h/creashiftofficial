@@ -396,7 +396,8 @@ app.get('/api/content/:page', async (req, res) => {
         });
         res.json(contentMap);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        console.error('API Content error:', err.message);
+        res.json({});
     }
 });
 
