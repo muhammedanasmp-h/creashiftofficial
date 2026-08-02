@@ -337,15 +337,18 @@ app.get('/blog/:slug', async (req, res) => {
     }
 });
 
-// Fix: /services/ (trailing slash) would look for public/services/index.html — redirect to /services instead
-app.get('/services/', (req, res) => res.redirect(301, '/services'));
+// Explicitly serve the main services page — needed because public/services/ directory
+// exists for sub-pages, which would cause express.static to redirect /services → /services/
+app.get('/services', (req, res) => {
+    res.sendFile(require('path').join(__dirname, 'public', 'services.html'));
+});
 
 // /services/:slug pages are served as static HTML files from public/services/
 // e.g. public/services/seo-services-kerala.html → /services/seo-services-kerala
 // express.static below handles these automatically — no route needed here.
 
 // Static Files
-app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
+app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'], redirect: false }));
 
 // Auth Routes
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
