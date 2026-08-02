@@ -210,7 +210,7 @@ app.get([
     const key = req.path.replace(/^\//, '').replace(/\.html$/, '');
     const newUrl = oldServiceRedirects[key];
     if (newUrl) return res.redirect(301, newUrl);
-    res.status(404).send('Not found');
+    return next();
 });
 
 // Serve blog-post.html for SEO-friendly slug routes with SSR metadata injection
