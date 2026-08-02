@@ -337,25 +337,8 @@ app.get('/blog/:slug', async (req, res) => {
     }
 });
 
-// Explicitly serve the main services page using fs.readFile (res.sendFile has path issues on Hostinger)
-app.get(['/services', '/services/'], (req, res) => {
-    const filePath = path.join(__dirname, 'public', 'services.html');
-    fs.readFile(filePath, 'utf8', (err, html) => {
-        if (err) {
-            console.error('[services main] readFile failed:', err.message, 'path:', filePath);
-            return res.status(404).send('Services page not found');
-        }
-        res.setHeader('Content-Type', 'text/html; charset=utf-8');
-        res.send(html);
-    });
-});
-
-// /services/:slug pages are served as static HTML files from public/services/
-// e.g. public/services/seo-services-kerala.html → /services/seo-services-kerala
-// express.static below handles these automatically — no route needed here.
-
-// Static Files
-app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'], redirect: false }));
+// Static Files — /services/ served from public/services/index.html, sub-pages from public/services/*.html
+app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
 
 // Auth Routes
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
