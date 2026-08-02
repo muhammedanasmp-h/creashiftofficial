@@ -350,7 +350,22 @@ const serviceSlugMap = {
 app.get('/services/:slug', (req, res, next) => {
     const file = serviceSlugMap[req.params.slug];
     if (file) {
-        return res.sendFile(path.join(__dirname, 'public', file));
+        const filePath = path.join(__dirname, 'public', file);
+        console.log(`[services] Serving: ${filePath}`);
+        return res.sendFile(filePath, (err) => {
+            if (err) {
+                console.error(`[services] sendFile failed for ${filePath}:`, err.message);
+                // Fallback: try resolving from process.cwd()
+                const cwdPath = path.join(process.cwd(), 'public', file);
+                console.log(`[services] Fallback path: ${cwdPath}`);
+                res.sendFile(cwdPath, (err2) => {
+                    if (err2) {
+                        console.error(`[services] Fallback also failed: ${cwdPath}:`, err2.message);
+                        next();
+                    }
+                });
+            }
+        });
     }
     next();
 });
