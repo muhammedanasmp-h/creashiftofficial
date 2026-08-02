@@ -2,14 +2,25 @@ Options -Indexes
 
 RewriteEngine On
 
-# Handle sub-service requests /services/:slug -> /service-pages/:slug.html internally
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{DOCUMENT_ROOT}/public/service-pages/$1.html -f
-RewriteRule ^services/(.*)$ public/service-pages/$1.html [L]
+# Serve existing physical files or directories directly
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
 
-# Handle root clean URLs like /services -> /public/services.html, /about -> /public/about.html internally
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{DOCUMENT_ROOT}/public/$1.html -f
-RewriteRule ^([^/]+)$ public/$1.html [L]
+# Handle sub-service requests: /services/slug -> service-pages/slug.html internally
+RewriteCond %{DOCUMENT_ROOT}/service-pages/$1.html -f
+RewriteRule ^services/(.+)$ service-pages/$1.html [L]
+
+RewriteCond %{DOCUMENT_ROOT}/public/service-pages/$1.html -f
+RewriteRule ^services/(.+)$ public/service-pages/$1.html [L]
+
+# Handle /services explicitly -> services.html
+RewriteCond %{DOCUMENT_ROOT}/services.html -f
+RewriteRule ^services/?$ services.html [L]
+
+RewriteCond %{DOCUMENT_ROOT}/public/services.html -f
+RewriteRule ^services/?$ public/services.html [L]
+
+# Generic clean URLs rule for all other pages (/about, /blog, /contact, /portfolio)
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^([^/]+)/?$ $1.html [L]
