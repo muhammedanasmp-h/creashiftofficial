@@ -176,7 +176,7 @@ app.get(['/blog-post', '/blog-post.html'], async (req, res, next) => {
 });
 
 // Explicit route for main services page
-app.get('/services', (req, res) => {
+app.get(['/services', '/services/'], (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'services.html'));
 });
 
