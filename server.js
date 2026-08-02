@@ -133,6 +133,8 @@ app.use((req, res, next) => {
         let cleanPath = path.slice(0, -5);
         if (cleanPath === '/index') {
             cleanPath = '/';
+        } else if (cleanPath.endsWith('/index')) {
+            cleanPath = cleanPath.slice(0, -6) || '/';
         }
         const query = req.url.slice(path.length);
         return res.redirect(301, cleanPath + query);

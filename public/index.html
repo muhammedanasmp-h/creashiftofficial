@@ -14,7 +14,7 @@
     <script>
         if (window.location.pathname.endsWith('.html')) {
             var cleanPath = window.location.pathname.slice(0, -5);
-            if (cleanPath.endsWith('/index')) cleanPath = '/';
+            if (cleanPath === '/index') cleanPath = '/'; else if (cleanPath.endsWith('/index')) cleanPath = cleanPath.slice(0, -6) || '/';
             window.location.replace(cleanPath + window.location.search + window.location.hash);
         }
     </script>
