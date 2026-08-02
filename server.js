@@ -123,13 +123,25 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Direct route for /services and /services/ with dual-path resolution (works on both local and Hostinger web root)
-app.get(['/services', '/services/'], (req, res) => {
-    let filePath = path.join(__dirname, 'public', 'services.html');
-    if (!fs.existsSync(filePath)) {
-        filePath = path.join(__dirname, 'services.html');
+// Helper to resolve static HTML file paths across all deployment environments (Hostinger / local)
+const resolveHtmlFile = (filename) => {
+    const candidates = [
+        path.join(__dirname, 'public', filename),
+        path.join(__dirname, filename),
+        path.resolve(process.cwd(), 'public', filename),
+        path.resolve(process.cwd(), filename)
+    ];
+    for (const file of candidates) {
+        if (fs.existsSync(file)) {
+            return file;
+        }
     }
-    res.sendFile(path.resolve(filePath));
+    return candidates[0];
+};
+
+// Direct route for /services and /services/ to guarantee 200 OK response
+app.get(['/services', '/services/'], (req, res) => {
+    res.sendFile(resolveHtmlFile('services.html'));
 });
 
 // Clean URLs & Trailing Slash middleware
