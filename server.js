@@ -120,10 +120,13 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
-app.use(passport.initialize());
-app.use(passport.session());
-
-
+// Explicit route handlers for clean /services/:slug URLs (100% static & bug-free)
+app.get(['/services/seo-services-kerala', '/service-seo'], (req, res) => res.sendFile(path.resolve(__dirname, 'public', 'service-seo.html')));
+app.get(['/services/google-ads-management', '/service-ads'], (req, res) => res.sendFile(path.resolve(__dirname, 'public', 'service-ads.html')));
+app.get(['/services/social-media-marketing', '/service-social'], (req, res) => res.sendFile(path.resolve(__dirname, 'public', 'service-social.html')));
+app.get(['/services/web-development-company', '/service-web'], (req, res) => res.sendFile(path.resolve(__dirname, 'public', 'service-web.html')));
+app.get(['/services/graphic-design-branding', '/service-design'], (req, res) => res.sendFile(path.resolve(__dirname, 'public', 'service-design.html')));
+app.get(['/services/video-production-services', '/service-video'], (req, res) => res.sendFile(path.resolve(__dirname, 'public', 'service-video.html')));
 
 // Clean URLs & Trailing Slash middleware
 app.use((req, res, next) => {

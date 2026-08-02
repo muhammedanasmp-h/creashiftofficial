@@ -20,14 +20,14 @@ async function generateSitemapXml() {
   let xml = '<?xml version="1.0" encoding="UTF-8"?>\n';
   xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n';
 
-  // Service file → Flat URL mapping
+  // Service file → SEO-friendly slug mapping
   const serviceSlugMap = {
-    'service-seo.html':    '/service-seo',
-    'service-ads.html':    '/service-ads',
-    'service-social.html': '/service-social',
-    'service-web.html':    '/service-web',
-    'service-design.html': '/service-design',
-    'service-video.html':  '/service-video'
+    'service-seo.html':    '/services/seo-services-kerala',
+    'service-ads.html':    '/services/google-ads-management',
+    'service-social.html': '/services/social-media-marketing',
+    'service-web.html':    '/services/web-development-company',
+    'service-design.html': '/services/graphic-design-branding',
+    'service-video.html':  '/services/video-production-services'
   };
 
   // 1. Static Pages

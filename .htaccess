@@ -2,7 +2,15 @@ Options -Indexes
 
 RewriteEngine On
 
-# Explicit rewrite for services to serve services.html directly (handles /services and /services/)
+# Explicit rewrites for clean /services/ sub-pages (100% static & bug-free)
+RewriteRule ^services/seo-services-kerala/?$ service-seo.html [L]
+RewriteRule ^services/google-ads-management/?$ service-ads.html [L]
+RewriteRule ^services/social-media-marketing/?$ service-social.html [L]
+RewriteRule ^services/web-development-company/?$ service-web.html [L]
+RewriteRule ^services/graphic-design-branding/?$ service-design.html [L]
+RewriteRule ^services/video-production-services/?$ service-video.html [L]
+
+# Explicit rewrite for main /services page
 RewriteRule ^services/?$ services.html [L]
 
 # Serve existing physical files or directories directly
@@ -10,6 +18,6 @@ RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# Clean URLs for root HTML files (/about -> about.html, /blog -> blog.html, /contact -> contact.html, /service-seo -> service-seo.html)
+# Clean URLs for root HTML files (/about -> about.html, /blog -> blog.html, /contact -> contact.html)
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^([^/]+)/?$ $1.html [L]
