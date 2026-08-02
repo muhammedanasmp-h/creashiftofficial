@@ -1,5 +1,4 @@
 Options -Indexes
-DirectoryIndex index.html
 
 RewriteEngine On
 
@@ -8,11 +7,10 @@ RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# Sub-services rewrite: /services/slug -> /services/slug.html internally
-RewriteCond %{REQUEST_URI} ^/services/([^/]+)/?$ [NC]
-RewriteCond %{DOCUMENT_ROOT}/services/%1.html -f [OR]
-RewriteCond %{DOCUMENT_ROOT}/public/services/%1.html -f
-RewriteRule ^services/([^/]+)/?$ services/%1.html [L]
+# Sub-services rewrite: /services/slug -> /service-pages/slug.html internally
+RewriteCond %{DOCUMENT_ROOT}/service-pages/$1.html -f [OR]
+RewriteCond %{DOCUMENT_ROOT}/public/service-pages/$1.html -f
+RewriteRule ^services/([^/]+)/?$ service-pages/$1.html [L]
 
 # Generic clean URLs for root pages (/services -> services.html, /about -> about.html, etc.)
 RewriteCond %{REQUEST_FILENAME}.html -f
