@@ -175,6 +175,18 @@ app.get(['/blog-post', '/blog-post.html'], async (req, res, next) => {
     next();
 });
 
+// Explicit route handlers for services and flat service pages (handles /services and /services/ with 200 OK)
+app.get(['/services', '/services/'], (req, res) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+    res.sendFile(path.join(__dirname, 'public', 'services.html'));
+});
+app.get(['/service-seo', '/service-seo/'], (req, res) => res.sendFile(path.join(__dirname, 'public', 'service-seo.html')));
+app.get(['/service-ads', '/service-ads/'], (req, res) => res.sendFile(path.join(__dirname, 'public', 'service-ads.html')));
+app.get(['/service-social', '/service-social/'], (req, res) => res.sendFile(path.join(__dirname, 'public', 'service-social.html')));
+app.get(['/service-web', '/service-web/'], (req, res) => res.sendFile(path.join(__dirname, 'public', 'service-web.html')));
+app.get(['/service-design', '/service-design/'], (req, res) => res.sendFile(path.join(__dirname, 'public', 'service-design.html')));
+app.get(['/service-video', '/service-video/'], (req, res) => res.sendFile(path.join(__dirname, 'public', 'service-video.html')));
+
 
 
 
