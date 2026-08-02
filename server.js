@@ -180,7 +180,12 @@ app.get(['/services', '/services/'], (req, res) => {
     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.setHeader('Pragma', 'no-cache');
     res.setHeader('Expires', '0');
-    res.sendFile(path.join(__dirname, 'public', 'services.html'));
+    res.sendFile(path.join(__dirname, 'public', 'services.html'), (err) => {
+        if (err) {
+            console.error('Error sending services.html:', err);
+            res.status(500).send('Error loading services page: ' + err.message);
+        }
+    });
 });
 
 // Explicit route for individual sub-services under /services/:slug
