@@ -180,6 +180,16 @@ app.get(['/services', '/services/'], (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'services.html'));
 });
 
+// Explicit route for individual sub-services under /services/:slug
+app.get('/services/:slug', (req, res, next) => {
+    const slug = req.params.slug;
+    const filePath = path.join(__dirname, 'public', 'service-pages', `${slug}.html`);
+    if (fs.existsSync(filePath)) {
+        return res.sendFile(filePath);
+    }
+    next();
+});
+
 // 301 Redirects: old flat service URLs → new SEO-friendly /services/:slug URLs
 app.get([
     '/service-seo', '/service-seo.html',
