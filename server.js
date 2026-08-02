@@ -123,23 +123,36 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Clean URLs middleware: Redirect .html requests to clean paths, and index.html to /
+// Clean URLs & Trailing Slash middleware
 app.use((req, res, next) => {
     if (req.method !== 'GET') {
         return next();
     }
-    const path = req.path;
-    if (path.endsWith('.html')) {
-        let cleanPath = path.slice(0, -5);
+    const p = req.path;
+    
+    // Strip trailing slash if present (except root '/')
+    if (p.length > 1 && p.endsWith('/')) {
+        const cleanPath = p.slice(0, -1);
+        const query = req.url.slice(p.length);
+        return res.redirect(301, cleanPath + query);
+    }
+
+    if (p.endsWith('.html')) {
+        let cleanPath = p.slice(0, -5);
         if (cleanPath === '/index') {
             cleanPath = '/';
         } else if (cleanPath.endsWith('/index')) {
             cleanPath = cleanPath.slice(0, -6) || '/';
         }
-        const query = req.url.slice(path.length);
+        const query = req.url.slice(p.length);
         return res.redirect(301, cleanPath + query);
     }
     next();
+});
+
+// Explicit route handler for /services and /services/ to guarantee 200 OK response
+app.get(['/services', '/services/'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'services.html'));
 });
 
 // Set View Engine
