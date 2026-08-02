@@ -337,10 +337,17 @@ app.get('/blog/:slug', async (req, res) => {
     }
 });
 
-// Explicitly serve the main services page — needed because public/services/ directory
-// exists for sub-pages, which would cause express.static to redirect /services → /services/
+// Explicitly serve the main services page using fs.readFile (res.sendFile has path issues on Hostinger)
 app.get(['/services', '/services/'], (req, res) => {
-    res.sendFile(require('path').join(__dirname, 'public', 'services.html'));
+    const filePath = path.join(__dirname, 'public', 'services.html');
+    fs.readFile(filePath, 'utf8', (err, html) => {
+        if (err) {
+            console.error('[services main] readFile failed:', err.message, 'path:', filePath);
+            return res.status(404).send('Services page not found');
+        }
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.send(html);
+    });
 });
 
 // /services/:slug pages are served as static HTML files from public/services/
