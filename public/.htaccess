@@ -1,21 +1,17 @@
 Options -Indexes
-DirectorySlash Off
 
 RewriteEngine On
 
-# Explicit rule for /services and /services/ -> services.html
-RewriteRule ^services/?$ services.html [L]
-
-# Serve existing physical files or directories directly
+# 1. Serve existing physical files or directories directly
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# Sub-services rewrite: /services/slug -> /service-pages/slug.html internally
+# 2. Sub-services rewrite: /services/slug -> /service-pages/slug.html
 RewriteCond %{DOCUMENT_ROOT}/service-pages/$1.html -f [OR]
 RewriteCond %{DOCUMENT_ROOT}/public/service-pages/$1.html -f
 RewriteRule ^services/([^/]+)/?$ service-pages/$1.html [L]
 
-# Generic clean URLs for root pages (/about -> about.html, etc.)
+# 3. Clean URLs for root pages (/services -> services.html, /about -> about.html, /blog -> blog.html, /contact -> contact.html)
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^([^/]+)/?$ $1.html [L]

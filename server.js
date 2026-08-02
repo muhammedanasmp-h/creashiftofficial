@@ -175,24 +175,15 @@ app.get(['/blog-post', '/blog-post.html'], async (req, res, next) => {
     next();
 });
 
-// Explicit route for main services page
-app.get(['/services', '/services/'], (req, res) => {
-    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+// Explicit route for main services page - matches /about and /blog structure
+app.get('/services', (req, res, next) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     res.setHeader('Pragma', 'no-cache');
     res.setHeader('Expires', '0');
 
-    const candidates = [
-        path.join(__dirname, 'public', 'services.html'),
-        path.join(process.cwd(), 'public', 'services.html'),
-        path.join(__dirname, 'services.html'),
-        path.join(process.cwd(), 'services.html')
-    ];
-
-    for (const p of candidates) {
-        if (fs.existsSync(p)) {
-            const html = fs.readFileSync(p, 'utf8');
-            return res.type('html').send(html);
-        }
+    const filePath = path.join(__dirname, 'public', 'services.html');
+    if (fs.existsSync(filePath)) {
+        return res.sendFile(filePath);
     }
     next();
 });
@@ -200,17 +191,9 @@ app.get(['/services', '/services/'], (req, res) => {
 // Explicit route for individual sub-services under /services/:slug
 app.get('/services/:slug', (req, res, next) => {
     const slug = req.params.slug;
-    const candidates = [
-        path.join(__dirname, 'public', 'service-pages', `${slug}.html`),
-        path.join(process.cwd(), 'public', 'service-pages', `${slug}.html`),
-        path.join(__dirname, 'service-pages', `${slug}.html`),
-        path.join(process.cwd(), 'service-pages', `${slug}.html`)
-    ];
-    for (const p of candidates) {
-        if (fs.existsSync(p)) {
-            const html = fs.readFileSync(p, 'utf8');
-            return res.type('html').send(html);
-        }
+    const filePath = path.join(__dirname, 'public', 'service-pages', `${slug}.html`);
+    if (fs.existsSync(filePath)) {
+        return res.sendFile(filePath);
     }
     next();
 });
