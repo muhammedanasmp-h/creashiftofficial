@@ -339,7 +339,7 @@ app.get('/blog/:slug', async (req, res) => {
 
 // Explicitly serve the main services page — needed because public/services/ directory
 // exists for sub-pages, which would cause express.static to redirect /services → /services/
-app.get('/services', (req, res) => {
+app.get(['/services', '/services/'], (req, res) => {
     res.sendFile(require('path').join(__dirname, 'public', 'services.html'));
 });
 
