@@ -354,8 +354,8 @@ app.get('/blog/:slug', async (req, res) => {
     }
 });
 
-// Static Files — /services/ served from public/services/index.html, sub-pages from public/services/*.html
-app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
+// Static Files
+app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'], redirect: false }));
 
 // Auth Routes
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
