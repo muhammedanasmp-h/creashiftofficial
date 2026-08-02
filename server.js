@@ -172,7 +172,12 @@ app.get(['/blog-post', '/blog-post.html'], async (req, res, next) => {
             console.error('Error redirecting old blog post ID:', err);
         }
     }
-    next();
+// Explicit route for main services page to break Hostinger CDN cached 301 loop
+app.get(['/services', '/services/'], (req, res) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.sendFile(path.join(__dirname, 'public', 'services.html'));
 });
 
 

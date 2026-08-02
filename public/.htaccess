@@ -2,11 +2,14 @@ Options -Indexes
 
 RewriteEngine On
 
-# 1. Serve existing physical files or directories directly
+# Explicit internal rewrite for services to serve services.html directly without redirect
+RewriteRule ^services/?$ services.html [L]
+
+# Serve existing physical files or directories directly
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# 2. Clean URLs for root pages (/services -> services.html, /about -> about.html, /blog -> blog.html, /contact -> contact.html, /service-seo -> service-seo.html)
+# Clean URLs for root pages (/about -> about.html, /blog -> blog.html, /contact -> contact.html, /service-seo -> service-seo.html)
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^([^/]+)/?$ $1.html [L]
