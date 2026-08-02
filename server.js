@@ -194,7 +194,7 @@ app.get(['/services', '/services/'], (req, res) => {
             return res.type('html').send(html);
         }
     }
-    res.status(404).send('services.html not found');
+    next();
 });
 
 // Explicit route for individual sub-services under /services/:slug
