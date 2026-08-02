@@ -172,6 +172,8 @@ app.get(['/blog-post', '/blog-post.html'], async (req, res, next) => {
             console.error('Error redirecting old blog post ID:', err);
         }
     }
+    next();
+});
 
 
 
