@@ -337,38 +337,9 @@ app.get('/blog/:slug', async (req, res) => {
     }
 });
 
-// Dynamic /services/:slug route — maps SEO-friendly slugs to static service HTML files
-const serviceSlugMap = {
-    'seo-services-kerala':       'service-seo.html',
-    'google-ads-management':     'service-ads.html',
-    'social-media-marketing':    'service-social.html',
-    'web-development-company':   'service-web.html',
-    'graphic-design-branding':   'service-design.html',
-    'video-production-services': 'service-video.html'
-};
-
-app.get('/services/:slug', (req, res, next) => {
-    const file = serviceSlugMap[req.params.slug];
-    if (file) {
-        const filePath = path.join(__dirname, 'public', file);
-        console.log(`[services] Serving: ${filePath}`);
-        return res.sendFile(filePath, (err) => {
-            if (err) {
-                console.error(`[services] sendFile failed for ${filePath}:`, err.message);
-                // Fallback: try resolving from process.cwd()
-                const cwdPath = path.join(process.cwd(), 'public', file);
-                console.log(`[services] Fallback path: ${cwdPath}`);
-                res.sendFile(cwdPath, (err2) => {
-                    if (err2) {
-                        console.error(`[services] Fallback also failed: ${cwdPath}:`, err2.message);
-                        next();
-                    }
-                });
-            }
-        });
-    }
-    next();
-});
+// /services/:slug pages are served as static HTML files from public/services/
+// e.g. public/services/seo-services-kerala.html → /services/seo-services-kerala
+// express.static below handles these automatically — no route needed here.
 
 // Static Files
 app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'] }));
