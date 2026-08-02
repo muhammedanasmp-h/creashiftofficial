@@ -337,6 +337,9 @@ app.get('/blog/:slug', async (req, res) => {
     }
 });
 
+// Fix: /services/ (trailing slash) would look for public/services/index.html — redirect to /services instead
+app.get('/services/', (req, res) => res.redirect(301, '/services'));
+
 // /services/:slug pages are served as static HTML files from public/services/
 // e.g. public/services/seo-services-kerala.html → /services/seo-services-kerala
 // express.static below handles these automatically — no route needed here.
