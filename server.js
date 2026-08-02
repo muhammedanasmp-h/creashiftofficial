@@ -175,6 +175,11 @@ app.get(['/blog-post', '/blog-post.html'], async (req, res, next) => {
     next();
 });
 
+// Explicit route for main services page
+app.get(['/services', '/services/'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'services.html'));
+});
+
 // 301 Redirects: old flat service URLs → new SEO-friendly /services/:slug URLs
 app.get([
     '/service-seo', '/service-seo.html',
