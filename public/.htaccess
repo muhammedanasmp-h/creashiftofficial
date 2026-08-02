@@ -1,0 +1,15 @@
+Options -Indexes
+
+RewriteEngine On
+
+# Handle sub-service requests /services/:slug -> /service-pages/:slug.html internally
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/service-pages/$1.html -f
+RewriteRule ^services/(.*)$ service-pages/$1.html [L]
+
+# Handle root clean URLs like /services -> /services.html, /about -> /about.html internally
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/$1.html -f
+RewriteRule ^([^/]+)$ $1.html [L]
