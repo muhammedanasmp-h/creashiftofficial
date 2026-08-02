@@ -123,6 +123,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Direct route for /services and /services/ to serve services.html immediately with 200 OK
+app.get(['/services', '/services/'], (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'services.html'));
+});
+
 // Clean URLs & Trailing Slash middleware
 app.use((req, res, next) => {
     if (req.method !== 'GET') {
@@ -148,11 +153,6 @@ app.use((req, res, next) => {
         return res.redirect(301, cleanPath + query);
     }
     next();
-});
-
-// Explicit route handler for /services and /services/ to guarantee 200 OK response
-app.get(['/services', '/services/'], (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'services.html'));
 });
 
 // Set View Engine
