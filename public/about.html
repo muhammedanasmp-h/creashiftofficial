@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 <html class="light overflow-x-hidden" lang="en"><head>
     
@@ -780,51 +780,8 @@ GET STARTED
         }, 2000);
     });
 
-    // Zero-Delay Instant LCP Typewriter Effect
-        function initTypewriter(elementId) {
-            const element = document.getElementById(elementId);
-            if (!element) return;
-
-            const text = element.textContent.trim().replace(/\s+/g, ' ');
-            element.textContent = '';
-
-            const cursor = document.createElement('span');
-            cursor.className = 'typewriter-cursor';
-            element.appendChild(cursor);
-
-            const words = text.split(/\s+/).filter(w => w.length > 0);
-            const fragments = document.createDocumentFragment();
-
-            words.forEach((word, wordIdx) => {
-                const wordSpan = document.createElement('span');
-                wordSpan.style.whiteSpace = 'nowrap';
-                wordSpan.style.display = 'inline-block';
-
-                const chars = word.split('');
-                chars.forEach((char) => {
-                    const span = document.createElement('span');
-                    span.textContent = char;
-                    span.className = 'typewriter-char visible';
-                    wordSpan.appendChild(span);
-                });
-
-                fragments.appendChild(wordSpan);
-                if (wordIdx < words.length - 1) {
-                    fragments.appendChild(document.createTextNode(' '));
-                }
-            });
-
-            element.insertBefore(fragments, cursor);
-
-            // Hide cursor after initial render
-            setTimeout(() => {
-                if (cursor) cursor.style.display = 'none';
-            }, 800);
-        }
-
-        window.addEventListener('DOMContentLoaded', () => {
-        setTimeout(() => initTypewriter('aboutHeadline', 0), 500);
-    });
+    // Instant Native Rendering - Typewriter JS overhead disabled for 95+ LCP
+    function initTypewriter() {}
 
     // Scroll Reveal Logic
     const observerOptions = { threshold: 0.1 };
