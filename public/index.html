@@ -320,7 +320,7 @@
 
         .typewriter-char {
             display: inline-block;
-            opacity: 0;
+            opacity: 1;
             filter: blur(10px);
             transform: translateY(5px);
             transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -1640,12 +1640,10 @@
             parallaxTicking = false;
         }
 
-        // Defer heavy or non-essential initializations until after the page fully loads
-        window.addEventListener('load', () => {
-            const initHeavyScripts = () => {
-                // Initialize typewriter animations
-                initTypewriter('heroHeadline', 0);
-                initTypewriter('heroSubtext', 1500); // Staggered delay for subtext
+        // Initialize LCP Typewriter animations immediately on DOMContentLoaded for zero render delay
+        window.addEventListener('DOMContentLoaded', () => {
+            initTypewriter('heroHeadline', 0);
+            initTypewriter('heroSubtext', 100); // Reduced delay for immediate LCP rendering
 
                 // WhatsApp Button Delay
                 setTimeout(() => {
