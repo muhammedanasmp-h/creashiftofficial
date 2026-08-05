@@ -124,9 +124,11 @@ app.use(session({
 const sendHtmlFile = (res, filename, subfolderFile) => {
     const candidates = [
         path.join(__dirname, 'public', 'services', subfolderFile || filename),
+        path.join(__dirname, 'services', subfolderFile || filename),
         path.join(__dirname, 'public', filename),
         path.join(__dirname, filename),
         path.resolve(process.cwd(), 'public', 'services', subfolderFile || filename),
+        path.resolve(process.cwd(), 'services', subfolderFile || filename),
         path.resolve(process.cwd(), 'public', filename),
         path.resolve(process.cwd(), filename)
     ];
