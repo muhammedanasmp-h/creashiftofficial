@@ -29,7 +29,8 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512.png">
     <link rel="apple-touch-icon" sizes="512x512" href="/assets/favicon-512.png">
-        <link rel="preload" href="/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="preload" href="/assets/logo123.png" as="image" type="image/png">
+    <link rel="preload" href="/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/dm-sans-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/css/main.min.css" as="style">
@@ -93,6 +94,14 @@
             animation-play-state: paused;
         }
 
+                /* Mobile Speed Index Optimization */
+        @media (max-width: 768px) {
+            .puzzle-tile {
+                animation: none !important;
+                backdrop-filter: none !important;
+                -webkit-backdrop-filter: none !important;
+            }
+        }
         /* Mobile Optimization */
         @media (max-width: 768px) {
             .reviews-container {
@@ -314,9 +323,8 @@
         .typewriter-char {
             display: inline-block;
             opacity: 1;
-            filter: blur(10px);
-            transform: translateY(5px);
-            transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+            filter: none;
+            transform: none;
         }
 
         .typewriter-char.visible {
