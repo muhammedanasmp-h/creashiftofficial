@@ -359,8 +359,20 @@ app.get('/blog/:slug', async (req, res) => {
     }
 });
 
-// Static Files
-app.use(express.static(path.join(__dirname, 'public'), { extensions: ['html'], redirect: false }));
+// Static Files with optimal browser caching (1-year for assets, zero-cache revalidation for HTML)
+app.use(express.static(path.join(__dirname, 'public'), {
+    extensions: ['html'],
+    redirect: false,
+    maxAge: '1y',
+    immutable: true,
+    setHeaders: (res, filePath) => {
+        if (filePath.endsWith('.html')) {
+            res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+        } else {
+            res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        }
+    }
+}));
 
 // Auth Routes
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
