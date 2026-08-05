@@ -1,0 +1,242 @@
+[
+  {
+    "name": "External Image #1",
+    "original_size": 65177,
+    "new_size": 26462,
+    "path": "/assets/optimized/ext_1.webp",
+    "width": 800,
+    "height": 570
+  },
+  {
+    "name": "External Image #2",
+    "original_size": 67979,
+    "new_size": 37292,
+    "path": "/assets/optimized/ext_2.webp",
+    "width": 800,
+    "height": 533
+  },
+  {
+    "name": "External Image #3",
+    "original_size": 97807,
+    "new_size": 23852,
+    "path": "/assets/optimized/ext_3.webp",
+    "width": 800,
+    "height": 533
+  },
+  {
+    "name": "External Image #4",
+    "original_size": 107752,
+    "new_size": 48544,
+    "path": "/assets/optimized/ext_4.webp",
+    "width": 800,
+    "height": 1000
+  },
+  {
+    "name": "External Image #5",
+    "original_size": 18790,
+    "new_size": 4750,
+    "path": "/assets/optimized/ext_5.webp",
+    "width": 800,
+    "height": 600
+  },
+  {
+    "name": "External Image #6",
+    "original_size": 333318,
+    "new_size": 11824,
+    "path": "/assets/optimized/ext_6.webp",
+    "width": 512,
+    "height": 512
+  },
+  {
+    "name": "External Image #7",
+    "original_size": 423774,
+    "new_size": 22428,
+    "path": "/assets/optimized/ext_7.webp",
+    "width": 512,
+    "height": 512
+  },
+  {
+    "name": "External Image #9",
+    "original_size": 380803,
+    "new_size": 20194,
+    "path": "/assets/optimized/ext_9.webp",
+    "width": 512,
+    "height": 512
+  },
+  {
+    "name": "External Image #10",
+    "original_size": 293730,
+    "new_size": 7478,
+    "path": "/assets/optimized/ext_10.webp",
+    "width": 512,
+    "height": 512
+  },
+  {
+    "name": "Logo: allsupport 1.png",
+    "original_size": 135291,
+    "new_size": 16636,
+    "path": "/assets/creative clients/allsupport_1.webp",
+    "width": 300,
+    "height": 300
+  },
+  {
+    "name": "Logo: Havaen mortgages copy.png",
+    "original_size": 30500,
+    "new_size": 14180,
+    "path": "/assets/creative clients/havaen_mortgages_copy.webp",
+    "width": 300,
+    "height": 135
+  },
+  {
+    "name": "Logo: ibab.png",
+    "original_size": 84030,
+    "new_size": 11992,
+    "path": "/assets/creative clients/ibab.webp",
+    "width": 300,
+    "height": 171
+  },
+  {
+    "name": "Logo: Livwell.png",
+    "original_size": 29622,
+    "new_size": 6474,
+    "path": "/assets/creative clients/livwell.webp",
+    "width": 300,
+    "height": 87
+  },
+  {
+    "name": "Logo: macssio.png",
+    "original_size": 1825689,
+    "new_size": 34020,
+    "path": "/assets/creative clients/macssio.webp",
+    "width": 300,
+    "height": 280
+  },
+  {
+    "name": "Logo: ONE-01.png",
+    "original_size": 1324797,
+    "new_size": 10334,
+    "path": "/assets/creative clients/one_01.webp",
+    "width": 300,
+    "height": 300
+  },
+  {
+    "name": "Logo: papas kitchen logo.png",
+    "original_size": 1950510,
+    "new_size": 11458,
+    "path": "/assets/creative clients/papas_kitchen_logo.webp",
+    "width": 300,
+    "height": 300
+  },
+  {
+    "name": "Logo: Picsart_26-05-04_13-31-56-009.png",
+    "original_size": 283693,
+    "new_size": 15492,
+    "path": "/assets/creative clients/picsart_26_05_04_13_31_56_009.webp",
+    "width": 300,
+    "height": 193
+  },
+  {
+    "name": "Logo: Skymax LOGO redesign-01.png",
+    "original_size": 99261,
+    "new_size": 9558,
+    "path": "/assets/creative clients/skymax_logo_redesign_01.webp",
+    "width": 300,
+    "height": 300
+  },
+  {
+    "name": "Logo: snoozine  logo.png",
+    "original_size": 137654,
+    "new_size": 8414,
+    "path": "/assets/creative clients/snoozine__logo.webp",
+    "width": 300,
+    "height": 300
+  },
+  {
+    "name": "Logo: Techsology.png",
+    "original_size": 68334,
+    "new_size": 17048,
+    "path": "/assets/creative clients/techsology.webp",
+    "width": 239,
+    "height": 259
+  },
+  {
+    "name": "Logo: terrain_ (1).png",
+    "original_size": 55659,
+    "new_size": 7900,
+    "path": "/assets/creative clients/terrain__1.webp",
+    "width": 300,
+    "height": 126
+  },
+  {
+    "name": "Team: asif  lm,lm.png",
+    "original_size": 944581,
+    "new_size": 14568,
+    "path": "/assets/our team/asif__lm_lm.webp",
+    "width": 400,
+    "height": 533
+  },
+  {
+    "name": "Team: fasna-1.png",
+    "original_size": 940400,
+    "new_size": 11170,
+    "path": "/assets/our team/fasna-1.webp",
+    "width": 400,
+    "height": 533
+  },
+  {
+    "name": "Team: naseera.png",
+    "original_size": 682573,
+    "new_size": 12262,
+    "path": "/assets/our team/naseera.webp",
+    "width": 400,
+    "height": 533
+  },
+  {
+    "name": "Team: Nikhil.png",
+    "original_size": 896069,
+    "new_size": 16188,
+    "path": "/assets/our team/nikhil.webp",
+    "width": 400,
+    "height": 533
+  },
+  {
+    "name": "Team: Shalim.png",
+    "original_size": 680427,
+    "new_size": 14628,
+    "path": "/assets/our team/shalim.webp",
+    "width": 400,
+    "height": 533
+  },
+  {
+    "name": "Team: shiju ggvk.png",
+    "original_size": 803402,
+    "new_size": 13756,
+    "path": "/assets/our team/shiju_ggvk.webp",
+    "width": 400,
+    "height": 533
+  },
+  {
+    "name": "Background: hero_bg.png",
+    "original_size": 887180,
+    "new_size": 118632,
+    "path": "/assets/hero_bg.webp",
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "name": "Background: design-bg.png",
+    "original_size": 662251,
+    "new_size": 27554,
+    "path": "/assets/services/design-bg.webp",
+    "width": 1024,
+    "height": 1024
+  },
+  {
+    "name": "Background: video-bg.png",
+    "original_size": 594107,
+    "new_size": 25166,
+    "path": "/assets/services/video-bg.webp",
+    "width": 1024,
+    "height": 1024
+  }
+]
