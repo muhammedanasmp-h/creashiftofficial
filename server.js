@@ -120,13 +120,27 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+// Helper to resolve static HTML file paths across all deployment environments (Hostinger / local)
+const resolveHtmlFile = (filename) => {
+    const candidates = [
+        path.join(__dirname, 'public', filename),
+        path.join(__dirname, filename),
+        path.resolve(process.cwd(), 'public', filename),
+        path.resolve(process.cwd(), filename)
+    ];
+    for (const file of candidates) {
+        if (fs.existsSync(file)) return file;
+    }
+    return candidates[0];
+};
+
 // Explicit route handlers for clean /services/:slug URLs (100% static & bug-free)
-app.get(['/services/seo-services-kerala', '/service-seo'], (req, res) => res.sendFile(path.resolve(__dirname, 'public', 'service-seo.html')));
-app.get(['/services/google-ads-management', '/service-ads'], (req, res) => res.sendFile(path.resolve(__dirname, 'public', 'service-ads.html')));
-app.get(['/services/social-media-marketing', '/service-social'], (req, res) => res.sendFile(path.resolve(__dirname, 'public', 'service-social.html')));
-app.get(['/services/web-development-company', '/service-web'], (req, res) => res.sendFile(path.resolve(__dirname, 'public', 'service-web.html')));
-app.get(['/services/graphic-design-branding', '/service-design'], (req, res) => res.sendFile(path.resolve(__dirname, 'public', 'service-design.html')));
-app.get(['/services/video-production-services', '/service-video'], (req, res) => res.sendFile(path.resolve(__dirname, 'public', 'service-video.html')));
+app.get(['/services/seo-services-kerala', '/service-seo', '/service-seo.html'], (req, res) => res.sendFile(resolveHtmlFile('service-seo.html')));
+app.get(['/services/google-ads-management', '/service-ads', '/service-ads.html'], (req, res) => res.sendFile(resolveHtmlFile('service-ads.html')));
+app.get(['/services/social-media-marketing', '/service-social', '/service-social.html'], (req, res) => res.sendFile(resolveHtmlFile('service-social.html')));
+app.get(['/services/web-development-company', '/service-web', '/service-web.html'], (req, res) => res.sendFile(resolveHtmlFile('service-web.html')));
+app.get(['/services/graphic-design-branding', '/service-design', '/service-design.html'], (req, res) => res.sendFile(resolveHtmlFile('service-design.html')));
+app.get(['/services/video-production-services', '/service-video', '/service-video.html'], (req, res) => res.sendFile(resolveHtmlFile('service-video.html')));
 
 // Clean URLs & Trailing Slash middleware
 app.use((req, res, next) => {
