@@ -3,15 +3,15 @@ Options -Indexes
 RewriteEngine On
 
 # Explicit rewrites for clean /services/ sub-pages (100% static & bug-free)
-RewriteRule ^services/seo-services-kerala/?$ service-seo.html [L]
-RewriteRule ^services/google-ads-management/?$ service-ads.html [L]
-RewriteRule ^services/social-media-marketing/?$ service-social.html [L]
-RewriteRule ^services/web-development-company/?$ service-web.html [L]
-RewriteRule ^services/graphic-design-branding/?$ service-design.html [L]
-RewriteRule ^services/video-production-services/?$ service-video.html [L]
+RewriteRule ^services/seo-services-kerala/?$ services/seo-services-kerala.html [L]
+RewriteRule ^services/google-ads-management/?$ services/google-ads-management.html [L]
+RewriteRule ^services/social-media-marketing/?$ services/social-media-marketing.html [L]
+RewriteRule ^services/web-development-company/?$ services/web-development-company.html [L]
+RewriteRule ^services/graphic-design-branding/?$ services/graphic-design-branding.html [L]
+RewriteRule ^services/video-production-services/?$ services/video-production-services.html [L]
 
 # Explicit rewrite for main /services page
-RewriteRule ^services/?$ services.html [L]
+RewriteRule ^services/?$ services/index.html [L]
 
 # Serve existing physical files or directories directly
 RewriteCond %{REQUEST_FILENAME} -f [OR]

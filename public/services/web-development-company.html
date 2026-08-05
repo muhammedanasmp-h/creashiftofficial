@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FK6M5T8E3J"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FK6M5T8E3J');
+    </script>
+
+<title>Web Engineering & Custom Performance Development | CREASHIFT</title>
+    <meta name="description" content="High-performance web development and custom user experience engineering. We build fast, premium, and SEO-optimized digital platforms for luxury conversions.">
+    <link rel="canonical" href="https://creashift.com/service-web">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://creashift.com/service-web">
+    <meta property="og:title" content="Web Engineering & Custom Performance Development | CREASHIFT">
+    <meta property="og:description" content="High-performance web development and custom user experience engineering. We build fast, premium, and SEO-optimized digital platforms for luxury conversions.">
+    <meta property="og:image" content="https://creashift.com/assets/logo123.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://creashift.com/service-web">
+    <meta name="twitter:title" content="Web Engineering & Custom Performance Development | CREASHIFT">
+    <meta name="twitter:description" content="High-performance web development and custom user experience engineering. We build fast, premium, and SEO-optimized digital platforms for luxury conversions.">
+    <meta name="twitter:image" content="https://creashift.com/assets/logo123.png">
+
+    <!-- Favicon / Apple Touch Icon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512.png">
+    <link rel="apple-touch-icon" sizes="512x512" href="/assets/favicon-512.png">
+    <link rel="preload" href="/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/material-symbols-outlined.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/css/main.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon / Site Icon -->
+    
+    
+    <link rel="shortcut icon" href="/assets/logo123.png">
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal { animation: fadeIn 0.8s ease-out forwards; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        
+        .blueprint-grid {
+            background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px),
+                               linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .dark-blueprint-grid {
+            background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+                               linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        @media (max-width: 768px) {
+            .blueprint-grid, .dark-blueprint-grid {
+                background-size: 20px 20px;
+            }
+        }
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+            z-index: 90;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+        }
+        .whatsapp-float.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
+        }
+    /* Popup Styles */
+    .popup-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(8px);
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .popup-overlay.active {
+        opacity: 1;
+        visibility: visible;
+    }
+    .popup-content {
+        background: rgba(255, 255, 255, 0.95);
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23000' fill-opacity='0.02'%3E%3Cpath d='M17,8C8,10 5.9,16.17 3.82,21.34L5.71,22L6.66,19.7C7.14,19.87 7.64,20 8,20C19,20 22,3 22,3C21,5 14,5.25 9,6.25C4,7.25 2,11.5 2,13.5C2,15.5 3.75,17.25 3.75,17.25C7,8 17,8 17,8Z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 150%;
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        width: 85%;
+        max-width: 350px;
+        padding: 16px 20px;
+        border-radius: 30px;
+        transform: scale(0.9) translateY(20px);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        position: relative;
+        overflow: hidden;
+    }
+    @media (max-width: 768px) {
+        .popup-content { padding: 12px 16px; border-radius: 20px; max-width: 300px; }
+        .popup-content h2 { font-size: 1.15rem; }
+    }
+    .popup-overlay.active .popup-content { transform: scale(1) translateY(0); }
+    .leaf-decoration, .leaf-decoration-2, .leaf-decoration-3, .leaf-decoration-4 {
+        position: absolute; opacity: 0.04; pointer-events: none;
+    }
+    .leaf-decoration { top: -15px; left: -15px; width: 80px; height: 80px; transform: rotate(-15deg); }
+    .leaf-decoration-2 { bottom: -20px; right: -10px; width: 100px; height: 100px; transform: rotate(165deg); }
+    .leaf-decoration-3 { top: 40%; right: -25px; width: 60px; height: 60px; transform: rotate(45deg); }
+    .leaf-decoration-4 { bottom: 30%; left: -15px; width: 50px; height: 50px; transform: rotate(-110deg); }
+    
+    
+
+    
+
+    
+
+    /* Mobile Navigation Popup Styles */
+    #drawer {
+        position: fixed !important;
+        inset: 0 !important;
+        z-index: 99999 !important;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    #drawer.opacity-100 {
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
+    .drawer-backdrop {
+        position: absolute !important;
+        inset: 0 !important;
+        background: rgba(0, 0, 0, 0.3) !important;
+        backdrop-filter: blur(4px) !important;
+        -webkit-backdrop-filter: blur(4px) !important;
+    }
+    #drawerBox {
+        position: absolute !important;
+        top: 16px !important;
+        right: 16px !important;
+        left: auto !important;
+        bottom: auto !important;
+        width: 80% !important;
+        max-width: 340px !important;
+        max-height: calc(100dvh - 32px) !important;
+        height: auto !important;
+        background: #ffffff !important;
+        border-radius: 28px !important;
+        transform-origin: top right !important;
+        transform: scale(0.3) !important;
+        opacity: 0 !important;
+        transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1), opacity 0.4s ease !important;
+        box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.25) !important;
+        border: 1px solid rgba(0, 0, 0, 0.05) !important;
+        overflow-y: auto !important;
+        z-index: 100000 !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    #drawer.opacity-100 #drawerBox {
+        transform: scale(1) !important;
+        opacity: 1 !important;
+    }
+
+</style>
+    <script src="/assets/js/content-manager.js?v=13" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://creashift.com/service-web#webpage",
+  "url": "https://creashift.com/service-web",
+  "name": "Web Engineering | CREASHIFT",
+  "description": "Architectural digital platforms built for premium performance and luxury conversion.",
+  "isPartOf": {
+    "@id": "https://creashift.com/#website"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "@id": "https://creashift.com/service-web#breadcrumb",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://creashift.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Services",
+      "item": "https://creashift.com/services"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Web Engineering",
+      "item": "https://creashift.com/service-web"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://creashift.com/service-web#service",
+  "name": "Web Engineering",
+  "description": "Modern Web Design and High-End Web Development with focus on PageSpeed performance and clean code architectures.",
+  "provider": {
+    "@id": "https://creashift.com/#organization"
+  },
+  "areaServed": "IN"
+}
+</script>
+</head>
+<body class="bg-white text-black font-sans antialiased blueprint-grid">
+
+    <!-- Mobile Navigation Popup -->
+    <div id="drawer">
+        <!-- Backdrop -->
+        <div class="drawer-backdrop"></div>
+        <!-- Popup Box -->
+        <div id="drawerBox">
+            <!-- Header -->
+            <div class="flex justify-between items-center px-8 pt-10 pb-4">
+                <div class="flex items-center gap-2.5">
+                    <div class="h-7 w-7 overflow-hidden flex-shrink-0">
+                        <img src="/assets/logo123.png?v=2" alt="CREASHIFT Logo" class="h-full w-auto max-w-none object-cover object-left">
+                    </div>
+                    <span class="text-base font-black tracking-tighter text-black uppercase">CREASHIFT</span>
+                </div>
+                <button class="w-10 h-10 flex items-center justify-center rounded-full bg-black/5 hover:bg-black/10 transition-colors" id="closeDrawer" aria-label="Close menu">
+                    <span class="material-symbols-outlined text-xl">close</span>
+                </button>
+            </div>
+            <!-- Nav Links -->
+            <nav class="px-8 py-2">
+                <a class="group flex items-center justify-between py-4 border-b border-black/5" href="/">
+                    <span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">Home</span>
+                    <span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span>
+                </a>
+                <a class="group flex items-center justify-between py-4 border-b border-black/5" href="/about">
+                    <span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">About</span>
+                    <span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span>
+                </a>
+                <a class="group flex items-center justify-between py-4 border-b border-black/5" href="/services">
+                    <span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">Services</span>
+                    <span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span>
+                </a>
+                <a class="group flex items-center justify-between py-4 border-b border-black/5" href="/portfolio">
+                    <span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">Portfolio</span>
+                    <span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span>
+                </a>
+                <a class="group flex items-center justify-between py-4 border-b border-black/5" href="/blog">
+                    <span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">Blog</span>
+                    <span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span>
+                </a>
+                <a class="group flex items-center justify-between py-4" href="/contact">
+                    <span class="text-[15px] font-bold uppercase tracking-[0.12em] text-black">Contact</span>
+                    <span class="material-symbols-outlined text-black/15 text-lg group-hover:text-black transition-colors">arrow_outward</span>
+                </a>
+            </nav>
+            <!-- Bottom CTA -->
+            <div class="px-8 pb-7 pt-3">
+                <a href="/contact" class="block w-full bg-black text-white text-center font-bold text-[12px] uppercase tracking-[0.2em] py-4.5 rounded-2xl hover:bg-zinc-800 transition-colors">
+                    Start a Project
+                </a>
+                <div class="flex items-center justify-center gap-6 mt-5">
+                    <a href="https://www.instagram.com/creashiftads" target="_blank" class="text-[10px] uppercase tracking-[0.2em] text-black/30 hover:text-black transition-colors">Instagram</a>
+                    <span class="w-1 h-1 rounded-full bg-black/10"></span>
+                    <a href="https://www.linkedin.com/company/creashift/" target="_blank" class="text-[10px] uppercase tracking-[0.2em] text-black/30 hover:text-black transition-colors">LinkedIn</a>
+                    <span class="w-1 h-1 rounded-full bg-black/10"></span>
+                    <a href="https://wa.me/918086180780" target="_blank" class="text-[10px] uppercase tracking-[0.2em] text-black/30 hover:text-black transition-colors">WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header Fade Overlay -->
+    <div class="fixed top-0 left-0 w-full h-16 md:h-32 bg-gradient-to-b from-white via-white/95 to-transparent z-40 pointer-events-none"></div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-1/2 -translate-x-1/2 z-50 bg-white border border-black/5 rounded-b-[40px] shadow-lg transition-all duration-500 px-8 py-3 w-[95%] max-w-[1000px] flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2">
+            <div class="h-5 md:h-7 w-5 md:w-7 overflow-hidden flex-shrink-0">
+                <img src="/assets/logo123.png?v=2" alt="CREASHIFT Icon" class="h-full w-auto max-w-none object-cover object-left">
+            </div>
+            <span class="font-['Inter'] text-sm md:text-base font-black tracking-tighter text-black uppercase">CREASHIFT</span>
+        </a>
+        <button class="text-black flex items-center gap-3 group" id="menuBtn">
+            <span class="font-label-sm text-label-sm tracking-[0.3em] uppercase opacity-50 group-hover:opacity-100 transition-opacity">Menu</span>
+            <div class="flex flex-col gap-1.5">
+                <div class="w-8 h-[1px] bg-black"></div>
+                <div class="w-8 h-[1px] bg-black translate-x-2 group-hover:translate-x-0 transition-transform duration-500"></div>
+            </div>
+        </button>
+    </header>
+
+    <main class="pt-24 md:pt-36 pb-8 md:pb-20">
+        <!-- Breadcrumb & Tech Detail -->
+        <nav class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-8 md:mb-12 flex justify-between items-end reveal">
+            <a href="/services" class="group inline-flex items-center gap-3 font-bold text-xs md:text-sm text-black hover:text-black transition-all uppercase tracking-[0.2em] px-4 py-2 rounded-full bg-black/5 hover:bg-black/10 border border-black/5">
+                <span class="material-symbols-outlined text-lg md:text-xl group-hover:-translate-x-1 transition-transform">west</span> Back
+            </a>
+            <div class="hidden md:block text-[9px] font-bold tracking-[0.4em] text-black/20 uppercase">
+                Digital Build / Web / v.5.2
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="px-6 md:px-margin-edge max-w-container-max mx-auto mb-12 md:mb-24 reveal delay-1">
+            <div class="border-b border-black/10 pb-8 md:pb-16">
+                <div class="max-w-5xl">
+                    <span class="font-label-sm text-[9px] md:text-label-sm text-black mb-4 block uppercase tracking-[0.4em] opacity-80">Digital Architecture / 03</span>
+                    <h1 id="web-headline" class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold uppercase leading-[0.9] mb-6 md:mb-10">Web <br>Design & <br>Development</h1>
+                    <p id="web-intro" class="text-base md:text-xl text-black max-w-2xl leading-relaxed font-normal">
+                        Building architectural digital masterpieces that convert visitors into lifelong advocates. Our design process aligns with premium <a href="/service-design" class="underline hover:text-primary transition-colors">branding & identity design</a> and custom <a href="/service-seo" class="underline hover:text-primary transition-colors">SEO integrations</a>. View our <a href="/portfolio" class="underline hover:text-primary transition-colors">case studies</a> or read our <a href="/blog" class="underline hover:text-primary transition-colors">latest articles</a>.
+                    </p>
+                    <!-- Service Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-8">
+                        <a href="https://wa.me/918086180780" target="_blank" class="inline-flex items-center justify-center gap-3 bg-[#25D366] text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest text-xs hover:scale-[1.02] transition-transform shadow-lg" style="background-color: #25D366;">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" class="w-5 h-5">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                            </svg>
+                            WhatsApp Us
+                        </a>
+                        <button onclick="document.getElementById('leadPopup').classList.add('active')" class="inline-flex items-center justify-center gap-3 bg-black text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest text-xs hover:scale-[1.02] transition-transform shadow-lg cursor-pointer">
+                            <span class="material-symbols-outlined text-lg">mail</span>
+                            Contact Us
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <section class="px-4 md:px-margin-edge max-w-container-max mx-auto mb-16 md:mb-section-gap reveal delay-2">
+            <div class="bg-black rounded-[32px] md:rounded-[60px] p-8 md:p-32 relative overflow-hidden text-white dark-blueprint-grid shadow-2xl">
+                <div class="relative z-10 max-w-4xl mx-auto text-center">
+                    <span id="web-sub-headline" class="text-3xl md:text-6xl font-black mb-4 md:mb-8 block uppercase tracking-tighter leading-tight">Digital <br class="md:hidden">Masterpieces</span>
+
+                    <!-- New Image Section -->
+                    <div class="mb-16 md:mb-24 px-4 md:px-0">
+                        <div class="aspect-[16/9] w-full bg-neutral-900 rounded-[32px] md:rounded-[60px] overflow-hidden relative group border border-white/10">
+                            <img id="web-main-img" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=1200" alt="Web Architecture" class="w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-[2s]">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="text-center">
+                                    <div class="w-12 h-12 border border-white/20 rounded-full flex items-center justify-center mx-auto mb-4 animate-pulse">
+                                        <span class="material-symbols-outlined text-white opacity-50">terminal</span>
+                                    </div>
+                                    <span class="text-[9px] font-bold tracking-[0.5em] text-white/40 uppercase">System_Architecture_Active</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-left border-t border-white/10 pt-10 md:pt-20">
+                        <div class="space-y-4 md:space-y-6 group relative">
+                            <!-- Technical ID -->
+                            <div class="absolute -top-4 right-0 text-[8px] font-mono opacity-20 hidden md:block group-hover:opacity-100 transition-opacity">MOD: UX_BP_01</div>
+                            <div class="absolute -bottom-4 -left-4 w-6 h-6 border-l border-b border-white/5 group-hover:border-white/20 transition-colors"></div>
+
+                            <span class="text-[8px] md:text-[10px] font-bold tracking-[0.4em] text-white/40 group-hover:text-white transition-colors uppercase block">01 / Logic</span>
+                            <h2 id="web-card-1-title" class="text-lg md:text-xl font-bold uppercase tracking-tight">UX Blueprint</h2>
+                            <p id="web-card-1-desc" class="text-gray-400 group-hover:text-gray-200 text-[11px] md:text-sm leading-relaxed font-medium">Rigorous wireframing to ensure the user journey is frictionless and intuitive. We map every touchpoint.</p>
+                        </div>
+                        <div class="space-y-4 md:space-y-6 group relative">
+                            <div class="absolute -top-4 right-0 text-[8px] font-mono opacity-20 hidden md:block group-hover:opacity-100 transition-opacity">MOD: UI_CR_02</div>
+                            <div class="absolute -bottom-4 -left-4 w-6 h-6 border-l border-b border-white/5 group-hover:border-white/20 transition-colors"></div>
+
+                            <span class="text-[8px] md:text-[10px] font-bold tracking-[0.4em] text-white/40 group-hover:text-white transition-colors uppercase block">02 / Artistry</span>
+                            <h2 id="web-card-2-title" class="text-lg md:text-xl font-bold uppercase tracking-tight">UI Craft</h2>
+                            <p id="web-card-2-desc" class="text-gray-400 group-hover:text-gray-200 text-[11px] md:text-sm leading-relaxed font-medium">Boutique visual design that reflects your brand's unique identity and authority. Premium aesthetics.</p>
+                        </div>
+                        <div class="space-y-4 md:space-y-6 group relative">
+                            <div class="absolute -top-4 right-0 text-[8px] font-mono opacity-20 hidden md:block group-hover:opacity-100 transition-opacity">MOD: PF_EN_03</div>
+                            <div class="absolute -bottom-4 -left-4 w-6 h-6 border-l border-b border-white/5 group-hover:border-white/20 transition-colors"></div>
+
+                            <span class="text-[8px] md:text-[10px] font-bold tracking-[0.4em] text-white/40 group-hover:text-white transition-colors uppercase block">03 / Engine</span>
+                            <h2 id="web-card-3-title" class="text-lg md:text-xl font-bold uppercase tracking-tight">Performance</h2>
+                            <p id="web-card-3-desc" class="text-gray-400 group-hover:text-gray-200 text-[11px] md:text-sm leading-relaxed font-medium">Clean, scalable code optimized for speed, security, and future growth. Built for the modern web.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="px-4 md:px-margin-edge max-w-container-max mx-auto reveal">
+            <div class="bg-neutral-50 rounded-[32px] md:rounded-[60px] p-10 md:p-24 text-center border border-black/5 relative overflow-hidden group">
+                <div class="absolute inset-0 opacity-10 pointer-events-none blueprint-grid"></div>
+                <!-- Classic Design Markers -->
+                <div class="absolute top-8 left-8 w-8 h-8 border-l border-t border-black/10 hidden md:block"></div>
+                <div class="absolute bottom-8 right-8 w-8 h-8 border-r border-b border-black/10 hidden md:block"></div>
+                
+                <div class="relative z-10">
+                    <h2 class="text-3xl md:text-6xl font-black mb-6 md:mb-10 uppercase leading-none tracking-tighter">Need a <br class="md:hidden">Digital Home?</h2>
+                    <p class="text-black/70 mb-8 md:mb-12 max-w-xl mx-auto font-medium text-sm md:text-xl">
+                        Let's build a platform that matches your ambition.
+                    </p>
+                    <a href="/contact" class="inline-flex items-center gap-4 bg-black text-white px-8 md:px-12 py-4 md:py-6 rounded-full font-black tracking-widest text-[10px] md:text-sm uppercase hover:scale-105 transition-transform group/btn shadow-xl">
+                        Start Your Build
+                        <span class="material-symbols-outlined group-hover/btn:translate-x-2 transition-transform">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full py-20 px-6 bg-white border-t border-black/5">
+        <div class="max-w-[1440px] mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
+                <!-- Brand Column -->
+                <div class="md:col-span-3 flex flex-col items-center md:items-start text-center md:text-left">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="h-10 md:h-12 w-10 md:w-12 overflow-hidden flex-shrink-0">
+                            <img src="/assets/logo123.png?v=2" alt="CREASHIFT Logo" class="h-full w-auto max-w-none object-cover object-left">
+                        </div>
+                        <span class="text-2xl font-black text-black uppercase tracking-tighter">CREASHIFT</span>
+                    </div>
+                    <p class="text-sm text-black/50 max-w-xs leading-relaxed">
+                        Best Advertising & Digital Marketing Agency in Kerala helping businesses grow through SEO, Google Ads, and AI-powered strategies.
+                    </p>
+                </div>
+
+                <!-- Explore Column -->
+                <div class="md:col-span-2 flex flex-col items-center md:items-start text-center md:text-left">
+                    <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-black/30 mb-6">Explore</p>
+                    <nav class="flex flex-col space-y-4">
+                        <a href="/" class="text-xs font-bold uppercase hover:text-black transition-colors">Home</a>
+                        <a href="/about" class="text-xs font-bold uppercase hover:text-black transition-colors">About</a>
+                        <a href="/services" class="text-xs font-bold uppercase hover:text-black transition-colors">Services</a>
+                        <a href="/portfolio" class="text-xs font-bold uppercase hover:text-black transition-colors">Portfolio</a>
+                        <a href="/blog" class="text-xs font-bold uppercase hover:text-black transition-colors">Blog</a>
+                    </nav>
+                </div>
+
+                <!-- Legal Column -->
+                <div class="md:col-span-2 flex flex-col items-center md:items-start text-center md:text-left">
+                    <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-black/30 mb-6">Legal</p>
+                    <nav class="flex flex-col space-y-4">
+                        <a href="/terms" class="text-xs font-bold uppercase hover:text-black transition-colors">Terms & Conditions</a>
+                        <a href="/agreement" class="text-xs font-bold uppercase hover:text-black transition-colors">User Agreement</a>
+                        <a href="/privacy" class="text-xs font-bold uppercase hover:text-black transition-colors">Privacy Policy</a>
+                    </nav>
+                </div>
+
+                <!-- Connect Column -->
+                <div class="md:col-span-2 flex flex-col items-center md:items-start text-center md:text-left">
+                    <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-black/30 mb-6">Connect</p>
+                    <nav class="flex flex-col space-y-4">
+                        <a href="https://www.instagram.com/creashiftads" target="_blank" class="text-xs font-bold uppercase hover:text-black transition-colors">Instagram</a>
+                        <a href="https://www.linkedin.com/company/creashift/" target="_blank" class="text-xs font-bold uppercase hover:text-black transition-colors">LinkedIn</a>
+                        <a href="https://wa.me/918086180780" target="_blank" class="text-xs font-bold uppercase hover:text-black transition-colors">WhatsApp</a>
+                    </nav>
+                </div>
+
+                <!-- Contact Column -->
+                <div class="md:col-span-3 flex flex-col items-center md:items-start text-center md:text-left">
+                    <p class="text-[10px] font-bold uppercase tracking-[0.3em] text-black/30 mb-6">Say Hello</p>
+                    <a href="mailto:sales@creashift.in" class="text-xl font-black hover:opacity-50 transition-opacity mb-2">sales@creashift.in</a>
+                    <div class="flex flex-col space-y-2 mt-4">
+                        <a href="tel:+916282852686" class="text-sm font-bold hover:text-black transition-colors">+91 62828 52686</a>
+                        <a href="tel:+919074299942" class="text-sm font-bold hover:text-black transition-colors">+91 90742 99942</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="pt-8 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-[10px] uppercase tracking-[0.2em] text-black/30 text-center md:text-left">� 2024 CREASHIFT. SHIFTING VISIONS. ALL RIGHTS RESERVED.</p>
+                <div class="flex gap-8">
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-black/30">BASED IN KERALA</span>
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-black/30">GLOBAL STANDARDS</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/918086180780" target="_blank" class="whatsapp-float" id="whatsappFloat" aria-label="Chat on WhatsApp">
+        <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </a>
+
+    <!-- Mobile Drawer -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+                    const menuBtn = document.getElementById('menuBtn');
+        const closeDrawer = document.getElementById('closeDrawer');
+        const drawer = document.getElementById('drawer');
+        const drawerLinks = drawer.querySelectorAll('nav a');
+
+        function toggleDrawer(open) {
+            if (open) {
+                drawer.classList.add('opacity-100');
+                document.body.style.overflow = 'hidden';
+            } else {
+                drawer.classList.remove('opacity-100');
+                document.body.style.overflow = '';
+            }
+        }
+
+        if (menuBtn) menuBtn.addEventListener('click', () => toggleDrawer(true));
+        if (closeDrawer) closeDrawer.addEventListener('click', () => toggleDrawer(false));
+        drawerLinks.forEach(link => {
+            link.addEventListener('click', () => toggleDrawer(false));
+        });
+
+        // Close on backdrop tap
+        drawer.addEventListener('click', (e) => {
+            if (e.target === drawer || e.target.classList.contains('drawer-backdrop')) {
+                toggleDrawer(false);
+            }
+        });
+
+            // WhatsApp Button Delay
+            setTimeout(() => {
+                const waBtn = document.getElementById('whatsappFloat');
+                if (waBtn) waBtn.classList.add('visible');
+            }, 2000);
+
+            // Lead Form Popup Logic
+            const popup = document.getElementById('leadPopup');
+            if (popup) {
+                const showPopup = () => {
+                    const isSubmitted = localStorage.getItem('creashift_lead_submitted');
+                    if (isSubmitted) return;
+
+                    // Navigation Analysis: Show only on refresh or direct/external entry
+                    const navEntries = performance.getEntriesByType("navigation");
+                    const isRefresh = navEntries.length > 0 && navEntries[0].type === 'reload';
+                    const isInternalNav = document.referrer && document.referrer.includes(window.location.host);
+
+                    if (isRefresh || !isInternalNav) {
+                        popup.classList.add('active');
+                    }
+                };
+                
+                // Show after 5 seconds
+                setTimeout(showPopup, 5000);
+            }
+
+            // Close Popup Logic
+            const closePopup = document.getElementById('closePopup');
+            if (closePopup && popup) {
+                closePopup.addEventListener('click', () => {
+                    popup.classList.remove('active');
+                });
+                
+                popup.addEventListener('click', (e) => {
+                    if (e.target === popup) {
+                        popup.classList.remove('active');
+                    }
+                });
+            }
+
+            // Popup Form Submission
+            const popupForm = document.getElementById('popupForm');
+            if (popupForm) {
+                popupForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const submitBtn = e.target.querySelector('button[type="submit"]');
+                    const originalBtnText = submitBtn.innerText;
+                    submitBtn.innerText = 'PROCESSING...';
+                    submitBtn.disabled = true;
+
+                    const formData = {
+                        email: document.getElementById('popup-email').value,
+                        phone: document.getElementById('popup-phone').value,
+                        message: "Lead from Service Web Popup - " + document.getElementById('popup-message').value
+                    };
+
+                    try {
+                        const response = await fetch('/api/contact', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(formData)
+                        });
+                        const result = await response.json();
+                        if (result.success) {
+                            alert('Success! We will contact you shortly.');
+                            popup.classList.remove('active');
+                            localStorage.setItem('creashift_lead_submitted', 'true');
+                        } else {
+                            alert('Something went wrong. Please try again.');
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('An error occurred. Please try again.');
+                    } finally {
+                        submitBtn.innerText = originalBtnText;
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+        });
+    </script>
+    <div class="popup-overlay" id="leadPopup">
+        <div class="popup-content relative">
+            <button class="absolute top-4 right-4 text-black/40 hover:text-black transition-colors z-50 p-2 flex items-center justify-center cursor-pointer" id="closePopup" aria-label="Close popup"><span class="material-symbols-outlined text-2xl">close</span></button>
+            <div class="text-center mb-4 relative z-10"><h2 class="text-xl font-black uppercase tracking-tighter">FREE <br/>STRATEGY CALL</h2></div>
+            <form class="space-y-2 relative z-10" id="popupForm">
+                <div class="space-y-1">
+                    <label class="text-[10px] uppercase tracking-widest text-black/40 font-bold ml-1" for="popup-email">Email</label>
+                    <input type="email" id="popup-email" name="email" required placeholder="hello@creashift.com" class="w-full bg-black/5 border-none rounded-2xl py-3 px-5 focus:ring-2 focus:ring-black/5 transition-all outline-none">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] uppercase tracking-widest text-black/40 font-bold ml-1" for="popup-phone">Phone</label>
+                    <input type="tel" id="popup-phone" name="phone" required placeholder="+91 80861 80780" class="w-full bg-black/5 border-none rounded-2xl py-3 px-5 focus:ring-2 focus:ring-black/5 transition-all outline-none">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] uppercase tracking-widest text-black/40 font-bold ml-1" for="popup-message">Description</label>
+                    <textarea id="popup-message" name="message" required placeholder="Tell us about your business goals..." class="w-full bg-black/5 border-none rounded-2xl py-3 px-5 focus:ring-2 focus:ring-black/5 transition-all outline-none h-20 resize-none"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-black text-white font-black py-4 rounded-2xl hover:scale-[1.02] transition-transform uppercase tracking-widest text-xs mt-4">CLAIM FREE CONSULTATION</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
