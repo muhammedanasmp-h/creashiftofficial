@@ -847,19 +847,46 @@ GET STARTED
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-    // Parallax Mouse Logic
-    document.addEventListener('mousemove', (e) => {
-        const elements = document.querySelectorAll('.parallax-element');
-        const x = (window.innerWidth - e.pageX * 2) / 100;
-        const y = (window.innerHeight - e.pageY * 2) / 100;
+    // Zero-Reflow Parallax Mouse Logic
+    let aboutParallaxElements = [];
+    let aboutParallaxTicking = false;
+    let aboutMouseX = 0, aboutMouseY = 0;
+    let aboutHalfWidth = window.innerWidth / 2;
+    let aboutHalfHeight = window.innerHeight / 2;
 
-        elements.forEach(el => {
-            const speed = el.getAttribute('data-speed') || 10;
+    window.addEventListener('DOMContentLoaded', () => {
+        aboutParallaxElements = Array.from(document.querySelectorAll('.parallax-element'));
+    });
+
+    window.addEventListener('resize', () => {
+        aboutHalfWidth = window.innerWidth / 2;
+        aboutHalfHeight = window.innerHeight / 2;
+    }, { passive: true });
+
+    document.addEventListener('mousemove', (e) => {
+        aboutMouseX = e.clientX;
+        aboutMouseY = e.clientY;
+
+        if (!aboutParallaxTicking && aboutParallaxElements.length > 0) {
+            requestAnimationFrame(updateAboutParallax);
+            aboutParallaxTicking = true;
+        }
+    }, { passive: true });
+
+    function updateAboutParallax() {
+        const x = (aboutHalfWidth - aboutMouseX) / 100;
+        const y = (aboutHalfHeight - aboutMouseY) / 100;
+
+        for (let i = 0; i < aboutParallaxElements.length; i++) {
+            const el = aboutParallaxElements[i];
+            const speed = parseFloat(el.getAttribute('data-speed')) || 10;
             const xOffset = x * (speed / 10);
             const yOffset = y * (speed / 10);
-            el.style.transform = `translateX(${xOffset}px) translateY(${yOffset}px)`;
-        });
-    });
+            el.style.transform = `translate3d(${xOffset}px, ${yOffset}px, 0)`;
+        }
+        aboutParallaxTicking = false;
+    }
+
     // Lead Form Popup Logic
     document.addEventListener('DOMContentLoaded', () => {
         // WhatsApp Button Delay

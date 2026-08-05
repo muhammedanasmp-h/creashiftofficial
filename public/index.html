@@ -1599,38 +1599,43 @@
             });
         }
 
-        // Cached elements for puzzle tiles to prevent document.querySelectorAll queries in loop
+        // Zero-Reflow Throttled Mousemove Parallax
         let puzzleTiles = [];
         let mouseX = 0, mouseY = 0;
         let parallaxTicking = false;
+        let halfWidth = window.innerWidth / 2;
+        let halfHeight = window.innerHeight / 2;
 
-        // Initialize puzzle tiles caching
+        window.addEventListener('resize', () => {
+            halfWidth = window.innerWidth / 2;
+            halfHeight = window.innerHeight / 2;
+        }, { passive: true });
+
         window.addEventListener('DOMContentLoaded', () => {
             puzzleTiles = Array.from(document.querySelectorAll('.puzzle-tile'));
         });
 
-        // Throttled mousemove parallax handler using requestAnimationFrame
         document.addEventListener('mousemove', (e) => {
-            mouseX = e.pageX;
-            mouseY = e.pageY;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
 
             if (!parallaxTicking && puzzleTiles.length > 0) {
                 requestAnimationFrame(updateParallax);
                 parallaxTicking = true;
             }
-        }, { passive: true }); // Passive event listener prevents thread blocking
+        }, { passive: true });
 
         function updateParallax() {
-            const x = (window.innerWidth / 2 - mouseX) / 50;
-            const y = (window.innerHeight / 2 - mouseY) / 50;
+            const x = (halfWidth - mouseX) / 50;
+            const y = (halfHeight - mouseY) / 50;
 
-            puzzleTiles.forEach(tile => {
+            for (let i = 0; i < puzzleTiles.length; i++) {
+                const tile = puzzleTiles[i];
                 const speed = parseFloat(tile.getAttribute('data-speed')) || 2;
                 const xOffset = x * speed;
                 const yOffset = y * speed;
-                // Perform batch style mutation
-                tile.style.transform = `translateX(${xOffset}px) translateY(${yOffset}px) rotateX(${yOffset * 0.1}deg) rotateY(${xOffset * 0.1}deg)`;
-            });
+                tile.style.transform = `translate3d(${xOffset}px, ${yOffset}px, 0) rotateX(${yOffset * 0.1}deg) rotateY(${xOffset * 0.1}deg)`;
+            }
 
             parallaxTicking = false;
         }
@@ -1669,79 +1674,74 @@
                     setTimeout(showPopup, 6000);
                 }
 
-                // Reviews Auto-slide with IntersectionObserver (Only auto-scroll when visible)
+                // Zero-Reflow Reviews Auto-slide
                 const reviewsContainer = document.querySelector('.reviews-container');
-                if (reviewsContainer && 'IntersectionObserver' in window) {
+                if (reviewsContainer) {
                     let autoScrollInterval;
                     let isUserInteracting = false;
+                    let cachedCardWidth = 0;
+                    let cachedMaxScroll = 0;
+                    let isMobile = window.matchMedia('(max-width: 768px)').matches;
 
-                    function startAutoScroll() {
-                        if (autoScrollInterval) clearInterval(autoScrollInterval);
-                        autoScrollInterval = setInterval(() => {
-                            // Only auto-slide if on mobile and not interacting
-                            if (window.innerWidth <= 768 && !isUserInteracting) {
-                                const cards = reviewsContainer.querySelectorAll(':scope > a');
-                                if (cards.length === 0) return;
-                                
-                                const cardWidth = cards[0].offsetWidth + 32; // card width + gap (gap-8 is 32px)
-                                let nextScroll = reviewsContainer.scrollLeft + cardWidth;
-                                
-                                // Check if we reached the end (roughly)
-                                if (nextScroll >= reviewsContainer.scrollWidth - reviewsContainer.offsetWidth - 10) {
-                                    reviewsContainer.scrollTo({ left: 0, behavior: 'smooth' });
-                                } else {
-                                    reviewsContainer.scrollTo({ left: nextScroll, behavior: 'smooth' });
-                                }
-                            }
-                        }, 4000); 
+                    function updateReviewsMetrics() {
+                        isMobile = window.matchMedia('(max-width: 768px)').matches;
+                        if (!isMobile) return;
+                        const card = reviewsContainer.querySelector(':scope > a');
+                        if (card) {
+                            cachedCardWidth = card.offsetWidth + 32;
+                            cachedMaxScroll = reviewsContainer.scrollWidth - reviewsContainer.clientWidth - 10;
+                        }
                     }
 
-                    const observer = new IntersectionObserver((entries) => {
-                        entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                startAutoScroll();
-                            } else {
-                                clearInterval(autoScrollInterval);
-                            }
-                        });
-                    }, { threshold: 0.1 });
+                    if ('requestIdleCallback' in window) {
+                        requestIdleCallback(updateReviewsMetrics);
+                    } else {
+                        setTimeout(updateReviewsMetrics, 100);
+                    }
 
-                    observer.observe(reviewsContainer);
-
-                    reviewsContainer.addEventListener('touchstart', () => {
-                        isUserInteracting = true;
-                        clearInterval(autoScrollInterval);
+                    let resizeTimer;
+                    window.addEventListener('resize', () => {
+                        clearTimeout(resizeTimer);
+                        resizeTimer = setTimeout(updateReviewsMetrics, 200);
                     }, { passive: true });
 
-                    reviewsContainer.addEventListener('touchend', () => {
-                        isUserInteracting = false;
-                        setTimeout(startAutoScroll, 2000);
-                    }, { passive: true });
-                } else if (reviewsContainer) {
-                    // Fallback for older browsers without IntersectionObserver
-                    let autoScrollInterval;
-                    let isUserInteracting = false;
                     function startAutoScroll() {
                         if (autoScrollInterval) clearInterval(autoScrollInterval);
                         autoScrollInterval = setInterval(() => {
-                            if (window.innerWidth <= 768 && !isUserInteracting) {
-                                const cards = reviewsContainer.querySelectorAll(':scope > a');
-                                if (cards.length === 0) return;
-                                const cardWidth = cards[0].offsetWidth + 32;
-                                let nextScroll = reviewsContainer.scrollLeft + cardWidth;
-                                if (nextScroll >= reviewsContainer.scrollWidth - reviewsContainer.offsetWidth - 10) {
+                            if (!isMobile || isUserInteracting || !cachedCardWidth) return;
+                            requestAnimationFrame(() => {
+                                const currentScroll = reviewsContainer.scrollLeft;
+                                const nextScroll = currentScroll + cachedCardWidth;
+                                if (nextScroll >= cachedMaxScroll) {
                                     reviewsContainer.scrollTo({ left: 0, behavior: 'smooth' });
                                 } else {
                                     reviewsContainer.scrollTo({ left: nextScroll, behavior: 'smooth' });
                                 }
-                            }
+                            });
                         }, 4000);
                     }
-                    startAutoScroll();
+
+                    if ('IntersectionObserver' in window) {
+                        const observer = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    updateReviewsMetrics();
+                                    startAutoScroll();
+                                } else {
+                                    clearInterval(autoScrollInterval);
+                                }
+                            });
+                        }, { threshold: 0.1 });
+                        observer.observe(reviewsContainer);
+                    } else {
+                        startAutoScroll();
+                    }
+
                     reviewsContainer.addEventListener('touchstart', () => {
                         isUserInteracting = true;
                         clearInterval(autoScrollInterval);
                     }, { passive: true });
+
                     reviewsContainer.addEventListener('touchend', () => {
                         isUserInteracting = false;
                         setTimeout(startAutoScroll, 2000);
@@ -1749,16 +1749,7 @@
                 }
             };
 
-            // Initialize using requestIdleCallback to completely run during idle times
-            if ('requestIdleCallback' in window) {
-                requestIdleCallback(() => initHeavyScripts(), { timeout: 2000 });
-            } else {
-                setTimeout(initHeavyScripts, 100);
-            }
-        });
-
-            // Mobile Menu Logic
-    window.addEventListener('DOMContentLoaded', () => {
+            window.addEventListener('DOMContentLoaded', () => {
                         const menuBtn = document.getElementById('menuBtn');
         const closeDrawer = document.getElementById('closeDrawer');
         const drawer = document.getElementById('drawer');
