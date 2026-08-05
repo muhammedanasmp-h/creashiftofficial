@@ -717,55 +717,49 @@ GET STARTED
         }
     });
 
-    // Blurry Typewriter Effect with Blinking Cursor
-    function initTypewriter(elementId, delay = 0) {
-        const element = document.getElementById(elementId);
-        if (!element) return;
-        
-        const text = element.innerHTML.replace(/<br\s*\/?>/gi, ' \n ').trim();
-        element.innerHTML = '';
-        
-        const cursor = document.createElement('span');
-        cursor.className = 'typewriter-cursor';
-        element.appendChild(cursor);
-        
-        const words = text.split(' ');
-        const fragments = document.createDocumentFragment();
-        
-        words.forEach((word, wordIdx) => {
-            if (word === '\n') {
-                fragments.appendChild(document.createElement('br'));
-                return;
-            }
-            const wordSpan = document.createElement('span');
-            wordSpan.style.whiteSpace = 'nowrap';
-            wordSpan.style.display = 'inline-block';
-            
-            word.split('').forEach(char => {
-                const span = document.createElement('span');
-                span.textContent = char;
-                span.className = 'typewriter-char';
-                wordSpan.appendChild(span);
-            });
-            
-            fragments.appendChild(wordSpan);
-            if (wordIdx < words.length - 1) fragments.appendChild(document.createTextNode(' '));
-        });
+    // Zero-Delay Instant LCP Typewriter Effect
+        function initTypewriter(elementId) {
+            const element = document.getElementById(elementId);
+            if (!element) return;
 
-        element.insertBefore(fragments, cursor);
+            const text = element.textContent.trim().replace(/\s+/g, ' ');
+            element.textContent = '';
 
-        const allChars = element.querySelectorAll('.typewriter-char');
-        allChars.forEach((span, i) => {
-            setTimeout(() => {
-                span.classList.add('visible');
-                if (i === allChars.length - 1) {
-                    setTimeout(() => cursor.style.display = 'none', 1000);
+            const cursor = document.createElement('span');
+            cursor.className = 'typewriter-cursor';
+            element.appendChild(cursor);
+
+            const words = text.split(/\s+/).filter(w => w.length > 0);
+            const fragments = document.createDocumentFragment();
+
+            words.forEach((word, wordIdx) => {
+                const wordSpan = document.createElement('span');
+                wordSpan.style.whiteSpace = 'nowrap';
+                wordSpan.style.display = 'inline-block';
+
+                const chars = word.split('');
+                chars.forEach((char) => {
+                    const span = document.createElement('span');
+                    span.textContent = char;
+                    span.className = 'typewriter-char visible';
+                    wordSpan.appendChild(span);
+                });
+
+                fragments.appendChild(wordSpan);
+                if (wordIdx < words.length - 1) {
+                    fragments.appendChild(document.createTextNode(' '));
                 }
-            }, delay + (i * 30));
-        });
-    }
+            });
 
-    // Scroll Reveal
+            element.insertBefore(fragments, cursor);
+
+            // Hide cursor after initial render
+            setTimeout(() => {
+                if (cursor) cursor.style.display = 'none';
+            }, 800);
+        }
+
+        // Scroll Reveal
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) entry.target.classList.add('active');

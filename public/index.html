@@ -1515,15 +1515,14 @@
         </div>
     </div>
         <script>
-        // Blurry Typewriter Effect with Blinking Cursor - Optimized to prevent Layout Thrashing
-        function initTypewriter(elementId, delay = 0) {
+        // Zero-Delay Instant LCP Typewriter Effect
+        function initTypewriter(elementId) {
             const element = document.getElementById(elementId);
             if (!element) return;
 
             const text = element.textContent.trim().replace(/\s+/g, ' ');
             element.textContent = '';
 
-            // Add cursor
             const cursor = document.createElement('span');
             cursor.className = 'typewriter-cursor';
             element.appendChild(cursor);
@@ -1540,7 +1539,7 @@
                 chars.forEach((char) => {
                     const span = document.createElement('span');
                     span.textContent = char;
-                    span.className = 'typewriter-char';
+                    span.className = 'typewriter-char visible';
                     wordSpan.appendChild(span);
                 });
 
@@ -1550,47 +1549,12 @@
                 }
             });
 
-            // Insert text before cursor
             element.insertBefore(fragments, cursor);
-            
-            // Initially, move cursor to the very beginning (before the first word)
-            if (element.firstChild) {
-                element.insertBefore(cursor, element.firstChild);
-            }
 
-            const allChars = element.querySelectorAll('.typewriter-char');
-            
-            // Batch queue for requestAnimationFrame to prevent Layout Thrashing
-            let activeFrame = null;
-            let charsToReveal = [];
-
-            allChars.forEach((span, i) => {
-                setTimeout(() => {
-                    charsToReveal.push(span);
-                    if (!activeFrame) {
-                        activeFrame = requestAnimationFrame(() => {
-                            // Apply visibility to all queued characters in one batch DOM update
-                            charsToReveal.forEach(c => c.classList.add('visible'));
-                            
-                            // Only perform ONE DOM insertion for the cursor to the latest character
-                            const lastChar = charsToReveal[charsToReveal.length - 1];
-                            if (lastChar) {
-                                lastChar.after(cursor);
-                            }
-                            
-                            charsToReveal = [];
-                            activeFrame = null;
-                        });
-                    }
-
-                    // Hide cursor after last char
-                    if (i === allChars.length - 1) {
-                        setTimeout(() => {
-                            cursor.style.display = 'none';
-                        }, 1000);
-                    }
-                }, delay + (i * 25)); // Slightly increased delay to reduce CPU interrupts
-            });
+            // Hide cursor after initial render
+            setTimeout(() => {
+                if (cursor) cursor.style.display = 'none';
+            }, 800);
         }
 
         // Zero-Reflow Throttled Mousemove Parallax
