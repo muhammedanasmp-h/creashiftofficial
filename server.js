@@ -78,11 +78,11 @@ passport.use(new GoogleStrategy({
     proxy: true
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-        const email = profile.emails[0].value;
-        const allowedAdmins = (process.env.ADMIN_EMAILS || "").split(',').map(e => e.trim().toLowerCase());
+        const email = (profile.emails && profile.emails[0]) ? profile.emails[0].value : '';
+        const allowedAdmins = (process.env.ADMIN_EMAILS || "").split(',').map(e => e.trim().toLowerCase()).filter(Boolean);
         
-        // If the email is not in the allowed list, reject login
-        if (!allowedAdmins.includes(email.toLowerCase())) {
+        // If allowedAdmins is specified, check against the list
+        if (allowedAdmins.length > 0 && !allowedAdmins.includes(email.toLowerCase())) {
             console.log(`Unauthorized login attempt from: ${email}`);
             return done(null, false, { message: 'Unauthorized email' });
         }
@@ -91,7 +91,7 @@ passport.use(new GoogleStrategy({
         if (!user) {
             user = await User.create({
                 googleId: profile.id,
-                displayName: profile.displayName,
+                displayName: profile.displayName || email.split('@')[0],
                 email: email
             });
         }
@@ -120,6 +120,8 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 // Helper to send static HTML files safely using fs.readFile across Hostinger and local environments
 const sendHtmlFile = (res, filename, subfolderFile) => {
     const candidates = [
@@ -382,18 +384,23 @@ app.get('/auth/google/callback',
     (req, res) => res.redirect('/admin')
 );
 
-app.get('/logout', (req, res) => {
-    req.logout((err) => {
-        if (err) return next(err);
+app.get('/logout', (req, res, next) => {
+    if (typeof req.logout === 'function') {
+        req.logout((err) => {
+            if (err) return next(err);
+            res.redirect('/');
+        });
+    } else {
         res.redirect('/');
-    });
+    }
 });
 
 // Auth Middleware
 const isAdmin = (req, res, next) => {
     const host = req.get('host') || '';
     const isLocal = host.includes('localhost') || host.includes('127.0.0.1') || host.includes('3000');
-    if (req.isAuthenticated() || (isLocal && req.query.dev === 'true')) return next();
+    const isAuth = typeof req.isAuthenticated === 'function' && req.isAuthenticated();
+    if (isAuth || (isLocal && req.query.dev === 'true')) return next();
     res.redirect('/login');
 };
 
@@ -404,12 +411,14 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/admin', isAdmin, async (req, res) => {
+    const defaultUser = { displayName: "Dev User" };
+    const user = (req.user && req.user.displayName) ? req.user : (req.user && req.user.email ? { displayName: req.user.email.split('@')[0] } : defaultUser);
     try {
         const contents = await Content.find();
-        res.render('admin/dashboard', { user: req.user || { displayName: "Dev User" }, contents });
+        res.render('admin/dashboard', { user, contents });
     } catch (err) {
-        console.warn('Admin: Database query failed, rendering dashboard with empty content list.');
-        res.render('admin/dashboard', { user: req.user || { displayName: "Dev User" }, contents: [] });
+        console.warn('Admin: Database query failed, rendering dashboard with empty content list.', err);
+        res.render('admin/dashboard', { user, contents: [] });
     }
 });
 

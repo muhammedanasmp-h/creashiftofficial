@@ -56,10 +56,10 @@
         <div class="pt-8 border-t border-black/5 mt-auto">
             <div class="flex items-center gap-3 mb-6">
                 <div class="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center font-bold">
-                    <%= user.displayName.charAt(0) %>
+                    <%= (locals.user && user.displayName) ? user.displayName.charAt(0) : 'A' %>
                 </div>
                 <div>
-                    <p class="text-sm font-bold truncate max-w-[140px]"><%= user.displayName %></p>
+                    <p class="text-sm font-bold truncate max-w-[140px]"><%= (locals.user && user.displayName) ? user.displayName : 'Admin' %></p>
                     <p class="text-[10px] text-gray-400 uppercase tracking-widest">Administrator</p>
                 </div>
             </div>
