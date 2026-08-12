@@ -680,13 +680,8 @@
                 const popup = document.getElementById('leadPopup');
                 if (popup) {
                     const isSubmitted = localStorage.getItem('creashift_lead_submitted');
-                    if (isSubmitted) return;
-
-                    const navEntries = performance.getEntriesByType("navigation");
-                    const isRefresh = navEntries.length > 0 && navEntries[0].type === 'reload';
-                    const isInternalNav = document.referrer && document.referrer.includes(window.location.host);
-
-                    if (isRefresh || !isInternalNav) {
+                    const isClosed = sessionStorage.getItem('creashift_lead_closed');
+                    if (!isSubmitted && !isClosed) {
                         popup.classList.add('active');
                     }
                 }
@@ -697,10 +692,12 @@
             if (closePopup && popup) {
                 closePopup.addEventListener('click', () => {
                     popup.classList.remove('active');
+                    sessionStorage.setItem('creashift_lead_closed', 'true');
                 });
                 popup.addEventListener('click', (e) => {
                     if (e.target === popup) {
                         popup.classList.remove('active');
+                        sessionStorage.setItem('creashift_lead_closed', 'true');
                     }
                 });
             }
@@ -731,6 +728,7 @@
                             alert('Success! We will contact you shortly.');
                             popup.classList.remove('active');
                             localStorage.setItem('creashift_lead_submitted', 'true');
+                            sessionStorage.setItem('creashift_lead_closed', 'true');
                         } else {
                             alert('Something went wrong. Please try again.');
                         }

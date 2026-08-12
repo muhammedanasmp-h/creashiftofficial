@@ -583,11 +583,8 @@
                     if (isSubmitted) return;
 
                     // Navigation Analysis: Show only on refresh or direct/external entry
-                    const navEntries = performance.getEntriesByType("navigation");
-                    const isRefresh = navEntries.length > 0 && navEntries[0].type === 'reload';
-                    const isInternalNav = document.referrer && document.referrer.includes(window.location.host);
-
-                    if (isRefresh || !isInternalNav) {
+                    const isClosed = sessionStorage.getItem('creashift_lead_closed');
+                    if (!isClosed) {
                         popup.classList.add('active');
                     }
                 };
@@ -601,11 +598,13 @@
             if (closePopup && popup) {
                 closePopup.addEventListener('click', () => {
                     popup.classList.remove('active');
+                    sessionStorage.setItem('creashift_lead_closed', 'true');
                 });
                 
                 popup.addEventListener('click', (e) => {
                     if (e.target === popup) {
                         popup.classList.remove('active');
+                    sessionStorage.setItem('creashift_lead_closed', 'true');
                     }
                 });
             }
@@ -636,6 +635,7 @@
                         if (result.success) {
                             alert('Success! We will contact you shortly.');
                             popup.classList.remove('active');
+                    sessionStorage.setItem('creashift_lead_closed', 'true');
                             localStorage.setItem('creashift_lead_submitted', 'true');
                         } else {
                             alert('Something went wrong. Please try again.');
