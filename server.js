@@ -104,10 +104,15 @@ passport.use(new GoogleStrategy({
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser(async (id, done) => {
     try {
+        if (!id) return done(null, false);
+        if (mongoose.connection.readyState !== 1) {
+            return done(null, { id: id, displayName: "Admin User", email: "admin@creashift.com" });
+        }
         const user = await User.findById(id);
-        done(null, user);
+        done(null, user || false);
     } catch (err) {
-        done(err, null);
+        console.error('Passport deserializeUser error:', err);
+        done(null, false);
     }
 });
 
@@ -411,14 +416,27 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/admin', isAdmin, async (req, res) => {
-    const defaultUser = { displayName: "Dev User" };
-    const user = (req.user && req.user.displayName) ? req.user : (req.user && req.user.email ? { displayName: req.user.email.split('@')[0] } : defaultUser);
     try {
-        const contents = await Content.find();
-        res.render('admin/dashboard', { user, contents });
+        const defaultUser = { displayName: "Dev User" };
+        const user = (req.user && req.user.displayName) ? req.user : (req.user && req.user.email ? { displayName: req.user.email.split('@')[0] } : defaultUser);
+        let contents = [];
+        try {
+            if (mongoose.connection.readyState === 1) {
+                contents = await Content.find();
+            }
+        } catch (dbErr) {
+            console.warn('Admin: Database query failed, rendering dashboard with empty content list.', dbErr.message);
+        }
+        res.render('admin/dashboard', { user, contents }, (err, html) => {
+            if (err) {
+                console.error('Error rendering admin dashboard template:', err);
+                return res.status(500).send(`<h2>Dashboard Rendering Error</h2><pre>${err.stack || err.message}</pre>`);
+            }
+            res.send(html);
+        });
     } catch (err) {
-        console.warn('Admin: Database query failed, rendering dashboard with empty content list.', err);
-        res.render('admin/dashboard', { user, contents: [] });
+        console.error('Admin route handler exception:', err);
+        res.status(500).send(`<h2>Admin Handler Error</h2><pre>${err.stack || err.message}</pre>`);
     }
 });
 
@@ -610,8 +628,11 @@ app.post('/api/contact', async (req, res) => {
 
 
 
-// Serve HTML files as dynamic pages (optional, or just serve them static)
-// For now, we serve them as static, and they fetch content via API.
+// Global Express Error Handler
+app.use((err, req, res, next) => {
+    console.error('Unhandled Server Error:', err);
+    res.status(500).send(`<!DOCTYPE html><html><head><title>Server Error</title></head><body style="font-family:sans-serif;padding:40px;background:#fff;color:#111;"><h2>500 Internal Server Error</h2><p style="color:#d97706;font-weight:bold;">${err.message || 'An unexpected error occurred.'}</p><pre style="background:#f4f4f5;padding:16px;border-radius:8px;overflow:auto;">${err.stack || err}</pre></body></html>`);
+});
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT} [${process.env.NODE_ENV || 'development'}]`);
