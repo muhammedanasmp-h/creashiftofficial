@@ -567,26 +567,25 @@
             }, 2000);
 
             // Lead Form Popup Logic
-            setTimeout(() => {
-                const popup = document.getElementById('leadPopup');
-                if (popup) {
+            // Lead Popup Timer (5 Seconds) - Shows ONCE on whichever landing page the user enters first
+            const popup = document.getElementById('leadPopup');
+            if (popup) {
+                setTimeout(() => {
                     const isSubmitted = localStorage.getItem('creashift_lead_submitted');
-                    if (isSubmitted) return;
-
-                    // Navigation Analysis: Show only on refresh or direct/external entry
-                    const isClosed = sessionStorage.getItem('creashift_lead_closed');
-                    if (!isClosed) {
+                    const alreadyShown = sessionStorage.getItem('creashift_popup_shown');
+                    if (!isSubmitted && !alreadyShown) {
+                        sessionStorage.setItem('creashift_popup_shown', 'true');
                         popup.classList.add('active');
                     }
-                }
-            }, 5000);
+                }, 5000);
+            }
 
             const closePopup = document.getElementById('closePopup');
             const popup = document.getElementById('leadPopup');
             if (closePopup && popup) {
                 closePopup.addEventListener('click', () => popup.classList.remove('active'));
                 popup.addEventListener('click', (e) => { if (e.target === popup) popup.classList.remove('active');
-                    sessionStorage.setItem('creashift_lead_closed', 'true'); });
+                    sessionStorage.setItem('creashift_popup_shown', 'true'); });
             }
 
             // Lead Form Submission
@@ -614,7 +613,7 @@
                         if (result.success) {
                             alert('Success!');
                             popup.classList.remove('active');
-                    sessionStorage.setItem('creashift_lead_closed', 'true');
+                    sessionStorage.setItem('creashift_popup_shown', 'true');
                             localStorage.setItem('creashift_lead_submitted', 'true');
                         }
                     } catch (error) {

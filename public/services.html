@@ -676,28 +676,30 @@
 
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-            setTimeout(() => {
-                const popup = document.getElementById('leadPopup');
-                if (popup) {
+            // Lead Popup Timer (5 Seconds) - Shows ONCE on whichever landing page the user enters first
+            const popup = document.getElementById('leadPopup');
+            if (popup) {
+                setTimeout(() => {
                     const isSubmitted = localStorage.getItem('creashift_lead_submitted');
-                    const isClosed = sessionStorage.getItem('creashift_lead_closed');
-                    if (!isSubmitted && !isClosed) {
+                    const alreadyShown = sessionStorage.getItem('creashift_popup_shown');
+                    if (!isSubmitted && !alreadyShown) {
+                        sessionStorage.setItem('creashift_popup_shown', 'true');
                         popup.classList.add('active');
                     }
-                }
-            }, 5000);
+                }, 5000);
+            }
 
             const closePopup = document.getElementById('closePopup');
             const popup = document.getElementById('leadPopup');
             if (closePopup && popup) {
                 closePopup.addEventListener('click', () => {
                     popup.classList.remove('active');
-                    sessionStorage.setItem('creashift_lead_closed', 'true');
+                    sessionStorage.setItem('creashift_popup_shown', 'true');
                 });
                 popup.addEventListener('click', (e) => {
                     if (e.target === popup) {
                         popup.classList.remove('active');
-                        sessionStorage.setItem('creashift_lead_closed', 'true');
+                        sessionStorage.setItem('creashift_popup_shown', 'true');
                     }
                 });
             }
@@ -728,7 +730,7 @@
                             alert('Success! We will contact you shortly.');
                             popup.classList.remove('active');
                             localStorage.setItem('creashift_lead_submitted', 'true');
-                            sessionStorage.setItem('creashift_lead_closed', 'true');
+                            sessionStorage.setItem('creashift_popup_shown', 'true');
                         } else {
                             alert('Something went wrong. Please try again.');
                         }

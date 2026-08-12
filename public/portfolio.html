@@ -655,13 +655,13 @@ GET STARTED
         if (closePopup && popup) {
             closePopup.addEventListener('click', () => {
                 popup.classList.remove('active');
-                    sessionStorage.setItem('creashift_lead_closed', 'true');
+                    sessionStorage.setItem('creashift_popup_shown', 'true');
             });
             
             popup.addEventListener('click', (e) => {
                 if (e.target === popup) {
                     popup.classList.remove('active');
-                    sessionStorage.setItem('creashift_lead_closed', 'true');
+                    sessionStorage.setItem('creashift_popup_shown', 'true');
                 }
             });
         }
@@ -692,7 +692,7 @@ GET STARTED
                     if (result.success) {
                         alert('Success! We will contact you shortly.');
                         popup.classList.remove('active');
-                    sessionStorage.setItem('creashift_lead_closed', 'true');
+                    sessionStorage.setItem('creashift_popup_shown', 'true');
                         localStorage.setItem('creashift_lead_submitted', 'true');
                     } else {
                         alert('Something went wrong. Please try again.');
