@@ -2,6 +2,14 @@ Options -Indexes
 
 RewriteEngine On
 
+# 301 Permanent Redirects from legacy service URLs to new clean SEO URLs
+RewriteRule ^service-seo(\.html)?$ /services/seo-services-kerala [R=301,L]
+RewriteRule ^service-ads(\.html)?$ /services/google-ads-management [R=301,L]
+RewriteRule ^service-social(\.html)?$ /services/social-media-marketing [R=301,L]
+RewriteRule ^service-web(\.html)?$ /services/web-development-company [R=301,L]
+RewriteRule ^service-design(\.html)?$ /services/graphic-design-branding [R=301,L]
+RewriteRule ^service-video(\.html)?$ /services/video-production-services [R=301,L]
+
 # Explicit rewrites for clean /services/ sub-pages (100% static & bug-free)
 RewriteRule ^services/seo-services-kerala/?$ services/seo-services-kerala.html [L]
 RewriteRule ^services/google-ads-management/?$ services/google-ads-management.html [L]

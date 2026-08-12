@@ -151,13 +151,21 @@ const sendHtmlFile = (res, filename, subfolderFile) => {
     res.status(404).send('Not Found');
 };
 
-// Explicit route handlers for clean /services/:slug URLs (100% static & bug-free)
-app.get(['/services/seo-services-kerala', '/service-seo', '/service-seo.html'], (req, res) => sendHtmlFile(res, 'service-seo.html', 'seo-services-kerala.html'));
-app.get(['/services/google-ads-management', '/service-ads', '/service-ads.html'], (req, res) => sendHtmlFile(res, 'service-ads.html', 'google-ads-management.html'));
-app.get(['/services/social-media-marketing', '/service-social', '/service-social.html'], (req, res) => sendHtmlFile(res, 'service-social.html', 'social-media-marketing.html'));
-app.get(['/services/web-development-company', '/service-web', '/service-web.html'], (req, res) => sendHtmlFile(res, 'service-web.html', 'web-development-company.html'));
-app.get(['/services/graphic-design-branding', '/service-design', '/service-design.html'], (req, res) => sendHtmlFile(res, 'service-design.html', 'graphic-design-branding.html'));
-app.get(['/services/video-production-services', '/service-video', '/service-video.html'], (req, res) => sendHtmlFile(res, 'service-video.html', 'video-production-services.html'));
+// 301 Permanent Redirects for legacy service URLs to new clean SEO URLs
+app.get(['/service-seo', '/service-seo.html'], (req, res) => res.redirect(301, '/services/seo-services-kerala'));
+app.get(['/service-ads', '/service-ads.html'], (req, res) => res.redirect(301, '/services/google-ads-management'));
+app.get(['/service-social', '/service-social.html'], (req, res) => res.redirect(301, '/services/social-media-marketing'));
+app.get(['/service-web', '/service-web.html'], (req, res) => res.redirect(301, '/services/web-development-company'));
+app.get(['/service-design', '/service-design.html'], (req, res) => res.redirect(301, '/services/graphic-design-branding'));
+app.get(['/service-video', '/service-video.html'], (req, res) => res.redirect(301, '/services/video-production-services'));
+
+// Content serving ONLY on the new clean /services/:slug URLs
+app.get('/services/seo-services-kerala', (req, res) => sendHtmlFile(res, 'service-seo.html', 'seo-services-kerala.html'));
+app.get('/services/google-ads-management', (req, res) => sendHtmlFile(res, 'service-ads.html', 'google-ads-management.html'));
+app.get('/services/social-media-marketing', (req, res) => sendHtmlFile(res, 'service-social.html', 'social-media-marketing.html'));
+app.get('/services/web-development-company', (req, res) => sendHtmlFile(res, 'service-web.html', 'web-development-company.html'));
+app.get('/services/graphic-design-branding', (req, res) => sendHtmlFile(res, 'service-design.html', 'graphic-design-branding.html'));
+app.get('/services/video-production-services', (req, res) => sendHtmlFile(res, 'service-video.html', 'video-production-services.html'));
 app.get(['/services', '/services/'], (req, res) => sendHtmlFile(res, 'services.html', 'index.html'));
 
 // Clean URLs & Trailing Slash middleware
