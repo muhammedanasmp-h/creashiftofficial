@@ -28,6 +28,7 @@ const transporter = nodemailer.createTransport({
 // Connect to MongoDB
 const connectDB = require('./db');
 const { generateUniqueSlug } = require('./utils/slugify');
+const { getContactNumbers, saveContactNumbers, DEFAULT_CONTACTS, syncContactsToHtmlFiles } = require('./utils/contactSync');
 
 connectDB().then(async () => {
     try {
@@ -41,6 +42,20 @@ connectDB().then(async () => {
         }
     } catch (err) {
         console.error('Error during article slug migration:', err);
+    }
+
+    try {
+        // Initialize default contact numbers in MongoDB if missing
+        const Content = require('./models/Content');
+        for (const [key, value] of Object.entries(DEFAULT_CONTACTS)) {
+            const exists = await Content.findOne({ page: 'contact', key });
+            if (!exists) {
+                await Content.create({ page: 'contact', key, value });
+                await Content.create({ page: 'contact-numbers', key, value });
+            }
+        }
+    } catch (err) {
+        console.error('Error initializing contact numbers:', err.message);
     }
 });
 
@@ -449,9 +464,34 @@ app.get('/admin', isAdmin, async (req, res) => {
 });
 
 // API Routes for Content
+app.get('/api/contact-numbers', async (req, res) => {
+    try {
+        const contacts = await getContactNumbers(Content);
+        res.json(contacts);
+    } catch (err) {
+        console.error('API Contact Numbers error:', err.message);
+        res.json(DEFAULT_CONTACTS);
+    }
+});
+
+app.post('/api/contact-numbers', isAdmin, async (req, res) => {
+    try {
+        const result = await saveContactNumbers(Content, req.body);
+        res.json(result);
+    } catch (err) {
+        console.error('Error saving contact numbers:', err.message);
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
+
 app.get('/api/content/:page', async (req, res) => {
     try {
-        const contents = await Content.find({ page: req.params.page });
+        const { page } = req.params;
+        if (page === 'contact' || page === 'contact-numbers') {
+            const contacts = await getContactNumbers(Content);
+            return res.json(contacts);
+        }
+        const contents = await Content.find({ page });
         const contentMap = {};
         contents.forEach(item => {
             contentMap[item.key] = item.value;
@@ -471,6 +511,12 @@ app.post('/api/content', isAdmin, async (req, res) => {
             { value },
             { upsert: true, new: true }
         );
+
+        // If a contact number or contact channel was modified, sync across DB and HTML files
+        if (page === 'contact' || page === 'contact-numbers' || (key && key.startsWith('contact-'))) {
+            await saveContactNumbers(Content, { [key]: value });
+        }
+
         res.json({ success: true });
     } catch (err) {
         res.status(500).json({ success: false, error: err.message });

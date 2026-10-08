@@ -39,7 +39,15 @@
                 Blog / Editorial
                 <span class="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
             </button>
-            <button onclick="selectPage('contact')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all hover:bg-gray-100 flex items-center justify-between group" id="btn-contact">
+            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest pt-6 mb-4">Communication & Settings</p>
+            <button onclick="selectPage('contact-numbers')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-sm font-semibold transition-all hover:bg-emerald-50 hover:text-emerald-950 flex items-center justify-between group" id="btn-contact-numbers">
+                <span class="flex items-center gap-2.5">
+                    <span class="material-symbols-outlined text-base text-emerald-600">call</span>
+                    <span>Contact Numbers</span>
+                </span>
+                <span class="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+            </button>
+            <button onclick="selectPage('contact-numbers')" class="sidebar-item w-full text-left px-4 py-3 rounded-xl text-sm font-medium transition-all hover:bg-gray-100 flex items-center justify-between group hidden" id="btn-contact">
                 Contact
                 <span class="material-symbols-outlined text-lg opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
             </button>
@@ -72,15 +80,21 @@
 
     <!-- Main Content -->
     <main class="flex-grow p-12 overflow-y-auto">
-        <header class="flex justify-between items-center mb-12">
+        <header class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12">
             <div>
                 <h2 id="currentPageTitle" class="text-4xl font-black uppercase tracking-tighter">SERVICES PAGE</h2>
-                <p class="text-gray-500 text-sm mt-1">Manage content and service cards for this page.</p>
+                <p id="currentPageSubtitle" class="text-gray-500 text-sm mt-1">Manage content and service cards for this page.</p>
             </div>
-            <button onclick="openArticleModal()" id="addSectionBtn" class="hidden flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full text-sm font-bold hover:scale-105 transition-all">
-                <span class="material-symbols-outlined">add</span>
-                PUBLISH ARTICLE
-            </button>
+            <div class="flex items-center gap-3">
+                <button onclick="saveAllContactNumbers()" id="saveAllContactsBtn" class="hidden flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-full text-xs font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-lg shadow-emerald-600/20">
+                    <span class="material-symbols-outlined text-lg">done_all</span>
+                    SAVE ALL NUMBERS
+                </button>
+                <button onclick="openArticleModal()" id="addSectionBtn" class="hidden flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full text-sm font-bold hover:scale-105 transition-all">
+                    <span class="material-symbols-outlined">add</span>
+                    PUBLISH ARTICLE
+                </button>
+            </div>
         </header>
 
         <!-- Content Grid -->
@@ -308,6 +322,20 @@
                 { section: 'Portfolio Item 6', key: 'portfolio-item-6-img', label: 'Item 6: Image URL', type: 'text' },
                 { section: 'Portfolio Item 6', key: 'portfolio-item-6-cat', label: 'Item 6: Category', type: 'select', options: ['all', 'vid', 'img'] },
                 { section: 'Portfolio Item 6', key: 'portfolio-item-6-title', label: 'Item 6: Title', type: 'text', limit: 40 }
+            ],
+            'contact-numbers': [
+                { section: 'Official WhatsApp', key: 'contact-whatsapp', label: 'Official WhatsApp Number', type: 'text', limit: 30, icon: 'chat' },
+                { section: 'Direct Calling', key: 'contact-primary-phone', label: 'Primary Contact Call Number', type: 'text', limit: 30, icon: 'call' },
+                { section: 'Website Footer ("Say Hello")', key: 'contact-footer-phone-1', label: 'Footer Phone Number 1', type: 'text', limit: 30, icon: 'phone_in_talk' },
+                { section: 'Website Footer ("Say Hello")', key: 'contact-footer-phone-2', label: 'Footer Phone Number 2', type: 'text', limit: 30, icon: 'support_agent' },
+                { section: 'Official Email', key: 'contact-email', label: 'Official Contact Email', type: 'text', limit: 50, icon: 'mail' }
+            ],
+            'contact': [
+                { section: 'Official WhatsApp', key: 'contact-whatsapp', label: 'Official WhatsApp Number', type: 'text', limit: 30, icon: 'chat' },
+                { section: 'Direct Calling', key: 'contact-primary-phone', label: 'Primary Contact Call Number', type: 'text', limit: 30, icon: 'call' },
+                { section: 'Website Footer ("Say Hello")', key: 'contact-footer-phone-1', label: 'Footer Phone Number 1', type: 'text', limit: 30, icon: 'phone_in_talk' },
+                { section: 'Website Footer ("Say Hello")', key: 'contact-footer-phone-2', label: 'Footer Phone Number 2', type: 'text', limit: 30, icon: 'support_agent' },
+                { section: 'Official Email', key: 'contact-email', label: 'Official Contact Email', type: 'text', limit: 50, icon: 'mail' }
             ]
         };
 
@@ -316,23 +344,33 @@
             
             // Update UI
             document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('active'));
-            const btn = document.getElementById('btn-' + page);
+            const btn = document.getElementById('btn-' + page) || (page === 'contact' ? document.getElementById('btn-contact-numbers') : null);
             if (btn) btn.classList.add('active');
             
-            document.getElementById('currentPageTitle').innerText = page.replace('-', ' ').toUpperCase() + ' PAGE';
-            
-            // Hide the 'ADD SECTION' button if we aren't managing blog
+            const titleEl = document.getElementById('currentPageTitle');
+            const subEl = document.getElementById('currentPageSubtitle');
+            const saveAllContactsBtn = document.getElementById('saveAllContactsBtn');
             const addSectionBtn = document.getElementById('addSectionBtn');
-            if (page === 'blog') {
-                addSectionBtn.classList.remove('hidden');
+
+            if (page === 'contact-numbers' || page === 'contact') {
+                titleEl.innerText = 'CONTACT NUMBERS';
+                if (subEl) subEl.innerText = 'Manage all telephone numbers, WhatsApp, and email channels with live synchronization across the website.';
+                if (saveAllContactsBtn) saveAllContactsBtn.classList.remove('hidden');
+                if (addSectionBtn) addSectionBtn.classList.add('hidden');
+            } else if (page === 'blog') {
+                titleEl.innerText = 'BLOG / EDITORIAL';
+                if (subEl) subEl.innerText = 'Manage blog content and publish articles.';
+                if (saveAllContactsBtn) saveAllContactsBtn.classList.add('hidden');
+                if (addSectionBtn) addSectionBtn.classList.remove('hidden');
             } else {
-                addSectionBtn.classList.add('hidden');
+                titleEl.innerText = page.replace('-', ' ').toUpperCase() + ' PAGE';
+                if (subEl) subEl.innerText = 'Manage content and service cards for this page.';
+                if (saveAllContactsBtn) saveAllContactsBtn.classList.add('hidden');
+                if (addSectionBtn) addSectionBtn.classList.add('hidden');
             }
             
             loadContent();
         }
-
-
 
         async function loadContent() {
             const grid = document.getElementById('contentGrid');
@@ -349,9 +387,260 @@
             }
         }
 
+        function renderContactNumbersView(grid, contents) {
+            grid.innerHTML = '';
+
+            // Top status banner
+            const statusCard = document.createElement('div');
+            statusCard.className = 'col-span-full bg-gradient-to-r from-emerald-950 via-[#0a1612] to-slate-950 text-white rounded-[32px] p-8 border border-emerald-500/20 shadow-xl';
+            statusCard.innerHTML = `
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                            <span class="material-symbols-outlined text-3xl">sync_saved_locally</span>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-xs font-bold uppercase tracking-widest text-emerald-400">Real-Time Synchronization</span>
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                            </div>
+                            <h3 class="text-xl font-black tracking-tight mt-1">Global Website Contact Channels</h3>
+                            <p class="text-xs text-white/60 mt-1 max-w-xl">Updates made to each phone number or WhatsApp account below are saved into the database and immediately synchronized across all 23+ pages, footers, drawer menus, and floating widgets.</p>
+                        </div>
+                    </div>
+                    <button onclick="saveAllContactNumbers()" class="shrink-0 flex items-center gap-2 bg-emerald-500 hover:bg-emerald-400 text-black px-6 py-3.5 rounded-full text-xs font-black uppercase tracking-widest transition-all hover:scale-105 active:scale-95 shadow-lg shadow-emerald-500/25">
+                        <span class="material-symbols-outlined text-lg">done_all</span>
+                        SAVE ALL NUMBERS
+                    </button>
+                </div>
+            `;
+            grid.appendChild(statusCard);
+
+            const cardsData = [
+                {
+                    key: 'contact-whatsapp',
+                    label: 'Official WhatsApp Number',
+                    icon: 'chat',
+                    badge: 'WHATSAPP CHAT',
+                    badgeColor: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+                    iconColor: 'bg-emerald-100 text-emerald-800',
+                    defaultValue: '+91 80861 80780',
+                    desc: 'Powers the floating WhatsApp bubble on all pages, the drawer menu, and direct chat buttons across the website.',
+                    previewType: 'wa',
+                    placeholder: '+91 80861 80780 or 918086180780'
+                },
+                {
+                    key: 'contact-primary-phone',
+                    label: 'Primary Direct Call Number',
+                    icon: 'call',
+                    badge: 'CONTACT PAGE CALL',
+                    badgeColor: 'bg-blue-50 text-blue-700 border-blue-200',
+                    iconColor: 'bg-blue-100 text-blue-800',
+                    defaultValue: '+91 80861 80780',
+                    desc: 'Featured on the Contact page "Phone" card for visitors who wish to call directly from the website.',
+                    previewType: 'tel',
+                    placeholder: '+91 80861 80780'
+                },
+                {
+                    key: 'contact-footer-phone-1',
+                    label: 'Footer Phone Number 1',
+                    icon: 'phone_in_talk',
+                    badge: 'GLOBAL FOOTER ("SAY HELLO")',
+                    badgeColor: 'bg-purple-50 text-purple-700 border-purple-200',
+                    iconColor: 'bg-purple-100 text-purple-800',
+                    defaultValue: '+91 62828 52686',
+                    desc: 'First phone number listed under "Say Hello" in the footer across all website pages and structured data.',
+                    previewType: 'tel',
+                    placeholder: '+91 62828 52686'
+                },
+                {
+                    key: 'contact-footer-phone-2',
+                    label: 'Footer Phone Number 2',
+                    icon: 'support_agent',
+                    badge: 'GLOBAL FOOTER ("SAY HELLO")',
+                    badgeColor: 'bg-amber-50 text-amber-800 border-amber-200',
+                    iconColor: 'bg-amber-100 text-amber-800',
+                    defaultValue: '+91 90742 99942',
+                    desc: 'Second phone number listed under "Say Hello" in the footer across all website pages.',
+                    previewType: 'tel',
+                    placeholder: '+91 90742 99942'
+                },
+                {
+                    key: 'contact-email',
+                    label: 'Official Contact Email',
+                    icon: 'mail',
+                    badge: 'DIRECT INQUIRIES',
+                    badgeColor: 'bg-slate-100 text-slate-800 border-slate-300',
+                    iconColor: 'bg-slate-100 text-slate-800',
+                    defaultValue: 'sales@creashift.in',
+                    desc: 'Official support and sales email shown in the footer and across all contact pages.',
+                    previewType: 'email',
+                    placeholder: 'sales@creashift.in'
+                }
+            ];
+
+            const gridContainer = document.createElement('div');
+            gridContainer.className = 'grid grid-cols-1 lg:grid-cols-2 gap-6 col-span-full';
+
+            cardsData.forEach(item => {
+                const val = contents[item.key] || item.defaultValue;
+                const card = document.createElement('div');
+                card.className = 'glass rounded-[32px] p-7 space-y-4 hover:shadow-xl transition-all duration-300 bg-white border border-black/5 flex flex-col justify-between';
+                
+                let previewHtml = '';
+                if (item.previewType === 'wa') {
+                    const digits = (val || '').replace(/\D/g, '') || '918086180780';
+                    previewHtml = `
+                        <div class="flex items-center justify-between text-xs pt-2">
+                            <span class="text-gray-400 font-mono text-[11px] truncate max-w-[240px]">Preview: https://wa.me/<span id="preview-val-${item.key}">${digits}</span></span>
+                            <a id="preview-link-${item.key}" href="https://wa.me/${digits}" target="_blank" class="inline-flex items-center gap-1 text-emerald-600 hover:text-emerald-700 font-bold hover:underline">
+                                <span class="material-symbols-outlined text-sm">open_in_new</span> Test Chat
+                            </a>
+                        </div>
+                    `;
+                } else if (item.previewType === 'tel') {
+                    const tel = (val || '').replace(/[^\d+]/g, '');
+                    previewHtml = `
+                        <div class="flex items-center justify-between text-xs pt-2">
+                            <span class="text-gray-400 font-mono text-[11px] truncate max-w-[240px]">Preview: tel:<span id="preview-val-${item.key}">${tel}</span></span>
+                            <a id="preview-link-${item.key}" href="tel:${tel}" class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-700 font-bold hover:underline">
+                                <span class="material-symbols-outlined text-sm">phone_forwarded</span> Test Dial
+                            </a>
+                        </div>
+                    `;
+                } else {
+                    previewHtml = `
+                        <div class="flex items-center justify-between text-xs pt-2">
+                            <span class="text-gray-400 font-mono text-[11px] truncate max-w-[240px]">Preview: mailto:<span id="preview-val-${item.key}">${val}</span></span>
+                            <a id="preview-link-${item.key}" href="mailto:${val}" class="inline-flex items-center gap-1 text-gray-700 hover:text-black font-bold hover:underline">
+                                <span class="material-symbols-outlined text-sm">send</span> Test Email
+                            </a>
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-start gap-3 mb-4">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 rounded-2xl ${item.iconColor} flex items-center justify-center font-bold">
+                                    <span class="material-symbols-outlined text-2xl">${item.icon}</span>
+                                </div>
+                                <div>
+                                    <span class="border ${item.badgeColor} px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider">${item.badge}</span>
+                                    <h4 class="font-black text-base text-gray-900 mt-1">${item.label}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-4 leading-relaxed">${item.desc}</p>
+                        
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-mono text-gray-400 uppercase tracking-widest block">${item.key}</label>
+                            <input type="text" id="input-${item.key}" value="${val}" placeholder="${item.placeholder}" 
+                                oninput="updateContactPreview('${item.key}', '${item.previewType}')"
+                                class="w-full bg-[#f8f9fa] border border-black/10 rounded-2xl px-4 py-3.5 text-sm font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-black/10 focus:border-black transition-all">
+                            ${previewHtml}
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-black/5 flex justify-end">
+                        <button onclick="saveField('${item.key}')" id="btn-save-${item.key}" class="flex items-center gap-2 text-xs font-black bg-black hover:bg-neutral-800 text-white px-5 py-2.5 rounded-full hover:scale-105 active:scale-95 transition-all shadow-md">
+                            <span>SAVE</span>
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                        </button>
+                    </div>
+                `;
+                gridContainer.appendChild(card);
+            });
+
+            grid.appendChild(gridContainer);
+        }
+
+        function updateContactPreview(key, type) {
+            const input = document.getElementById('input-' + key);
+            if (!input) return;
+            const val = input.value.trim();
+            const previewVal = document.getElementById('preview-val-' + key);
+            const previewLink = document.getElementById('preview-link-' + key);
+            if (!previewVal || !previewLink) return;
+
+            if (type === 'wa') {
+                const digits = val.replace(/\D/g, '') || '918086180780';
+                previewVal.innerText = digits;
+                previewLink.href = 'https://wa.me/' + digits;
+            } else if (type === 'tel') {
+                const tel = val.replace(/[^\d+]/g, '');
+                previewVal.innerText = tel;
+                previewLink.href = 'tel:' + tel;
+            } else {
+                previewVal.innerText = val;
+                previewLink.href = 'mailto:' + val;
+            }
+        }
+
+        async function saveAllContactNumbers() {
+            const btn = document.getElementById('saveAllContactsBtn');
+            const originalHtml = btn ? btn.innerHTML : '';
+            if (btn) {
+                btn.innerHTML = '<span class="animate-spin material-symbols-outlined text-sm">sync</span> SAVING...';
+                btn.disabled = true;
+            }
+
+            const keys = [
+                'contact-whatsapp',
+                'contact-primary-phone',
+                'contact-footer-phone-1',
+                'contact-footer-phone-2',
+                'contact-email'
+            ];
+
+            const payload = {};
+            keys.forEach(k => {
+                const el = document.getElementById('input-' + k);
+                if (el) payload[k] = el.value.trim();
+            });
+
+            try {
+                const res = await fetch('/api/contact-numbers', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('All contact numbers updated and synced across all pages!');
+                    if (btn) {
+                        btn.innerHTML = '<span class="material-symbols-outlined text-sm">done</span> ALL SAVED!';
+                        setTimeout(() => {
+                            btn.innerHTML = originalHtml;
+                            btn.disabled = false;
+                        }, 2000);
+                    }
+                } else {
+                    alert('Error saving contact numbers: ' + (data.error || 'Unknown error'));
+                    if (btn) {
+                        btn.innerHTML = originalHtml;
+                        btn.disabled = false;
+                    }
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Network error while saving contact numbers.');
+                if (btn) {
+                    btn.innerHTML = originalHtml;
+                    btn.disabled = false;
+                }
+            }
+        }
+
         function renderFields() {
             const grid = document.getElementById('contentGrid');
             grid.innerHTML = '';
+            
+            if (currentPage === 'contact-numbers' || currentPage === 'contact') {
+                renderContactNumbersView(grid, pageContents);
+                return;
+            }
             
             const fields = pageSchema[currentPage] || [];
             
